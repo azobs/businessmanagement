@@ -27,6 +27,14 @@ public class Delivery extends AbstractEntity {
     @Column(nullable = false)
     Instant deliveryDate;
 
+    /****
+     * PackUp: La livraison est deja charge dans le moyen de livraison
+     * OutForDelivery: La livraison est en cours de livraison. Le livreur s'est deja leve avec la livraison
+     * Delivery: La livraison a ete effectue mais il y a une des commandes qu'elle contient dont le rapport
+     * de livraison n'est pas encore donnee par le livreur. Par exemple on attend son versement.
+     * Finish: Toutes les informations concernant toutes les commandes que comportait la livraison ont ete donne et
+     * enregistre. Finish veut donc dire que la livraison est terminee
+     */
     DeliveryState deliveryState;
     String deliveryComment;
 

@@ -14,15 +14,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="client_capsule_operation")
 public class ClientCapsuleOperation extends AbstractEntity {
-    /*@DateTimeFormat(pattern="yyyy-MM-dd")
-    @Column(nullable = false)
-    Instant cltcso_date;
-    @NotNull
-    @NotEmpty
-    String cltcso_object;
-    String cltcso_description;
-    @NotNull
-    OperationType cltcso_Type;*/
+
     @Embedded
     Operation cltcsoOperation;
 

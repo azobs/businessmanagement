@@ -31,6 +31,8 @@ public class SaleInvoiceCashDto {
     @NotNull
     @PositiveOrZero
     BigDecimal saleicashAmountreimbourse;
+    @PositiveOrZero
+    Integer saleicashTotalcolis;
     @PastOrPresent
     Instant saleicashInvoicingDate;
     @FutureOrPresent
@@ -56,6 +58,7 @@ public class SaleInvoiceCashDto {
                 .saleicashAmountexpected(sic.getSaleicashAmountexpected())
                 .saleicashAmountpaid(sic.getSaleicashAmountpaid())
                 .saleicashAmountreimbourse(sic.getSaleicashAmountreimbourse())
+                .saleicashTotalcolis(sic.getSaleicashTotalcolis())
                 .saleicashInvoicingDate(sic.getSaleicashInvoicingDate())
                 .saleicashDeliveryDate(sic.getSaleicashDeliveryDate())
                 .saleicashPosDto(PointofsaleDto.fromEntity(sic.getSaleicashPos()))
@@ -73,6 +76,7 @@ public class SaleInvoiceCashDto {
         sic.setSaleicashAmountexpected(sicDto.getSaleicashAmountexpected());
         sic.setSaleicashAmountpaid(sicDto.getSaleicashAmountpaid());
         sic.setSaleicashAmountreimbourse(sicDto.getSaleicashAmountreimbourse());
+        sic.setSaleicashTotalcolis(sicDto.getSaleicashTotalcolis());
         sic.setSaleicashDeliveryDate(sicDto.getSaleicashDeliveryDate());
         sic.setSaleicashInvoicingDate(sicDto.getSaleicashInvoicingDate());
         sic.setSaleicashPos(PointofsaleDto.toEntity(sicDto.getSaleicashPosDto()));

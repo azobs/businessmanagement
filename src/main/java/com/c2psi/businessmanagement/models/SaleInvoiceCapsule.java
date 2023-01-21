@@ -1,6 +1,5 @@
 package com.c2psi.businessmanagement.models;
 
-import com.c2psi.businessmanagement.dtos.client.client.ClientDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -8,10 +7,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
-import javax.validation.constraints.Size;
 import java.time.Instant;
 
 @Data
@@ -30,6 +25,8 @@ public class SaleInvoiceCapsule extends AbstractEntity {
     Integer saleicapsNumbertochange;
 
     Integer saleicapsNumberchanged;
+
+    Integer saleicapsTotalcolis;
 
     @DateTimeFormat(pattern="yyyy-MM-dd")
     @Column(nullable = false)

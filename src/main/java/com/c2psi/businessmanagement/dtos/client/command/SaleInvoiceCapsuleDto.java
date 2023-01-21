@@ -25,6 +25,8 @@ public class SaleInvoiceCapsuleDto {
     @NotNull
     @PositiveOrZero
     Integer saleicapsNumberchanged;
+    @PositiveOrZero
+    Integer saleicapsTotalcolis;
     @FutureOrPresent
     Instant saleicapsDeliveryDate;
     @PastOrPresent
@@ -49,6 +51,7 @@ public class SaleInvoiceCapsuleDto {
                 .saleicapsCode(sics.getSaleicapsCode())
                 .saleicapsNumbertochange(sics.getSaleicapsNumbertochange())
                 .saleicapsNumberchanged(sics.getSaleicapsNumberchanged())
+                .saleicapsTotalcolis(sics.getSaleicapsTotalcolis())
                 .saleicapsDeliveryDate(sics.getSaleicapsDeliveryDate())
                 .saleicapsInvoicingDate(sics.getSaleicapsInvoicingDate())
                 .saleicapsPosDto(PointofsaleDto.fromEntity(sics.getSaleicapsPos()))
@@ -65,6 +68,7 @@ public class SaleInvoiceCapsuleDto {
         sics.setSaleicapsCode(sicsDto.getSaleicapsCode());
         sics.setSaleicapsNumberchanged(sicsDto.getSaleicapsNumberchanged());
         sics.setSaleicapsNumbertochange(sicsDto.getSaleicapsNumbertochange());
+        sics.setSaleicapsTotalcolis(sicsDto.getSaleicapsTotalcolis());
         sics.setSaleicapsDeliveryDate(sicsDto.getSaleicapsDeliveryDate());
         sics.setSaleicapsInvoicingDate(sicsDto.getSaleicapsInvoicingDate());
         sics.setSaleicapsPos(PointofsaleDto.toEntity(sicsDto.getSaleicapsPosDto()));

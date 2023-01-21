@@ -25,6 +25,8 @@ public class SaleInvoiceDamage extends AbstractEntity{
 
     Integer saleidamNumberchanged;
 
+    Integer saleidamTotalcolis;
+
     @DateTimeFormat(pattern="yyyy-MM-dd")
     @Column(nullable = false)
     Instant saleidamDeliveryDate;

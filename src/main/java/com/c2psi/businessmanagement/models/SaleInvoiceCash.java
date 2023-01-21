@@ -33,6 +33,8 @@ public class SaleInvoiceCash extends AbstractEntity {
 
     BigDecimal saleicashAmountreimbourse;
 
+    Integer saleicashTotalcolis;
+
     @DateTimeFormat(pattern="yyyy-MM-dd")
     @Column(nullable = false)
     Instant saleicashDeliveryDate;

@@ -30,12 +30,21 @@ public class Command extends AbstractEntity{
     @Column(nullable = false)
     Instant cmdDate;
 
-    CommandState cmdState;
+    /***
+     * Une command a la creation est en etat InEditing. A ce moment il est encore possible de la modifier sans aucune
+     * condition
+     * Lorsqu'une facture a deja ete imprime pour elle, elle passe a letat Edited. Jusqu'ici on peut la modifier sans
+     * aucune condition aussi
+     * Une fois que cette commande est associee a une livraison, elle passe a l'etat PackUp mais pour la modifier
+     * il faut que:
+     *    La livraison dans laquelle la commande se trouve n'est pas encore cloturee (ie pas encore a l'etat finish)
+     */
+    CommandState cmdState;//InEditing, Edited, PackupUp
     String cmdComment;
 
-    CommandType cmdType;
+    CommandType cmdType;//Divers, Standard
 
-    CommandStatus cmdStatus;
+    CommandStatus cmdStatus;//Cash, Capsule, Damage
 
     /******************************
      * Relation between entities  *
