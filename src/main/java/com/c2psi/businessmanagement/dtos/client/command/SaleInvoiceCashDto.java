@@ -18,31 +18,33 @@ import java.time.Instant;
 @Builder
 public class SaleInvoiceCashDto {
     Long id;
-    @NotNull
-    @NotEmpty
-    @Size(min = 3, max = 20)
+    @NotNull(message = "The sale invoice cash code cannot be null")
+    @NotEmpty(message = "The sale invoice cash code cannot be empty")
+    @NotBlank(message = "The sale invoice cash code cannot be blank")
+    @Size(min = 3, max = 20, message = "The sale invoice cash code size must be between 3 and 20 characters")
     String saleicashCode;
-    @NotNull
-    @Positive
+    @NotNull(message = "The expected amount of a sale invoice cash cannot be null")
+    @Positive(message = "The expected amount of a sale invoice cash must be positive")
     BigDecimal saleicashAmountexpected;
-    @NotNull
-    @PositiveOrZero
+    @NotNull(message = "The amount paid of a sale invoice cash cannot be null")
+    @PositiveOrZero(message = "The amount paid of a sale invoice cash must be positive or zero")
     BigDecimal saleicashAmountpaid;
-    @NotNull
-    @PositiveOrZero
+    @NotNull(message = "The amount reimbourse of a sale invoice cash cannot be null")
+    @PositiveOrZero(message = "The amount reimbourse of a sale invoice cash must be positive or zero")
     BigDecimal saleicashAmountreimbourse;
-    @PositiveOrZero
+    @NotNull(message = "The total colis of a sale invoice cash cannot be null")
+    @Positive(message = "The total colis of a sale invoice cash must be positive")
     Integer saleicashTotalcolis;
-    @PastOrPresent
+    @NotNull(message = "The invoicing date of a sale invoice cash cannot be null")
+    @PastOrPresent(message = "The invoicing date of a sale invoice cash cannot be in the future")
     Instant saleicashInvoicingDate;
-    @FutureOrPresent
     Instant saleicashDeliveryDate;
 
-    @NotNull
+    @NotNull(message = "The point of sale concerned by the sale invoice cash cannot be null")
     PointofsaleDto saleicashPosDto;
-    @NotNull
+    @NotNull(message = "The client concerned by the sale invoice cash cannot be null")
     ClientDto saleicashClientDto;
-    @NotNull
+    @NotNull(message = "The userbm concerned by the sale invoice cash cannot be null")
     UserBMDto saleicashUserbmDto;
     /***********************************
      * Mapping method development:   ***

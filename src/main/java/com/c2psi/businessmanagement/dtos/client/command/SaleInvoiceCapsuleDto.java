@@ -15,28 +15,30 @@ import java.time.Instant;
 @Builder
 public class SaleInvoiceCapsuleDto {
     Long id;
-    @NotNull
-    @NotEmpty
-    @Size(min = 3, max = 20)
+    @NotNull(message = "The sale invoice code cannot be null")
+    @NotEmpty(message = "The sale invoice code cannot be empty")
+    @NotBlank(message = "The sale invoice code cannot be blank")
+    @Size(min = 3, max = 20, message = "The sale invoice code size must be between 3 and 20 characters")
     String saleicapsCode;
-    @NotNull
-    @PositiveOrZero
+    @NotNull(message = "The sale invoice number of capsule to change cannot be null")
+    @Positive(message = "The sale invoice number of capsule to change must be positive")
     Integer saleicapsNumbertochange;
-    @NotNull
-    @PositiveOrZero
+    @NotNull(message = "The sale invoice number of capsule changed cannot be null")
+    @Positive(message = "The sale invoice number of capsule changed must be positive")
     Integer saleicapsNumberchanged;
-    @PositiveOrZero
+    @NotNull(message = "The sale invoice total colis changed cannot be null")
+    @Positive(message = "The sale invoice total colis changed must be positive")
     Integer saleicapsTotalcolis;
-    @FutureOrPresent
+    @NotNull(message = "The sale invoice delivery date changed cannot be null")
     Instant saleicapsDeliveryDate;
-    @PastOrPresent
+    @NotNull(message = "The sale invoice invoicing date changed cannot be null")
     Instant saleicapsInvoicingDate;
 
-    @NotNull
+    @NotNull(message = "The point of sale concerned by the sale invoice cannot be null")
     PointofsaleDto saleicapsPosDto;
-    @NotNull
+    @NotNull(message = "The client concerned by the sale invoice cannot be null")
     ClientDto saleicapsClientDto;
-    @NotNull
+    @NotNull(message = "The Userbm concerned by the sale invoice cannot be null")
     UserBMDto saleicapsUserbmDto;
     /***********************************
      * Mapping method development:   ***

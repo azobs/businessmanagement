@@ -21,6 +21,14 @@ import java.util.stream.Collectors;
 @Data
 @Builder
 public class CommandDto {
+    /***
+     * * * cmdCode; cmdDate; cmdState; cmdComment; cmdType; cmdStatus; cmdPosDto; cmdClientDto; cmdUserbmDto
+     * ne peut etre null
+     * * * cmdCode; ne peut etre empty
+     * * * cmdCode; ne peut etre blank
+     * * * cmdCode; ne peut avoir une taille inferieur a 3 ni une taille superieur a 20
+     *
+     */
     Long id;
     @NotNull(message = "The command code cannot be null")
     @NotEmpty(message = "The command code cannot be empty")
@@ -62,6 +70,8 @@ public class CommandDto {
 
     SaleInvoiceCapsuleDto cmdSicapsDto;
 
+    SaleInvoiceDamageDto cmdSidamDto;
+
     /***********************************
      * Mapping method development:   ***
      * method fromEntity and toEntity **
@@ -83,6 +93,7 @@ public class CommandDto {
                 .cmdUserbmDto(UserBMDto.fromEntity(cmd.getCmdUserbm()))
                 .cmdSaleicashDto(SaleInvoiceCashDto.fromEntity(cmd.getCmdSaleicash()))
                 .cmdSicapsDto(SaleInvoiceCapsuleDto.fromEntity(cmd.getCmdSicaps()))
+                .cmdSidamDto(SaleInvoiceDamageDto.fromEntity(cmd.getCmdSidam()))
                 /*.saleDtoList(cmd.getSaleList() != null ?
                         cmd.getSaleList().stream()
                         .map(SaleDto::fromEntity)
@@ -107,6 +118,7 @@ public class CommandDto {
         cmd.setCmdUserbm(UserBMDto.toEntity(cmdDto.getCmdUserbmDto()));
         cmd.setCmdSaleicash(SaleInvoiceCashDto.toEntity(cmdDto.getCmdSaleicashDto()));
         cmd.setCmdSicaps(SaleInvoiceCapsuleDto.toEntity(cmdDto.getCmdSicapsDto()));
+        cmd.setCmdSidam(SaleInvoiceDamageDto.toEntity(cmdDto.getCmdSidamDto()));
         /*cmd.setSaleList(cmdDto.getSaleDtoList() != null ?
                 cmdDto.getSaleDtoList().stream()
                 .map(SaleDto::toEntity)

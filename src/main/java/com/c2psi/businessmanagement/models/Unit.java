@@ -21,6 +21,9 @@ import java.util.List;
                 columnNames = {"unitName", "pos_id"})})
 public class Unit extends AbstractEntity {
 
+    /****
+     * This Unit represent what we call conditionnement
+     */
     @Column(nullable = false)
     String unitName;
     String unitAbbreviation;

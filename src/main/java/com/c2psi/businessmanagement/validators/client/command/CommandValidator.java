@@ -3,15 +3,17 @@ package com.c2psi.businessmanagement.validators.client.command;
 import com.c2psi.businessmanagement.Enumerations.CommandState;
 import com.c2psi.businessmanagement.Enumerations.CommandStatus;
 import com.c2psi.businessmanagement.Enumerations.CommandType;
+import com.c2psi.businessmanagement.dtos.client.client.ClientDto;
 import com.c2psi.businessmanagement.dtos.client.command.CommandDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMRoleDto;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import java.util.*;
 
 public class CommandValidator {
     /***************************************************************************
@@ -65,7 +67,7 @@ public class CommandValidator {
                 }
             }
             else{
-                errors.add("--Ni l'état, ni le status ni le type de la commande ne peut etre null--");
+                errors.add("--Ni l'etat, ni le status ni le type de la commande ne peut etre null--");
             }
             if(!Optional.ofNullable(commandDto.getCmdClientDto()).isPresent()){
                 errors.add("--Le client associe a la commande ne peut etre null--");
@@ -76,36 +78,18 @@ public class CommandValidator {
             if(!Optional.ofNullable(commandDto.getCmdPosDto()).isPresent()){
                 errors.add("--Le point de vente de la commande ne peut etre null--");
             }
-            /*if(Optional.ofNullable(commandDto.getCmdClientDto()).isPresent() &&
-                    Optional.ofNullable(commandDto.getCmdUserbmDto()).isPresent() &&
-                    Optional.ofNullable(commandDto.getCmdPosDto()).isPresent()){
 
-                Optional<PointofsaleDto> optPosCltDto = Optional.ofNullable(
-                        commandDto.getCmdClientDto().getCltPosDto());
-                Optional<List<UserBMRoleDto>> opt_listUserRoleDto = Optional.ofNullable(
-                        commandDto.getCmdUserbmDto().getUserBMRoleDtoList());
-                if(opt_listUserRoleDto.isPresent()){
-                    int hasRole_inPos = 0;
-                    for(UserBMRoleDto userBMRoleDto : opt_listUserRoleDto.get()){
-                        if(Optional.ofNullable(userBMRoleDto.getUserbmroleRoleDto()
-                                .getRoleEntDto()).isPresent()){
-                            if(userBMRoleDto.getUserbmroleRoleDto()
-                                    .getRoleEntDto().getId().equals(optPosCltDto.get().getId())){
-                                hasRole_inPos = 1;
-                            }
-                        }
-                    }
-                    if(hasRole_inPos == 0){
-                        errors.add("--Le user qui enregistre la commande doit être employe " +
-                                "dans le point du vente auquel appartient le client: "+errors);
-                    }
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
+
+            Set<ConstraintViolation<CommandDto>> constraintViolations = validator.validate(commandDto);
+
+            if (constraintViolations.size() > 0 ) {
+                for (ConstraintViolation<CommandDto> contraintes : constraintViolations) {
+                    errors.add(contraintes.getMessage());
                 }
-                Optional<PointofsaleDto> optCmdPosDto = Optional.ofNullable(
-                        commandDto.getCmdPosDto());
-                if(!optPosCltDto.get().getId().equals(optCmdPosDto.get().getId())){
-                  errors.add("--Le client et la commande doivent appartenir aux même point de vente: "+errors);
-                }
-            }*/
+            }
+
         }
        return errors;
     }

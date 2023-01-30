@@ -19,6 +19,7 @@ public class SaleDto {
     @PositiveOrZero
     Double saleQuantity;
     String saleComment;
+    @NotNull
     @Positive
     BigDecimal saleFinalprice;
     @NotNull
