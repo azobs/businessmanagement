@@ -1,10 +1,16 @@
 package com.c2psi.businessmanagement.validators.stock.provider;
 
+import com.c2psi.businessmanagement.dtos.stock.provider.ProviderCapsuleOperationDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderCashAccountDto;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public class ProviderCashAccountValidator {
     /**********************************************************************************
@@ -18,19 +24,19 @@ public class ProviderCashAccountValidator {
     public static List<String> validate(ProviderCashAccountDto procashaccDto){
         List<String> errors = new ArrayList<>();
         if(!Optional.ofNullable(procashaccDto).isPresent()){
-            errors.add("--Le parametre ProviderCashAccountDto a valider ne peut etre null: "+errors);
+            errors.add("--Le parametre a valider ne peut etre null--");
         }
         else{
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
 
-            /*if(isnullable == 0){
-                Long idPosProvider = procashaccDto.getPcaProviderDto()
-                        .getProviderPosDto().getId();
-                Long idPos_account = procashaccDto.getPcaPointofsaleDto().getId();
-                if(!idPosProvider.equals(idPos_account)){
-                    errors.add("--Le provider doit appartenir au meme point de vente " +
-                            "que le compte: "+errors);
+            Set<ConstraintViolation<ProviderCashAccountDto>> constraintViolations = validator.validate(procashaccDto);
+
+            if (constraintViolations.size() > 0 ) {
+                for (ConstraintViolation<ProviderCashAccountDto> contraintes : constraintViolations) {
+                    errors.add(contraintes.getMessage());
                 }
-            }*/
+            }
         }
         return errors;
     }

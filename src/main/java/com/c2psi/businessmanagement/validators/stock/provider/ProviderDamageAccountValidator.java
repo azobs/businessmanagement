@@ -1,10 +1,16 @@
 package com.c2psi.businessmanagement.validators.stock.provider;
 
+import com.c2psi.businessmanagement.dtos.stock.provider.ProviderCashOperationDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDamageAccountDto;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public class ProviderDamageAccountValidator {
     /*************************************************************************************
@@ -19,33 +25,19 @@ public class ProviderDamageAccountValidator {
     public static List<String> validate(ProviderDamageAccountDto prodamaccDto){
         List<String> errors = new ArrayList<>();
         if(!Optional.ofNullable(prodamaccDto).isPresent()){
-            errors.add("--Le parametre a valider ProviderDamageAccountDto ne peut etre null: "+errors);
+            errors.add("--Le parametre a valider ne peut etre null--");
         }
         else{
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
 
-            if(!Optional.ofNullable(prodamaccDto.getPdaArticleDto()).isPresent()){
-                errors.add("--L'article associe au compte ne peut etre null: "+errors);
-            }
-            if(!Optional.ofNullable(prodamaccDto.getPdaProviderDto()).isPresent()){
-                errors.add("--Le provider associe au compte ne peut etre null: "+errors);
-            }
-            /*if(isnullable == 0){
-                Long idPos = prodamaccDto.getPdaPosDto().getId();
-                Long idPosArt = prodamaccDto.getPdaArticleDto().getArtPosDto().getId();
-                Long idPosPro = prodamaccDto.getPdaProviderDto().getProviderPosDto().getId();
-                if(!idPos.equals(idPosArt)){
-                    errors.add("--Le point de vente du compte doit etre le meme que celui de " +
-                            "l'article lie au compte: "+errors);
-                }
-                if(!idPos.equals(idPosPro)){
-                    errors.add("--Le point de vente du compte doit etre le meme que celui du " +
-                            " provider lie au compte: "+errors);
-                }
-                if(!idPosArt.equals(idPosPro)){
-                    errors.add("--L'article et le provider doivent etre du même point de vente: "+errors);
-                }
-            }*/
+            Set<ConstraintViolation<ProviderDamageAccountDto>> constraintViolations = validator.validate(prodamaccDto);
 
+            if (constraintViolations.size() > 0 ) {
+                for (ConstraintViolation<ProviderDamageAccountDto> contraintes : constraintViolations) {
+                    errors.add(contraintes.getMessage());
+                }
+            }
         }
         return errors;
     }

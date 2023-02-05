@@ -5,20 +5,25 @@ import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 
 @Data
 @Builder
 public class CapsuleArrivalDto {
     Long id;
-    @PositiveOrZero
+    @NotNull(message = "The delivery quantity cannot be null")
+    @Positive(message = "The delivery quantity of capsule changed must be positive")
     Integer capsaDeliveryquantity;
-    @PositiveOrZero
+    @NotNull(message = "The quantity capsule changed cannot be null")
+    @Positive(message = "The quantity capsule changed must be positive")
     Integer capsaQuantitycapschanged;
+
+
     /******************************
      * Relation between entities  *
      * ****************************/
-    @NotNull
+    @NotNull(message = "The article associated with the capsule arrival cannot be null")
     ArticleDto capsaArtDto;
 
     SupplyInvoiceCapsuleDto capsaSicapsDto;

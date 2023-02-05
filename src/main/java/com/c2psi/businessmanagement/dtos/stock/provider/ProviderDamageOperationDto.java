@@ -6,19 +6,25 @@ import com.c2psi.businessmanagement.models.ProviderDamageOperation;
 import lombok.Builder;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
 @Data
 @Builder
 public class ProviderDamageOperationDto {
     Long id;
+    @NotNull(message = "The damage operation cannot be null")
     OperationDto prodoOperationDto;
+    @NotNull(message = "The number in mvt in the damage operation cannot be null")
+    @Positive(message = "The number in mvt in the damage operation must be positive")
     Integer prodoNumberinmvt;
     /******************************
      * Relation between entities  *
      * ****************************/
     //Many ProviderDamageOperation for 1 ProviderDamageAccount
-
+    @NotNull(message = "The damage account cannot be null")
     ProviderDamageAccountDto prodoProDamageAccountDto;
-
+    @NotNull(message = "The userbm associated with the operation cannot be null")
     UserBMDto prodoUserbmDto;
     /***********************************
      * Mapping method development:   ***

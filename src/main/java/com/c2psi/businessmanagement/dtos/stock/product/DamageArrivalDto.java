@@ -8,17 +8,20 @@ import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 
 @Data
 @Builder
 public class DamageArrivalDto {
     Long id;
-    @PositiveOrZero
+    @NotNull(message = "The delivery quantity cannot be null")
+    @Positive(message = "The delivery quantity must be positive")
     Integer damaDeliveryquantity;
-    @PositiveOrZero
+    @NotNull(message = "The quantity changed cannot be null")
+    @Positive(message = "The quantity changed must be positive")
     Integer damaQuantityartchanged;
-    @NotNull
+    @NotNull(message = "The article associated to the damage arrival cannot be null")
     ArticleDto damaArt;
     SupplyInvoiceDamageDto damaSidam;
     /***********************************

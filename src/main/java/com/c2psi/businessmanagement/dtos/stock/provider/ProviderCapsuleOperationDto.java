@@ -6,19 +6,25 @@ import com.c2psi.businessmanagement.models.ProviderCapsuleOperation;
 import lombok.Builder;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
 @Data
 @Builder
 public class ProviderCapsuleOperationDto {
     Long id;
+    @NotNull(message = "The operation associated cannot be null")
     OperationDto proscoOperationDto;
+    @NotNull(message = "The number in mvt in the operation cannot be null")
+    @Positive(message = "The number in mvt in the operation must be positive")
     Integer procsoNumberinmvt;
     /******************************
      * Relation between entities  *
      * ****************************/
     //Many ProviderCapsuleOperation for 1 ProviderCapsuleAccount
-
+    @NotNull(message = "The provider account associated cannot ne null")
     ProviderCapsuleAccountDto procsoProCapsuleAccountDto;
-
+    @NotNull(message = "The userbm associated with the operation cannot be null")
     UserBMDto procsoUserbmDto;
     /***********************************
      * Mapping method development:   ***

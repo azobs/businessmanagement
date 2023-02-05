@@ -5,6 +5,7 @@ import com.c2psi.businessmanagement.models.Currency;
 import lombok.Builder;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -12,9 +13,16 @@ import javax.validation.constraints.NotNull;
 @Builder
 public class CurrencyDto {
     Long id;
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "The currency name cannot be null value")
+    @NotEmpty(message = "The currency name cannot be empty value")
+    @NotBlank(message = "The currency name cannot be blank value")
     String currencyName;
+    /******
+     * Shortname = symbol or abbreviation of the currency
+     */
+    @NotNull(message = "The currency shortname cannot be null value")
+    @NotEmpty(message = "The currency shortname cannot be empty value")
+    @NotBlank(message = "The currency shortname cannot be blank value")
     String currencyShortname;
     /******************************
      * Relation between entities  *

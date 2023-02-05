@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 
@@ -15,26 +16,31 @@ import java.math.BigDecimal;
 @Builder
 public class BasePriceDto {
     Long id;
-    @PositiveOrZero
+    @NotNull(message = "The purchase price cannot be null")
+    @Positive(message = "The purchase price cannot be null")
     BigDecimal bpPurchaseprice;
-    @PositiveOrZero
+    @NotNull(message = "The sale whole price cannot be null")
+    @Positive(message = "The sale whole price must be positive")
     BigDecimal bpWholesaleprice;
-    @PositiveOrZero
+    @NotNull(message = "The sale details price cannot be null")
+    @Positive(message = "The sale details price must be positive")
     BigDecimal bpDetailprice;
-    @PositiveOrZero
+    @NotNull(message = "The sale semi whole price cannot be null")
+    @Positive(message = "The sale semi whole price must be positive")
     BigDecimal bpSemiwholesaleprice;
-    @PositiveOrZero
+    @NotNull(message = "The procompte value cannot be null")
+    @PositiveOrZero(message = "The procompte value must be positive or null")
     BigDecimal bpPrecompte;
-    @PositiveOrZero
+    @NotNull(message = "The ristourne value cannot be null")
+    @PositiveOrZero(message = "The ristourne value must be positive or null")
     BigDecimal bpRistourne;
     /******************************
      * Relation between entities  *
      * ****************************/
     //Many baseprice is associated to 1 currency
-    @NotNull
+    @NotNull(message = "The currency associated to the price cannot be null")
     CurrencyDto bpCurrencyDto;
-    /*@JsonIgnore
-    ArticleDto bp_artDto;*/
+
     /***********************************
      * Mapping method development:   ***
      * method fromEntity and toEntity **

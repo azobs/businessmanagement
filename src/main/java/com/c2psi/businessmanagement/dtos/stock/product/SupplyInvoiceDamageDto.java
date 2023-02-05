@@ -14,29 +14,33 @@ import java.time.Instant;
 @Builder
 public class SupplyInvoiceDamageDto {
     Long id;
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "The code cannot be null")
+    @NotEmpty(message = "The code cannot be empty")
+    @NotBlank(message = "The code cannot be blank")
+    @Size(min = 3, max = 20, message = "The code size must be between 3 and 20 characters")
     String sidamCode;
     String sidamComment;
     String sidamPicture;
-    @PastOrPresent
+    @NotNull(message = "The delivery date cannot be null")
+    @PastOrPresent(message = "The delivery date cannot ne be in the future")
     Instant sidamDeliveryDate;
-    @PastOrPresent
+    @NotNull(message = "The invoicing date cannot be null")
+    @PastOrPresent(message = "The invoicing date cannot be in the future")
     Instant sidamInvoicingDate;
-    @NotNull
-    @PositiveOrZero
+    @NotNull(message = "The total number of colis cannot be null")
+    @Positive(message = "The total number of colis must be positive")
     Integer sidamTotalcolis;
-    @NotNull
-    @Positive
+    @NotNull(message = "The total number of article to change cannot be null")
+    @Positive(message = "The total number of article must be positive")
     Integer sidamTotalDamToChange;
-    @NotNull
-    @Positive
+    @NotNull(message = "The total number of article changed cannot be null")
+    @Positive(message = "The total number of article changed must be positive")
     Integer sidamTotalDamChange;
-    @NotNull
+    @NotNull(message = "The provider associated cannot be null")
     ProviderDto sidamProviderDto;
-    @NotNull
+    @NotNull(message = "The userbm associated cannot be null")
     UserBMDto sidamUserbmDto;
-    @NotNull
+    @NotNull(message = "The pointofsale associated cannot be null")
     PointofsaleDto sidamPosDto;
     /***********************************
      * Mapping method development:   ***

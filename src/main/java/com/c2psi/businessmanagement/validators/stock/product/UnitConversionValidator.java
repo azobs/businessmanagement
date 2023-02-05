@@ -1,10 +1,16 @@
 package com.c2psi.businessmanagement.validators.stock.product;
 
+import com.c2psi.businessmanagement.dtos.stock.product.SupplyInvoiceDamageDto;
 import com.c2psi.businessmanagement.dtos.stock.product.UnitConversionDto;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public class UnitConversionValidator {
     /************************************************************************************
@@ -18,17 +24,18 @@ public class UnitConversionValidator {
     public static List<String> validate(UnitConversionDto unitConversionDto){
         List<String> errors = new ArrayList<>();
         if(!Optional.ofNullable(unitConversionDto).isPresent()){
-            errors.add("--Le parametre a valider ne peut etre null: "+errors);
+            errors.add("--Le parametre a valider ne peut etre null--");
         }
         else{
-            if(!Optional.ofNullable(unitConversionDto.getUnitSourceDto()).isPresent()){
-                errors.add("--L'unite source associe a la regle ne peut etre null: "+errors);
-            }
-            if(!Optional.ofNullable(unitConversionDto.getUnitDestinationDto()).isPresent()){
-                errors.add("--L'unite destination associe a la regle ne peut etre null: "+errors);
-            }
-            if(unitConversionDto.getConversionFactor()<0){
-                errors.add("--Le facteur de conversion dans la regle ne peut etre negatif: "+errors);
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
+
+            Set<ConstraintViolation<UnitConversionDto>> constraintViolations = validator.validate(unitConversionDto);
+
+            if (constraintViolations.size() > 0 ) {
+                for (ConstraintViolation<UnitConversionDto> contraintes : constraintViolations) {
+                    errors.add(contraintes.getMessage());
+                }
             }
         }
         return errors;

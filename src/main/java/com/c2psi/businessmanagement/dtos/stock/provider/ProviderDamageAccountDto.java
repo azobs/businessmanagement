@@ -6,10 +6,13 @@ import com.c2psi.businessmanagement.models.ProviderDamageAccount;
 import lombok.Builder;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
+
 @Data
 @Builder
 public class ProviderDamageAccountDto {
     Long id;
+    @NotNull(message = "The number of damage product cannot be null")
     Integer pdaNumber;
     /******************************
      * Relation between entities  *
@@ -19,11 +22,11 @@ public class ProviderDamageAccountDto {
     //PointofsaleDto pdaPosDto;
 
     //Each providerdamageaccount must belonging to one provider
-
+    @NotNull(message = "The provider associated with the account cannot be null")
     ProviderDto pdaProviderDto;
 
     //Each ProviderdamageAccount is for 1 article but not all article must have an ProviderdamageAccount
-
+    @NotNull(message = "The article associated with the account cannot be null")
     ArticleDto pdaArticleDto;
     /***********************************
      * Mapping method development:   ***

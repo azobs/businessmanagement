@@ -5,12 +5,14 @@ import com.c2psi.businessmanagement.models.ProviderCashAccount;
 import lombok.Builder;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 @Data
 @Builder
 public class ProviderCashAccountDto {
     Long id;
+    @NotNull(message = "The provider account balance cannot be null")
     BigDecimal pcaBalance;
     /******************************
      * Relation between entities  *

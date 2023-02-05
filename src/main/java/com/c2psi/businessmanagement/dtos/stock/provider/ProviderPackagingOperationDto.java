@@ -6,19 +6,25 @@ import com.c2psi.businessmanagement.models.ProviderPackagingOperation;
 import lombok.Builder;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
 @Data
 @Builder
 public class ProviderPackagingOperationDto {
     Long id;
+    @NotNull(message = "The packaging operation cannot be null")
     OperationDto propoOperationDto;
+    @NotNull(message = "The number of packaging in mvt cannot be null")
+    @Positive(message = "The number of packaging in mvt must be positive")
     Integer propoNumberinmvt;
     /******************************
      * Relation between entities  *
      * ****************************/
     //Many ClientpackagingOperation for 1 ClientPackagingAccount
-
+    @NotNull(message = "The provider packaging account cannot be null")
     ProviderPackagingAccountDto propoProPackagingAccountDto;
-
+    @NotNull(message = "The userbm associated with the operation cannot be null")
     UserBMDto propoUserbmDto;
     /***********************************
      * Mapping method development:   ***

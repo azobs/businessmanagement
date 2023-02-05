@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 
@@ -12,22 +13,27 @@ import java.math.BigDecimal;
 @Builder
 public class SpecialPriceDto {
     Long id;
-    @PositiveOrZero
+    @NotNull(message = "The special whole price cannot be null")
+    @Positive(message = "The special whole price must be positive")
     BigDecimal spWholesaleprice;
-    @PositiveOrZero
+    @NotNull(message = "The special detail price cannot be null")
+    @Positive(message = "The special detail price must be positive")
     BigDecimal spDetailprice;
-    @PositiveOrZero
+    @NotNull(message = "The special semi whole price cannot be null")
+    @Positive(message = "The special semi whole price must be positive")
     BigDecimal spSemiwholesaleprice;
-    @PositiveOrZero
+    @NotNull(message = "The special precompte cannot be null")
+    @PositiveOrZero(message = "The special precompte must be positive or zero")
     BigDecimal spPrecompte;
-    @PositiveOrZero
+    @NotNull(message = "The special ristourne cannot be null")
+    @PositiveOrZero(message = "The special ristourne must be positive or zero")
     BigDecimal spRistourne;
     /******************************
      * Relation between entities  *
      * ****************************/
     //Many specialprice is based on 1 baseprice
 
-    @NotNull
+    @NotNull(message = "The base price associated cannot be null")
     BasePriceDto spBasepriceDto;
     /***********************************
      * Mapping method development:   ***

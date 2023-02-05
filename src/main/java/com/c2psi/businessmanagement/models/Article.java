@@ -26,12 +26,18 @@ public class Article extends AbstractEntity {
 
     @Column(nullable = false)
     String artShortname;
-    String artComment;
+    String artDescription;
 
     Integer artThreshold;
 
+    /*****
+     * A negative value means there the article cannot be selling in whole
+     */
     Integer artLowLimitWholesale;
 
+    /*****
+     * A negative value means there the article cannot be selling in whole
+     */
     Integer artLowLimitSemiWholesale;
 
     Integer artQuantityinstock;

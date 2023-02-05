@@ -6,10 +6,13 @@ import com.c2psi.businessmanagement.models.ProviderCapsuleAccount;
 import lombok.Builder;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
+
 @Data
 @Builder
 public class ProviderCapsuleAccountDto {
     Long id;
+    @NotNull(message = "The number of capsule in the account cannot be null")
     Integer pcsaNumber;
     /******************************
      * Relation between entities  *
@@ -19,11 +22,12 @@ public class ProviderCapsuleAccountDto {
     //PointofsaleDto pcsaPointofsaleDto;
 
     //Each providercapsuleaccount must belonging to one provider
-
+    @NotNull(message = "The provider associated cannot be null")
     ProviderDto pcsaProviderDto;
 
     //Each ProviderCapsuleAccount is for 1 article but not all article must have an ProviderCapsuleAccount
 
+    @NotNull(message = "The article associated cannot be null")
     ArticleDto pcsaArticleDto;
     /***********************************
      * Mapping method development:   ***

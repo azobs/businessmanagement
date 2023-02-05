@@ -1,10 +1,16 @@
 package com.c2psi.businessmanagement.validators.stock.product;
 
+import com.c2psi.businessmanagement.dtos.stock.product.InventoryDto;
 import com.c2psi.businessmanagement.dtos.stock.product.InventoryLineDto;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public class InventoryLineValidator {
     /*********************************************************************************
@@ -19,20 +25,18 @@ public class InventoryLineValidator {
     public static List<String> validate(InventoryLineDto invlineDto){
         List<String> errors = new ArrayList<>();
         if(!Optional.ofNullable(invlineDto).isPresent()){
-            errors.add("--Le parametre InventoryLineDto ne peut etre null: "+errors);
+            errors.add("--Le parametre a valider ne peut etre null--");
         }
         else{
-            if(!Optional.ofNullable(invlineDto.getInvlineInvDto()).isPresent()){
-                errors.add("--L'inventaire associe a la ligne ne peut etre null: "+errors);
-            }
-            if(!Optional.ofNullable(invlineDto.getInvlineArtDto()).isPresent()){
-                errors.add("--L'article associe a la ligne d'inventaire ne peut etre null: "+errors);
-            }
-            if(invlineDto.getInvlineLogicqteinstock().doubleValue()<0){
-                errors.add("--la quantite logique en stock de l'article ne peut etre negative: "+errors);
-            }
-            if(invlineDto.getInvlineRealqteinstock().doubleValue()<0){
-                errors.add("--la quantite reelle en stock de l'article ne peut etre negative: "+errors);
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
+
+            Set<ConstraintViolation<InventoryLineDto>> constraintViolations = validator.validate(invlineDto);
+
+            if (constraintViolations.size() > 0 ) {
+                for (ConstraintViolation<InventoryLineDto> contraintes : constraintViolations) {
+                    errors.add(contraintes.getMessage());
+                }
             }
         }
         return errors;

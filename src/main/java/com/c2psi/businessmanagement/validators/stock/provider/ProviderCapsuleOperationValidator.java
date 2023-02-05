@@ -1,11 +1,17 @@
 package com.c2psi.businessmanagement.validators.stock.provider;
 
+import com.c2psi.businessmanagement.dtos.stock.provider.ProviderCapsuleAccountDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderCapsuleOperationDto;
 import com.c2psi.businessmanagement.validators.pos.pos.OperationValidator;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public class ProviderCapsuleOperationValidator {
     /************************************************************************************
@@ -20,23 +26,18 @@ public class ProviderCapsuleOperationValidator {
     public static List<String> validate(ProviderCapsuleOperationDto procapsopDto){
         List<String> errors = new ArrayList<>();
         if(!Optional.ofNullable(procapsopDto).isPresent()){
-            errors.add("--Le parametre a valider ne saurait etre null: "+errors);
+            errors.add("--Le parametre a valider ne saurait etre null--");
         }
         else{
-            if(!Optional.ofNullable(procapsopDto.getProcsoProCapsuleAccountDto()).isPresent()){
-                errors.add("--Le compte qui sera affecte par l'operation ne peut etre null: "+errors);
-            }
-            if(!Optional.ofNullable(procapsopDto.getProcsoUserbmDto()).isPresent()){
-                errors.add("--L'utilisteur qui a effectue l'operation ne saurait etre null: "+errors);
-            }
-            if(procapsopDto.getProcsoNumberinmvt()<0){
-                errors.add("--Le nombre de capsule en mouvement dans l'operation ne peut " +
-                        "etre null: "+errors);
-            }
-            List<String> opt_errors = OperationValidator.validate(
-                    procapsopDto.getProscoOperationDto());
-            if(opt_errors.size()>0){
-                errors.addAll(opt_errors);
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
+
+            Set<ConstraintViolation<ProviderCapsuleOperationDto>> constraintViolations = validator.validate(procapsopDto);
+
+            if (constraintViolations.size() > 0 ) {
+                for (ConstraintViolation<ProviderCapsuleOperationDto> contraintes : constraintViolations) {
+                    errors.add(contraintes.getMessage());
+                }
             }
         }
         return errors;

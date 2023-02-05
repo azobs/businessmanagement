@@ -1,11 +1,17 @@
 package com.c2psi.businessmanagement.validators.stock.product;
 
+import com.c2psi.businessmanagement.dtos.stock.price.SpecialPriceDto;
 import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
 import org.springframework.util.StringUtils;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public class ArticleValidator {
     /**********************************************************************************
@@ -27,45 +33,33 @@ public class ArticleValidator {
     public static List<String> validate(ArticleDto artDto){
         List<String> errors = new ArrayList<>();
         if(!Optional.ofNullable(artDto).isPresent()){
-            errors.add("--Le parametre a valider ArticleDto ne peut etre null: "+errors);
+            errors.add("--Le parametre a valider ne peut etre null--");
         }
         else{
-            if(!StringUtils.hasLength(artDto.getArtCode())){
-                errors.add("--Le code de l'article ne peut etre vide: "+errors);
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
+
+            Set<ConstraintViolation<ArticleDto>> constraintViolations = validator.validate(artDto);
+
+            if (constraintViolations.size() > 0 ) {
+                for (ConstraintViolation<ArticleDto> contraintes : constraintViolations) {
+                    errors.add(contraintes.getMessage());
+                }
             }
-            if(!StringUtils.hasLength(artDto.getArtName())){
-                errors.add("--Le nom de l'article ne peut etre vide: "+errors);
+
+            if(Optional.ofNullable(artDto.getArtLowLimitSemiWholesale()).isPresent() &&
+                    Optional.ofNullable(artDto.getArtLowLimitWholesale()).isPresent()){
+                if(artDto.getArtLowLimitSemiWholesale().compareTo(artDto.getArtLowLimitWholesale())>0){
+                    errors.add("--La limite de vente en semi gros ne saurait etre supperieur a la limite de vente en gros--");
+                }
             }
-            if(!StringUtils.hasLength(artDto.getArtShortname())){
-                errors.add("--Le shortname de l'article ne peut etre vide: "+errors);
+
+            if(Optional.ofNullable(artDto.getArtDescription()).isPresent()) {
+                if (!StringUtils.hasLength(artDto.getArtDescription())) {
+                    errors.add("--La description de l'article ne doit pas etre vide--");
+                }
             }
-            if(artDto.getArtName().length()<artDto.getArtShortname().length()){
-                errors.add("--Le shortname de l'article ne peut etre plus long que son nom: "+errors);
-            }
-            if(artDto.getArtThreshold().intValue()<0){
-                errors.add("--La quantite seuil de l'article en stock ne peut etre negative: "+errors);
-            }
-            if(artDto.getArtLowLimitSemiWholesale().intValue()<0){
-                errors.add("--La quantite limite de vente en semi gros de l'article" +
-                        " ne peut etre negative: "+errors);
-            }
-            if(artDto.getArtLowLimitWholesale().intValue()<0){
-                errors.add("--La quantite limite de vente en gros de l'article" +
-                        " ne peut etre negative: "+errors);
-            }
-            if(artDto.getArtQuantityinstock().doubleValue()<0){
-                errors.add("--La quantite en stock de l'article" +
-                        " ne peut etre negative: "+errors);
-            }
-            if(!Optional.ofNullable(artDto.getArtPfDto()).isPresent()){
-                errors.add("--Le produit formate auquel est issu l'article ne peut etre null: "+errors);
-            }
-            if(!Optional.ofNullable(artDto.getArtUnitDto()).isPresent()){
-                errors.add("--L'unite de mesure de l'article ne saurait etre null: "+errors);
-            }
-            if(!Optional.ofNullable(artDto.getArtPosDto()).isPresent()){
-                errors.add("--Le point de vente auquel appartient l'article ne peut etre null: "+errors);
-            }
+
         }
         return errors;
     }

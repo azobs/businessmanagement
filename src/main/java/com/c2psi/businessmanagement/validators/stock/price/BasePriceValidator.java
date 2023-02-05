@@ -1,11 +1,17 @@
 package com.c2psi.businessmanagement.validators.stock.price;
 
+import com.c2psi.businessmanagement.dtos.client.delivery.DeliveryDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.stock.price.BasePriceDto;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public class BasePriceValidator {
     /***********************************************************************************
@@ -26,30 +32,36 @@ public class BasePriceValidator {
     public static List<String> validate(BasePriceDto bpDto){
         List<String> errors = new ArrayList<>();
         if(!Optional.ofNullable(bpDto).isPresent()){
-            errors.add("--Le parametre a valider ne peut etre null: "+errors);
+            errors.add("--Le parametre a valider ne peut etre null--");
         }
         else{
-            if(bpDto.getBpPurchaseprice().doubleValue()<0){
-                errors.add("--Le prix d'achat de base ne peut etre negatif: "+errors);
-            }
-            if(bpDto.getBpDetailprice().doubleValue()<0){
-                errors.add("--Le prix de detail de base ne peut etre negatif: "+errors);
-            }
-            if(bpDto.getBpPrecompte().doubleValue()<0){
-                errors.add("--La precompte de base ne peut etre negatif: "+errors);
-            }
-            if(bpDto.getBpRistourne().doubleValue()<0){
-                errors.add("--La ristourne de base ne peut etre negatif: "+errors);
-            }
-            if(bpDto.getBpSemiwholesaleprice().doubleValue()<0){
-                errors.add("--Le prix de semi gros de base ne peut etre negatif: "+errors);
-            }
-            if(bpDto.getBpWholesaleprice().doubleValue()<0){
-                errors.add("--Le prix de gros de base ne peut etre negatif: "+errors);
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
+
+            Set<ConstraintViolation<BasePriceDto>> constraintViolations = validator.validate(bpDto);
+
+            if (constraintViolations.size() > 0 ) {
+                for (ConstraintViolation<BasePriceDto> contraintes : constraintViolations) {
+                    errors.add(contraintes.getMessage());
+                }
             }
 
-            if(!Optional.ofNullable(bpDto.getBpCurrencyDto()).isPresent()){
-                errors.add("--La devise ou monnaie associe au prix de base ne peut etre null: "+errors);
+            /****
+             * Le prix de details doit etre superieur au prix de semi gros
+             * qui lui meme doit etre superieur au prix de gros
+             */
+            if(Optional.ofNullable(bpDto.getBpDetailprice()).isPresent() &&
+                    Optional.ofNullable(bpDto.getBpSemiwholesaleprice()).isPresent() &&
+                    Optional.ofNullable(bpDto.getBpWholesaleprice()).isPresent()){
+                if(bpDto.getBpDetailprice().compareTo(bpDto.getBpSemiwholesaleprice())<0){
+                    errors.add("--Le prix de details ne saurait etre inferieur au prix de semi gros--");
+                }
+                if(bpDto.getBpSemiwholesaleprice().compareTo(bpDto.getBpWholesaleprice())<0){
+                    errors.add("--Le prix de semi gros ne saurait etre inferieur au prix de gros--");
+                }
+                if(bpDto.getBpDetailprice().compareTo(bpDto.getBpWholesaleprice())<0){
+                    errors.add("--Le prix de details ne saurait etre inferieur au prix de gros--");
+                }
             }
 
         }

@@ -16,10 +16,10 @@ public class ProductFormatedDto {
      * Relation between entities  *
      * ****************************/
     //Each productformated is associated to 1 Product
-    @NotNull
+    @NotNull(message = "The product associated cannot be null")
     ProductDto pfProductDto;
     //Each productformated is associated to 1 format
-    @NotNull
+    @NotNull(message = "The format associated cannot be null")
     FormatDto pfFormatDto;
     /***********************************
      * Mapping method development:   ***

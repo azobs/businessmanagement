@@ -15,7 +15,7 @@ public class SaleInvoiceDamageValidator {
     public static List<String> validate(SaleInvoiceDamageDto sidamDto){
         List<String> errors = new ArrayList<>();
         if(!Optional.ofNullable(sidamDto).isPresent()){
-            errors.add("--Le paramètre à valider ne peut etre null--");
+            errors.add("--Le parametre a valider ne peut etre null--");
         }
         else{
             if(Optional.ofNullable(sidamDto.getSaleidamDeliveryDate()).isPresent() &&

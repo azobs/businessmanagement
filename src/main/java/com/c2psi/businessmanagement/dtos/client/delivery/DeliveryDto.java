@@ -8,10 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.validation.constraints.FutureOrPresent;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,14 +17,14 @@ import java.util.stream.Collectors;
 @Builder
 public class DeliveryDto {
     Long id;
-    @NotNull
-    @NotEmpty
-    @Size(min = 3, max = 20)
+    @NotNull(message = "The delivery code cannot be null")
+    @NotEmpty(message = "The delivery code cannot be empty")
+    @NotBlank(message = "The delivery code cannot be blank")
+    @Size(min = 3, max = 20, message = "The delivery code size must be between 3 and 25 characters")
     String deliveryCode;
-    @FutureOrPresent
+    @NotNull(message = "The delivery date cannot be null")
     Instant deliveryDate;
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "The delivery state cannot be null")
     DeliveryState deliveryState;
     String deliveryComment;
 
@@ -35,13 +32,7 @@ public class DeliveryDto {
      * Relation between entities  *
      * ****************************/
 
-    /*@JsonIgnore
-    List<DeliveryDetailsDto> deliveryDetailsDtoList;
-
-    @JsonIgnore
-    List<CommandDto> commandDtoList;*/
-
-    @NotNull
+    @NotNull(message = "The userbm associated with the delivery cannot be null")
     UserBMDto deliveryUserbmDto;
     /***********************************
      * Mapping method development:   ***
@@ -58,14 +49,6 @@ public class DeliveryDto {
                 .deliveryState(delivery.getDeliveryState())
                 .deliveryComment(delivery.getDeliveryComment())
                 .deliveryUserbmDto(UserBMDto.fromEntity(delivery.getDeliveryUserbm()))
-                /*.deliveryDetailsDtoList(delivery.getDeliveryDetailsList() != null ?
-                        delivery.getDeliveryDetailsList().stream()
-                        .map(DeliveryDetailsDto::fromEntity)
-                        .collect(Collectors.toList()) : null)
-                .commandDtoList(delivery.getCommandList() != null ?
-                        delivery.getCommandList().stream()
-                                .map(CommandDto::fromEntity)
-                                .collect(Collectors.toList()) : null)*/
                 .build();
     }
     public static Delivery toEntity(DeliveryDto deliveryDto){

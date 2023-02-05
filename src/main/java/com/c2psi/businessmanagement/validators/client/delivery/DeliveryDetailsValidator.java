@@ -1,10 +1,16 @@
 package com.c2psi.businessmanagement.validators.client.delivery;
 
 import com.c2psi.businessmanagement.dtos.client.delivery.DeliveryDetailsDto;
+import com.c2psi.businessmanagement.dtos.client.delivery.DeliveryDto;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public class DeliveryDetailsValidator {
     /****************************************************************************************
@@ -21,23 +27,18 @@ public class DeliveryDetailsValidator {
     public static List<String> validate(DeliveryDetailsDto deliveryDetailsDto){
         List<String> errors = new ArrayList<String>();
         if(!Optional.ofNullable(deliveryDetailsDto).isPresent()){
-            errors.add("--Le parametre a valider ne peut etre null: "+errors);
+            errors.add("--Le parametre a valider ne peut etre null--");
         }
         else{
-            if(deliveryDetailsDto.getDdNumberofpackagereturn().intValue()<0){
-                errors.add("--Le nombre d'emballage retourne pour un type d'emballage ne peut " +
-                        "etre negatif: "+errors);
-            }
-            if(deliveryDetailsDto.getDdNumberofpackageused().intValue()<0){
-                errors.add("--Le nombre d'emballage utilise pour un type d'emballage ne peut " +
-                        "etre negatif: "+errors);
-            }
-            if(!Optional.ofNullable(deliveryDetailsDto.getDdDeliveryDto()).isPresent()){
-                errors.add("--La livraison associe a ce details de livraison ne peut etre null: "+errors);
-            }
-            if(!Optional.ofNullable(deliveryDetailsDto.getDdPackagingDto()).isPresent()){
-                errors.add("--Le type d'emballage lie a ce details de livraison ne peut " +
-                        "etre null: "+errors);
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
+
+            Set<ConstraintViolation<DeliveryDetailsDto>> constraintViolations = validator.validate(deliveryDetailsDto);
+
+            if (constraintViolations.size() > 0 ) {
+                for (ConstraintViolation<DeliveryDetailsDto> contraintes : constraintViolations) {
+                    errors.add(contraintes.getMessage());
+                }
             }
         }
         return errors;

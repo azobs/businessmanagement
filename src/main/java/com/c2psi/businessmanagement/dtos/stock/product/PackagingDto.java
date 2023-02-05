@@ -1,43 +1,42 @@
 package com.c2psi.businessmanagement.dtos.stock.product;
 
-import com.c2psi.businessmanagement.dtos.pos.pos.EnterpriseDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
 import com.c2psi.businessmanagement.models.Packaging;
-import com.c2psi.businessmanagement.models.Pointofsale;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 
 @Data
 @Builder
 public class PackagingDto {
     Long id;
-    @NotNull
-    @NotEmpty
-    @Size(max = 30)
+    @NotNull(message = "The packaging label cannot be null")
+    @NotEmpty(message = "The packaging label cannot be empty")
+    @NotBlank(message = "The packaging label cannot be blank")
+    @Size(min = 3, max = 20, message = "The packaging label size must be between 3 and 20 characters")
     String packLabel;
     String packDescription;
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "The packaging color cannot be null")
+    @NotEmpty(message = "The packaging color cannot be empty")
+    @NotBlank(message = "The packaging color cannot be blank")
+    @Size(min = 3, max = 20, message = "The packaging color size must be between 3 and 20 characters")
     String packFirstcolor;
-    @PositiveOrZero
+    @NotNull(message = "The packaging price cannot be null")
+    @PositiveOrZero(message = "The packaging price must be positive or zero")
     BigDecimal packPrice;
 
     /******************************
      * Relation between entities  *
      * ****************************/
     //Many packaging must be produce by one provide
-    @NotNull
+    @NotNull(message = "The provider of a packaging cannot be null")
     ProviderDto packProviderDto;
     /*@NotNull
     EnterpriseDto packEntDto;*/
-    @NotNull
+    @NotNull(message = "The point of sale associated with the packaging cannot be null")
     PointofsaleDto packPosDto;
     /***********************************
      * Mapping method development:   ***

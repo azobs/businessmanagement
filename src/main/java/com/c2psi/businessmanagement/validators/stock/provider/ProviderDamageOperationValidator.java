@@ -1,11 +1,17 @@
 package com.c2psi.businessmanagement.validators.stock.provider;
 
+import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDamageAccountDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDamageOperationDto;
 import com.c2psi.businessmanagement.validators.pos.pos.OperationValidator;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public class ProviderDamageOperationValidator {
     /******************************************************************************
@@ -20,22 +26,18 @@ public class ProviderDamageOperationValidator {
     public static List<String> validate(ProviderDamageOperationDto prodamopDto){
         List<String> errors = new ArrayList<>();
         if(!Optional.ofNullable(prodamopDto).isPresent()){
-            errors.add("--le parametre ProviderDamageOperationDto a valider ne peut etre null: "+errors);
+            errors.add("--le parametre a valider ne peut etre null--");
         }
         else{
-            if(!Optional.ofNullable(prodamopDto.getProdoProDamageAccountDto()).isPresent()){
-                errors.add("--Le compte damage associe ne peut etre null: "+errors);
-            }
-            if(!Optional.ofNullable(prodamopDto.getProdoUserbmDto()).isPresent()){
-                errors.add("--L'utilisteur qui a effectue l'operation ne saurait etre null: "+errors);
-            }
-            if(prodamopDto.getProdoNumberinmvt()<0){
-                errors.add("--Le nombre en mouvement ne peut etre negatif dans l'operation: "+errors);
-            }
-            List<String> opt_errors = OperationValidator.validate(
-                    prodamopDto.getProdoOperationDto());
-            if(opt_errors.size()>0){
-                errors.addAll(opt_errors);
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
+
+            Set<ConstraintViolation<ProviderDamageOperationDto>> constraintViolations = validator.validate(prodamopDto);
+
+            if (constraintViolations.size() > 0 ) {
+                for (ConstraintViolation<ProviderDamageOperationDto> contraintes : constraintViolations) {
+                    errors.add(contraintes.getMessage());
+                }
             }
         }
         return errors;

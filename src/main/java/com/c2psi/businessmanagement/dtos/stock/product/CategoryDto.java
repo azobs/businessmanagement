@@ -7,8 +7,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,12 +18,19 @@ import java.util.stream.Collectors;
 @Builder
 public class CategoryDto {
     Long id;
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "The category name cannot be null")
+    @NotEmpty(message = "The category name cannot be empty")
+    @NotBlank(message = "The category name cannot be blank")
+    @Size(min = 3, max = 20, message = "The category name size must be between 3 and 20 characters")
     String catName;
+    @NotEmpty(message = "The category shortname cannot be empty")
+    @NotBlank(message = "The category shortname cannot be blank")
+    @Size(min = 3, max = 10, message = "The category shortname size must be between 3 and 10 characters")
     String catShortname;
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "The category code cannot be null")
+    @NotEmpty(message = "The category code cannot be empty")
+    @NotBlank(message = "The category code cannot be blank")
+    @Size(min = 3, max = 20, message = "The category code size must be between 3 and 20 characters")
     String catCode;
     String catDescription;
     /******************************
@@ -31,7 +40,7 @@ public class CategoryDto {
 
     CategoryDto catParentDto;
     //Each category belongs to 1 pointofsale
-    @NotNull
+    @NotNull(message = "The pointofsale associated to the category cannot be null")
     PointofsaleDto catPosDto;
 
     /*@JsonIgnore

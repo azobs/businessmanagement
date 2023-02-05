@@ -1,13 +1,15 @@
 package com.c2psi.businessmanagement.validators.stock.product;
 
+import com.c2psi.businessmanagement.dtos.stock.product.SupplyInvoiceCapsuleDto;
 import com.c2psi.businessmanagement.dtos.stock.product.SupplyInvoiceCashDto;
 import org.springframework.util.StringUtils;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class SupplyInvoiceCashValidator {
     /***********************************************************************************
@@ -24,30 +26,28 @@ public class SupplyInvoiceCashValidator {
     public static List<String> validate(SupplyInvoiceCashDto supplyinvcashDto){
         List<String> errors = new ArrayList<>();
         if(!Optional.ofNullable(supplyinvcashDto).isPresent()){
-            errors.add("--Le parametre a valider ne saurait etre null: "+errors);
+            errors.add("--Le parametre a valider ne saurait etre null--");
         }
         else{
-            if(!StringUtils.hasLength(supplyinvcashDto.getSicashCode())){
-                errors.add("--Le code de la facture cash ne peut etre vide: "+errors);
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
+
+            Set<ConstraintViolation<SupplyInvoiceCashDto>> constraintViolations = validator.validate(supplyinvcashDto);
+
+            if (constraintViolations.size() > 0 ) {
+                for (ConstraintViolation<SupplyInvoiceCashDto> contraintes : constraintViolations) {
+                    errors.add(contraintes.getMessage());
+                }
             }
-            Instant dateCourante = new Date().toInstant();
-            if (dateCourante.isBefore(supplyinvcashDto.getSicashInvoicingDate())) {
-                errors.add("--La date de facturation ne saurait etre ultérieure a " +
-                        "la date courante: "+errors);
-            }
-            if (supplyinvcashDto.getSicashDeliveryDate().isBefore(
-                    supplyinvcashDto.getSicashInvoicingDate())) {
-                errors.add("--La date de facturation ne saurait etre ultérieure a " +
-                        "la date de livraison: "+errors);
-            }
-            if(!Optional.ofNullable(supplyinvcashDto.getSicashUserbmDto()).isPresent()){
-                errors.add("--L'utilisateur qui enregistre la facture ne peut etre null: "+errors);
-            }
-            if(supplyinvcashDto.getSicashAmountexpected().doubleValue()<0){
-                errors.add("--Le montant à verser ne peut etre negatif sur la facture: "+errors);
-            }
-            if(supplyinvcashDto.getSicashAmountpaid().doubleValue()<0){
-                errors.add("--Le montant verse ne peut etre negatif sur la facture: "+errors);
+
+            /*********************************************************************************************
+             * Il faut se rassurer que la date de livraison n'est pas anterieur a la date de facturation *
+             *********************************************************************************************/
+            if(Optional.ofNullable(supplyinvcashDto.getSicashInvoicingDate()).isPresent() &&
+                    Optional.ofNullable(supplyinvcashDto.getSicashDeliveryDate()).isPresent()){
+                if(supplyinvcashDto.getSicashInvoicingDate().compareTo(supplyinvcashDto.getSicashDeliveryDate())>0){
+                    errors.add("--La date de facturation ne saurait etre ulterieure a la date de livraison--");
+                }
             }
         }
         return errors;

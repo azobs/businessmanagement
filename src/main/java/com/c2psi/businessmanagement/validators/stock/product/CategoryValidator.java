@@ -1,11 +1,17 @@
 package com.c2psi.businessmanagement.validators.stock.product;
 
+import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
 import com.c2psi.businessmanagement.dtos.stock.product.CategoryDto;
 import org.springframework.util.StringUtils;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public class CategoryValidator {
     /************************************************************************************
@@ -22,28 +28,25 @@ public class CategoryValidator {
     public static List<String> validate(CategoryDto catDto){
         List<String> errors = new ArrayList<>();
         if(!Optional.ofNullable(catDto).isPresent()){
-            errors.add("--Le parametre CategoryDto a valider ne peut etre null: "+errors);
+            errors.add("--Le parametre a valider ne peut etre null--");
         }
         else{
-            if(!Optional.ofNullable(catDto.getCatPosDto()).isPresent()){
-                errors.add("--Le point de vente de la categorie ne peut etre null: "+errors);
-            }
-            if(Optional.ofNullable(catDto.getId()).isPresent()){
-                if(catDto.getId().equals(catDto.getCatParentDto().getId())){
-                    errors.add("--Une categorie ne peut etre son propre parent: "+errors);
+
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
+
+            Set<ConstraintViolation<CategoryDto>> constraintViolations = validator.validate(catDto);
+
+            if (constraintViolations.size() > 0 ) {
+                for (ConstraintViolation<CategoryDto> contraintes : constraintViolations) {
+                    errors.add(contraintes.getMessage());
                 }
             }
-            if(!StringUtils.hasLength(catDto.getCatCode())){
-                errors.add("--Le code de la categorie ne peut etre vide: "+errors);
-            }
-            if(!StringUtils.hasLength(catDto.getCatName())){
-                errors.add("--Le nom de la categorie ne peut etre vide: "+errors);
-            }
-            if(!StringUtils.hasLength(catDto.getCatShortname())){
-                errors.add("--Le shortname de la categorie ne peut etre vide: "+errors);
-            }
-            if(catDto.getCatName().length() < catDto.getCatShortname().length()){
-                errors.add("--Le shortname de la categorie ne peut etre plus long que son nom: "+errors);
+
+            if(!Optional.ofNullable(catDto.getCatDescription()).isPresent()){
+                if(!StringUtils.hasLength(catDto.getCatDescription())){
+                    errors.add("--La description de la categorie ne peut etre vide--");
+                }
             }
         }
         return errors;

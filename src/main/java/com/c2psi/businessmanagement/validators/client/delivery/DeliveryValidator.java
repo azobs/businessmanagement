@@ -1,12 +1,18 @@
 package com.c2psi.businessmanagement.validators.client.delivery;
 
 import com.c2psi.businessmanagement.Enumerations.DeliveryState;
+import com.c2psi.businessmanagement.dtos.client.command.SaleDto;
 import com.c2psi.businessmanagement.dtos.client.delivery.DeliveryDto;
 import org.springframework.util.StringUtils;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public class DeliveryValidator {
     /********************************************************************************
@@ -21,30 +27,18 @@ public class DeliveryValidator {
     public static List<String> validate(DeliveryDto deliveryDto){
         List<String> errors = new ArrayList<>();
         if(!Optional.ofNullable(deliveryDto).isPresent()){
-            errors.add("--Le parametre deliveryDto a valider ne peut etre null: "+errors);
+            errors.add("--Le parametre a valider ne peut etre null--");
         }
         else{
-            if(Optional.ofNullable(deliveryDto.getDeliveryCode()).isPresent()){
-                if(!StringUtils.hasLength(deliveryDto.getDeliveryCode())){
-                    errors.add("--le code de la livraison ne peut etre vide: "+errors);
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
+
+            Set<ConstraintViolation<DeliveryDto>> constraintViolations = validator.validate(deliveryDto);
+
+            if (constraintViolations.size() > 0 ) {
+                for (ConstraintViolation<DeliveryDto> contraintes : constraintViolations) {
+                    errors.add(contraintes.getMessage());
                 }
-            }
-            else{
-                errors.add("--Le code de la livraison ne peut etre null: "+errors);
-            }
-            if(Optional.ofNullable(deliveryDto.getDeliveryState()).isPresent()){
-                if(!deliveryDto.getDeliveryState().equals(DeliveryState.PackedUp) &&
-                !deliveryDto.getDeliveryState().equals(DeliveryState.OutForDelivery) &&
-                !deliveryDto.getDeliveryState().equals(DeliveryState.Delivery)&&
-                !deliveryDto.getDeliveryState().equals(DeliveryState.Finish)){
-                    errors.add("--Etat de livraison non pris en compte par le systeme: "+errors);
-                }
-            }
-            else{
-                errors.add("--L'etat de la livraison ne peut etre null: "+errors);
-            }
-            if(!Optional.ofNullable(deliveryDto.getDeliveryUserbmDto()).isPresent()){
-                errors.add("--L'utilisateur lie a la livraison ne saurait etre null: "+errors);
             }
         }
         return errors;

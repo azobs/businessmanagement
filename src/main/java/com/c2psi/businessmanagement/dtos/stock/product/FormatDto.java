@@ -5,26 +5,26 @@ import com.c2psi.businessmanagement.models.Format;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 
 @Data
 @Builder
 public class FormatDto {
     Long id;
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "The format name cannot be null")
+    @NotEmpty(message = "The format name cannot be empty")
+    @NotBlank(message = "The format name cannot be blank")
+    @Size(min = 3, max = 20, message = "The format name size must be between 3 and 20 characters")
     String formatName;
-    @NotNull
-    @PositiveOrZero
+    @NotNull(message = "The capacity cannot be null")
+    @Positive(message = "The capacity must be positive")
     BigDecimal formatCapacity;
     /******************************
      * Relation between entities  *
      * ****************************/
     //Each format belongs to 1 pointofsale
-    @NotNull
+    @NotNull(message = "The point of sale associated to the format cannot be null")
     PointofsaleDto formatPosDto;
     /***********************************
      * Mapping method development:   ***

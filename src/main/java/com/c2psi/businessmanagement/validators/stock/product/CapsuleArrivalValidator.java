@@ -1,10 +1,16 @@
 package com.c2psi.businessmanagement.validators.stock.product;
 
+import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
 import com.c2psi.businessmanagement.dtos.stock.product.CapsuleArrivalDto;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public class CapsuleArrivalValidator {
     /*************************************************************************************
@@ -19,21 +25,20 @@ public class CapsuleArrivalValidator {
     public static List<String> validate(CapsuleArrivalDto capsarrDto){
         List<String> errors = new ArrayList<>();
         if(!Optional.ofNullable(capsarrDto).isPresent()){
-            errors.add("--Le parametre CapsuleArrivalDto a valider ne peut etre null: "+errors);
+            errors.add("--Le parametre a valider ne peut etre null--");
         }
         else{
-            if(capsarrDto.getCapsaDeliveryquantity()<0){
-                errors.add("--la quantite livre ne peut etre negative: "+errors);
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
+
+            Set<ConstraintViolation<CapsuleArrivalDto>> constraintViolations = validator.validate(capsarrDto);
+
+            if (constraintViolations.size() > 0 ) {
+                for (ConstraintViolation<CapsuleArrivalDto> contraintes : constraintViolations) {
+                    errors.add(contraintes.getMessage());
+                }
             }
-            if(capsarrDto.getCapsaQuantitycapschanged()<0){
-                errors.add("--la quantite de capsule changé ne peut etre negative: "+errors);
-            }
-            if(!Optional.ofNullable(capsarrDto.getCapsaArtDto()).isPresent()){
-                errors.add("--L'article concerné par l'arrivage par capsule ne peut etre null: "+errors);
-            }
-            if(!Optional.ofNullable(capsarrDto.getCapsaSicapsDto()).isPresent()){
-                errors.add("--La facture sur laquelle figure cet arrivage ne peut etre null: "+errors);
-            }
+
         }
         return errors;
     }

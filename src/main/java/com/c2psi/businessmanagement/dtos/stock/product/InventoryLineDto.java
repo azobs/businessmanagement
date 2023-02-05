@@ -13,19 +13,19 @@ import java.math.BigDecimal;
 public class InventoryLineDto {
     Long id;
     String invlineComment;
-    @NotNull
-    @PositiveOrZero
+    @NotNull(message = "The inventory real quantity in stock for an article cannot be null")
+    @PositiveOrZero(message = "The inventory real quantity in stock for an article must be positive or zero")
     BigDecimal invlineRealqteinstock;
-    @NotNull
-    @PositiveOrZero
+    @NotNull(message = "The inventory logic quantity in stock for an article cannot be null")
+    @PositiveOrZero(message = "The inventory logic quantity in stock for an article must be positive or zero")
     BigDecimal invlineLogicqteinstock;
 
     /******************************
      * Relation between entities  *
      * ****************************/
-    @NotNull
+    @NotNull(message = "The associated inventory for the inventory line cannot be null")
     InventoryDto invlineInvDto;
-    @NotNull
+    @NotNull(message = "The associated article for the inventory line cannot be null")
     ArticleDto invlineArtDto;
     /***********************************
      * Mapping method development:   ***

@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 
@@ -12,19 +13,19 @@ import java.math.BigDecimal;
 @Builder
 public class CurrencyConversionDto {
     Long id;
-    @NotNull
-    @PositiveOrZero
+    @NotNull(message = "The conversion factor cannot be null")
+    @Positive(message = "The converion factor must be positive")
     BigDecimal conversionFactor;
     /******************************
      * Relation between entities  *
      * ****************************/
     //Many unitconversion for 1 unit source
 
-    @NotNull
+    @NotNull(message = "The currency source of the rule cannot be null")
     CurrencyDto currencySourceDto;
     //Many unitconversion for 1 unit destination
 
-    @NotNull
+    @NotNull(message = "The currency destination of the rule cannot be null")
     CurrencyDto currencyDestinationDto;
     /***********************************
      * Mapping method development:   ***

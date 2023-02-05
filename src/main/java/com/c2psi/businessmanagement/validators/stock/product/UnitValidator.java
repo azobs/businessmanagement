@@ -1,11 +1,17 @@
 package com.c2psi.businessmanagement.validators.stock.product;
 
+import com.c2psi.businessmanagement.dtos.stock.product.UnitConversionDto;
 import com.c2psi.businessmanagement.dtos.stock.product.UnitDto;
 import org.springframework.util.StringUtils;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public class UnitValidator {
     /*********************************************************************************
@@ -20,20 +26,18 @@ public class UnitValidator {
     public static List<String> validate(UnitDto unitDto){
         List<String> errors = new ArrayList<>();
         if(!Optional.ofNullable(unitDto).isPresent()){
-            errors.add("--Le parametre unitDto a valider ne peut etre null: "+errors);
+            errors.add("--Le parametre a valider ne peut etre null--");
         }
         else{
-            if(!StringUtils.hasLength(unitDto.getUnitName())){
-                errors.add("--Le nom de l'unite ne peut etre vide: "+errors);
-            }
-            if(!StringUtils.hasLength(unitDto.getUnitAbbreviation())){
-                errors.add("--L'abbreviation de l'unite ne peut etre vide: "+errors);
-            }
-            if(unitDto.getUnitAbbreviation().length() >= unitDto.getUnitName().length()){
-                errors.add("--L'abbreviation de l'unite ne peut etre plus long que son nom: "+errors);
-            }
-            if(!Optional.ofNullable(unitDto.getUnitPosDto()).isPresent()){
-                errors.add("--Le point de vente associe a l'unite ne peut etre null: "+errors);
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
+
+            Set<ConstraintViolation<UnitDto>> constraintViolations = validator.validate(unitDto);
+
+            if (constraintViolations.size() > 0 ) {
+                for (ConstraintViolation<UnitDto> contraintes : constraintViolations) {
+                    errors.add(contraintes.getMessage());
+                }
             }
         }
         return errors;

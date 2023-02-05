@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 
 
@@ -13,21 +14,21 @@ import javax.validation.constraints.PositiveOrZero;
 @Builder
 public class DeliveryDetailsDto {
     Long id;
-    @NotNull
-    @PositiveOrZero
+    @NotNull(message = "The number of package used for the delivery details cannot be null")
+    @Positive(message = "The number of package used for the delivery details mut b positive")
     Integer ddNumberofpackageused;
-    @NotNull
-    @PositiveOrZero
+    @NotNull(message = "The number of package return after delivery cannot be null")
+    @PositiveOrZero(message = "The number of package return after delivery must be positive or null")
     Integer ddNumberofpackagereturn;
 
     /******************************
      * Relation between entities  *
      * ****************************/
 
-    @NotNull
+    @NotNull(message = "The packaging type used for the delivery details cannot be null")
     PackagingDto ddPackagingDto;
 
-    @NotNull
+    @NotNull(message = "The delivery associated with that delivery details cannot be null")
     DeliveryDto ddDeliveryDto;
     /***********************************
      * Mapping method development:   ***

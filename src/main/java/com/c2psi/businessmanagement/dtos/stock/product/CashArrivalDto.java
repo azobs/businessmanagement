@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 
@@ -14,18 +15,19 @@ import java.math.BigDecimal;
 @Builder
 public class CashArrivalDto {
     Long id;
-    @PositiveOrZero
+    @NotNull(message = "The delivery quantity cannot be null")
+    @Positive(message = "The delivery quantity must be positive")
     Integer cashaDeliveryquantity;
-    @PositiveOrZero
+    @NotNull(message = "The final unit price cannot be null")
+    @Positive(message = "The final unit price must be positive")
     BigDecimal cashaUnitprice;
-    @NotNull
-    @PositiveOrZero
+    @NotNull(message = "The cash arrival type cannot be null")
     CashArrivalType cashaArrivaltype;
 
     /******************************
      * Relation between entities  *
      * ****************************/
-    @NotNull
+    @NotNull(message = "The article associated with the cash arrival cannot be null")
     ArticleDto cashaArtDto;
 
     SupplyInvoiceCashDto cashaSicashDto;

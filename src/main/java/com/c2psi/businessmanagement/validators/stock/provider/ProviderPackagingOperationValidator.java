@@ -1,11 +1,17 @@
 package com.c2psi.businessmanagement.validators.stock.provider;
 
+import com.c2psi.businessmanagement.dtos.stock.provider.ProviderPackagingAccountDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderPackagingOperationDto;
 import com.c2psi.businessmanagement.validators.pos.pos.OperationValidator;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public class ProviderPackagingOperationValidator {
     /***********************************************************************************
@@ -19,22 +25,18 @@ public class ProviderPackagingOperationValidator {
     public static List<String> validate(ProviderPackagingOperationDto propackopDto){
         List<String> errors = new ArrayList<>();
         if(!Optional.ofNullable(propackopDto).isPresent()){
-            errors.add("--Le parametre a valider ProviderPackagingOperationDto ne peut etre: "+errors);
+            errors.add("--Le parametre a valider ne peut etre--");
         }
         else{
-            if(!Optional.ofNullable(propackopDto.getPropoProPackagingAccountDto()).isPresent()){
-                errors.add("--Le compte qui doit subir l'operation ne peut etre null: "+errors);
-            }
-            if(!Optional.ofNullable(propackopDto.getPropoUserbmDto()).isPresent()){
-                errors.add("--L'utilisteur qui a effectue l'operation ne saurait etre null: "+errors);
-            }
-            if(propackopDto.getPropoNumberinmvt()<0){
-                errors.add("--Le nombre de package en mouvement ne peut etre negatif: "+errors);
-            }
-            List<String> opt_errors = OperationValidator.validate(
-                    propackopDto.getPropoOperationDto());
-            if(opt_errors.size()>0){
-                errors.addAll(opt_errors);
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
+
+            Set<ConstraintViolation<ProviderPackagingOperationDto>> constraintViolations = validator.validate(propackopDto);
+
+            if (constraintViolations.size() > 0 ) {
+                for (ConstraintViolation<ProviderPackagingOperationDto> contraintes : constraintViolations) {
+                    errors.add(contraintes.getMessage());
+                }
             }
         }
         return errors;

@@ -12,17 +12,17 @@ import javax.validation.constraints.PositiveOrZero;
 @Builder
 public class UnitConversionDto {
     Long id;
-    @NotNull
-    @Positive
+    @NotNull(message = "The conversion factor cannot be null")
+    @Positive(message = "The conversion factor must be positive")
     Double conversionFactor;
     /******************************
      * Relation between entities  *
      * ****************************/
     //Many unitconversion for 1 unit source
-    @NotNull
+    @NotNull(message = "The source unit(conditionnement) cannot be null")
     UnitDto unitSourceDto;
     //Many unitconversion for 1 unit destination
-    @NotNull
+    @NotNull(message = "The destination unit(conditionnement) cannot be null")
     UnitDto unitDestinationDto;
     /***********************************
      * Mapping method development:   ***

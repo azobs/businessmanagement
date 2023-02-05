@@ -18,35 +18,39 @@ import java.util.stream.Collectors;
 @Builder
 public class SupplyInvoiceCapsuleDto {
     Long id;
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "The supply invoice code cannot be null")
+    @NotEmpty(message = "The supply invoice code cannot be empty")
+    @NotBlank(message = "The supply invoice code cannot be blank")
+    @Size(min = 3, max = 20, message = "The supply invoice code size must be between 3 and 20 characters")
     String sicapsCode;
     String sicapsComment;
     String sicapsPicture;
-    @PastOrPresent
+    @NotNull(message = "The delivery date cannot be null")
+    @PastOrPresent(message = "The delivery date cannot be in the future")
     Instant sicapsDeliveryDate;
-    @PastOrPresent
+    @NotNull(message = "The invoicing date cannot be null")
+    @PastOrPresent(message = "The invoicing date cannot be in the future")
     Instant sicapsInvoicingDate;
-    @NotNull
-    @PositiveOrZero
+    @NotNull(message = "The total colis delivery cannot be null")
+    @Positive(message = "The total colis delivery must be positive")
     Integer sicapsTotalcolis;
-    @NotNull
-    @Positive
+    @NotNull(message = "The total capsule to change cannot be null")
+    @Positive(message = "The total capsule to change must be positive")
     Integer sicapsTotalCapsToChange;
-    @NotNull
-    @Positive
+    @NotNull(message = "The total capsule changed cannot be null")
+    @Positive(message = "The total capsule changed must be positive")
     Integer sicapsTotalCapsChange;
     /******************************
      * Relation between entities  *
      * ****************************/
-    @NotNull
+    @NotNull(message = "The provider associated cannot be null")
     ProviderDto sicapsProviderDto;
 
     /*@JsonIgnore
     List<CapsuleArrivalDto> capsuleArrivalDtoList;*/
-    @NotNull
+    @NotNull(message = "The userbm associated cannot be null")
     UserBMDto sicapsUserbmDto;
-    @NotNull
+    @NotNull(message = "The point of sale associated cannot be null")
     PointofsaleDto sicapsPosDto;
     /***********************************
      * Mapping method development:   ***

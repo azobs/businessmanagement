@@ -9,9 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,37 +19,51 @@ import java.util.stream.Collectors;
 @Builder
 public class ArticleDto {
     Long id;
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "The article code cannot be null")
+    @NotEmpty(message = "The article code cannot be empty")
+    @NotBlank(message = "The article code cannot be blank")
+    @Size(min = 3, max = 20, message = "The article code size must be between 3 and 10 characters")
     String artCode;
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "The article name cannot be null")
+    @NotEmpty(message = "The article name cannot be empty")
+    @NotBlank(message = "The article name cannot be blank")
+    @Size(min = 3, max = 20, message = "The article name size must be between 3 and 20 characters")
     String artName;
-    @NotNull
-    @NotEmpty
+    @NotEmpty(message = "The article shortname cannot be empty")
+    @NotBlank(message = "The article shortname cannot be blank")
+    @Size(min = 3, max = 20, message = "The article shortname size must be between 3 and 10 characters")
     String artShortname;
-    String artComment;
-    @PositiveOrZero
+    String artDescription;
+    @NotNull(message = "The threshold value cannot be null")
+    @PositiveOrZero(message = "The threshold value must be positive or zero")
     Integer artThreshold;
-    @PositiveOrZero
+    /*****
+     * A negative value means there the article cannot be selling in whole
+     */
+    @NotNull(message = "The low limit value to sell in whole value cannot be null")
     Integer artLowLimitWholesale;
-    @PositiveOrZero
+    /*****
+     * A negative value means there the article cannot be selling in semi whole
+     * If an article cannot be selling in semi whole then it cannot be also selling in whole.
+     */
+    @NotNull(message = "The low limit value to sell in semi whole value cannot be null")
     Integer artLowLimitSemiWholesale;
-    @PositiveOrZero
+    @NotNull(message = "The current quantity in stock cannot be null")
+    @PositiveOrZero(message = "The current quantity in stock must be positive or zero")
     Integer artQuantityinstock;
     /******************************
      * Relation between entities  *
      * ****************************/
     //Many article is associated to 1 ProductFormated
-    @NotNull
+    @NotNull(message = "The formated product associated cannot be null")
     ProductFormatedDto artPfDto;
-    //Many article must be related to 1 unit
-    @NotNull
+    //Many article must be related to 1 unit(Unit represent conditionnement)
+    @NotNull(message = "The unit associated cannot be null")
     UnitDto artUnitDto;
     //Many baseprice is for 1 article
-    @NotNull
+    @NotNull(message = "The base price associated cannot be null")
     BasePriceDto artBpDto;
-    @NotNull
+    @NotNull(message = "The point of sale associated cannot be null")
     PointofsaleDto artPosDto;
 
     /*@JsonIgnore
@@ -69,7 +81,7 @@ public class ArticleDto {
                 .artCode(article.getArtCode())
                 .artName(article.getArtName())
                 .artShortname(article.getArtShortname())
-                .artComment(article.getArtComment())
+                .artDescription(article.getArtDescription())
                 .artThreshold(article.getArtThreshold())
                 .artLowLimitSemiWholesale(article.getArtLowLimitSemiWholesale())
                 .artLowLimitWholesale(article.getArtLowLimitWholesale())
@@ -91,7 +103,7 @@ public class ArticleDto {
         Article art = new Article();
         art.setId(articleDto.getId());
         art.setArtCode(articleDto.getArtCode());
-        art.setArtComment(articleDto.getArtComment());
+        art.setArtDescription(articleDto.getArtDescription());
         art.setArtThreshold(articleDto.getArtThreshold());
         art.setArtLowLimitWholesale(articleDto.getArtLowLimitWholesale());
         art.setArtLowLimitSemiWholesale(articleDto.getArtLowLimitSemiWholesale());

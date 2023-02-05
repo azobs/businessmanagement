@@ -8,6 +8,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,16 +19,24 @@ import java.util.stream.Collectors;
 @Builder
 public class ProviderDto {
     Long id;
+    @NotNull(message = "The provider name cannot be null")
+    @NotEmpty(message = "The provider name cannot be empty")
+    @NotBlank(message = "The provider name cannot be blank")
+    @Size(min = 3, max = 20, message = "The provider name size must be between 3 and 20 characters")
     String providerName;
-
+    @NotNull(message = "The provider acronym cannot be null")
+    @NotEmpty(message = "The provider acronym cannot be empty")
+    @NotBlank(message = "The provider acronym cannot be blank")
+    @Size(min = 3, max = 10, message = "The provider acronym size must be between 3 and 10 characters")
     String providerAcronym;
     String providerDescription;
-
+    @NotNull(message = "The address of provider cannot be null")
     AddressDto providerAddressDto;
 
     /******************************
      * Relation between entities  *
      * ****************************/
+    @NotNull(message = "The provider cash account cannot be null")
     ProviderCashAccountDto providerCaDto;
     //Each provider produce a list of packaging
 
@@ -47,6 +59,7 @@ public class ProviderDto {
     /*@JsonIgnore
     List<ProviderCashAccountDto> providerCashAccountDtoList;*/
 
+    @NotNull(message = "The pointofsale assoiciated with the provider cannot be null")
     PointofsaleDto providerPosDto;
     /***********************************
      * Mapping method development:   ***

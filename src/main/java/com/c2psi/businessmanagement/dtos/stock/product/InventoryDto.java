@@ -7,9 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.*;
 import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,16 +17,19 @@ import java.util.stream.Collectors;
 public class InventoryDto {
     Long id;
     String invComment;
-    @PastOrPresent
+    @NotNull(message = "The inventory date cannot be null")
+    @PastOrPresent(message = "The inventory date cannot be in the future")
     Instant invDate;
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "The inventory code cannot be null")
+    @NotEmpty(message = "The inventory code cannot be empty")
+    @NotBlank(message = "The inventory code cannot be blank")
+    @Size(min = 3, max = 20, message = "The inventory code size must be between 3 and 20 characters")
     String invCode;
 
     /******************************
      * Relation between entities  *
      * ****************************/
-    @NotNull
+    @NotNull(message = "The point of sale associated with the inventory cannot be null")
     PointofsaleDto invPosDto;
 
     /*@JsonIgnore

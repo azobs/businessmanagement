@@ -1,13 +1,15 @@
 package com.c2psi.businessmanagement.validators.stock.product;
 
+import com.c2psi.businessmanagement.dtos.stock.product.FormatDto;
 import com.c2psi.businessmanagement.dtos.stock.product.InventoryDto;
 import org.springframework.util.StringUtils;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class InventoryValidator {
     /*************************************************************************************
@@ -21,19 +23,18 @@ public class InventoryValidator {
     public static List<String> validate(InventoryDto invDto){
         List<String> errors = new ArrayList<>();
         if(!Optional.ofNullable(invDto).isPresent()){
-            errors.add("--le parametre InventoryDto a valider ne peut etre null: "+errors);
+            errors.add("--le parametre a valider ne peut etre null--");
         }
         else{
-            if(!Optional.ofNullable(invDto.getInvPosDto()).isPresent()){
-                errors.add("--Le point de vente de l'inventaire ne peut etre null: "+errors);
-            }
-            Instant dateCourante = new Date().toInstant();
-            if (dateCourante.isBefore(invDto.getInvDate())) {
-                errors.add("--La date de l'inventaire ne saurait etre ultérieure a " +
-                        "la date courante: "+errors);
-            }
-            if(!StringUtils.hasLength(invDto.getInvCode())){
-                errors.add("--Le nom du format ne peut etre vide: "+errors);
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
+
+            Set<ConstraintViolation<InventoryDto>> constraintViolations = validator.validate(invDto);
+
+            if (constraintViolations.size() > 0 ) {
+                for (ConstraintViolation<InventoryDto> contraintes : constraintViolations) {
+                    errors.add(contraintes.getMessage());
+                }
             }
         }
         return errors;

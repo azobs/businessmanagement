@@ -15,24 +15,24 @@ import java.math.BigDecimal;
 @Builder
 public class SaleDto {
     Long id;
-    @NotNull
-    @PositiveOrZero
+    @NotNull(message = "The command code cannot be null")
+    @Positive(message = "The sale quantity sale must be positive")
     Double saleQuantity;
     String saleComment;
-    @NotNull
-    @Positive
+    @NotNull(message = "The sale final price cannot be null")
+    @Positive(message = "The sale final price must be positive")
     BigDecimal saleFinalprice;
-    @NotNull
+    @NotNull(message = "The sale type cannot be null")
     SaleType saleType;
 
     /******************************
      * Relation between entities  *
      * ****************************/
 
-    @NotNull
+    @NotNull(message = "The command associated to the sale details cannot be null")
     CommandDto saleCommandDto;
 
-    @NotNull
+    @NotNull(message = "The article associated to the sale details cannot be null")
     ArticleDto saleArticleDto;
 
     /***********************************

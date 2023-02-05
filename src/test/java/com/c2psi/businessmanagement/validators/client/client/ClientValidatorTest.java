@@ -38,8 +38,6 @@ public class ClientValidatorTest {
         System.out.println("errors == " + errors);
         assertNotNull(errors);
         assertEquals(0, errors.size());
-        /*assertTrue(errors.contains("--La date d'application ne saurait etre ultérieure a la date courante--"));
-        assertTrue(errors.contains("The application date cannot be in the future"));*/
     }
 
     @Test

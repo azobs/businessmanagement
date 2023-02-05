@@ -6,10 +6,13 @@ import com.c2psi.businessmanagement.models.ProviderPackagingAccount;
 import lombok.Builder;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
+
 @Data
 @Builder
 public class ProviderPackagingAccountDto {
     Long id;
+    @NotNull(message = "The number in the packaging account cannot ne null")
     Integer ppaNumber;
     /******************************
      * Relation between entities  *
@@ -19,11 +22,11 @@ public class ProviderPackagingAccountDto {
     //PointofsaleDto ppaPosDto;
 
     //Each providerpackagingaccount must belonging to one provider
-
+    @NotNull(message = "The provider associated with the account cannot be null")
     ProviderDto ppaProviderDto;
 
     //Each ProviderPackagingAccount is for 1 packaging
-
+    @NotNull(message = "The packaging associated with the account cannot be null")
     PackagingDto ppaPackagingDto;
     /***********************************
      * Mapping method development:   ***
