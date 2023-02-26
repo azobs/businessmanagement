@@ -7,9 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 @Data
 @NoArgsConstructor
@@ -19,9 +16,7 @@ import javax.validation.constraints.Size;
         uniqueConstraints = {@UniqueConstraint(
                 columnNames = {"roleName", "ent_id"})})
 public class Role extends AbstractEntity {
-    @NotNull
-    @NotEmpty
-    @Size(min = 3, max = 20)
+
     @Column(nullable = false)
     RoleType roleName;
     String roleAlias;

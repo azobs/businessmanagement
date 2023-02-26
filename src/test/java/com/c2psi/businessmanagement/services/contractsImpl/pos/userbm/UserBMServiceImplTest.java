@@ -19,6 +19,10 @@ import java.text.SimpleDateFormat;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/****
+ * @RunWith(SpringRunner.class):
+ * The annotation is used to configure a unit test that required Spring's dependency injection
+ */
 @RunWith(SpringRunner.class)
 /****
  * Pour indiquer a spring la classe mere qui contient les classes a tester

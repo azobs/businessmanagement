@@ -1,14 +1,12 @@
 package com.c2psi.businessmanagement.services.contractsImpl.pos.userbm;
 
+import com.c2psi.businessmanagement.Enumerations.RoleType;
 import com.c2psi.businessmanagement.dtos.pos.pos.EnterpriseDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.RoleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMRoleDto;
-import com.c2psi.businessmanagement.exceptions.EntityNotFoundException;
-import com.c2psi.businessmanagement.exceptions.ErrorCode;
+import com.c2psi.businessmanagement.exceptions.*;
 import com.c2psi.businessmanagement.exceptions.IllegalArgumentException;
-import com.c2psi.businessmanagement.exceptions.InvalidEntityException;
-import com.c2psi.businessmanagement.exceptions.NullArgumentException;
 import com.c2psi.businessmanagement.models.Enterprise;
 import com.c2psi.businessmanagement.models.Role;
 import com.c2psi.businessmanagement.models.UserBM;
@@ -21,6 +19,7 @@ import com.c2psi.businessmanagement.validators.pos.userbm.RoleValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -30,6 +29,7 @@ import java.util.stream.Collectors;
 
 @Service(value="RoleServiceV1")
 @Slf4j
+@Transactional
 public class RoleServiceImpl  implements RoleService {
 
     private RoleRepository roleRepository;
@@ -49,15 +49,41 @@ public class RoleServiceImpl  implements RoleService {
         this.userBMRepository = userBMRepository;
     }
 
+    /******************************************************************************************
+     *  Cette methode enregistre dans la BD un role pour une entreprise.
+     *  Elle leve une exception de type:
+     *      +InvalidEntityException: Si le role_dto passe en parametre n'est pas valide
+     *      +DuplicateEntityException: Si un role de meme type a deja ete cree pour l'entreprise
+     * @param role_dto
+     * @return RoleDto
+     */
     @Override
     public RoleDto saveRole(RoleDto role_dto) {
         List<String> errors = RoleValidator.validate(role_dto);
         if(!errors.isEmpty()){
             log.error("Entity role not valid {}", role_dto);
-            throw new InvalidEntityException("Le role passé en argument n'est pas valide",
+            throw new InvalidEntityException("Le role passe en argument n'est pas valide",
                     ErrorCode.ROLE_NOT_VALID, errors);
         }
-        //Il faut d'abord verifier que le role sera unique dans l'entreprise pour lequel le role est ajoute dans la bd
+        //Il faut d'abord verifier qu'aucun role n'existe pour l'entreprise avec le meme nom
+        System.out.println("Avant appel a isRoleExistInEnterprise ");
+        /*String roleName = "";
+        switch (role_dto.getRoleName()){
+            case Deliver: roleName = RoleType.Deliver.name();
+            case Dg: roleName = RoleType.Dg.name();
+            case Manager: roleName = RoleType.Manager.name();
+            case Pdg: roleName = RoleType.Pdg.name();
+            case Saler: roleName = RoleType.Saler.name();
+            case Storekeeper: roleName = RoleType.Storekeeper.name();
+        }*/
+        Boolean isRoleExistInEnterprise = this.isRoleExistInEnterpriseWithRoleName(role_dto.getRoleName(),
+                EnterpriseDto.toEntity(role_dto.getRoleEntDto()));
+        System.out.println("Apres appel a isRoleExistInEnterprise "+isRoleExistInEnterprise);
+        if(isRoleExistInEnterprise){
+            throw new DuplicateEntityException("Un role de ce type a deja ete cree pour l'entreprise ",
+                    ErrorCode.ROLE_DUPLICATED);
+        }
+
         return RoleDto.fromEntity(
                 roleRepository.save(
                         RoleDto.toEntity(role_dto)
@@ -65,21 +91,49 @@ public class RoleServiceImpl  implements RoleService {
         );
     }
 
+    Boolean isRoleExistInEnterpriseWithId(Long id){
+        Optional<Role> optionalRole = roleRepository.findById(id);
+        if(optionalRole.isPresent()){
+            return true;
+        }
+        return false;
+    }
+
+
     @Override
     public RoleDto findRoleById(Long id) {
         if(id==null){
             log.error("Role ID is null");
             throw new NullArgumentException("L'id specifie est null");
         }
-        Optional<Role> role = roleRepository.findById(id);
-        return Optional.of(RoleDto.fromEntity(role.get())).orElseThrow(()->
+        Optional<Role> optionalRole = roleRepository.findById(id);
+        if(optionalRole.isPresent()){
+            return RoleDto.fromEntity(optionalRole.get());
+        }
+        else{
+            throw new EntityNotFoundException("Aucun role avec l'id "+id
+                    +" n'a été trouve dans la BDD", ErrorCode.ROLE_NOT_FOUND);
+        }
+        /*return Optional.of(RoleDto.fromEntity(optionalRole.get())).orElseThrow(()->
                 new EntityNotFoundException("Aucun role avec l'id "+id
-                        +" n'a été trouve dans la BDD", ErrorCode.ROLE_NOT_FOUND));
+                        +" n'a été trouve dans la BDD", ErrorCode.ROLE_NOT_FOUND));*/
+    }
+
+    Boolean isRoleExistInEnterpriseWithRoleName(RoleType roleName, Enterprise ent){
+        System.out.println("Debut de la recherche du role dans l'entreprise");
+        Optional<Role> optionalRole = roleRepository.findRoleByRoleNameAndRoleEntId(roleName, ent.getId());
+        if(optionalRole.isPresent()){
+            System.out.println("Fin de la recherche du role dans l'entreprise");
+            return true;
+        }
+        System.out.println("Fin de la recherche du role dans l'entreprise");
+        return false;
     }
 
     @Override
-    public RoleDto findRoleByRolename(String roleName, Long entId) {
-        if(!StringUtils.hasLength(roleName) || entId == null){
+    public RoleDto findRoleByRolename(RoleType roleName, Long entId) {
+        if(roleName == null || entId == null){
+            //!StringUtils.hasLength(roleName)
             log.error("Role name is null");
             throw new NullArgumentException("L'un des parametres passe a la methode est null");
         }
@@ -88,14 +142,23 @@ public class RoleServiceImpl  implements RoleService {
             log.error("entId does not match with any enterprise in the database");
             throw new IllegalArgumentException("le entId precise ne match avec aucune entreprise dans la BD");
         }
-        Optional<Role> optionalRole = roleRepository.findRoleByRoleNameAndRoleEnt(roleName,
-                EnterpriseDto.toEntity(EnterpriseDto.fromEntity(ent.get())));
+        Optional<Role> optionalRole = roleRepository.findRoleByRoleNameAndRoleEntId(roleName, entId);
 
-        return Optional.of(RoleDto.fromEntity(optionalRole.get())).orElseThrow(()->
+        if(optionalRole.isPresent()){
+            return RoleDto.fromEntity(optionalRole.get());
+        }
+        else{
+            throw new EntityNotFoundException("Aucun role avec le nom ="+roleName
+                    +" n'a ete trouve dans la BDD pour l'entreprise "+
+                    EnterpriseDto.toEntity(EnterpriseDto.fromEntity(ent.get())).getEntName(),
+                    ErrorCode.ROLE_NOT_FOUND);
+        }
+
+        /*return Optional.of(RoleDto.fromEntity(optionalRole.get())).orElseThrow(()->
                 new EntityNotFoundException("Aucun role avec le nom ="+roleName
                         +" n'a été trouve dans la BDD pour l'entreprise "+
                         EnterpriseDto.toEntity(EnterpriseDto.fromEntity(ent.get())).getEntName(),
-                        ErrorCode.ROLE_NOT_FOUND));
+                        ErrorCode.ROLE_NOT_FOUND));*/
     }
 
     @Override
@@ -113,8 +176,9 @@ public class RoleServiceImpl  implements RoleService {
     }
 
     @Override
-    public Boolean deleteRoleByRolename(String roleName, Long entId) {
-        if(!StringUtils.hasLength(roleName) || entId == null){
+    public Boolean deleteRoleByRolename(RoleType roleName, Long entId) {
+        if(roleName == null || entId == null){
+            //!StringUtils.hasLength(roleName)
             log.error("Role name is null or entId is null");
             throw new NullArgumentException("Le roleName ou le enterprise Id specifie est null");
         }

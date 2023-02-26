@@ -17,6 +17,7 @@ import com.c2psi.businessmanagement.validators.pos.pos.EnterpriseValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.lang.IllegalArgumentException;
@@ -29,6 +30,7 @@ import java.util.stream.Collectors;
 
 @Service(value="EnterpriseServiceV1")
 @Slf4j
+@Transactional
 public class EnterpriseServiceImpl implements EnterpriseService {
 
     private EnterpriseRepository entRepository;
@@ -50,6 +52,11 @@ public class EnterpriseServiceImpl implements EnterpriseService {
         this.providerRepository = providerRepository;
     }
 
+    /*****
+     * Retourne false si l'entreprise passe en parametre m'a pas d'administrateur et true s'il en a
+     * @param entDto
+     * @return Boolean
+     */
     Boolean isUserBMAdminOfEnterpriseExist(EnterpriseDto entDto){
         Optional<UserBM> optionalUserBM = userbmRepository.findUserBMById(entDto.getEntAdminDto().getId());
         if(!optionalUserBM.isPresent()){
@@ -58,6 +65,13 @@ public class EnterpriseServiceImpl implements EnterpriseService {
         return true;
     }
 
+    /***
+     * Cette methode verifie si l'objet userBM est du type precise
+     * Elle retourne true si c'est le cas et false dans le cas contraire
+     * @param userBMDto
+     * @param userBMType
+     * @return Boolean
+     */
     Boolean isUserBMIsOfType(UserBMDto userBMDto, UserBMType userBMType){
         Optional<UserBM> optionalUserBM = userbmRepository.findUserBMById(userBMDto.getId());
         if(!optionalUserBM.isPresent()){
@@ -71,6 +85,19 @@ public class EnterpriseServiceImpl implements EnterpriseService {
         return true;
     }
 
+    /****
+     * Cette methode permet d'enregistrer ou d'ajouter une nouvelle entreprise dans le systeme.
+     * Elle lance une exception du type:
+     *      +InvalidEntityException:
+     *          -si la donnee envoye n'est pas valide
+     *          -si l'administrateur indique dans la requete n'existe pas
+     *          -si l'administrateur existe mais n'est pas du type AdminEnterprise
+     *      +DuplicateEntityException:
+     *          -si une entreprise est deja existante avec les memes email, name et niu
+     *
+     * @param entDto
+     * @return EnterpriseDto
+     */
     @Override
     public EnterpriseDto saveEnterprise(EnterpriseDto entDto) {
         /***
@@ -80,7 +107,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
         List<String> errors = EnterpriseValidator.validate(entDto);
         if(!errors.isEmpty()){
             log.error("Entity enterprise not valid {}", entDto);
-            throw new InvalidEntityException("L'entreprise passé en argument n'est pas valide:  "+errors,
+            throw new InvalidEntityException("L'entreprise passe en argument n'est pas valide:  "+errors,
                     ErrorCode.ENTERPRISE_NOT_VALID, errors);
         }
         if(!this.isEnterpriseUnique(entDto.getEntName(), entDto.getEntNiu(),
@@ -89,30 +116,20 @@ public class EnterpriseServiceImpl implements EnterpriseService {
             throw new DuplicateEntityException("Une entreprise existe deja dans la BD avec le meme nom ou le " +
                     "le meme Niu :", ErrorCode.ENTERPRISE_DUPLICATED);
         }
-        if(!Optional.ofNullable(entDto.getEntAdminDto()).isPresent()){
+        if(Optional.ofNullable(entDto.getEntAdminDto()).isPresent()){
             /**
-             *si on est ici alors l'admin n'a pas été précisé dans la requete et la c'est un probleme
-             * puisqu'on ne peut pas créer une entreprise dans administrateur au départ
-             */
-            log.error("An entity Entreprise cannot be created in the DB without Administrator");
-            throw new InvalidEntityException("Une entreprise ne peut etre créer dans la BD sans UserBM " +
-                    "administrateur ", ErrorCode.ENTERPRISE_NOT_VALID);
-        }
-        else{
-            /*
-            Il faut se rassurer que l'admin en question existe vraiment en base de donnée
-            On est sur que celui qui envoi la requete a precisé l'admin mais est que cet admin existe
-            et est vce qu'il a vraiment un UserBM de type AdminEnterprise
+             * Si l'admin n'est pas precise alors la validation va echoue. mais s'il est precise il faut
+             * encore se rassurer que celui qu'on a precise existe en BD et est du bon type
              */
             if(!this.isUserBMAdminOfEnterpriseExist(entDto)){
-                log.error("The administrator precised for that enterprise does not exist in the DB");
-                throw new InvalidEntityException("L'administrateur indiqué dans cette requête n'existe " +
-                        "pas dans la base de donnée", ErrorCode.ENTERPRISE_NOT_VALID);
+                log.error("The administrator precised for that enterprise does not exist");
+                throw new InvalidEntityException("L'administrateur indique dans cette requete n'existe " +
+                        "pas!", ErrorCode.ENTERPRISE_NOT_VALID);
             }
             else{
                 if(!this.isUserBMIsOfType(entDto.getEntAdminDto(), UserBMType.AdminEnterprise)){
-                    log.error("The administrator precised for that enterprise is not a, AdminEnterprise");
-                    throw new InvalidEntityException("L'administrateur indiqué dans cette requête n'est pas " +
+                    log.error("The administrator precised for that enterprise is not an AdminEnterprise");
+                    throw new InvalidEntityException("L'administrateur indique dans cette requete n'est pas " +
                             "du type requis", ErrorCode.ENTERPRISE_NOT_VALID);
                 }
             }
@@ -125,6 +142,22 @@ public class EnterpriseServiceImpl implements EnterpriseService {
         );
     }
 
+    /*********************************************************************************************************
+     *  Cette methode permet de modifier ou de mettre a jour  les donnees d'une entreprise qui
+     *  existe deja dans le systeme. Mais pas son administrateur car c'est dans une autre procedure
+     *  que la mise a jour de l'admistrateur est possible
+     *  Elle lance une exception du type:
+     *      +InvalidEntityException si:
+     *          -L'entreprise a mettre a jour n'est pas valide apres modification
+     *      +EntityNotFoundException si:
+     *          -L'entreprise a mettre a jour n'existe pas dans le systeme donc n'est pas enregistre en BD
+     *      +DuplicateEntityException:
+     *          -Le nouvel email identifie deja une autre adresse
+     *          -Le nouveau nom identifie deja une autre entreprise
+     *          -Le nouveau NIU identifie deja une autre entreprise
+     * @param entDto
+     * @return EnterpriseDto
+     */
     @Override
     public EnterpriseDto updateEnterprise(EnterpriseDto entDto) {
         List<String> errors = EnterpriseValidator.validate(entDto);
@@ -140,7 +173,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
          * entNiu, entName, email
          */
         if(!this.isEnterpriseExistWithId(entDto.getId())){
-            throw new EntityNotFoundException("Le Enterprise a update n'existe pas dans la BD",
+            throw new EntityNotFoundException("L'Enterprise a update n'existe pas dans la BD",
                     ErrorCode.ENTERPRISE_NOT_VALID, errors);
         }
         //Tout est bon et on peut maintenant recuperer l'enterprise a modifier
@@ -168,6 +201,10 @@ public class EnterpriseServiceImpl implements EnterpriseService {
             if(!this.isEnterpriseExistWithEmail(entDto.getEntAddressDto().getEmail())){
                 entToUpdate.getEntAddress().setEmail(entDto.getEntAddressDto().getEmail());
             }
+            else{
+                throw new DuplicateEntityException("Une entreprise existe en BD avec cet email",
+                        ErrorCode.ENTERPRISE_DUPLICATED);
+            }
         }
 
         if(!entToUpdate.getEntName().equalsIgnoreCase(entDto.getEntName())){
@@ -178,6 +215,10 @@ public class EnterpriseServiceImpl implements EnterpriseService {
             if(!this.isEnterpriseExistWithName(entDto.getEntName())){
                 entToUpdate.setEntName(entDto.getEntName());
             }
+            else{
+                throw new DuplicateEntityException("Une entreprise existe en BD avec ce nom",
+                        ErrorCode.ENTERPRISE_DUPLICATED);
+            }
         }
 
         if(!entToUpdate.getEntNiu().equalsIgnoreCase(entDto.getEntNiu())){
@@ -187,6 +228,10 @@ public class EnterpriseServiceImpl implements EnterpriseService {
              */
             if(!this.isEnterpriseExistWithNiu(entDto.getEntNiu())){
                 entToUpdate.setEntNiu(entDto.getEntNiu());
+            }
+            else{
+                throw new DuplicateEntityException("Une entreprise existe en BD avec cet NIU",
+                        ErrorCode.ENTERPRISE_DUPLICATED);
             }
         }
 
@@ -211,6 +256,19 @@ public class EnterpriseServiceImpl implements EnterpriseService {
         return optionalUserBM.isPresent()?true:false;
     }
 
+    /*********************************************************************************************************
+     * Cette methode va permettre de mettre a jour l'admistrateur d'une entreprise.
+     * Elle lance une exception de type:
+     *      +NullArgumentException si: les l'un ou tous les arguments obligatoires de la methode sont null
+     *      +EntityNotFoundException si:
+     *          -l'ID de l'entreprise precise pour lequel l'admin sera change n'identifie aucune Entreprise en BD
+     *          -L'ID du nouvel admin n'identifie aucun userbm en BD
+     *      +IllegalArgumentException si:
+     *          -Le nouveau userBM qu'on veut mettre admin n'est pas dy type requis
+     * @param entId
+     * @param userBMAdminId
+     * @return EnterpriseDto
+     */
     @Override
     public EnterpriseDto setAdminEnterprise(Long entId, Long userBMAdminId) {
         if(entId == null || userBMAdminId == null){
@@ -229,10 +287,10 @@ public class EnterpriseServiceImpl implements EnterpriseService {
         EnterpriseDto entDto = this.findEnterpriseById(entId);
         UserBMDto userBMDtoAdmin = this.findUserBMById(userBMAdminId);
 
-        if(!this.isEnterpriseExistWithId(entDto.getId())){
+        /*if(!this.isEnterpriseExistWithId(entDto.getId())){
             throw new EntityNotFoundException("Le Enterprise a update n'existe pas dans la BD",
                     ErrorCode.ENTERPRISE_NOT_FOUND);
-        }
+        }*/
         //Tout est bon et on peut maintenant recuperer l'enterprise a modifier
         Enterprise entToSetAdmin = EnterpriseDto.toEntity(this.findEnterpriseById(entDto.getId()));
 
@@ -251,8 +309,17 @@ public class EnterpriseServiceImpl implements EnterpriseService {
         return EnterpriseDto.fromEntity(entRepository.save(entToSetAdmin));
     }
 
+    /***********************************************************************************************
+     * Cette methode retourne l'entreprise dont le nom est passe en parametre.
+     * Elle leve un exception du type:
+     *      +NullArgumentException: si le parametre nom envoye pour effectuer la recherche est null
+     *      +EntityNotFoundException: si le nom renseigne n'identifie aucune entreprise dans la BD
+     * @param entName
+     * @return
+     * @throws EntityNotFoundException
+     */
     @Override
-    public EnterpriseDto findEnterpriseByName(String entName) {
+    public EnterpriseDto findEnterpriseByName(String entName) throws EntityNotFoundException {
         if(!StringUtils.hasLength(entName)){
             log.error("Enterprise name is null");
             throw new NullArgumentException("le nom passe en argument de la methode est null: ");
@@ -260,9 +327,17 @@ public class EnterpriseServiceImpl implements EnterpriseService {
 
         Optional<Enterprise> optionalEnterprise = entRepository.findEnterpriseByEntName(entName);
 
-        return Optional.of(EnterpriseDto.fromEntity(optionalEnterprise.get())).orElseThrow(()->
+        if(optionalEnterprise.isPresent()){
+            return EnterpriseDto.fromEntity(optionalEnterprise.get());
+        }
+        else{
+            throw new EntityNotFoundException("Aucune entreprise avec le nom ="+entName
+                    +" n'a été trouve dans la BDD ", ErrorCode.ENTERPRISE_NOT_FOUND);
+        }
+
+        /*return Optional.of(EnterpriseDto.fromEntity(optionalEnterprise.get())).orElseThrow(()->
                 new EntityNotFoundException("Aucune entreprise avec le nom ="+entName
-                        +" n'a été trouve dans la BDD ", ErrorCode.ENTERPRISE_NOT_FOUND));
+                        +" n'a été trouve dans la BDD ", ErrorCode.ENTERPRISE_NOT_FOUND));*/
     }
 
     public Boolean isEnterpriseExistWithName(String entName) {
@@ -285,9 +360,17 @@ public class EnterpriseServiceImpl implements EnterpriseService {
 
         Optional<Enterprise> optionalEnterprise = entRepository.findEnterpriseByEntNiu(entNiu);
 
-        return Optional.of(EnterpriseDto.fromEntity(optionalEnterprise.get())).orElseThrow(()->
+        if(optionalEnterprise.isPresent()){
+            return EnterpriseDto.fromEntity(optionalEnterprise.get());
+        }
+        else {
+            throw new EntityNotFoundException("Aucune entreprise avec le Niu ="+entNiu
+                    +" n'a été trouve dans la BDD ", ErrorCode.ENTERPRISE_NOT_FOUND);
+        }
+
+        /*return Optional.of(EnterpriseDto.fromEntity(optionalEnterprise.get())).orElseThrow(()->
                 new EntityNotFoundException("Aucune entreprise avec le Niu ="+entNiu
-                        +" n'a été trouve dans la BDD ", ErrorCode.ENTERPRISE_NOT_FOUND));
+                        +" n'a été trouve dans la BDD ", ErrorCode.ENTERPRISE_NOT_FOUND));*/
     }
 
     public Boolean isEnterpriseExistWithNiu(String entNiu) {
@@ -345,9 +428,17 @@ public class EnterpriseServiceImpl implements EnterpriseService {
 
         Optional<Enterprise> optionalEnterprise = entRepository.findEnterpriseById(entId);
 
-        return Optional.of(EnterpriseDto.fromEntity(optionalEnterprise.get())).orElseThrow(()->
+        if(optionalEnterprise.isPresent()){
+            return EnterpriseDto.fromEntity(optionalEnterprise.get());
+        }
+        else {
+            throw new EntityNotFoundException("Aucune entreprise avec le id ="+entId
+                    +" n'a ete trouve dans la BDD ", ErrorCode.ENTERPRISE_NOT_FOUND);
+        }
+
+        /*return Optional.of(EnterpriseDto.fromEntity(optionalEnterprise.get())).orElseThrow(()->
                 new EntityNotFoundException("Aucune entreprise avec le id ="+entId
-                        +" n'a été trouve dans la BDD ", ErrorCode.ENTERPRISE_NOT_FOUND));
+                        +" n'a été trouve dans la BDD ", ErrorCode.ENTERPRISE_NOT_FOUND));*/
     }
 
     @Override
@@ -359,11 +450,25 @@ public class EnterpriseServiceImpl implements EnterpriseService {
 
         Optional<UserBM> optionalUserBM = userbmRepository.findUserBMById(userBMId);
 
-        return Optional.of(UserBMDto.fromEntity(optionalUserBM.get())).orElseThrow(()->
+        /*return Optional.of(UserBMDto.fromEntity(optionalUserBM.get())).orElseThrow(()->
                 new EntityNotFoundException("Aucun UserBM avec le id ="+userBMId
-                        +" n'a été trouve dans la BDD ", ErrorCode.USERBM_NOT_FOUND));
+                        +" n'a été trouve dans la BDD ", ErrorCode.USERBM_NOT_FOUND));*/
+        if(optionalUserBM.isPresent()){
+            return UserBMDto.fromEntity(optionalUserBM.get());
+        }
+        else {
+            throw new EntityNotFoundException("Aucun UserBM avec le id ="+userBMId
+                    +" n'a été trouve dans la BDD ", ErrorCode.USERBM_NOT_FOUND);
+        }
     }
 
+    /*************************************************************************************************
+     * Cette methode recherche et supprime de la BD l'entreprise dont le nom est passe en parametre
+     * Elle leve l'exception:
+     *      +NullArgumentException: Si le parametre passe en parametre est null
+     * @param entName
+     * @return
+     */
     @Override
     public boolean deleteEnterpriseByName(String entName) {
         if(!StringUtils.hasLength(entName)){
@@ -398,7 +503,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
             log.error("Enterprise ID is null");
             throw new NullArgumentException("L'id specifie est null");
         }
-        Optional<Enterprise> optionalEnterprise = Optional.of(EnterpriseDto.toEntity(this.findEnterpriseById(entId)));
+        Optional<Enterprise> optionalEnterprise = entRepository.findEnterpriseById(entId);
         if(optionalEnterprise.isPresent()){
             entRepository.delete(optionalEnterprise.get());
             return true;
@@ -468,11 +573,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
     public Integer getNumberofDamage(Long entId) {
         List<PointofsaleDto> listofPosofEnt = this.findAllPosofEnterprise(entId);
         Integer totalDamageofEnt = Integer.valueOf(0);
-        /*for(PointofsaleDto pos: listofPosofEnt){
-            for(PosDamageAccountDto pda : pos.getPosDamageAccountDtoList()){
-                totalDamageofEnt += pda.getPdaNumber();
-            }
-        }*/
+
         return totalDamageofEnt;
     }
 
@@ -480,13 +581,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
     public Integer getNumberofDamage(Long entId, Long artId) {
         List<PointofsaleDto> listofPosofEnt = this.findAllPosofEnterprise(entId);
         Integer totalDamageofEnt = Integer.valueOf(0);
-        for(PointofsaleDto pos: listofPosofEnt){
-            /*for(PosDamageAccountDto pda : pos.getPosDamageAccountDtoList()){
-                if(pda.getPdaArticleDto().getId().equals(artId)){
-                    totalDamageofEnt += pda.getPdaNumber();
-                }
-            }*/
-        }
+
         return totalDamageofEnt;
     }
 
@@ -494,11 +589,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
     public Integer getNumberofCapsule(Long entId) {
         List<PointofsaleDto> listofPosofEnt = this.findAllPosofEnterprise(entId);
         Integer totalCapsuleofEnt = Integer.valueOf(0);
-        /*for(PointofsaleDto pos: listofPosofEnt){
-            for(PosCapsuleAccountDto pca : pos.getPosCapsuleAccountDtoList()){
-                totalCapsuleofEnt += pca.getPcsaNumber();
-            }
-        }*/
+
         return totalCapsuleofEnt;
     }
 
@@ -506,13 +597,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
     public Integer getNumberofCapsule(Long entId, Long artId) {
         List<PointofsaleDto> listofPosofEnt = this.findAllPosofEnterprise(entId);
         Integer totalCapsuleofEnt = Integer.valueOf(0);
-        /*for(PointofsaleDto pos: listofPosofEnt){
-            for(PosCapsuleAccountDto pca : pos.getPosCapsuleAccountDtoList()){
-                if(pca.getPcsaArticleDto().getId().equals(artId)){
-                    totalCapsuleofEnt += pca.getPcsaNumber();
-                }
-            }
-        }*/
+
         return totalCapsuleofEnt;
     }
 
@@ -520,11 +605,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
     public Integer getNumberofPackaging(Long entId) {
         List<PointofsaleDto> listofPosofEnt = this.findAllPosofEnterprise(entId);
         Integer totalPackagingofEnt = Integer.valueOf(0);
-        /*for(PointofsaleDto pos: listofPosofEnt){
-            for(PosPackagingAccountDto ppa : pos.getPosPackagingAccountDtoList()){
-                totalPackagingofEnt += ppa.getPpaNumber();
-            }
-        }*/
+
         return totalPackagingofEnt;
     }
 
@@ -532,13 +613,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
     public Integer getNumberofPackaging(Long entId, Long providerId) {
         List<PointofsaleDto> listofPosofEnt = this.findAllPosofEnterprise(entId);
         Integer totalPackagingofEnt = Integer.valueOf(0);
-        /*for(PointofsaleDto pos: listofPosofEnt){
-            for(PosPackagingAccountDto ppa : pos.getPosPackagingAccountDtoList()){
-                if(ppa.getPpaPackagingDto().getPackProviderDto().getId().equals(providerId)){
-                    totalPackagingofEnt += ppa.getPpaNumber();
-                }
-            }
-        }*/
+
         return totalPackagingofEnt;
     }
 

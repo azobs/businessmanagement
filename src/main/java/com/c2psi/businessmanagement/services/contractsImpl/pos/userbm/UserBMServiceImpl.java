@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.Date;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
 
 @Service(value="UserBMService1")
 @Slf4j
+@Transactional
 public class UserBMServiceImpl implements UserBMService {
 
     private UserBMRepository userBMRepository;

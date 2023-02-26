@@ -18,13 +18,17 @@ import com.c2psi.businessmanagement.services.contracts.pos.pos.PosCashAccountSer
 import com.c2psi.businessmanagement.validators.pos.pos.PosCashAccountValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+@Service(value="PosCashAccountServiceV1")
 @Slf4j
+@Transactional
 public class PosCashAccountServiceImpl implements PosCashAccountService {
 
     private PosCashAccountRepository posCashAccountRepository;

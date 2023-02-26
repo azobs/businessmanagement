@@ -1,10 +1,11 @@
 package com.c2psi.businessmanagement.Enumerations;
 
 public enum RoleType {
-    Pdg,
+    Deliver,
     Dg,
     Manager,
+    Pdg,
     Saler,
-    Deliver,
+
     Storekeeper
 }
