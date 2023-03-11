@@ -98,34 +98,7 @@ public class PointofsaleDto {
                 .posAddressDto(AddressDto.fromEntity(pos.getPosAddress()))
                 .posCashaccountDto(PosCashAccountDto.fromEntity(pos.getPosCashaccount()))
                 .posEnterpriseDto(EnterpriseDto.fromEntity(pos.getPosEnterprise()))
-                /*.clientDtoList(pos.getClientList() != null ?
-                        pos.getClientList().stream()
-                        .map(ClientDto::fromEntity)
-                        .collect(Collectors.toList()) : null)
-                .providerDtoList(pos.getProviderList() != null ?
-                        pos.getProviderList().stream()
-                        .map(ProviderDto::fromEntity)
-                        .collect(Collectors.toList()) : null)
-                .posPackagingAccountDtoList(pos.getPosPackagingAccountList() != null ?
-                        pos.getPosPackagingAccountList().stream()
-                        .map(PosPackagingAccountDto::fromEntity)
-                        .collect(Collectors.toList()) : null)
-                .packagingDtoList(pos.getPackagingList() != null ?
-                        pos.getPackagingList().stream()
-                                .map(PackagingDto::fromEntity)
-                                .collect(Collectors.toList()) : null)
-                .posCapsuleAccountDtoList(pos.getPosCapsuleAccountList() != null ?
-                        pos.getPosCapsuleAccountList().stream()
-                                .map(PosCapsuleAccountDto::fromEntity)
-                                .collect(Collectors.toList()) : null)
-                .posDamageAccountDtoList(pos.getPosDamageAccountList() != null ?
-                        pos.getPosDamageAccountList().stream()
-                                .map(PosDamageAccountDto::fromEntity)
-                                .collect(Collectors.toList()) : null)
-                .articleDtoList(pos.getArticleList() != null ?
-                        pos.getArticleList().stream()
-                        .map(ArticleDto::fromEntity)
-                        .collect(Collectors.toList()) : null)*/
+                .posCurrencyDto(CurrencyDto.fromEntity(pos.getPosCurrency()))
                 .build();
     }
     public static Pointofsale toEntity(PointofsaleDto posDto){
@@ -140,34 +113,7 @@ public class PointofsaleDto {
         pos.setPosAddress(AddressDto.toEntity(posDto.getPosAddressDto()));
         pos.setPosCashaccount(PosCashAccountDto.toEntity(posDto.getPosCashaccountDto()));
         pos.setPosEnterprise(EnterpriseDto.toEntity(posDto.getPosEnterpriseDto()));
-        /*pos.setClientList(posDto.getClientDtoList() != null ?
-                posDto.getClientDtoList().stream()
-                .map(ClientDto::toEntity)
-                .collect(Collectors.toList()) : null);
-        pos.setProviderList(posDto.getProviderDtoList() != null ?
-                posDto.getProviderDtoList().stream()
-                        .map(ProviderDto::toEntity)
-                        .collect(Collectors.toList()) : null);
-        pos.setPosPackagingAccountList(posDto.getPosPackagingAccountDtoList() != null ?
-                posDto.getPosPackagingAccountDtoList().stream()
-                        .map(PosPackagingAccountDto::toEntity)
-                        .collect(Collectors.toList()) : null);
-        pos.setPackagingList(posDto.getPackagingDtoList() != null ?
-                posDto.getPackagingDtoList().stream()
-                        .map(PackagingDto::toEntity)
-                        .collect(Collectors.toList()) : null);
-        pos.setPosCapsuleAccountList(posDto.getPosCapsuleAccountDtoList() != null ?
-                posDto.getPosCapsuleAccountDtoList().stream()
-                        .map(PosCapsuleAccountDto::toEntity)
-                        .collect(Collectors.toList()) : null);
-        pos.setPosDamageAccountList(posDto.getPosDamageAccountDtoList() != null ?
-                posDto.getPosDamageAccountDtoList().stream()
-                        .map(PosDamageAccountDto::toEntity)
-                        .collect(Collectors.toList()) : null);
-        pos.setArticleList(posDto.getArticleDtoList() != null ?
-                posDto.getArticleDtoList().stream()
-                .map(ArticleDto::toEntity)
-                .collect(Collectors.toList()) : null);*/
+        pos.setPosCurrency(CurrencyDto.toEntity(posDto.getPosCurrencyDto()));
         return pos;
     }
 }

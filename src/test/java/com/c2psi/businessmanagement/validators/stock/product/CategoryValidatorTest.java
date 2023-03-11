@@ -16,7 +16,6 @@ public class CategoryValidatorTest {
     public void validate() {
         CategoryDto categoryDto = CategoryDto.builder()
                 .catCode("dsds")
-                .catParentDto(null)
                 .catDescription("sdsds")
                 .catName("sdsdsd")
                 .catPosDto(PointofsaleDto.builder().build())
@@ -33,7 +32,6 @@ public class CategoryValidatorTest {
     public void validateNull() {
         CategoryDto categoryDto = CategoryDto.builder()
                 .catCode("dsds")
-                .catParentDto(null)
                 .catDescription("sdsds")
                 .catName("sdsdsd")
                 .catPosDto(PointofsaleDto.builder().build())
@@ -51,7 +49,6 @@ public class CategoryValidatorTest {
     public void validateNullValue() {
         CategoryDto categoryDto = CategoryDto.builder()
                 .catCode(null)
-                .catParentDto(null)
                 .catDescription(null)
                 .catName(null)
                 .catPosDto(null)
@@ -78,7 +75,6 @@ public class CategoryValidatorTest {
     public void validateEmptyValue() {
         CategoryDto categoryDto = CategoryDto.builder()
                 .catCode("")
-                .catParentDto(null)
                 .catDescription("")
                 .catName("")
                 .catPosDto(PointofsaleDto.builder().build())
@@ -104,7 +100,6 @@ public class CategoryValidatorTest {
     public void validateBlankValue() {
         CategoryDto categoryDto = CategoryDto.builder()
                 .catCode("   ")
-                .catParentDto(null)
                 .catDescription("   ")
                 .catName("   ")
                 .catPosDto(PointofsaleDto.builder().build())
@@ -124,7 +119,6 @@ public class CategoryValidatorTest {
     public void validateSizeValue() {
         CategoryDto categoryDto = CategoryDto.builder()
                 .catCode("aa")
-                .catParentDto(null)
                 .catDescription("   ")
                 .catName("vv")
                 .catPosDto(PointofsaleDto.builder().build())

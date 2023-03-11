@@ -28,10 +28,7 @@ public class Category extends AbstractEntity {
     /******************************
      * Relation between entities  *
      * ****************************/
-    //Each category can have 0 or 1 sub-category
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "cat_parent_id", nullable = false, referencedColumnName = "id")
-    Category catParent;
+
     //Each category belongs to 1 pointofsale
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "pos_id", nullable = false, referencedColumnName = "id")

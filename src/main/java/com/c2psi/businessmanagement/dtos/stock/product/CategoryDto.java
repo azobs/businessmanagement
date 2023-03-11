@@ -21,7 +21,7 @@ public class CategoryDto {
     @NotNull(message = "The category name cannot be null")
     @NotEmpty(message = "The category name cannot be empty")
     @NotBlank(message = "The category name cannot be blank")
-    @Size(min = 3, max = 20, message = "The category name size must be between 3 and 20 characters")
+    @Size(min = 3, max = 50, message = "The category name size must be between 3 and 20 characters")
     String catName;
     @NotEmpty(message = "The category shortname cannot be empty")
     @NotBlank(message = "The category shortname cannot be blank")
@@ -36,9 +36,7 @@ public class CategoryDto {
     /******************************
      * Relation between entities  *
      * ****************************/
-    //Each category can have 0 or 1 sup-category
 
-    CategoryDto catParentDto;
     //Each category belongs to 1 pointofsale
     @NotNull(message = "The pointofsale associated to the category cannot be null")
     PointofsaleDto catPosDto;
@@ -59,7 +57,6 @@ public class CategoryDto {
                 .catShortname(cat.getCatShortname())
                 .catCode(cat.getCatCode())
                 .catDescription(cat.getCatDescription())
-                .catParentDto(CategoryDto.fromEntity(cat.getCatParent()))
                 .catPosDto(PointofsaleDto.fromEntity(cat.getCatPos()))
                 /*.productDtoList(cat.getProductList() != null ?
                         cat.getProductList().stream()
@@ -77,12 +74,8 @@ public class CategoryDto {
         cat.setCatShortname(catDto.getCatShortname());
         cat.setCatCode(catDto.getCatCode());
         cat.setCatDescription(catDto.getCatDescription());
-        cat.setCatParent(CategoryDto.toEntity(catDto.getCatParentDto()));
         cat.setCatPos(PointofsaleDto.toEntity(catDto.getCatPosDto()));
-        /*cat.setProductList(catDto.getProductDtoList() != null ?
-                catDto.getProductDtoList().stream()
-                .map(ProductDto::toEntity)
-                .collect(Collectors.toList()) : null);*/
+
         return cat;
     }
 }

@@ -9,13 +9,17 @@ import com.c2psi.businessmanagement.services.contracts.stock.price.CurrencyConve
 import com.c2psi.businessmanagement.validators.stock.price.CurrencyConversionValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service(value="CurrencyConversionServiceV1")
 @Slf4j
+@Transactional
 public class CurrencyConversionServiceImpl implements CurrencyConversionService {
 
     private CurrencyConversionRepository curConvRepository;
@@ -51,7 +55,7 @@ public class CurrencyConversionServiceImpl implements CurrencyConversionService 
 
     @Override
     public BigDecimal convertTo(BigDecimal amountToConvert, Long currencySourceId, Long currencyDestinationId) {
-        if(currencySourceId == null || currencyDestinationId == null){
+        if(amountToConvert == null || currencySourceId == null || currencyDestinationId == null){
             log.error("currencySourceId or currencyDestinationId is null");
             throw new NullArgumentException("le currencySourceId ou le currencyDestinationId passe en " +
                     "argument de la methode est null");
@@ -81,9 +85,14 @@ public class CurrencyConversionServiceImpl implements CurrencyConversionService 
         }
         Optional<CurrencyConversion> optionalCurConv = curConvRepository.findCurrencyConversionById(curconvId);
 
-        return Optional.of(CurrencyConversionDto.fromEntity(optionalCurConv.get())).orElseThrow(()->
-                new EntityNotFoundException("Aucun Currency Conversion avec l'id "+curconvId
-                        +" n'a été trouve dans la BDD", ErrorCode.CURRENCYCONVERSION_NOT_FOUND));
+        if(optionalCurConv.isPresent()){
+            return CurrencyConversionDto.fromEntity(optionalCurConv.get());
+        }
+        else{
+            throw  new EntityNotFoundException("Aucun Currency Conversion avec l'id "+curconvId
+                    +" n'a été trouve dans la BDD", ErrorCode.CURRENCYCONVERSION_NOT_FOUND);
+        }
+
     }
 
     public Boolean isCurrencyConversionExist(Long currencySourceId, Long currencyDestinationId) {
@@ -104,9 +113,13 @@ public class CurrencyConversionServiceImpl implements CurrencyConversionService 
             throw new NullArgumentException("le currencySourceId ou le currencyDestinationId passe en " +
                     "argument de la methode est null");
         }
-        Optional<CurrencyConversion> optionalCurConv = curConvRepository.findConversionRuleBetween(currencySourceId,
+        Optional<CurrencyConversion> optionalCurConv1 = curConvRepository.findConversionRuleBetween(currencySourceId,
                 currencyDestinationId);
-        return optionalCurConv.isPresent()?false:true;
+        Boolean b1= optionalCurConv1.isPresent()?Boolean.FALSE:Boolean.TRUE;
+        Optional<CurrencyConversion> optionalCurConv2 = curConvRepository.findConversionRuleBetween(currencyDestinationId,
+                currencySourceId);
+        Boolean b2= optionalCurConv2.isPresent()?Boolean.FALSE:Boolean.TRUE;
+        return b1 && b2;
     }
 
     @Override

@@ -8,9 +8,10 @@ import java.util.List;
 public interface CategoryService {
     List<CategoryDto> findAllCategory(PointofsaleDto posDto);
     CategoryDto saveCategory(CategoryDto catDto);
-    CategoryDto findCategory(String catCode, PointofsaleDto posDto);
-    CategoryDto findCategory(Long catId);
+    CategoryDto findCategoryByCode(String catCode, PointofsaleDto posDto);
+    CategoryDto findCategoryById(Long catId);
     Boolean categoryIsUnique(String catCode, PointofsaleDto posDto);
     Boolean isCatageryEmpty(CategoryDto catDto);
+    Boolean isCatageryUnique(String catCode, PointofsaleDto posDto);
     Boolean deleteCategoryById(Long catId);
 }

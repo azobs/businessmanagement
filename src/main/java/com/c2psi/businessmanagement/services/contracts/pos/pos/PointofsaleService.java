@@ -52,20 +52,31 @@ public interface PointofsaleService {
      */
     PointofsaleDto savePointofsale(PointofsaleDto posDto);
 
-    PointofsaleDto findPosByNameInEnterprise(String posName, EnterpriseDto entDto);
+    PointofsaleDto updatePointofsale(PointofsaleDto posDto);
+
+    PointofsaleDto findPointofsaleById(Long posId);
+
+    PointofsaleDto findPosInEnterpriseByName(String posName, EnterpriseDto entDto);
     Boolean isPosUnique(String posName, EnterpriseDto entDto);
 
     boolean deletePosById(Long posId);
 
-    boolean deletePosByNameInEnterprise (String posName, EnterpriseDto entDto);
+    boolean deletePosInEnterpriseByName (String posName, EnterpriseDto entDto);
 
-    /*****************************************************************************
-     * Return the list of currency that a conversion rules exist that link a
-     * currency with the default currency of the pointofsale
+    /********************************************************************************
+     * Return the list of currency that a conversion rules exist with the default
+     * currency of the pointofsale. In such a way that for every operation in the
+     * pointofsale, if the user don't want to use the default currency he can uses
+     * a currency that is in relation with the default one.
      * @param posDto
      * @return
      */
     List<CurrencyDto> listofConvertibleCurrency(PointofsaleDto posDto);
 
+    /****************************************************************************************
+     * Return the default currency of a pointofsale
+     * @param posDto
+     * @return
+     */
     CurrencyDto findDefaultCurrency(PointofsaleDto posDto);
 }

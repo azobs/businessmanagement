@@ -11,19 +11,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Service(value="CurrencyServiceV1")
 @Slf4j
+@Transactional
 public class CurrencyServiceImpl implements CurrencyService {
 
     private CurrencyRepository currencyRepository;
 
     @Autowired
     public CurrencyServiceImpl(CurrencyRepository currencyRepository) {
+
         this.currencyRepository = currencyRepository;
     }
 
@@ -32,7 +37,7 @@ public class CurrencyServiceImpl implements CurrencyService {
         List<String> errors = CurrencyValidator.validate(currencyDto);
         if(!errors.isEmpty()){
             log.error("Entity currencyDto not valid {}", currencyDto);
-            throw new InvalidEntityException("Le currencyDto passé en argument n'est pas valide: "+errors,
+            throw new InvalidEntityException("Le currencyDto passé en argument n'est pas valide: ",
                     ErrorCode.CURRENCY_NOT_VALID, errors);
         }
 
@@ -118,9 +123,14 @@ public class CurrencyServiceImpl implements CurrencyService {
         Optional<Currency> optionalCurrency = currencyRepository.
                 findCurrencyByCurrencyNameAndAndCurrencyShortname(currencyName, currencyShortName);
 
-        return Optional.of(CurrencyDto.fromEntity(optionalCurrency.get())).orElseThrow(()->
-                new EntityNotFoundException("Aucun Currency avec le fullname "+currencyName+"  "+currencyShortName
-                        +" n'a été trouve dans la BDD", ErrorCode.CURRENCY_NOT_FOUND));
+        if(optionalCurrency.isPresent()){
+            return CurrencyDto.fromEntity(optionalCurrency.get());
+        }
+        else{
+            throw new EntityNotFoundException("Aucun Currency avec le fullname "+currencyName+"  "+currencyShortName
+                    +" n'a été trouve dans la BDD", ErrorCode.CURRENCY_NOT_FOUND);
+        }
+
     }
 
     @Override
@@ -131,9 +141,14 @@ public class CurrencyServiceImpl implements CurrencyService {
         }
         Optional<Currency> optionalCurrency = currencyRepository.findCurrencyById(currencyId);
 
-        return Optional.of(CurrencyDto.fromEntity(optionalCurrency.get())).orElseThrow(()->
-                new EntityNotFoundException("Aucun Currency avec l'id "+currencyId
-                        +" n'a été trouve dans la BDD", ErrorCode.CURRENCY_NOT_FOUND));
+        if(optionalCurrency.isPresent()){
+            return CurrencyDto.fromEntity(optionalCurrency.get());
+        }
+        else{
+            throw new EntityNotFoundException("Aucun Currency avec l'id "+currencyId
+                    +" n'a été trouve dans la BDD", ErrorCode.CURRENCY_NOT_FOUND);
+        }
+
     }
 
     public Boolean isCurrencyExistWithFullname(String currencyName, String currencyShortName) {

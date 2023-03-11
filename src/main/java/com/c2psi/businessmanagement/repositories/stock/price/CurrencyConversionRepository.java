@@ -13,6 +13,10 @@ public interface CurrencyConversionRepository
 
     @Query("SELECT curconv FROM CurrencyConversion  curconv WHERE curconv.currencySource.id=:currencySourceId AND curconv.currencyDestination.id=:currencyDestinationId")
     Optional<CurrencyConversion> findConversionRuleBetween(Long currencySourceId, Long currencyDestinationId);
+
+    @Query("SELECT curconv FROM CurrencyConversion  curconv WHERE (curconv.currencySource.id=:currencySourceId AND curconv.currencyDestination.id=:currencyDestinationId) OR (curconv.currencySource.id=:currencyDestinationId AND curconv.currencyDestination.id=:currencySourceId)")
+    Optional<CurrencyConversion> findConversionRuleBetweenViceVersa(Long currencySourceId, Long currencyDestinationId);
+
     @Query("SELECT curconv FROM CurrencyConversion curconv WHERE curconv.currencySource.id=:currencySource")
     Optional<List<CurrencyConversion>> findAllCurrencyConversionLinkWith(Long currencySource);
 }

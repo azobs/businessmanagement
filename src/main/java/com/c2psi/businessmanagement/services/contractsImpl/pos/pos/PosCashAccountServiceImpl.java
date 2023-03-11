@@ -87,9 +87,14 @@ public class PosCashAccountServiceImpl implements PosCashAccountService {
         }
         Optional<UserBM> optionalUserBM = userBMRepository.findUserBMById(bmId);
 
-        return Optional.of(UserBMDto.fromEntity(optionalUserBM.get())).orElseThrow(()->
-                new EntityNotFoundException("Aucun UserBM avec l'id "+bmId
-                        +" n'a été trouve dans la BDD", ErrorCode.USERBM_NOT_FOUND));
+        if(optionalUserBM.isPresent()){
+            return UserBMDto.fromEntity(optionalUserBM.get());
+        }
+        else{
+            throw new EntityNotFoundException("Aucun UserBM avec l'id "+bmId
+                    +" n'a été trouve dans la BDD", ErrorCode.USERBM_NOT_FOUND);
+        }
+
     }
 
     @Override
@@ -100,9 +105,13 @@ public class PosCashAccountServiceImpl implements PosCashAccountService {
         }
         Optional<PosCashAccount> optionalPosCashAccount = posCashAccountRepository.findPosCashAccountById(pcaId);
 
-        return Optional.of(PosCashAccountDto.fromEntity(optionalPosCashAccount.get())).orElseThrow(()->
-                new EntityNotFoundException("Aucune PosCashAccount avec l'id "+pcaId
-                        +" n'a été trouve dans la BDD", ErrorCode.POSCASHACCOUNT_NOT_FOUND));
+        if(optionalPosCashAccount.isPresent()){
+            return PosCashAccountDto.fromEntity(optionalPosCashAccount.get());
+        }
+        else{
+            throw new EntityNotFoundException("Aucune PosCashAccount avec l'id "+pcaId
+                    +" n'a été trouve dans la BDD", ErrorCode.POSCASHACCOUNT_NOT_FOUND);
+        }
     }
 
 
@@ -123,21 +132,23 @@ public class PosCashAccountServiceImpl implements PosCashAccountService {
         PosCashAccount pca = PosCashAccountDto.toEntity(this.findPosCashAccountById(pcaId));
         UserBM userBM = UserBMDto.toEntity(this.findUserBMById(userbmId));
         BigDecimal solde = pca.getPcaBalance();
+        BigDecimal updatedSolde = BigDecimal.valueOf(0.0);
+
         /***
          * On doit ici enregistrer un depot dans un compte cash d'un point de vente. Pour cela il
          * faut ajouter le montant de la transaction au solde du compte et ensuite enregistrer l'operation ainsi
          * réalise
          */
         if(operationType.equals(OperationType.Credit)){
-            solde.add(amount);
+            updatedSolde = solde.add(amount);//Car BigDecimal est immutable on peut pas directement modifier sa valeur
         }
         else{
-            solde.subtract(amount);
+            updatedSolde = solde.subtract(amount);
         }
-        pca.setPcaBalance(solde);
+
+        pca.setPcaBalance(updatedSolde);
         //Il faut save le PosCashAccount
         posCashAccountRepository.save(pca);
-
         //Preparation de l'enregistrement de l'operation correspondante
         PosCashOperation pco = new PosCashOperation();
         pco.setPoscoAmountinmvt(amount);
@@ -148,6 +159,7 @@ public class PosCashAccountServiceImpl implements PosCashAccountService {
         op.setOpDate(new Date().toInstant());
         op.setOpDescription(opDescription);
         op.setOpObject(opObject);
+        op.setOpType(operationType);
         pco.setPoscoOperation(op);
         //Il faut save le PosCashOperation
         posCashOperationRepository.save(pco);
