@@ -88,7 +88,7 @@ public class CurrencyServiceImpl implements CurrencyService {
 
     @Override
     public List<CurrencyDto> listofExistingCurrency() {
-        List<Currency> listofCurrency = currencyRepository.findAll();
+        List<Currency> listofCurrency = currencyRepository.findAll(Sort.by(Sort.Direction.ASC, "currencyName"));
         return listofCurrency.stream().map(CurrencyDto::fromEntity).collect(Collectors.toList());
     }
 

@@ -462,10 +462,28 @@ public class EnterpriseServiceImpl implements EnterpriseService {
         }
     }
 
+    public Boolean deleteEnterprise(Enterprise ent){
+        /***
+         * It is not possible to detroy an enterprise wich contain pointofsale already
+         */
+        System.out.println("ici3");
+        List<PointofsaleDto> pointofsaleDtoList = findAllPosofEnterprise(ent.getId());
+        if(pointofsaleDtoList.size() == 0){
+            System.out.println("ici4");
+            entRepository.delete(ent);
+            return true;
+        }
+        System.out.println("ici5");
+        throw new EntityNotRemovableException("L'entreprise d'ID "+ent.getId()
+             +" ne peut etre supprime car contient au moins un pointofsale ", ErrorCode.ENTERPRISE_NOT_REMOVABLE);
+
+    }
+
     /*************************************************************************************************
      * Cette methode recherche et supprime de la BD l'entreprise dont le nom est passe en parametre
      * Elle leve l'exception:
      *      +NullArgumentException: Si le parametre passe en parametre est null
+     *      +EntityNotRemovableException: Si le parametre passe imbrique dautres
      * @param entName
      * @return
      */
@@ -477,8 +495,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
         }
         Optional<Enterprise> optionalEnterprise = entRepository.findEnterpriseByEntName(entName);
         if(optionalEnterprise.isPresent()){
-            entRepository.delete(optionalEnterprise.get());
-            return true;
+            return deleteEnterprise(optionalEnterprise.get());
         }
         return false;
     }
@@ -491,8 +508,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
         }
         Optional<Enterprise> optionalEnterprise = entRepository.findEnterpriseByEntNiu(entNiu);
         if(optionalEnterprise.isPresent()){
-            entRepository.delete(optionalEnterprise.get());
-            return true;
+            return deleteEnterprise(optionalEnterprise.get());
         }
         return false;
     }
@@ -503,10 +519,11 @@ public class EnterpriseServiceImpl implements EnterpriseService {
             log.error("Enterprise ID is null");
             throw new NullArgumentException("L'id specifie est null");
         }
+        System.out.println("ici1");
         Optional<Enterprise> optionalEnterprise = entRepository.findEnterpriseById(entId);
         if(optionalEnterprise.isPresent()){
-            entRepository.delete(optionalEnterprise.get());
-            return true;
+            System.out.println("ici2");
+            return deleteEnterprise(optionalEnterprise.get());
         }
         return false;
     }

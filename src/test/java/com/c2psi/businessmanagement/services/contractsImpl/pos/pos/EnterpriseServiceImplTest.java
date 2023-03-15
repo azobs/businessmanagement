@@ -4,19 +4,20 @@ import com.c2psi.businessmanagement.BusinessmanagementApplication;
 import com.c2psi.businessmanagement.Enumerations.UserBMState;
 import com.c2psi.businessmanagement.Enumerations.UserBMType;
 import com.c2psi.businessmanagement.dtos.pos.pos.EnterpriseDto;
+import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.AddressDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
-import com.c2psi.businessmanagement.exceptions.DuplicateEntityException;
-import com.c2psi.businessmanagement.exceptions.EntityNotFoundException;
-import com.c2psi.businessmanagement.exceptions.InvalidEntityException;
-import com.c2psi.businessmanagement.exceptions.NullArgumentException;
+import com.c2psi.businessmanagement.exceptions.*;
+import com.c2psi.businessmanagement.services.contractsImpl.UsedForTest;
 import com.c2psi.businessmanagement.services.contractsImpl.pos.userbm.UserBMServiceImpl;
+import com.c2psi.businessmanagement.services.contractsImpl.stock.price.CurrencyServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.lang.IllegalArgumentException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -31,6 +32,12 @@ public class EnterpriseServiceImplTest {
     UserBMServiceImpl userBMService;
     @Autowired
     EnterpriseServiceImpl enterpriseService;
+
+    @Autowired
+    PointofsaleServiceImpl pointofsaleService;
+
+    @Autowired
+    CurrencyServiceImpl currencyService;
 
     @Test
     public void saveEnterprise_Valid() {
@@ -1584,6 +1591,23 @@ public class EnterpriseServiceImplTest {
         catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test(expected = EntityNotRemovableException.class)
+    public void deleteEnterprise_NotEmpty(){
+        assertNotNull(pointofsaleService);
+        assertNotNull(enterpriseService);
+        assertNotNull(userBMService);
+        UsedForTest usedForTest = new UsedForTest();
+        PointofsaleDto pointofsaleDto = usedForTest.savePointofsale("depot foret bar", "D2D",
+                "depot de boisson", "d2d@gmail.com", "676170067", 0.0,
+                "Franc cfa", "F cfa", pointofsaleService, enterpriseService,
+                userBMService, currencyService);
+        assertNotNull(pointofsaleDto);
+        assertNotNull(pointofsaleDto.getPosEnterpriseDto());
+        assertNotNull(pointofsaleDto.getPosEnterpriseDto().getId());
+        enterpriseService.deleteEnterpriseById(pointofsaleDto.getPosEnterpriseDto().getId());
+        //The above line is supposed to launch the exception expected
     }
 
     @Test

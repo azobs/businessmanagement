@@ -101,6 +101,34 @@ public class UsedForTest {
         return enterpriseDtoSaved;
     }
 
+    public EnterpriseDto saveEnterprise(String niu, String acronym, String description, String name, String regime,
+                                        String socialReason, EnterpriseService enterpriseService,
+                                        UserBMService userBMService){
+        UserBMDto userBMSaved = saveUserBM("useradmin", "admin", "testemail1@gmail.com",
+                "107230260", userBMService);
+        EnterpriseDto enterpriseDtoToSave = EnterpriseDto.builder()
+                .entAdminDto(userBMSaved)
+                .entAddressDto(AddressDto.builder()
+                        .email("testsaveent@gmail.com")
+                        .localisation("")
+                        .numtel1("678470262")
+                        .numtel2("695093228")
+                        .numtel3("676170067")
+                        .pays("Cameroun")
+                        .quartier("Foret bar")
+                        .ville("Douala")
+                        .build())
+                .entNiu(niu)
+                .entAcronym(acronym)
+                .entDescription(description)
+                .entName(name)
+                .entRegime(regime)
+                .entSocialreason(socialReason)
+                .build();
+        EnterpriseDto enterpriseDtoSaved = enterpriseService.saveEnterprise(enterpriseDtoToSave);
+        return enterpriseDtoSaved;
+    }
+
     public PosCashAccountDto preparePosCashAccount(double solde){
         PosCashAccountDto posCashAccountToSaved = PosCashAccountDto.builder()
                 .pcaBalance(BigDecimal.valueOf(solde))
@@ -131,6 +159,28 @@ public class UsedForTest {
         return pointofsaleSaved;
     }
 
+    public PointofsaleDto savePointofsale(String posName, String posAcronym, String posDescription,
+                           String posEmail, String posNumtel1, double accountBalance,
+                           EnterpriseDto enterpriseDto, CurrencyDto currencyDto, PointofsaleService pointofsaleService){
+
+        AddressDto posAddress = getAddressDto(posEmail, posNumtel1);
+        PosCashAccountDto posPca = preparePosCashAccount(accountBalance);
+        assertNotNull(currencyDto.getId());
+        assertNotNull(enterpriseDto.getId());
+        PointofsaleDto pointofsaleToSaved = PointofsaleDto.builder()
+                .posAddressDto(posAddress)
+                .posEnterpriseDto(enterpriseDto)
+                .posCashaccountDto(posPca)
+                .posAcronym(posAcronym)
+                .posDescription(posDescription)
+                .posName(posName)
+                .posCurrencyDto(currencyDto)
+                .build();
+        PointofsaleDto pointofsaleSaved = pointofsaleService.savePointofsale(pointofsaleToSaved);
+        return pointofsaleSaved;
+
+    }
+
     public CategoryDto saveCategory(String catName, String catShortname, String catCode, String catDescription,
                                     PointofsaleDto posDto, CategoryService categoryService){
 
@@ -143,6 +193,11 @@ public class UsedForTest {
                 .build();
         CategoryDto categoryDtoSaved = categoryService.saveCategory(categoryDtoToSaved);
         return categoryDtoSaved;
+    }
+
+    public CategoryDto  updateCategory(CategoryDto categoryDtoToUpdate, CategoryService categoryService){
+        CategoryDto categoryDtoUpdated = categoryService.updateCategory(categoryDtoToUpdate);
+        return categoryDtoUpdated;
     }
 
 }

@@ -132,6 +132,7 @@ public class PointofsaleServiceImpl implements PointofsaleService {
             throw new DuplicateEntityException("Un Pointofsale existe deja dans l'entreprise precise avec  " +
                     "le meme nom :", ErrorCode.POINTOFSALE_DUPLICATED);
         }
+
         log.info("After all verification, the record {} can be done on the DB", posDto);
 
         return PointofsaleDto.fromEntity(
@@ -274,6 +275,7 @@ public class PointofsaleServiceImpl implements PointofsaleService {
         }
     }
 
+    @Override
     public Boolean isPointofsaleExistWithId(Long posId) {
         if(posId == null){
             log.error("posId is null");
