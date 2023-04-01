@@ -28,6 +28,7 @@ public interface CurrencyConversionService {
                                                     Long currencyDestinationId);
 
     List<CurrencyDto> listofConvertibleCurrencyWith(Long currencySourceId);
+    Boolean isCurrencyConversionDeleteable(Long curconvId);
     Boolean deleteCurrencyConversionById(Long id);
     Boolean deleteCurrencyConversionByCurrencyLink(Long currencySourceId, Long currencyDestinationId);
 }

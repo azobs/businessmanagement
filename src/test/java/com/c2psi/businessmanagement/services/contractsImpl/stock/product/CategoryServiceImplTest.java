@@ -1,14 +1,15 @@
 package com.c2psi.businessmanagement.services.contractsImpl.stock.product;
 
 import com.c2psi.businessmanagement.BusinessmanagementApplication;
-import com.c2psi.businessmanagement.dtos.pos.pos.EnterpriseDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
-import com.c2psi.businessmanagement.dtos.stock.price.CurrencyDto;
 import com.c2psi.businessmanagement.dtos.stock.product.CategoryDto;
 import com.c2psi.businessmanagement.exceptions.DuplicateEntityException;
 import com.c2psi.businessmanagement.exceptions.EntityNotFoundException;
 import com.c2psi.businessmanagement.exceptions.InvalidEntityException;
-import com.c2psi.businessmanagement.exceptions.NullArgumentException;
+import com.c2psi.businessmanagement.services.contracts.pos.pos.EnterpriseService;
+import com.c2psi.businessmanagement.services.contracts.pos.pos.PointofsaleService;
+import com.c2psi.businessmanagement.services.contracts.pos.userbm.UserBMService;
+import com.c2psi.businessmanagement.services.contracts.stock.price.CurrencyService;
 import com.c2psi.businessmanagement.services.contractsImpl.UsedForTest;
 import com.c2psi.businessmanagement.services.contractsImpl.pos.pos.EnterpriseServiceImpl;
 import com.c2psi.businessmanagement.services.contractsImpl.pos.pos.PointofsaleServiceImpl;
@@ -22,21 +23,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = BusinessmanagementApplication.class)
 public class CategoryServiceImplTest {
     @Autowired
-    PointofsaleServiceImpl pointofsaleService;
-    @Autowired
     CategoryServiceImpl categoryService;
     @Autowired
     EnterpriseServiceImpl enterpriseService;
+    @Autowired
+    PointofsaleServiceImpl pointofsaleService;
     @Autowired
     UserBMServiceImpl userBMService;
     @Autowired
@@ -45,708 +43,842 @@ public class CategoryServiceImplTest {
     CurrencyServiceImpl currencyService;
 
     @Test
-    public void saveCategory_Valid(){
-        assertNotNull(enterpriseService);
-        assertNotNull(pointofsaleService);
-        assertNotNull(userBMService);
-        assertNotNull(posCashAccountService);
-        assertNotNull(currencyService);
-        assertNotNull(categoryService);
+    public void validateNullParentCategory(){
+        String posName = "Depot djoutsa";
+        String posAcronym = "D2D";
+        String posDescription = "Les depots de Madame Djoutsa";
+        String posEmail = "d2demail@gmail.com";
+        String posNumtel1 = "689457412";
+        double accountBalance = 0;
+        String currencyName = "Franc cfa";
+        String currencyShortname = "F cfa";
+        PointofsaleService pointofsaleService = this.pointofsaleService;
+        EnterpriseService enterpriseService = this.enterpriseService;
+        UserBMService userBMService = this.userBMService;
+        CurrencyService currencyService = this.currencyService;
 
-        UsedForTest usedForTest = new UsedForTest();
-        System.out.println("Called for a function "+ usedForTest.justToTest());
+        PointofsaleDto pointofsaleDtoSaved = new UsedForTest().savePointofsale(posName, posAcronym, posDescription, posEmail, posNumtel1, accountBalance,
+                currencyName, currencyShortname, pointofsaleService, enterpriseService, userBMService, currencyService);
 
-        PointofsaleDto pointofsaleDtoSaved = usedForTest.savePointofsale("depot foret bar", "D2D",
-                "depot de boisson", "d2d@gmail.com", "676170067", 0.0,
-                "Franc cfa", "F cfa",pointofsaleService, enterpriseService,
-                userBMService, currencyService);
         assertNotNull(pointofsaleDtoSaved);
 
-        CategoryDto categoryDtoSaved = usedForTest.saveCategory("BIERE ALCOOLISEE", "Biere",
-                "BIERE", "Biere alcoolisee", pointofsaleDtoSaved, categoryService);
+        CategoryDto categoryDtoToSaved = CategoryDto.builder()
+                .catPosDto(pointofsaleDtoSaved)
+                .categoryParentId(null)
+                .catDescription("description de la categorie 1")
+                .catCode("cat code1")
+                .catShortname("cat1")
+                .catName("Cat Name1")
+                .build();
+
+        CategoryDto categoryDtoSaved = categoryService.saveCategory(categoryDtoToSaved);
         assertNotNull(categoryDtoSaved);
-    }
-
-    @Test(expected = InvalidEntityException.class)
-    public void saveCategory_InValid(){
-        assertNotNull(enterpriseService);
-        assertNotNull(pointofsaleService);
-        assertNotNull(userBMService);
-        assertNotNull(posCashAccountService);
-        assertNotNull(currencyService);
-        assertNotNull(categoryService);
-
-        UsedForTest usedForTest = new UsedForTest();
-        System.out.println("Called for a function "+ usedForTest.justToTest());
-
-        PointofsaleDto pointofsaleDtoSaved = usedForTest.savePointofsale("depot foret bar", "D2D",
-                "depot de boisson", "d2d@gmail.com", "676170067", 0.0,
-                "Franc cfa", "F cfa",pointofsaleService, enterpriseService,
-                userBMService, currencyService);
-        assertNotNull(pointofsaleDtoSaved);
-
-        CategoryDto categoryDtoSaved = usedForTest.saveCategory("", "Biere",
-                "BIERE", "Biere alcoolisee",  pointofsaleDtoSaved, categoryService);
-        //The above line is supposed to launch the exception expected
-    }
-
-    @Test(expected = EntityNotFoundException.class)
-    public void saveCategory_PosNotFound(){
-        assertNotNull(enterpriseService);
-        assertNotNull(pointofsaleService);
-        assertNotNull(userBMService);
-        assertNotNull(posCashAccountService);
-        assertNotNull(currencyService);
-        assertNotNull(categoryService);
-
-        UsedForTest usedForTest = new UsedForTest();
-        System.out.println("Called for a function "+ usedForTest.justToTest());
-
-        PointofsaleDto pointofsaleDtoSaved = usedForTest.savePointofsale("depot foret bar", "D2D",
-                "depot de boisson", "d2d@gmail.com", "676170067", 0.0,
-                "Franc cfa", "F cfa",pointofsaleService, enterpriseService,
-                userBMService, currencyService);
-        assertNotNull(pointofsaleDtoSaved);
-        pointofsaleDtoSaved.setId(Long.valueOf(10000));
-        CategoryDto categoryDtoSaved = usedForTest.saveCategory("BIERE ALCOOLISEE", "Biere",
-                "BIERE", "Biere alcoolisee", pointofsaleDtoSaved, categoryService);
-        //The above line is supposed to launch the exception expected
-    }
-
-    @Test(expected = DuplicateEntityException.class)
-    public void saveCategory_DuplicateCat(){
-        assertNotNull(enterpriseService);
-        assertNotNull(pointofsaleService);
-        assertNotNull(userBMService);
-        assertNotNull(posCashAccountService);
-        assertNotNull(currencyService);
-        assertNotNull(categoryService);
-
-        UsedForTest usedForTest = new UsedForTest();
-        System.out.println("Called for a function "+ usedForTest.justToTest());
-
-        PointofsaleDto pointofsaleDtoSaved = usedForTest.savePointofsale("depot foret bar", "D2D",
-                "depot de boisson", "d2d@gmail.com", "676170067", 0.0,
-                "Franc cfa", "F cfa",pointofsaleService, enterpriseService,
-                userBMService, currencyService);
-        assertNotNull(pointofsaleDtoSaved);
-        CategoryDto categoryDtoSaved1 = usedForTest.saveCategory("BIERE ALCOOLISEE", "Biere",
-                "BIERE", "Biere alcoolisee",  pointofsaleDtoSaved, categoryService);
-        assertNotNull(categoryDtoSaved1);
-        CategoryDto categoryDtoSaved2 = usedForTest.saveCategory("BIERE ALCOOLISEERE", "Bieredss",
-                "BIERE", "Biere alcoolisee",  pointofsaleDtoSaved, categoryService);
-        //The above line is supposed to launch the exception expected
     }
 
     @Test
-    public void updateCategory_Valid(){
-        assertNotNull(enterpriseService);
-        assertNotNull(pointofsaleService);
-        assertNotNull(userBMService);
-        assertNotNull(posCashAccountService);
-        assertNotNull(currencyService);
-        assertNotNull(categoryService);
+    public void validateNotNullParentCategory(){
+        String posName = "Depot djoutsa";
+        String posAcronym = "D2D";
+        String posDescription = "Les depots de Madame Djoutsa";
+        String posEmail = "d2demail@gmail.com";
+        String posNumtel1 = "689457412";
+        double accountBalance = 0;
+        String currencyName = "Franc cfa";
+        String currencyShortname = "F cfa";
+        PointofsaleService pointofsaleService = this.pointofsaleService;
+        EnterpriseService enterpriseService = this.enterpriseService;
+        UserBMService userBMService = this.userBMService;
+        CurrencyService currencyService = this.currencyService;
 
-        UsedForTest usedForTest = new UsedForTest();
-        System.out.println("Called for a function "+ usedForTest.justToTest());
+        PointofsaleDto pointofsaleDtoSaved = new UsedForTest().savePointofsale(posName, posAcronym, posDescription, posEmail, posNumtel1, accountBalance,
+                currencyName, currencyShortname, pointofsaleService, enterpriseService, userBMService, currencyService);
 
-        PointofsaleDto pointofsaleDtoSaved = usedForTest.savePointofsale("depot foret bar", "D2D",
-                "depot de boisson", "d2d@gmail.com", "676170067", 0.0,
-                "Franc cfa", "F cfa",pointofsaleService, enterpriseService,
-                userBMService, currencyService);
         assertNotNull(pointofsaleDtoSaved);
+        String catCode = "catCode1";
+        String catName = "catName1";
+        String catDescription = "catDescription1";
+        String catShortname = "catShortname1";
+        Long catParentId  = null;
 
-        CategoryDto categoryDtoSaved = usedForTest.saveCategory("BIERE ALCOOLISEE", "Biere",
-                "BIERE", "Biere alcoolisee", pointofsaleDtoSaved, categoryService);
-        assertNotNull(categoryDtoSaved);
-        //Une fois enregistrer, on va le mettre a jour en modifiant tout jusqua son code
-        categoryDtoSaved.setCatCode("BIERETTE");
-        categoryDtoSaved.setCatShortname("Bierrette");
-        categoryDtoSaved.setCatName("Bierrette alcoolisee");
-        categoryDtoSaved.setCatDescription("Description des bierrettes alcoolisee");
-
-        CategoryDto categoryDtoUpdated = usedForTest.updateCategory(categoryDtoSaved, categoryService);
-        assertNotNull(categoryDtoUpdated);
-        assertEquals("BIERETTE", categoryDtoUpdated.getCatCode());
-    }
-
-    @Test(expected = InvalidEntityException.class)
-    public void updateCategory_InValid(){
-        assertNotNull(enterpriseService);
-        assertNotNull(pointofsaleService);
-        assertNotNull(userBMService);
-        assertNotNull(posCashAccountService);
-        assertNotNull(currencyService);
-        assertNotNull(categoryService);
-
-        UsedForTest usedForTest = new UsedForTest();
-        System.out.println("Called for a function "+ usedForTest.justToTest());
-
-        PointofsaleDto pointofsaleDtoSaved = usedForTest.savePointofsale("depot foret bar", "D2D",
-                "depot de boisson", "d2d@gmail.com", "676170067", 0.0,
-                "Franc cfa", "F cfa",pointofsaleService, enterpriseService,
-                userBMService, currencyService);
-        assertNotNull(pointofsaleDtoSaved);
-
-        CategoryDto categoryDtoSaved = usedForTest.saveCategory("BIERE ALCOOLISEE", "Biere",
-                "BIERE", "Biere alcoolisee", pointofsaleDtoSaved, categoryService);
-        assertNotNull(categoryDtoSaved);
-        //Une fois enregistrer, on va le mettre a jour en modifiant tout jusqua son code
-        categoryDtoSaved.setCatCode("");//Pour generer l'exception souhaitee
-        categoryDtoSaved.setCatShortname("Bierrette");
-        categoryDtoSaved.setCatName("Bierrette alcoolisee");
-        categoryDtoSaved.setCatDescription("Description des bierrettes alcoolisee");
-
-        CategoryDto categoryDtoUpdated = usedForTest.updateCategory(categoryDtoSaved, categoryService);
-        //The above line is supposed to launch the expected exception
-    }
-
-    @Test(expected=InvalidEntityException.class)
-    public void updateCategory_Nullparam(){
-        assertNotNull(enterpriseService);
-        assertNotNull(pointofsaleService);
-        assertNotNull(userBMService);
-        assertNotNull(posCashAccountService);
-        assertNotNull(currencyService);
-        assertNotNull(categoryService);
-
-        UsedForTest usedForTest = new UsedForTest();
-        System.out.println("Called for a function "+ usedForTest.justToTest());
-
-        PointofsaleDto pointofsaleDtoSaved = usedForTest.savePointofsale("depot foret bar", "D2D",
-                "depot de boisson", "d2d@gmail.com", "676170067", 0.0,
-                "Franc cfa", "F cfa",pointofsaleService, enterpriseService,
-                userBMService, currencyService);
-        assertNotNull(pointofsaleDtoSaved);
-
-        CategoryDto categoryDtoSaved = usedForTest.saveCategory("BIERE ALCOOLISEE", "Biere",
-                "BIERE", "Biere alcoolisee", pointofsaleDtoSaved, categoryService);
-        assertNotNull(categoryDtoSaved);
-        //Une fois enregistrer, on va le mettre a jour en modifiant tout jusqua son code
-        categoryDtoSaved.setCatCode("BIERETTE");
-        categoryDtoSaved.setCatShortname("Bierrette");
-        categoryDtoSaved.setCatName("Bierrette alcoolisee");
-        categoryDtoSaved.setCatDescription("Description des bierrettes alcoolisee");
-
-        //null pour generer lexception souhaitee
-        CategoryDto categoryDtoUpdated = usedForTest.updateCategory(null, categoryService);
-        //The above line is supposed to launch the expected exception
-    }
-
-    @Test(expected = EntityNotFoundException.class)
-    public void updateCategory_CatNotFound(){
-        assertNotNull(enterpriseService);
-        assertNotNull(pointofsaleService);
-        assertNotNull(userBMService);
-        assertNotNull(posCashAccountService);
-        assertNotNull(currencyService);
-        assertNotNull(categoryService);
-
-        UsedForTest usedForTest = new UsedForTest();
-        System.out.println("Called for a function "+ usedForTest.justToTest());
-
-        PointofsaleDto pointofsaleDtoSaved = usedForTest.savePointofsale("depot foret bar", "D2D",
-                "depot de boisson", "d2d@gmail.com", "676170067", 0.0,
-                "Franc cfa", "F cfa",pointofsaleService, enterpriseService,
-                userBMService, currencyService);
-        assertNotNull(pointofsaleDtoSaved);
-
-        CategoryDto categoryDtoSaved = usedForTest.saveCategory("BIERE ALCOOLISEE", "Biere",
-                "BIERE", "Biere alcoolisee", pointofsaleDtoSaved, categoryService);
-        assertNotNull(categoryDtoSaved);
-        //Une fois enregistrer, on va le mettre a jour en modifiant tout jusqua son code
-        categoryDtoSaved.setCatCode("BIERETTE");
-        categoryDtoSaved.setCatShortname("Bierrette");
-        categoryDtoSaved.setCatName("Bierrette alcoolisee");
-        categoryDtoSaved.setCatDescription("Description des bierrettes alcoolisee");
-
-        categoryDtoSaved.setId(categoryDtoSaved.getId()+10000);//Pour generer lexception souhaitee
-
-        CategoryDto categoryDtoUpdated = usedForTest.updateCategory(categoryDtoSaved, categoryService);
-        //The above line is supposed to launch the expected exception
-    }
-
-    @Test(expected = DuplicateEntityException.class)
-    public void updateCategory_CatDuplicated(){
-        assertNotNull(enterpriseService);
-        assertNotNull(pointofsaleService);
-        assertNotNull(userBMService);
-        assertNotNull(posCashAccountService);
-        assertNotNull(currencyService);
-        assertNotNull(categoryService);
-
-        UsedForTest usedForTest = new UsedForTest();
-        System.out.println("Called for a function "+ usedForTest.justToTest());
-
-        PointofsaleDto pointofsaleDtoSaved = usedForTest.savePointofsale("depot foret bar", "D2D",
-                "depot de boisson", "d2d@gmail.com", "676170067", 0.0,
-                "Franc cfa", "F cfa",pointofsaleService, enterpriseService,
-                userBMService, currencyService);
-        assertNotNull(pointofsaleDtoSaved);
-
-        CategoryDto categoryDtoSaved1 = usedForTest.saveCategory("BIERE ALCOOLISEE", "Biere",
-                "BIERE", "Biere alcoolisee", pointofsaleDtoSaved, categoryService);
-        assertNotNull(categoryDtoSaved1);
-        CategoryDto categoryDtoSaved2 = usedForTest.saveCategory("BIERE ALCOOLISEE SABC", "Biere SABC",
-                "BIERE SABC", "Biere alcoolisee SABC", pointofsaleDtoSaved, categoryService);
-        assertNotNull(categoryDtoSaved2);
-        //Une fois enregistrer, on va le mettre a jour en modifiant tout jusqua son code
-        categoryDtoSaved1.setCatCode("BIERE SABC");
-        categoryDtoSaved1.setCatShortname("Bierrette");
-        categoryDtoSaved1.setCatName("Bierrette alcoolisee");
-        categoryDtoSaved1.setCatDescription("Description des bierrettes alcoolisee");
-
-        CategoryDto categoryDtoUpdated = usedForTest.updateCategory(categoryDtoSaved1, categoryService);
-        //The above line is supposed to launch the expected exception
-    }
-
-    @Test
-    public void findAllCategory_Valid(){
-        assertNotNull(enterpriseService);
-        assertNotNull(pointofsaleService);
-        assertNotNull(userBMService);
-        assertNotNull(posCashAccountService);
-        assertNotNull(currencyService);
-        assertNotNull(categoryService);
-
-        UsedForTest usedForTest = new UsedForTest();
-        System.out.println("Called for a function "+ usedForTest.justToTest());
-
-        EnterpriseDto enterpriseDto = usedForTest.saveEnterprise("107253564", "C2PSI", "enterprise " +
-                "description ", "C2PSI", "simplifie", "commerce general", enterpriseService, userBMService);
-
-        CurrencyDto currencyDto = usedForTest.saveCurrency("Franc cfa", "F cfa", currencyService);
-
-        PointofsaleDto pointofsaleDtoSaved1 = usedForTest.savePointofsale("depot bonendale", "D2DB",
-                "depot de boisson", "d2db@gmail.com", "676170067", 0.0,
-                enterpriseDto, currencyDto , pointofsaleService);
-
-        assertNotNull(pointofsaleDtoSaved1);
-
-        PointofsaleDto pointofsaleDtoSaved2 = usedForTest.savePointofsale("depot foret bar", "D2DF",
-                "depot de boisson", "d2df@gmail.com", "676170067", 0.0,
-                enterpriseDto, currencyDto, pointofsaleService);
-        assertNotNull(pointofsaleDtoSaved2);
-
-        CategoryDto categoryDtoSaved1 = usedForTest.saveCategory("BIERE ALCOOLISEE", "Biere",
-                "BIERE", "Biere alcoolisee", pointofsaleDtoSaved1, categoryService);
+        CategoryDto categoryDtoToSaved1 = new UsedForTest().prepareCategoryToSaved(catCode, catName, catShortname,
+                catDescription, catParentId, pointofsaleDtoSaved);
+        System.out.println("categoryDtoToSaved1 = "+categoryDtoToSaved1);
+        CategoryDto categoryDtoSaved1 = categoryService.saveCategory(categoryDtoToSaved1);
         assertNotNull(categoryDtoSaved1);
 
-        CategoryDto categoryDtoSaved2 = usedForTest.saveCategory("BIERE ALCOOLISEE", "Biere",
-                "BIERE", "Biere alcoolisee", pointofsaleDtoSaved2, categoryService);
+        catCode = "catCode2";
+        catName = "catName2";
+        catDescription = "catDescription2";
+        catShortname = "catShortname2";
+        catParentId  = categoryDtoSaved1.getId();
+
+        CategoryDto categoryDtoToSaved2 = new UsedForTest().prepareCategoryToSaved(catCode, catName, catShortname,
+                catDescription, catParentId, pointofsaleDtoSaved);
+
+        CategoryDto categoryDtoSaved2 = categoryService.saveCategory(categoryDtoToSaved2);
         assertNotNull(categoryDtoSaved2);
 
-        CategoryDto categoryDtoSaved3 = usedForTest.saveCategory("BIERE ALCOOLISEE SABC", "Biere",
-                "BIERE SABC", "Biere alcoolisee", pointofsaleDtoSaved2, categoryService);
+        catCode = "catCode3";
+        catName = "catName3";
+        catDescription = "catDescription3";
+        catShortname = "catShortname3";
+        catParentId  = categoryDtoSaved1.getId();
+
+        CategoryDto categoryDtoToSaved3 = new UsedForTest().prepareCategoryToSaved(catCode, catName, catShortname,
+                catDescription, catParentId, pointofsaleDtoSaved);;
+
+        CategoryDto categoryDtoSaved3 = categoryService.saveCategory(categoryDtoToSaved3);
         assertNotNull(categoryDtoSaved3);
 
-        //Maintenant on va lister les categories enregistrer dans la BD
-        List<CategoryDto> categoryDtoList = categoryService.findAllCategory();
+    }
+
+    @Test(expected = InvalidEntityException.class)
+    public void saveCategory_NonValidated(){
+        String posName = "Depot djoutsa";
+        String posAcronym = "D2D";
+        String posDescription = "Les depots de Madame Djoutsa";
+        String posEmail = "d2demail@gmail.com";
+        String posNumtel1 = "689457412";
+        double accountBalance = 0;
+        String currencyName = "Franc cfa";
+        String currencyShortname = "F cfa";
+        PointofsaleService pointofsaleService = this.pointofsaleService;
+        EnterpriseService enterpriseService = this.enterpriseService;
+        UserBMService userBMService = this.userBMService;
+        CurrencyService currencyService = this.currencyService;
+
+        PointofsaleDto pointofsaleDtoSaved = new UsedForTest().savePointofsale(posName, posAcronym, posDescription, posEmail, posNumtel1, accountBalance,
+                currencyName, currencyShortname, pointofsaleService, enterpriseService, userBMService, currencyService);
+
+        assertNotNull(pointofsaleDtoSaved);
+
+        CategoryDto categoryDtoToSaved = CategoryDto.builder()
+                .catPosDto(null)
+                .categoryParentId(null)
+                .catDescription("description de la categorie 1")
+                .catCode("cat code1")
+                .catShortname("cat1")
+                .catName("Cat Name1")
+                .build();
+
+        CategoryDto categoryDtoSaved = categoryService.saveCategory(categoryDtoToSaved);
+        //The above line is supposed normally to launch the exception
+    }
+
+    @Test(expected = DuplicateEntityException.class)
+    public void saveCategory_Duplicated(){
+        String posName = "Depot djoutsa";
+        String posAcronym = "D2D";
+        String posDescription = "Les depots de Madame Djoutsa";
+        String posEmail = "d2demail@gmail.com";
+        String posNumtel1 = "689457412";
+        double accountBalance = 0;
+        String currencyName = "Franc cfa";
+        String currencyShortname = "F cfa";
+        PointofsaleService pointofsaleService = this.pointofsaleService;
+        EnterpriseService enterpriseService = this.enterpriseService;
+        UserBMService userBMService = this.userBMService;
+        CurrencyService currencyService = this.currencyService;
+
+        PointofsaleDto pointofsaleDtoSaved = new UsedForTest().savePointofsale(posName, posAcronym, posDescription, posEmail, posNumtel1, accountBalance,
+                currencyName, currencyShortname, pointofsaleService, enterpriseService, userBMService, currencyService);
+
+        assertNotNull(pointofsaleDtoSaved);
+        String catCode = "catCode1";
+        String catName = "catName1";
+        String catDescription = "catDescription1";
+        String catShortname = "catShortname1";
+        Long catParentId  = null;
+
+        CategoryDto categoryDtoToSaved1 = new UsedForTest().prepareCategoryToSaved(catCode, catName, catShortname,
+                catDescription, catParentId, pointofsaleDtoSaved);
+        System.out.println("categoryDtoToSaved1 = "+categoryDtoToSaved1);
+        CategoryDto categoryDtoSaved1 = categoryService.saveCategory(categoryDtoToSaved1);
+        assertNotNull(categoryDtoSaved1);
+
+        catCode = "catCode1";
+        catName = "catName2";
+        catDescription = "catDescription2";
+        catShortname = "catShortname2";
+        catParentId  = categoryDtoSaved1.getId();
+
+        CategoryDto categoryDtoToSaved2 = new UsedForTest().prepareCategoryToSaved(catCode, catName, catShortname,
+                catDescription, catParentId, pointofsaleDtoSaved);
+
+        CategoryDto categoryDtoSaved2 = categoryService.saveCategory(categoryDtoToSaved2);
+        //The above line is supposed to launch the expected exception.
+        //assertNotNull(categoryDtoSaved2);
+
+    }
+
+    @Test(expected = EntityNotFoundException.class)
+    public void saveCategory_ParentNotFound(){
+        String posName = "Depot djoutsa";
+        String posAcronym = "D2D";
+        String posDescription = "Les depots de Madame Djoutsa";
+        String posEmail = "d2demail@gmail.com";
+        String posNumtel1 = "689457412";
+        double accountBalance = 0;
+        String currencyName = "Franc cfa";
+        String currencyShortname = "F cfa";
+        PointofsaleService pointofsaleService = this.pointofsaleService;
+        EnterpriseService enterpriseService = this.enterpriseService;
+        UserBMService userBMService = this.userBMService;
+        CurrencyService currencyService = this.currencyService;
+
+        PointofsaleDto pointofsaleDtoSaved = new UsedForTest().savePointofsale(posName, posAcronym, posDescription, posEmail, posNumtel1, accountBalance,
+                currencyName, currencyShortname, pointofsaleService, enterpriseService, userBMService, currencyService);
+
+        assertNotNull(pointofsaleDtoSaved);
+        String catCode = "catCode1";
+        String catName = "catName1";
+        String catDescription = "catDescription1";
+        String catShortname = "catShortname1";
+        Long catParentId  = null;
+
+        CategoryDto categoryDtoToSaved1 = new UsedForTest().prepareCategoryToSaved(catCode, catName, catShortname,
+                catDescription, catParentId, pointofsaleDtoSaved);
+        System.out.println("categoryDtoToSaved1 = "+categoryDtoToSaved1);
+        CategoryDto categoryDtoSaved1 = categoryService.saveCategory(categoryDtoToSaved1);
+        assertNotNull(categoryDtoSaved1);
+
+        catCode = "catCode2";
+        catName = "catName2";
+        catDescription = "catDescription2";
+        catShortname = "catShortname2";
+        catParentId  = categoryDtoSaved1.getId()+20000;
+
+        CategoryDto categoryDtoToSaved2 = new UsedForTest().prepareCategoryToSaved(catCode, catName, catShortname,
+                catDescription, catParentId, pointofsaleDtoSaved);
+
+        CategoryDto categoryDtoSaved2 = categoryService.saveCategory(categoryDtoToSaved2);
+        //The above line is supposed to launch the expected exception.
+        //assertNotNull(categoryDtoSaved2);
+
+    }
+
+    @Test
+    public void validateUpdateNullParentCategory(){
+        String posName = "Depot djoutsa";
+        String posAcronym = "D2D";
+        String posDescription = "Les depots de Madame Djoutsa";
+        String posEmail = "d2demail@gmail.com";
+        String posNumtel1 = "689457412";
+        double accountBalance = 0;
+        String currencyName = "Franc cfa";
+        String currencyShortname = "F cfa";
+        PointofsaleService pointofsaleService = this.pointofsaleService;
+        EnterpriseService enterpriseService = this.enterpriseService;
+        UserBMService userBMService = this.userBMService;
+        CurrencyService currencyService = this.currencyService;
+
+        PointofsaleDto pointofsaleDtoSaved = new UsedForTest().savePointofsale(posName, posAcronym, posDescription, posEmail, posNumtel1, accountBalance,
+                currencyName, currencyShortname, pointofsaleService, enterpriseService, userBMService, currencyService);
+
+        assertNotNull(pointofsaleDtoSaved);
+
+        CategoryDto categoryDtoToSaved = CategoryDto.builder()
+                .catPosDto(pointofsaleDtoSaved)
+                .categoryParentId(null)
+                .catDescription("description de la categorie 1")
+                .catCode("cat code1")
+                .catShortname("cat1")
+                .catName("Cat Name1")
+                .build();
+
+        CategoryDto categoryDtoSaved = categoryService.saveCategory(categoryDtoToSaved);
+        assertNotNull(categoryDtoSaved);
+
+        assertEquals("cat code1", categoryDtoSaved.getCatCode());
+
+        //On peut donc modifier des parametres
+        categoryDtoSaved.setCatCode("cat code 2");
+        categoryDtoSaved.setCatName("cat name");
+        categoryDtoSaved.setCatShortname("cat shortname");
+        categoryDtoSaved.setCatDescription("new cat description of cat code 2");
+
+        //On peut donc lancer la modification
+        CategoryDto categoryDtoUpdated = categoryService.updateCategory(categoryDtoSaved);
+        assertEquals(categoryDtoSaved.getId().longValue(), categoryDtoUpdated.getId().longValue());
+        assertEquals("cat code 2", categoryDtoUpdated.getCatCode());
+        assertEquals("cat name", categoryDtoUpdated.getCatName());
+    }
+
+    @Test
+    public void validateUpdateNotNullParentCategory(){
+        String posName = "Depot djoutsa";
+        String posAcronym = "D2D";
+        String posDescription = "Les depots de Madame Djoutsa";
+        String posEmail = "d2demail@gmail.com";
+        String posNumtel1 = "689457412";
+        double accountBalance = 0;
+        String currencyName = "Franc cfa";
+        String currencyShortname = "F cfa";
+        PointofsaleService pointofsaleService = this.pointofsaleService;
+        EnterpriseService enterpriseService = this.enterpriseService;
+        UserBMService userBMService = this.userBMService;
+        CurrencyService currencyService = this.currencyService;
+
+        PointofsaleDto pointofsaleDtoSaved = new UsedForTest().savePointofsale(posName, posAcronym, posDescription, posEmail, posNumtel1, accountBalance,
+                currencyName, currencyShortname, pointofsaleService, enterpriseService, userBMService, currencyService);
+
+        assertNotNull(pointofsaleDtoSaved);
+        String catCode = "catCode1";
+        String catName = "catName1";
+        String catDescription = "catDescription1";
+        String catShortname = "catShortname1";
+        Long catParentId  = null;
+
+        CategoryDto categoryDtoToSaved1 = new UsedForTest().prepareCategoryToSaved(catCode, catName, catShortname,
+                catDescription, catParentId, pointofsaleDtoSaved);
+        System.out.println("categoryDtoToSaved1 = "+categoryDtoToSaved1);
+        CategoryDto categoryDtoSaved1 = categoryService.saveCategory(categoryDtoToSaved1);
+        assertNotNull(categoryDtoSaved1);
+
+        catCode = "catCode2";
+        catName = "catName2";
+        catDescription = "catDescription2";
+        catShortname = "catShortname2";
+        catParentId  = categoryDtoSaved1.getId();
+
+        CategoryDto categoryDtoToSaved2 = new UsedForTest().prepareCategoryToSaved(catCode, catName, catShortname,
+                catDescription, catParentId, pointofsaleDtoSaved);
+
+        CategoryDto categoryDtoSaved2 = categoryService.saveCategory(categoryDtoToSaved2);
+        assertNotNull(categoryDtoSaved2);
+
+        catCode = "catCode3";
+        catName = "catName3";
+        catDescription = "catDescription3";
+        catShortname = "catShortname3";
+        catParentId  = categoryDtoSaved1.getId();
+
+        CategoryDto categoryDtoToSaved3 = new UsedForTest().prepareCategoryToSaved(catCode, catName, catShortname,
+                catDescription, catParentId, pointofsaleDtoSaved);
+
+        CategoryDto categoryDtoSaved3 = categoryService.saveCategory(categoryDtoToSaved3);
+        assertNotNull(categoryDtoSaved3);
+
+        categoryDtoSaved3.setCatCode("cat code 4");
+        categoryDtoSaved3.setCatName("cat name");
+        categoryDtoSaved3.setCatShortname("cat shortname");
+        categoryDtoSaved3.setCatDescription("new cat description of cat code 4");
+        categoryDtoSaved3.setCategoryParentId(categoryDtoSaved2.getId());
+
+        //On peut donc lancer la modification
+        CategoryDto categoryDtoUpdated = categoryService.updateCategory(categoryDtoSaved3);
+        assertEquals(categoryDtoSaved3.getId().longValue(), categoryDtoUpdated.getId().longValue());
+        assertEquals("cat code 4", categoryDtoUpdated.getCatCode());
+        assertEquals("cat name", categoryDtoUpdated.getCatName());
+        assertEquals(categoryDtoSaved3.getId(), categoryDtoUpdated.getId());
+
+    }
+
+    @Test
+    public void validatefindChildCategoryof(){
+        String posName = "Depot djoutsa";
+        String posAcronym = "D2D";
+        String posDescription = "Les depots de Madame Djoutsa";
+        String posEmail = "d2demail@gmail.com";
+        String posNumtel1 = "689457412";
+        double accountBalance = 0;
+        String currencyName = "Franc cfa";
+        String currencyShortname = "F cfa";
+        PointofsaleService pointofsaleService = this.pointofsaleService;
+        EnterpriseService enterpriseService = this.enterpriseService;
+        UserBMService userBMService = this.userBMService;
+        CurrencyService currencyService = this.currencyService;
+
+        PointofsaleDto pointofsaleDtoSaved = new UsedForTest().savePointofsale(posName, posAcronym, posDescription, posEmail, posNumtel1, accountBalance,
+                currencyName, currencyShortname, pointofsaleService, enterpriseService, userBMService, currencyService);
+
+        assertNotNull(pointofsaleDtoSaved);
+        String catCode = "catCode1";
+        String catName = "catName1";
+        String catDescription = "catDescription1";
+        String catShortname = "catShortname1";
+        Long catParentId  = null;
+
+        CategoryDto categoryDtoToSaved1 = new UsedForTest().prepareCategoryToSaved(catCode, catName, catShortname,
+                catDescription, catParentId, pointofsaleDtoSaved);
+        System.out.println("categoryDtoToSaved1 = "+categoryDtoToSaved1);
+        CategoryDto categoryDtoSaved1 = categoryService.saveCategory(categoryDtoToSaved1);
+        assertNotNull(categoryDtoSaved1);
+
+        catCode = "catCode2";
+        catName = "catName2";
+        catDescription = "catDescription2";
+        catShortname = "catShortname2";
+        catParentId  = categoryDtoSaved1.getId();
+
+        CategoryDto categoryDtoToSaved2 = new UsedForTest().prepareCategoryToSaved(catCode, catName, catShortname,
+                catDescription, catParentId, pointofsaleDtoSaved);
+
+        CategoryDto categoryDtoSaved2 = categoryService.saveCategory(categoryDtoToSaved2);
+        assertNotNull(categoryDtoSaved2);
+
+        catCode = "catCode3";
+        catName = "catName3";
+        catDescription = "catDescription3";
+        catShortname = "catShortname3";
+        catParentId  = categoryDtoSaved1.getId();
+
+        CategoryDto categoryDtoToSaved3 = new UsedForTest().prepareCategoryToSaved(catCode, catName, catShortname,
+                catDescription, catParentId, pointofsaleDtoSaved);;
+
+        CategoryDto categoryDtoSaved3 = categoryService.saveCategory(categoryDtoToSaved3);
+        assertNotNull(categoryDtoSaved3);
+
+        catCode = "catCode4";
+        catName = "catName4";
+        catDescription = "catDescription4";
+        catShortname = "catShortname4";
+        catParentId  = categoryDtoSaved2.getId();
+
+        CategoryDto categoryDtoToSaved4 = new UsedForTest().prepareCategoryToSaved(catCode, catName, catShortname,
+                catDescription, catParentId, pointofsaleDtoSaved);;
+
+        CategoryDto categoryDtoSaved4 = categoryService.saveCategory(categoryDtoToSaved4);
+        assertNotNull(categoryDtoSaved4);
+
+        List<CategoryDto> categoryDtoListOfChild1 = categoryService.findChildCategoryOf(categoryDtoSaved1.getId());//2
+        List<CategoryDto> categoryDtoListOfChild2 = categoryService.findChildCategoryOf(categoryDtoSaved2.getId());//1
+        List<CategoryDto> categoryDtoListOfChild3 = categoryService.findChildCategoryOf(categoryDtoSaved3.getId());//0
+        List<CategoryDto> categoryDtoListOfChild4 = categoryService.findChildCategoryOf(categoryDtoSaved4.getId());//0
+
+        System.out.println("categoryDtoListOfChild1"+categoryDtoListOfChild1.toString());
+        System.out.println("categoryDtoListOfChild2"+categoryDtoListOfChild2.toString());
+
+        assertNotNull(categoryDtoListOfChild1);
+        assertNotNull(categoryDtoListOfChild2);
+
+        assertEquals(2, categoryDtoListOfChild1.size());
+        assertEquals(1, categoryDtoListOfChild2.size());
+        assertEquals(0, categoryDtoListOfChild3.size());
+        assertEquals(0, categoryDtoListOfChild4.size());
+
+    }
+
+    @Test
+    public void validatefindAscendantCategoryof(){
+        String posName = "Depot djoutsa";
+        String posAcronym = "D2D";
+        String posDescription = "Les depots de Madame Djoutsa";
+        String posEmail = "d2demail@gmail.com";
+        String posNumtel1 = "689457412";
+        double accountBalance = 0;
+        String currencyName = "Franc cfa";
+        String currencyShortname = "F cfa";
+        PointofsaleService pointofsaleService = this.pointofsaleService;
+        EnterpriseService enterpriseService = this.enterpriseService;
+        UserBMService userBMService = this.userBMService;
+        CurrencyService currencyService = this.currencyService;
+
+        PointofsaleDto pointofsaleDtoSaved = new UsedForTest().savePointofsale(posName, posAcronym, posDescription, posEmail, posNumtel1, accountBalance,
+                currencyName, currencyShortname, pointofsaleService, enterpriseService, userBMService, currencyService);
+
+        assertNotNull(pointofsaleDtoSaved);
+        String catCode = "catCode1";
+        String catName = "catName1";
+        String catDescription = "catDescription1";
+        String catShortname = "catShortname1";
+        Long catParentId  = null;
+
+        CategoryDto categoryDtoToSaved1 = new UsedForTest().prepareCategoryToSaved(catCode, catName, catShortname,
+                catDescription, catParentId, pointofsaleDtoSaved);
+        System.out.println("categoryDtoToSaved1 = "+categoryDtoToSaved1);
+        CategoryDto categoryDtoSaved1 = categoryService.saveCategory(categoryDtoToSaved1);
+        assertNotNull(categoryDtoSaved1);
+
+        catCode = "catCode2";
+        catName = "catName2";
+        catDescription = "catDescription2";
+        catShortname = "catShortname2";
+        catParentId  = categoryDtoSaved1.getId();
+
+        CategoryDto categoryDtoToSaved2 = new UsedForTest().prepareCategoryToSaved(catCode, catName, catShortname,
+                catDescription, catParentId, pointofsaleDtoSaved);
+
+        CategoryDto categoryDtoSaved2 = categoryService.saveCategory(categoryDtoToSaved2);
+        assertNotNull(categoryDtoSaved2);
+
+        catCode = "catCode3";
+        catName = "catName3";
+        catDescription = "catDescription3";
+        catShortname = "catShortname3";
+        catParentId  = categoryDtoSaved1.getId();
+
+        CategoryDto categoryDtoToSaved3 = new UsedForTest().prepareCategoryToSaved(catCode, catName, catShortname,
+                catDescription, catParentId, pointofsaleDtoSaved);;
+
+        CategoryDto categoryDtoSaved3 = categoryService.saveCategory(categoryDtoToSaved3);
+        assertNotNull(categoryDtoSaved3);
+
+        catCode = "catCode4";
+        catName = "catName4";
+        catDescription = "catDescription4";
+        catShortname = "catShortname4";
+        catParentId  = categoryDtoSaved2.getId();
+
+        CategoryDto categoryDtoToSaved4 = new UsedForTest().prepareCategoryToSaved(catCode, catName, catShortname,
+                catDescription, catParentId, pointofsaleDtoSaved);;
+
+        CategoryDto categoryDtoSaved4 = categoryService.saveCategory(categoryDtoToSaved4);
+        assertNotNull(categoryDtoSaved4);
+
+        List<CategoryDto> categoryDtoListOfAsc1 = categoryService.findAscandantCategoryof(categoryDtoSaved1.getId());//0
+        List<CategoryDto> categoryDtoListOfAsc2 = categoryService.findAscandantCategoryof(categoryDtoSaved2.getId());//1
+        List<CategoryDto> categoryDtoListOfAsc3 = categoryService.findAscandantCategoryof(categoryDtoSaved3.getId());//1
+        List<CategoryDto> categoryDtoListOfAsc4 = categoryService.findAscandantCategoryof(categoryDtoSaved4.getId());//2
+
+        System.out.println("categoryDtoListOfAsc1"+categoryDtoListOfAsc1.toString());
+        System.out.println("categoryDtoListOfAsc2"+categoryDtoListOfAsc2.toString());
+
+        assertNotNull(categoryDtoListOfAsc1);
+        assertNotNull(categoryDtoListOfAsc2);
+
+        assertEquals(0, categoryDtoListOfAsc1.size());
+        assertEquals(1, categoryDtoListOfAsc2.size());
+        assertEquals(1, categoryDtoListOfAsc3.size());
+        assertEquals(2, categoryDtoListOfAsc4.size());
+
+    }
+
+    @Test
+    public void validate_findAllCategoryInPointofsale(){
+        String posName = "Depot djoutsa";
+        String posAcronym = "D2D";
+        String posDescription = "Les depots de Madame Djoutsa";
+        String posEmail = "d2demail@gmail.com";
+        String posNumtel1 = "689457412";
+        double accountBalance = 0;
+        String currencyName = "Franc cfa";
+        String currencyShortname = "F cfa";
+        PointofsaleService pointofsaleService = this.pointofsaleService;
+        EnterpriseService enterpriseService = this.enterpriseService;
+        UserBMService userBMService = this.userBMService;
+        CurrencyService currencyService = this.currencyService;
+
+        PointofsaleDto pointofsaleDtoSaved = new UsedForTest().savePointofsale(posName, posAcronym, posDescription, posEmail, posNumtel1, accountBalance,
+                currencyName, currencyShortname, pointofsaleService, enterpriseService, userBMService, currencyService);
+
+        assertNotNull(pointofsaleDtoSaved);
+        String catCode = "catCode1";
+        String catName = "catName1";
+        String catDescription = "catDescription1";
+        String catShortname = "catShortname1";
+        Long catParentId  = null;
+
+        CategoryDto categoryDtoToSaved1 = new UsedForTest().prepareCategoryToSaved(catCode, catName, catShortname,
+                catDescription, catParentId, pointofsaleDtoSaved);
+        System.out.println("categoryDtoToSaved1 = "+categoryDtoToSaved1);
+        CategoryDto categoryDtoSaved1 = categoryService.saveCategory(categoryDtoToSaved1);
+        assertNotNull(categoryDtoSaved1);
+
+        catCode = "catCode2";
+        catName = "catName2";
+        catDescription = "catDescription2";
+        catShortname = "catShortname2";
+        catParentId  = categoryDtoSaved1.getId();
+
+        CategoryDto categoryDtoToSaved2 = new UsedForTest().prepareCategoryToSaved(catCode, catName, catShortname,
+                catDescription, catParentId, pointofsaleDtoSaved);
+
+        CategoryDto categoryDtoSaved2 = categoryService.saveCategory(categoryDtoToSaved2);
+        assertNotNull(categoryDtoSaved2);
+
+        catCode = "catCode3";
+        catName = "catName3";
+        catDescription = "catDescription3";
+        catShortname = "catShortname3";
+        catParentId  = categoryDtoSaved1.getId();
+
+        CategoryDto categoryDtoToSaved3 = new UsedForTest().prepareCategoryToSaved(catCode, catName, catShortname,
+                catDescription, catParentId, pointofsaleDtoSaved);;
+
+        CategoryDto categoryDtoSaved3 = categoryService.saveCategory(categoryDtoToSaved3);
+        assertNotNull(categoryDtoSaved3);
+
+        catCode = "catCode4";
+        catName = "catName4";
+        catDescription = "catDescription4";
+        catShortname = "catShortname4";
+        catParentId  = categoryDtoSaved2.getId();
+
+        CategoryDto categoryDtoToSaved4 = new UsedForTest().prepareCategoryToSaved(catCode, catName, catShortname,
+                catDescription, catParentId, pointofsaleDtoSaved);;
+
+        CategoryDto categoryDtoSaved4 = categoryService.saveCategory(categoryDtoToSaved4);
+        assertNotNull(categoryDtoSaved4);
+
+        List<CategoryDto> categoryDtoList = categoryService.findAllCategoryInPointofsale(pointofsaleDtoSaved.getId());
         assertNotNull(categoryDtoList);
-        assertEquals(3, categoryDtoList.size());
+        assertEquals(4, categoryDtoList.size());
+
     }
 
     @Test
-    public void findAllCategoryInPointofsale_Valid(){
-        assertNotNull(enterpriseService);
-        assertNotNull(pointofsaleService);
-        assertNotNull(userBMService);
-        assertNotNull(posCashAccountService);
-        assertNotNull(currencyService);
-        assertNotNull(categoryService);
+    public void validate_findCategoryInPointofsale(){
+        String posName = "Depot djoutsa";
+        String posAcronym = "D2D";
+        String posDescription = "Les depots de Madame Djoutsa";
+        String posEmail = "d2demail@gmail.com";
+        String posNumtel1 = "689457412";
+        double accountBalance = 0;
+        String currencyName = "Franc cfa";
+        String currencyShortname = "F cfa";
+        PointofsaleService pointofsaleService = this.pointofsaleService;
+        EnterpriseService enterpriseService = this.enterpriseService;
+        UserBMService userBMService = this.userBMService;
+        CurrencyService currencyService = this.currencyService;
 
-        UsedForTest usedForTest = new UsedForTest();
-        System.out.println("Called for a function "+ usedForTest.justToTest());
+        PointofsaleDto pointofsaleDtoSaved = new UsedForTest().savePointofsale(posName, posAcronym, posDescription, posEmail, posNumtel1, accountBalance,
+                currencyName, currencyShortname, pointofsaleService, enterpriseService, userBMService, currencyService);
 
-        EnterpriseDto enterpriseDto = usedForTest.saveEnterprise("107253564", "C2PSI", "enterprise " +
-                "description ", "C2PSI", "simplifie", "commerce general", enterpriseService, userBMService);
+        assertNotNull(pointofsaleDtoSaved);
+        String catCode = "catCode1";
+        String catName = "catName1";
+        String catDescription = "catDescription1";
+        String catShortname = "catShortname1";
+        Long catParentId  = null;
 
-        CurrencyDto currencyDto = usedForTest.saveCurrency("Franc cfa", "F cfa", currencyService);
-
-        PointofsaleDto pointofsaleDtoSaved1 = usedForTest.savePointofsale("depot bonendale", "D2DB",
-                "depot de boisson", "d2db@gmail.com", "676170067", 0.0,
-                enterpriseDto, currencyDto , pointofsaleService);
-
-        assertNotNull(pointofsaleDtoSaved1);
-
-        PointofsaleDto pointofsaleDtoSaved2 = usedForTest.savePointofsale("depot foret bar", "D2DF",
-                "depot de boisson", "d2df@gmail.com", "676170067", 0.0,
-                enterpriseDto, currencyDto, pointofsaleService);
-        assertNotNull(pointofsaleDtoSaved2);
-
-        CategoryDto categoryDtoSaved1 = usedForTest.saveCategory("BIERE ALCOOLISEE", "Biere",
-                "BIERE", "Biere alcoolisee", pointofsaleDtoSaved1, categoryService);
+        CategoryDto categoryDtoToSaved1 = new UsedForTest().prepareCategoryToSaved(catCode, catName, catShortname,
+                catDescription, catParentId, pointofsaleDtoSaved);
+        System.out.println("categoryDtoToSaved1 = "+categoryDtoToSaved1);
+        CategoryDto categoryDtoSaved1 = categoryService.saveCategory(categoryDtoToSaved1);
         assertNotNull(categoryDtoSaved1);
 
-        CategoryDto categoryDtoSaved2 = usedForTest.saveCategory("BIERE ALCOOLISEE", "Biere",
-                "BIERE", "Biere alcoolisee", pointofsaleDtoSaved2, categoryService);
+        catCode = "catCode2";
+        catName = "catName2";
+        catDescription = "catDescription2";
+        catShortname = "catShortname2";
+        catParentId  = categoryDtoSaved1.getId();
+
+        CategoryDto categoryDtoToSaved2 = new UsedForTest().prepareCategoryToSaved(catCode, catName, catShortname,
+                catDescription, catParentId, pointofsaleDtoSaved);
+
+        CategoryDto categoryDtoSaved2 = categoryService.saveCategory(categoryDtoToSaved2);
         assertNotNull(categoryDtoSaved2);
 
-        CategoryDto categoryDtoSaved3 = usedForTest.saveCategory("BIERE ALCOOLISEE SABC", "Biere",
-                "BIERE SABC", "Biere alcoolisee", pointofsaleDtoSaved2, categoryService);
+        catCode = "catCode3";
+        catName = "catName3";
+        catDescription = "catDescription3";
+        catShortname = "catShortname3";
+        catParentId  = categoryDtoSaved1.getId();
+
+        CategoryDto categoryDtoToSaved3 = new UsedForTest().prepareCategoryToSaved(catCode, catName, catShortname,
+                catDescription, catParentId, pointofsaleDtoSaved);;
+
+        CategoryDto categoryDtoSaved3 = categoryService.saveCategory(categoryDtoToSaved3);
         assertNotNull(categoryDtoSaved3);
 
-        //Maintenant on va lister les categories enregistrer dans la BD
-        List<CategoryDto> categoryDtoList1 = categoryService.findAllCategoryInPointofsale(pointofsaleDtoSaved1.getId());
-        assertNotNull(categoryDtoList1);
-        assertEquals(1, categoryDtoList1.size());
+        catCode = "catCode4";
+        catName = "catName4";
+        catDescription = "catDescription4";
+        catShortname = "catShortname4";
+        catParentId  = categoryDtoSaved2.getId();
 
-        List<CategoryDto> categoryDtoList2 = categoryService.findAllCategoryInPointofsale(pointofsaleDtoSaved2.getId());
-        assertNotNull(categoryDtoList2);
-        assertEquals(2, categoryDtoList2.size());
-    }
+        CategoryDto categoryDtoToSaved4 = new UsedForTest().prepareCategoryToSaved(catCode, catName, catShortname,
+                catDescription, catParentId, pointofsaleDtoSaved);;
 
-    @Test(expected = EntityNotFoundException.class)
-    public void findAllCategoryInPointofsale_PosNotFound(){
-        assertNotNull(enterpriseService);
-        assertNotNull(pointofsaleService);
-        assertNotNull(userBMService);
-        assertNotNull(posCashAccountService);
-        assertNotNull(currencyService);
-        assertNotNull(categoryService);
+        CategoryDto categoryDtoSaved4 = categoryService.saveCategory(categoryDtoToSaved4);
+        assertNotNull(categoryDtoSaved4);
 
-        UsedForTest usedForTest = new UsedForTest();
-        System.out.println("Called for a function "+ usedForTest.justToTest());
-
-        EnterpriseDto enterpriseDto = usedForTest.saveEnterprise("107253564", "C2PSI", "enterprise " +
-                "description ", "C2PSI", "simplifie", "commerce general", enterpriseService, userBMService);
-
-        CurrencyDto currencyDto = usedForTest.saveCurrency("Franc cfa", "F cfa", currencyService);
-
-        PointofsaleDto pointofsaleDtoSaved1 = usedForTest.savePointofsale("depot bonendale", "D2DB",
-                "depot de boisson", "d2db@gmail.com", "676170067", 0.0,
-                enterpriseDto, currencyDto , pointofsaleService);
-
-        assertNotNull(pointofsaleDtoSaved1);
-
-        PointofsaleDto pointofsaleDtoSaved2 = usedForTest.savePointofsale("depot foret bar", "D2DF",
-                "depot de boisson", "d2df@gmail.com", "676170067", 0.0,
-                enterpriseDto, currencyDto, pointofsaleService);
-        assertNotNull(pointofsaleDtoSaved2);
-
-        CategoryDto categoryDtoSaved1 = usedForTest.saveCategory("BIERE ALCOOLISEE", "Biere",
-                "BIERE", "Biere alcoolisee", pointofsaleDtoSaved1, categoryService);
-        assertNotNull(categoryDtoSaved1);
-
-        CategoryDto categoryDtoSaved2 = usedForTest.saveCategory("BIERE ALCOOLISEE", "Biere",
-                "BIERE", "Biere alcoolisee", pointofsaleDtoSaved2, categoryService);
-        assertNotNull(categoryDtoSaved2);
-
-        CategoryDto categoryDtoSaved3 = usedForTest.saveCategory("BIERE ALCOOLISEE SABC", "Biere",
-                "BIERE SABC", "Biere alcoolisee", pointofsaleDtoSaved2, categoryService);
-        assertNotNull(categoryDtoSaved3);
-
-        //Maintenant on va lister les categories enregistrer dans la BD
-        List<CategoryDto> categoryDtoList1 = categoryService.findAllCategoryInPointofsale(pointofsaleDtoSaved1.getId());
-        assertNotNull(categoryDtoList1);
-        assertEquals(1, categoryDtoList1.size());
-
-        List<CategoryDto> categoryDtoList2 = categoryService.findAllCategoryInPointofsale(pointofsaleDtoSaved2.getId()+1000);
-        //The above line should launch the exception
-    }
-
-    @Test
-    public void pageofExistingCategory_Valid(){
-        assertNotNull(enterpriseService);
-        assertNotNull(pointofsaleService);
-        assertNotNull(userBMService);
-        assertNotNull(posCashAccountService);
-        assertNotNull(currencyService);
-        assertNotNull(categoryService);
-
-        UsedForTest usedForTest = new UsedForTest();
-        System.out.println("Called for a function "+ usedForTest.justToTest());
-
-        EnterpriseDto enterpriseDto = usedForTest.saveEnterprise("107253564", "C2PSI", "enterprise " +
-                "description ", "C2PSI", "simplifie", "commerce general", enterpriseService, userBMService);
-
-        CurrencyDto currencyDto = usedForTest.saveCurrency("Franc cfa", "F cfa", currencyService);
-
-        PointofsaleDto pointofsaleDtoSaved1 = usedForTest.savePointofsale("depot bonendale", "D2DB",
-                "depot de boisson", "d2db@gmail.com", "676170067", 0.0,
-                enterpriseDto, currencyDto , pointofsaleService);
-
-        assertNotNull(pointofsaleDtoSaved1);
-
-        PointofsaleDto pointofsaleDtoSaved2 = usedForTest.savePointofsale("depot foret bar", "D2DF",
-                "depot de boisson", "d2df@gmail.com", "676170067", 0.0,
-                enterpriseDto, currencyDto, pointofsaleService);
-        assertNotNull(pointofsaleDtoSaved2);
-
-        CategoryDto categoryDtoSaved1 = usedForTest.saveCategory("BIERE ALCOOLISEE", "Biere",
-                "BIERE", "Biere alcoolisee", pointofsaleDtoSaved1, categoryService);
-        assertNotNull(categoryDtoSaved1);
-
-        CategoryDto categoryDtoSaved2 = usedForTest.saveCategory("BIERE ALCOOLISEE", "Biere",
-                "BIERE", "Biere alcoolisee", pointofsaleDtoSaved2, categoryService);
-        assertNotNull(categoryDtoSaved2);
-
-        CategoryDto categoryDtoSaved3 = usedForTest.saveCategory("BIERE ALCOOLISEE SABC", "Biere",
-                "BIERE SABC", "Biere alcoolisee", pointofsaleDtoSaved2, categoryService);
-        assertNotNull(categoryDtoSaved3);
-
-        //Maintenant on va lister les categories enregistrer dans la BD
-        Page<CategoryDto> categoryDtoPage = categoryService.pageofExistingCategory(0,2);
+        Page<CategoryDto> categoryDtoPage = categoryService.findCategoryInPointofsale(pointofsaleDtoSaved.getId(), 0, 2);
         assertNotNull(categoryDtoPage);
         assertEquals(2, categoryDtoPage.getTotalPages());
+
     }
 
     @Test
-    public void pageofExistingCategoryInPos_Valid(){
-        assertNotNull(enterpriseService);
-        assertNotNull(pointofsaleService);
-        assertNotNull(userBMService);
-        assertNotNull(posCashAccountService);
-        assertNotNull(currencyService);
-        assertNotNull(categoryService);
+    public void validate_deleteCategoryById(){
+        String posName = "Depot djoutsa";
+        String posAcronym = "D2D";
+        String posDescription = "Les depots de Madame Djoutsa";
+        String posEmail = "d2demail@gmail.com";
+        String posNumtel1 = "689457412";
+        double accountBalance = 0;
+        String currencyName = "Franc cfa";
+        String currencyShortname = "F cfa";
+        PointofsaleService pointofsaleService = this.pointofsaleService;
+        EnterpriseService enterpriseService = this.enterpriseService;
+        UserBMService userBMService = this.userBMService;
+        CurrencyService currencyService = this.currencyService;
 
-        UsedForTest usedForTest = new UsedForTest();
-        System.out.println("Called for a function "+ usedForTest.justToTest());
+        PointofsaleDto pointofsaleDtoSaved = new UsedForTest().savePointofsale(posName, posAcronym, posDescription, posEmail, posNumtel1, accountBalance,
+                currencyName, currencyShortname, pointofsaleService, enterpriseService, userBMService, currencyService);
 
-        EnterpriseDto enterpriseDto = usedForTest.saveEnterprise("107253564", "C2PSI", "enterprise " +
-                "description ", "C2PSI", "simplifie", "commerce general", enterpriseService, userBMService);
+        assertNotNull(pointofsaleDtoSaved);
+        String catCode = "catCode1";
+        String catName = "catName1";
+        String catDescription = "catDescription1";
+        String catShortname = "catShortname1";
+        Long catParentId  = null;
 
-        CurrencyDto currencyDto = usedForTest.saveCurrency("Franc cfa", "F cfa", currencyService);
-
-        PointofsaleDto pointofsaleDtoSaved1 = usedForTest.savePointofsale("depot bonendale", "D2DB",
-                "depot de boisson", "d2db@gmail.com", "676170067", 0.0,
-                enterpriseDto, currencyDto , pointofsaleService);
-
-        assertNotNull(pointofsaleDtoSaved1);
-
-        PointofsaleDto pointofsaleDtoSaved2 = usedForTest.savePointofsale("depot foret bar", "D2DF",
-                "depot de boisson", "d2df@gmail.com", "676170067", 0.0,
-                enterpriseDto, currencyDto, pointofsaleService);
-        assertNotNull(pointofsaleDtoSaved2);
-
-        CategoryDto categoryDtoSaved1 = usedForTest.saveCategory("BIERE ALCOOLISEE", "Biere",
-                "BIERE", "Biere alcoolisee", pointofsaleDtoSaved1, categoryService);
+        CategoryDto categoryDtoToSaved1 = new UsedForTest().prepareCategoryToSaved(catCode, catName, catShortname,
+                catDescription, catParentId, pointofsaleDtoSaved);
+        System.out.println("categoryDtoToSaved1 = "+categoryDtoToSaved1);
+        CategoryDto categoryDtoSaved1 = categoryService.saveCategory(categoryDtoToSaved1);
         assertNotNull(categoryDtoSaved1);
 
-        CategoryDto categoryDtoSaved2 = usedForTest.saveCategory("BIERE ALCOOLISEE", "Biere",
-                "BIERE", "Biere alcoolisee", pointofsaleDtoSaved2, categoryService);
+        catCode = "catCode2";
+        catName = "catName2";
+        catDescription = "catDescription2";
+        catShortname = "catShortname2";
+        catParentId  = categoryDtoSaved1.getId();
+
+        CategoryDto categoryDtoToSaved2 = new UsedForTest().prepareCategoryToSaved(catCode, catName, catShortname,
+                catDescription, catParentId, pointofsaleDtoSaved);
+
+        CategoryDto categoryDtoSaved2 = categoryService.saveCategory(categoryDtoToSaved2);
         assertNotNull(categoryDtoSaved2);
 
-        CategoryDto categoryDtoSaved3 = usedForTest.saveCategory("BIERE ALCOOLISEE SABC", "Biere",
-                "BIERE SABC", "Biere alcoolisee", pointofsaleDtoSaved2, categoryService);
-        assertNotNull(categoryDtoSaved3);
+        assertTrue(categoryService.deleteCategoryById(categoryDtoSaved2.getId()));
 
-        //Maintenant on va lister les categories enregistrer dans la BD
-        Page<CategoryDto> categoryDtoPage1 = categoryService.pageofCategoryInPos(pointofsaleDtoSaved1.getId(), 0, 2);
-        assertNotNull(categoryDtoPage1);
-        assertEquals(1, categoryDtoPage1.getTotalPages());
-
-        Page<CategoryDto> categoryDtoPage2 = categoryService.pageofCategoryInPos(pointofsaleDtoSaved2.getId(), 0, 2);
-        assertNotNull(categoryDtoPage2);
-        assertEquals(1, categoryDtoPage2.getTotalPages());
     }
 
     @Test(expected = EntityNotFoundException.class)
-    public void pageofExistingCategoryInPos_PosNotFound(){
-        assertNotNull(enterpriseService);
-        assertNotNull(pointofsaleService);
-        assertNotNull(userBMService);
-        assertNotNull(posCashAccountService);
-        assertNotNull(currencyService);
-        assertNotNull(categoryService);
+    public void validateNotFound_deleteCategoryById(){
+        String posName = "Depot djoutsa";
+        String posAcronym = "D2D";
+        String posDescription = "Les depots de Madame Djoutsa";
+        String posEmail = "d2demail@gmail.com";
+        String posNumtel1 = "689457412";
+        double accountBalance = 0;
+        String currencyName = "Franc cfa";
+        String currencyShortname = "F cfa";
+        PointofsaleService pointofsaleService = this.pointofsaleService;
+        EnterpriseService enterpriseService = this.enterpriseService;
+        UserBMService userBMService = this.userBMService;
+        CurrencyService currencyService = this.currencyService;
 
-        UsedForTest usedForTest = new UsedForTest();
-        System.out.println("Called for a function "+ usedForTest.justToTest());
+        PointofsaleDto pointofsaleDtoSaved = new UsedForTest().savePointofsale(posName, posAcronym, posDescription, posEmail, posNumtel1, accountBalance,
+                currencyName, currencyShortname, pointofsaleService, enterpriseService, userBMService, currencyService);
 
-        EnterpriseDto enterpriseDto = usedForTest.saveEnterprise("107253564", "C2PSI", "enterprise " +
-                "description ", "C2PSI", "simplifie", "commerce general", enterpriseService, userBMService);
+        assertNotNull(pointofsaleDtoSaved);
+        String catCode = "catCode1";
+        String catName = "catName1";
+        String catDescription = "catDescription1";
+        String catShortname = "catShortname1";
+        Long catParentId  = null;
 
-        CurrencyDto currencyDto = usedForTest.saveCurrency("Franc cfa", "F cfa", currencyService);
-
-        PointofsaleDto pointofsaleDtoSaved1 = usedForTest.savePointofsale("depot bonendale", "D2DB",
-                "depot de boisson", "d2db@gmail.com", "676170067", 0.0,
-                enterpriseDto, currencyDto , pointofsaleService);
-
-        assertNotNull(pointofsaleDtoSaved1);
-
-        PointofsaleDto pointofsaleDtoSaved2 = usedForTest.savePointofsale("depot foret bar", "D2DF",
-                "depot de boisson", "d2df@gmail.com", "676170067", 0.0,
-                enterpriseDto, currencyDto, pointofsaleService);
-        assertNotNull(pointofsaleDtoSaved2);
-
-        CategoryDto categoryDtoSaved1 = usedForTest.saveCategory("BIERE ALCOOLISEE", "Biere",
-                "BIERE", "Biere alcoolisee", pointofsaleDtoSaved1, categoryService);
+        CategoryDto categoryDtoToSaved1 = new UsedForTest().prepareCategoryToSaved(catCode, catName, catShortname,
+                catDescription, catParentId, pointofsaleDtoSaved);
+        System.out.println("categoryDtoToSaved1 = "+categoryDtoToSaved1);
+        CategoryDto categoryDtoSaved1 = categoryService.saveCategory(categoryDtoToSaved1);
         assertNotNull(categoryDtoSaved1);
 
-        CategoryDto categoryDtoSaved2 = usedForTest.saveCategory("BIERE ALCOOLISEE", "Biere",
-                "BIERE", "Biere alcoolisee", pointofsaleDtoSaved2, categoryService);
+        catCode = "catCode2";
+        catName = "catName2";
+        catDescription = "catDescription2";
+        catShortname = "catShortname2";
+        catParentId  = categoryDtoSaved1.getId();
+
+        CategoryDto categoryDtoToSaved2 = new UsedForTest().prepareCategoryToSaved(catCode, catName, catShortname,
+                catDescription, catParentId, pointofsaleDtoSaved);
+
+        CategoryDto categoryDtoSaved2 = categoryService.saveCategory(categoryDtoToSaved2);
         assertNotNull(categoryDtoSaved2);
 
-        CategoryDto categoryDtoSaved3 = usedForTest.saveCategory("BIERE ALCOOLISEE SABC", "Biere",
-                "BIERE SABC", "Biere alcoolisee", pointofsaleDtoSaved2, categoryService);
-        assertNotNull(categoryDtoSaved3);
-
-        //Maintenant on va lister les categories enregistrer dans la BD
-        Page<CategoryDto> categoryDtoPage1 = categoryService.pageofCategoryInPos(pointofsaleDtoSaved1.getId(), 0, 2);
-        assertNotNull(categoryDtoPage1);
-        assertEquals(1, categoryDtoPage1.getTotalPages());
-
-        Page<CategoryDto> categoryDtoPage2 = categoryService.pageofCategoryInPos(pointofsaleDtoSaved2.getId()+1000, 0, 2);
-        //The above line should launch the exception
-    }
-
-    @Test(expected = NullArgumentException.class)
-    public void pageofExistingCategoryInPos_NullValue(){
-        assertNotNull(enterpriseService);
-        assertNotNull(pointofsaleService);
-        assertNotNull(userBMService);
-        assertNotNull(posCashAccountService);
-        assertNotNull(currencyService);
-        assertNotNull(categoryService);
-
-        UsedForTest usedForTest = new UsedForTest();
-        System.out.println("Called for a function "+ usedForTest.justToTest());
-
-        EnterpriseDto enterpriseDto = usedForTest.saveEnterprise("107253564", "C2PSI", "enterprise " +
-                "description ", "C2PSI", "simplifie", "commerce general", enterpriseService, userBMService);
-
-        CurrencyDto currencyDto = usedForTest.saveCurrency("Franc cfa", "F cfa", currencyService);
-
-        PointofsaleDto pointofsaleDtoSaved1 = usedForTest.savePointofsale("depot bonendale", "D2DB",
-                "depot de boisson", "d2db@gmail.com", "676170067", 0.0,
-                enterpriseDto, currencyDto , pointofsaleService);
-
-        assertNotNull(pointofsaleDtoSaved1);
-
-        PointofsaleDto pointofsaleDtoSaved2 = usedForTest.savePointofsale("depot foret bar", "D2DF",
-                "depot de boisson", "d2df@gmail.com", "676170067", 0.0,
-                enterpriseDto, currencyDto, pointofsaleService);
-        assertNotNull(pointofsaleDtoSaved2);
-
-        CategoryDto categoryDtoSaved1 = usedForTest.saveCategory("BIERE ALCOOLISEE", "Biere",
-                "BIERE", "Biere alcoolisee", pointofsaleDtoSaved1, categoryService);
-        assertNotNull(categoryDtoSaved1);
-
-        CategoryDto categoryDtoSaved2 = usedForTest.saveCategory("BIERE ALCOOLISEE", "Biere",
-                "BIERE", "Biere alcoolisee", pointofsaleDtoSaved2, categoryService);
-        assertNotNull(categoryDtoSaved2);
-
-        CategoryDto categoryDtoSaved3 = usedForTest.saveCategory("BIERE ALCOOLISEE SABC", "Biere",
-                "BIERE SABC", "Biere alcoolisee", pointofsaleDtoSaved2, categoryService);
-        assertNotNull(categoryDtoSaved3);
-
-        //Maintenant on va lister les categories enregistrer dans la BD
-        Page<CategoryDto> categoryDtoPage1 = categoryService.pageofCategoryInPos(pointofsaleDtoSaved1.getId(), 0, 2);
-        assertNotNull(categoryDtoPage1);
-        assertEquals(1, categoryDtoPage1.getTotalPages());
-
-        Page<CategoryDto> categoryDtoPage2 = categoryService.pageofCategoryInPos(null, 0, 2);
-        //The above line should launch the expected exception
+        categoryService.deleteCategoryById(categoryDtoSaved2.getId()+1000);
+        //The above line is supposed to launch the expected exception
     }
 
     @Test
-    public void deleteCategoryById_Valid(){
-        assertNotNull(enterpriseService);
-        assertNotNull(pointofsaleService);
-        assertNotNull(userBMService);
-        assertNotNull(posCashAccountService);
-        assertNotNull(currencyService);
-        assertNotNull(categoryService);
+    public void validate_deleteCategoryByCatCode(){
+        String posName = "Depot djoutsa";
+        String posAcronym = "D2D";
+        String posDescription = "Les depots de Madame Djoutsa";
+        String posEmail = "d2demail@gmail.com";
+        String posNumtel1 = "689457412";
+        double accountBalance = 0;
+        String currencyName = "Franc cfa";
+        String currencyShortname = "F cfa";
+        PointofsaleService pointofsaleService = this.pointofsaleService;
+        EnterpriseService enterpriseService = this.enterpriseService;
+        UserBMService userBMService = this.userBMService;
+        CurrencyService currencyService = this.currencyService;
 
-        UsedForTest usedForTest = new UsedForTest();
-        System.out.println("Called for a function "+ usedForTest.justToTest());
+        PointofsaleDto pointofsaleDtoSaved = new UsedForTest().savePointofsale(posName, posAcronym, posDescription, posEmail, posNumtel1, accountBalance,
+                currencyName, currencyShortname, pointofsaleService, enterpriseService, userBMService, currencyService);
 
-        PointofsaleDto pointofsaleDtoSaved = usedForTest.savePointofsale("depot foret bar", "D2D",
-                "depot de boisson", "d2d@gmail.com", "676170067", 0.0,
-                "Franc cfa", "F cfa",pointofsaleService, enterpriseService,
-                userBMService, currencyService);
         assertNotNull(pointofsaleDtoSaved);
+        String catCode = "catCode1";
+        String catName = "catName1";
+        String catDescription = "catDescription1";
+        String catShortname = "catShortname1";
+        Long catParentId  = null;
 
-        CategoryDto categoryDtoSaved = usedForTest.saveCategory("BIERE ALCOOLISEE", "Biere",
-                "BIERE", "Biere alcoolisee", pointofsaleDtoSaved, categoryService);
-        assertNotNull(categoryDtoSaved);
+        CategoryDto categoryDtoToSaved1 = new UsedForTest().prepareCategoryToSaved(catCode, catName, catShortname,
+                catDescription, catParentId, pointofsaleDtoSaved);
+        System.out.println("categoryDtoToSaved1 = "+categoryDtoToSaved1);
+        CategoryDto categoryDtoSaved1 = categoryService.saveCategory(categoryDtoToSaved1);
+        assertNotNull(categoryDtoSaved1);
 
-        Boolean delete = categoryService.deleteCategoryById(categoryDtoSaved.getId());
-        assertNotNull(delete);
-        assertTrue(delete);
+        catCode = "catCode2";
+        catName = "catName2";
+        catDescription = "catDescription2";
+        catShortname = "catShortname2";
+        catParentId  = categoryDtoSaved1.getId();
+
+        CategoryDto categoryDtoToSaved2 = new UsedForTest().prepareCategoryToSaved(catCode, catName, catShortname,
+                catDescription, catParentId, pointofsaleDtoSaved);
+
+        CategoryDto categoryDtoSaved2 = categoryService.saveCategory(categoryDtoToSaved2);
+        assertNotNull(categoryDtoSaved2);
+
+        assertTrue(categoryService.deleteCategoryByCatCode(categoryDtoSaved2.getCatCode(), pointofsaleDtoSaved.getId()));
+
     }
 
     @Test(expected = EntityNotFoundException.class)
-    public void deleteCategoryById_NotFound(){
-        assertNotNull(enterpriseService);
-        assertNotNull(pointofsaleService);
-        assertNotNull(userBMService);
-        assertNotNull(posCashAccountService);
-        assertNotNull(currencyService);
-        assertNotNull(categoryService);
+    public void validateNotFound_deleteCategoryByCatCode(){
+        String posName = "Depot djoutsa";
+        String posAcronym = "D2D";
+        String posDescription = "Les depots de Madame Djoutsa";
+        String posEmail = "d2demail@gmail.com";
+        String posNumtel1 = "689457412";
+        double accountBalance = 0;
+        String currencyName = "Franc cfa";
+        String currencyShortname = "F cfa";
+        PointofsaleService pointofsaleService = this.pointofsaleService;
+        EnterpriseService enterpriseService = this.enterpriseService;
+        UserBMService userBMService = this.userBMService;
+        CurrencyService currencyService = this.currencyService;
 
-        UsedForTest usedForTest = new UsedForTest();
-        System.out.println("Called for a function "+ usedForTest.justToTest());
+        PointofsaleDto pointofsaleDtoSaved = new UsedForTest().savePointofsale(posName, posAcronym, posDescription, posEmail, posNumtel1, accountBalance,
+                currencyName, currencyShortname, pointofsaleService, enterpriseService, userBMService, currencyService);
 
-        PointofsaleDto pointofsaleDtoSaved = usedForTest.savePointofsale("depot foret bar", "D2D",
-                "depot de boisson", "d2d@gmail.com", "676170067", 0.0,
-                "Franc cfa", "F cfa",pointofsaleService, enterpriseService,
-                userBMService, currencyService);
         assertNotNull(pointofsaleDtoSaved);
+        String catCode = "catCode1";
+        String catName = "catName1";
+        String catDescription = "catDescription1";
+        String catShortname = "catShortname1";
+        Long catParentId  = null;
 
-        CategoryDto categoryDtoSaved = usedForTest.saveCategory("BIERE ALCOOLISEE", "Biere",
-                "BIERE", "Biere alcoolisee", pointofsaleDtoSaved, categoryService);
-        assertNotNull(categoryDtoSaved);
+        CategoryDto categoryDtoToSaved1 = new UsedForTest().prepareCategoryToSaved(catCode, catName, catShortname,
+                catDescription, catParentId, pointofsaleDtoSaved);
+        System.out.println("categoryDtoToSaved1 = "+categoryDtoToSaved1);
+        CategoryDto categoryDtoSaved1 = categoryService.saveCategory(categoryDtoToSaved1);
+        assertNotNull(categoryDtoSaved1);
 
-        Boolean delete = categoryService.deleteCategoryById(categoryDtoSaved.getId()+1000);
-        assertNotNull(delete);
-        assertTrue(delete);
+        catCode = "catCode2";
+        catName = "catName2";
+        catDescription = "catDescription2";
+        catShortname = "catShortname2";
+        catParentId  = categoryDtoSaved1.getId();
+
+        CategoryDto categoryDtoToSaved2 = new UsedForTest().prepareCategoryToSaved(catCode, catName, catShortname,
+                catDescription, catParentId, pointofsaleDtoSaved);
+
+        CategoryDto categoryDtoSaved2 = categoryService.saveCategory(categoryDtoToSaved2);
+        assertNotNull(categoryDtoSaved2);
+
+        categoryService.deleteCategoryByCatCode(categoryDtoSaved2.getCatCode()+"shdsdsd",
+                pointofsaleDtoSaved.getId());
+        //The above line is supposed to launch the excepted exception
+
     }
 
-    @Test
-    public void deleteCategoryByCatCode_Valid(){
-        assertNotNull(enterpriseService);
-        assertNotNull(pointofsaleService);
-        assertNotNull(userBMService);
-        assertNotNull(posCashAccountService);
-        assertNotNull(currencyService);
-        assertNotNull(categoryService);
-
-        UsedForTest usedForTest = new UsedForTest();
-        System.out.println("Called for a function "+ usedForTest.justToTest());
-
-        PointofsaleDto pointofsaleDtoSaved = usedForTest.savePointofsale("depot foret bar", "D2D",
-                "depot de boisson", "d2d@gmail.com", "676170067", 0.0,
-                "Franc cfa", "F cfa",pointofsaleService, enterpriseService,
-                userBMService, currencyService);
-        assertNotNull(pointofsaleDtoSaved);
-
-        CategoryDto categoryDtoSaved = usedForTest.saveCategory("BIERE ALCOOLISEE", "Biere",
-                "BIERE", "Biere alcoolisee", pointofsaleDtoSaved, categoryService);
-        assertNotNull(categoryDtoSaved);
-
-        Boolean delete = categoryService.deleteCategoryByCatCode(categoryDtoSaved.getCatCode(),
-                categoryDtoSaved.getCatPosDto().getId());
-        assertNotNull(delete);
-        assertTrue(delete);
-    }
-
-    @Test(expected = EntityNotFoundException.class)
-    public void deleteCategoryByCatCode_NotFound(){
-        assertNotNull(enterpriseService);
-        assertNotNull(pointofsaleService);
-        assertNotNull(userBMService);
-        assertNotNull(posCashAccountService);
-        assertNotNull(currencyService);
-        assertNotNull(categoryService);
-
-        UsedForTest usedForTest = new UsedForTest();
-        System.out.println("Called for a function "+ usedForTest.justToTest());
-
-        PointofsaleDto pointofsaleDtoSaved = usedForTest.savePointofsale("depot foret bar", "D2D",
-                "depot de boisson", "d2d@gmail.com", "676170067", 0.0,
-                "Franc cfa", "F cfa",pointofsaleService, enterpriseService,
-                userBMService, currencyService);
-        assertNotNull(pointofsaleDtoSaved);
-
-        CategoryDto categoryDtoSaved = usedForTest.saveCategory("BIERE ALCOOLISEE", "Biere",
-                "BIERE", "Biere alcoolisee", pointofsaleDtoSaved, categoryService);
-        assertNotNull(categoryDtoSaved);
-
-        Boolean delete = categoryService.deleteCategoryByCatCode(categoryDtoSaved.getCatCode(),
-                categoryDtoSaved.getCatPosDto().getId()+1000);
-        assertNotNull(delete);
-        assertTrue(delete);
-    }
 
 }

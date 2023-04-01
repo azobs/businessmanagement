@@ -4,7 +4,6 @@ import com.c2psi.businessmanagement.dtos.pos.pos.*;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.dtos.stock.price.CurrencyDto;
 import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
-import com.c2psi.businessmanagement.dtos.stock.product.CategoryDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
 
 import java.util.Date;
@@ -60,10 +59,10 @@ public interface PointofsaleService {
     Boolean isPosUnique(String posName, EnterpriseDto entDto);
 
     Boolean isPointofsaleExistWithId(Long posId);
+    Boolean isPointofsaleDeleteable(Long posId);
+    Boolean deletePosById(Long posId);
 
-    boolean deletePosById(Long posId);
-
-    boolean deletePosInEnterpriseByName (String posName, EnterpriseDto entDto);
+    Boolean deletePosInEnterpriseByName (String posName, EnterpriseDto entDto);
 
     /********************************************************************************
      * Return the list of currency that a conversion rules exist with the default

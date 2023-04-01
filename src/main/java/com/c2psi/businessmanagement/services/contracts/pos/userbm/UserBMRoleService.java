@@ -16,6 +16,7 @@ public interface UserBMRoleService {
     
     List<UserBMRoleDto> findAllUserBMRoleofEnterprise(EnterpriseDto entDto);
     List<UserBMRoleDto> findAllUserBMRoleofPointofsale(PointofsaleDto posDto);
+    Boolean isUserBMRoleDeleteable(Long id);
     Boolean deleteUserBMRoleById(Long id);
 
 }

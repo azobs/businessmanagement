@@ -97,6 +97,11 @@ public class UserBMRoleServiceImpl implements UserBMRoleService {
     }
 
     @Override
+    public Boolean isUserBMRoleDeleteable(Long id) {
+        return null;
+    }
+
+    @Override
     public Boolean deleteUserBMRoleById(Long id) {
         System.out.println("long id delete = "+id);
         Optional<UserBMRole> optionalUserBMRole = Optional.of(UserBMRoleDto.toEntity(this.findUserBMRoleById(id)));

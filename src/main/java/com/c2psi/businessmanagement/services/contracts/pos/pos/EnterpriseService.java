@@ -39,12 +39,12 @@ public interface EnterpriseService {
     EnterpriseDto findEnterpriseById (Long entId);
 
     UserBMDto findUserBMById (Long userBMId);
+    Boolean isEnterpriseDeleteable(Long entId);
+    Boolean deleteEnterpriseByName(String entName);
 
-    boolean deleteEnterpriseByName(String entName);
+    Boolean deleteEnterpriseByNiu(String entNiu);
 
-    boolean deleteEnterpriseByNiu(String entNiu);
-
-    boolean deleteEnterpriseById(Long entId);
+    Boolean deleteEnterpriseById(Long entId);
 
     List<EnterpriseDto> findAllEnterprise();
 

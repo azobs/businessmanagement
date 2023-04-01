@@ -11,6 +11,7 @@ import java.util.List;
 public interface PosCashOperationService {
     PosCashOperationDto savePosCashOperation(PosCashOperationDto pcopDto);
 
+    Boolean isPosCashOperationDeleteable(Long pcopId);
     Boolean deletePosCashOperationById(Long pcopId);
 
     PosCashOperationDto findPosCashOperationById(Long pcopId);

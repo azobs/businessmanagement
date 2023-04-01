@@ -9,11 +9,13 @@ import com.c2psi.businessmanagement.dtos.pos.userbm.AddressDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.dtos.stock.price.CurrencyDto;
 import com.c2psi.businessmanagement.dtos.stock.product.CategoryDto;
+import com.c2psi.businessmanagement.dtos.stock.product.ProductDto;
 import com.c2psi.businessmanagement.services.contracts.pos.pos.EnterpriseService;
 import com.c2psi.businessmanagement.services.contracts.pos.pos.PointofsaleService;
 import com.c2psi.businessmanagement.services.contracts.pos.userbm.UserBMService;
 import com.c2psi.businessmanagement.services.contracts.stock.price.CurrencyService;
 import com.c2psi.businessmanagement.services.contracts.stock.product.CategoryService;
+import org.junit.Assert;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -101,6 +103,32 @@ public class UsedForTest {
         return enterpriseDtoSaved;
     }
 
+    public EnterpriseDto saveEnterprisePrim(EnterpriseService enterpriseService, UserBMService userBMService){
+        UserBMDto userBMSaved = saveUserBM("useradmin1", "admin1", "testemail11@gmail.com",
+                "1072302601", userBMService);
+        EnterpriseDto enterpriseDtoToSave = EnterpriseDto.builder()
+                .entAdminDto(userBMSaved)
+                .entAddressDto(AddressDto.builder()
+                        .email("testsaveent1@gmail.com")
+                        .localisation("")
+                        .numtel1("678470262")
+                        .numtel2("695093228")
+                        .numtel3("676170067")
+                        .pays("Cameroun")
+                        .quartier("Foret bar")
+                        .ville("Douala")
+                        .build())
+                .entNiu("P0125468971")
+                .entAcronym("C2PSI")
+                .entDescription("vente de boisson")
+                .entName("Commerce general DJOUTSA1")
+                .entRegime("Reel")
+                .entSocialreason("Commerce general")
+                .build();
+        EnterpriseDto enterpriseDtoSaved = enterpriseService.saveEnterprise(enterpriseDtoToSave);
+        return enterpriseDtoSaved;
+    }
+
     public EnterpriseDto saveEnterprise(String niu, String acronym, String description, String name, String regime,
                                         String socialReason, EnterpriseService enterpriseService,
                                         UserBMService userBMService){
@@ -140,9 +168,33 @@ public class UsedForTest {
     public PointofsaleDto savePointofsale(String posName, String posAcronym, String posDescription,
                                           String posEmail, String posNumtel1, double accountBalance,
                                           String currencyName, String currencyShortname, PointofsaleService pointofsaleService,
-                                          EnterpriseService enterpriseService, UserBMService userBMService, CurrencyService currencyService){
+                                          EnterpriseService enterpriseService, UserBMService userBMService,
+                                          CurrencyService currencyService){
         AddressDto posAddress = getAddressDto(posEmail, posNumtel1);
         EnterpriseDto posEnt = saveEnterprise(enterpriseService, userBMService);
+        PosCashAccountDto posPca = preparePosCashAccount(accountBalance);
+        CurrencyDto currencyDto = saveCurrency(currencyName, currencyShortname, currencyService);
+        assertNotNull(currencyDto.getId());
+        PointofsaleDto pointofsaleToSaved = PointofsaleDto.builder()
+                .posAddressDto(posAddress)
+                .posEnterpriseDto(posEnt)
+                .posCashaccountDto(posPca)
+                .posAcronym(posAcronym)
+                .posDescription(posDescription)
+                .posName(posName)
+                .posCurrencyDto(currencyDto)
+                .build();
+        PointofsaleDto pointofsaleSaved = pointofsaleService.savePointofsale(pointofsaleToSaved);
+        return pointofsaleSaved;
+    }
+
+    public PointofsaleDto savePointofsalePrim(String posName, String posAcronym, String posDescription,
+                                          String posEmail, String posNumtel1, double accountBalance,
+                                          String currencyName, String currencyShortname, PointofsaleService pointofsaleService,
+                                          EnterpriseService enterpriseService, UserBMService userBMService,
+                                          CurrencyService currencyService){
+        AddressDto posAddress = getAddressDto(posEmail, posNumtel1);
+        EnterpriseDto posEnt = saveEnterprisePrim(enterpriseService, userBMService);
         PosCashAccountDto posPca = preparePosCashAccount(accountBalance);
         CurrencyDto currencyDto = saveCurrency(currencyName, currencyShortname, currencyService);
         assertNotNull(currencyDto.getId());
@@ -178,26 +230,58 @@ public class UsedForTest {
                 .build();
         PointofsaleDto pointofsaleSaved = pointofsaleService.savePointofsale(pointofsaleToSaved);
         return pointofsaleSaved;
-
     }
 
-    public CategoryDto saveCategory(String catName, String catShortname, String catCode, String catDescription,
-                                    PointofsaleDto posDto, CategoryService categoryService){
+    public CategoryDto saveCategory(String posName, String posAcronym, String posDescription, String posEmail,
+                                    String posNumtel1, double accountBalance, String currencyName, String currencyShortname,
+                                    String catName, String catShortname, String catCode, String catDescription,
+                                    Long catParentId, PointofsaleService pointofsaleService, EnterpriseService enterpriseService,
+                                    UserBMService userBMService, CurrencyService currencyService, CategoryService categoryService){
+
+        PointofsaleDto pointofsaleDtoSaved = new UsedForTest().savePointofsale(posName, posAcronym, posDescription, posEmail, posNumtel1, accountBalance,
+                currencyName, currencyShortname, pointofsaleService, enterpriseService, userBMService, currencyService);
+
+        Assert.assertNotNull(pointofsaleDtoSaved);
 
         CategoryDto categoryDtoToSaved = CategoryDto.builder()
-                .catShortname(catShortname)
-                .catPosDto(posDto)
-                .catName(catName)
+                .catPosDto(pointofsaleDtoSaved)
+                .categoryParentId(catParentId)
                 .catDescription(catDescription)
                 .catCode(catCode)
+                .catShortname(catShortname)
+                .catName(catName)
                 .build();
+
         CategoryDto categoryDtoSaved = categoryService.saveCategory(categoryDtoToSaved);
         return categoryDtoSaved;
     }
 
-    public CategoryDto  updateCategory(CategoryDto categoryDtoToUpdate, CategoryService categoryService){
-        CategoryDto categoryDtoUpdated = categoryService.updateCategory(categoryDtoToUpdate);
-        return categoryDtoUpdated;
+    public CategoryDto prepareCategoryToSaved(String catCode, String catName, String catShortname, String catDescription,
+                                  Long catParentId, PointofsaleDto catPosDto){
+        CategoryDto categoryDtoToSaved1 = CategoryDto.builder()
+                .catPosDto(catPosDto)
+                .categoryParentId(catParentId)
+                .catDescription(catDescription)
+                .catCode(catCode)
+                .catShortname(catShortname)
+                .catName(catName)
+                .build();
+        return categoryDtoToSaved1;
     }
+
+    public ProductDto prepareProductToSaved(String prodCode, String prodName, String prodDescription, String prodAlias,
+                                            Boolean prodPerishable, CategoryDto prodCat, PointofsaleDto prodPos){
+        ProductDto productDtoToSaved = ProductDto.builder()
+                .prodPosDto(prodPos)
+                .prodCatDto(prodCat)
+                .prodCode(prodCode)
+                .prodName(prodName)
+                .prodAlias(prodAlias)
+                .prodPerishable(prodPerishable)
+                .prodDescription(prodDescription)
+                .build();
+        return productDtoToSaved;
+    }
+
 
 }

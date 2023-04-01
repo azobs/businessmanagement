@@ -46,6 +46,8 @@ public class CurrencyConversionServiceImpl implements CurrencyConversionService 
                     ErrorCode.CURRENCYCONVERSION_DUPLICATED);
         }
 
+        log.info("After all verification the data {} can be registered in the system without any problem", ccDto);
+
         return CurrencyConversionDto.fromEntity(
                 curConvRepository.save(
                         CurrencyConversionDto.toEntity(ccDto)
@@ -131,9 +133,13 @@ public class CurrencyConversionServiceImpl implements CurrencyConversionService 
         }
         Optional<CurrencyConversion> optionalCurConv = curConvRepository.findConversionRuleBetween(currencySourceId,
                 currencyDestinationId);
-        return Optional.of(CurrencyConversionDto.fromEntity(optionalCurConv.get())).orElseThrow(()->
-                new EntityNotFoundException("Aucun CurrencyConversion liant le currency d'id source "+currencySourceId+"  avec le currency d'id destination "+currencyDestinationId
-                        +" n'a été trouve dans la BDD", ErrorCode.CURRENCYCONVERSION_NOT_FOUND));
+        if(optionalCurConv.isPresent()){
+            return CurrencyConversionDto.fromEntity(optionalCurConv.get());
+        }
+        else{
+            throw new EntityNotFoundException("Aucun CurrencyConversion liant le currency d'id source "+currencySourceId+"  avec le currency d'id destination "+currencyDestinationId
+                    +" n'a été trouve dans la BDD", ErrorCode.CURRENCYCONVERSION_NOT_FOUND);
+        }
     }
 
     @Override
@@ -147,6 +153,11 @@ public class CurrencyConversionServiceImpl implements CurrencyConversionService 
             }
         }
         return listofCurrencyDtoLinkWith;
+    }
+
+    @Override
+    public Boolean isCurrencyConversionDeleteable(Long curconvId) {
+        return null;
     }
 
     @Override

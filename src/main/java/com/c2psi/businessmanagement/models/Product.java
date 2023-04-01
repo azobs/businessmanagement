@@ -6,8 +6,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor
@@ -16,10 +14,11 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name="product",
         uniqueConstraints = {@UniqueConstraint(
-                columnNames = {"prodName", "pos_id"})})
+                columnNames = {"prodCode", "pos_id"})})
 public class Product extends AbstractEntity {
 
     @Column(nullable = false)
+    String prodCode;
     String prodName;
     String prodDescription;
     String prodAlias;
@@ -27,7 +26,7 @@ public class Product extends AbstractEntity {
     /******************************
      * Relation between entities  *
      * ****************************/
-    //Many Product for one Category
+    //Many Product for one Category (CategoryComponent)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "cat_id", nullable = false, referencedColumnName = "id")
     Category prodCat;//sabc, ucb, guiness, biere, jus, eau, gaz

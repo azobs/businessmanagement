@@ -168,6 +168,11 @@ public class PosCashAccountServiceImpl implements PosCashAccountService {
     }
 
     @Override
+    public Boolean isPosCashAccountDeleteable(Long id) {
+        return null;
+    }
+
+    @Override
     public Boolean deletePosCashAccountById(Long pcaId) {
         if(pcaId == null){
             log.error("pcaId is null");

@@ -47,7 +47,7 @@ public class CurrencyServiceImpl implements CurrencyService {
             throw new DuplicateEntityException("Un Currency existe deja dans la BD avec les mêmes name et shortname",
                     ErrorCode.CURRENCY_DUPLICATED);
         }
-
+        log.info("After all verification, the record {} can be saved on the DB", currencyDto);
         return CurrencyDto.fromEntity(
                 currencyRepository.save(
                         CurrencyDto.toEntity(currencyDto)
@@ -63,11 +63,13 @@ public class CurrencyServiceImpl implements CurrencyService {
             throw new InvalidEntityException("Le currencyDto passé en argument n'est pas valide: "+errors,
                     ErrorCode.CURRENCY_NOT_VALID, errors);
         }
+
         if(!this.isCurrencyExistWithId(currencyDto.getId())){
             throw new EntityNotFoundException("Le currency a update n'existe pas en BD ", ErrorCode.CURRENCY_NOT_FOUND);
         }
         //Ici on est sur que le currency existe et on doit donc le recuperer
         Currency currencyToUpdate = CurrencyDto.toEntity(this.findCurrencyById(currencyDto.getId()));
+
         if(!currencyToUpdate.getCurrencyName().equalsIgnoreCase(currencyDto.getCurrencyName()) ||
         !currencyToUpdate.getCurrencyShortname().equalsIgnoreCase(currencyDto.getCurrencyShortname())){
             if(!this.isCurrencyExistWithFullname(currencyDto.getCurrencyName(),
@@ -149,6 +151,11 @@ public class CurrencyServiceImpl implements CurrencyService {
                     +" n'a été trouve dans la BDD", ErrorCode.CURRENCY_NOT_FOUND);
         }
 
+    }
+
+    @Override
+    public Boolean isCurrencyDeleteable(Long currencyId) {
+        return null;
     }
 
     public Boolean isCurrencyExistWithFullname(String currencyName, String currencyShortName) {

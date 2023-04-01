@@ -31,6 +31,7 @@ public interface UserBMService {
     UserBMDto findUserBMByFullNameAndDob(String bmName, String bmSurname, Date bmDob);
     UserBMDto findUserBMById(Long bmId);
     List<UserBMDto> findAllByUserBMType(UserBMType bmUsertype);
+    Boolean isUserBMDeleteable(Long bmId);
     Boolean deleteUserBMByLogin(String bmLogin);
     Boolean deleteUserBMByCni(String bmCni);
     Boolean deleteUserBMByFullNameAndDob(String bmName, String bmSurname, Date bmDob);

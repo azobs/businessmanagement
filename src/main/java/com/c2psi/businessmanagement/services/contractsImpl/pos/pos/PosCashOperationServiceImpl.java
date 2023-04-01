@@ -56,6 +56,11 @@ public class PosCashOperationServiceImpl implements PosCashOperationService {
     }
 
     @Override
+    public Boolean isPosCashOperationDeleteable(Long pcopId) {
+        return null;
+    }
+
+    @Override
     public Boolean deletePosCashOperationById(Long pcopId) {
         if(pcopId == null){
             log.error("pcopId is null");

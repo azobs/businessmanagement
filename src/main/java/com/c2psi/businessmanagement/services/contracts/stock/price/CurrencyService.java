@@ -13,6 +13,7 @@ public interface CurrencyService {
     Boolean isCurrencyUnique(String currencyName, String currencyShortName);
     CurrencyDto findCurrencyByFullname(String currencyName, String currencyShortName);
     CurrencyDto findCurrencyById(Long currencyId);
+    Boolean isCurrencyDeleteable(Long currencyId);
     Boolean deleteCurrencyById(Long id);
     Boolean deleteCurrencyByFullname(String currencyName, String currencyShortName);
 }

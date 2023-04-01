@@ -162,6 +162,11 @@ public class RoleServiceImpl  implements RoleService {
     }
 
     @Override
+    public Boolean isRoleDeleteable(Long id) {
+        return null;
+    }
+
+    @Override
     public Boolean deleteRoleById(Long id) {
         if(id==null){
             log.error("Role ID is null");

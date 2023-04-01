@@ -79,6 +79,7 @@ public class CurrencyServiceImplTest {
         assertNotNull(currencyDtoUpdated);
         assertNotNull(currencyDtoUpdated.getId());
         assertEquals("Le franc cfa", currencyDtoUpdated.getCurrencyName());
+        assertEquals(currencyDtoSaved.getId().longValue(), currencyDtoUpdated.getId().longValue());
     }
 
     @Test(expected = InvalidEntityException.class)

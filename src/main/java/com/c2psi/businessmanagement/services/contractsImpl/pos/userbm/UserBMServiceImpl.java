@@ -4,8 +4,10 @@ import com.c2psi.businessmanagement.Enumerations.UserBMType;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.exceptions.*;
 import com.c2psi.businessmanagement.exceptions.IllegalArgumentException;
+import com.c2psi.businessmanagement.models.Enterprise;
 import com.c2psi.businessmanagement.models.Pointofsale;
 import com.c2psi.businessmanagement.models.UserBM;
+import com.c2psi.businessmanagement.repositories.pos.pos.EnterpriseRepository;
 import com.c2psi.businessmanagement.repositories.pos.pos.PointofsaleRepository;
 import com.c2psi.businessmanagement.repositories.pos.userbm.UserBMRepository;
 import com.c2psi.businessmanagement.services.contracts.pos.userbm.UserBMService;
@@ -31,15 +33,19 @@ public class UserBMServiceImpl implements UserBMService {
 
     private UserBMRepository userBMRepository;
     private PointofsaleRepository posRepository;
+    private EnterpriseRepository entRepository;
 
     @Autowired
     public UserBMServiceImpl(
             UserBMRepository userBMRepository1,
-            PointofsaleRepository posRepository1
+            PointofsaleRepository posRepository1,
+            EnterpriseRepository entRepository1
+
     )
     {
        this.userBMRepository = userBMRepository1;
        this.posRepository = posRepository1;
+       this.entRepository = entRepository1;
     }
 
     @Override
@@ -401,6 +407,36 @@ public class UserBMServiceImpl implements UserBMService {
     }
 
     @Override
+    public Boolean isUserBMDeleteable(Long bmId) {
+        /*******************************************************************************************
+         * Un UserBM est supprimable si:
+         *  -Il nest l'admin d'aucune Entreprise
+         */
+        if(bmId == null){
+            log.error("bmId is null");
+            throw new NullArgumentException("le bmId passe en argument de la methode est null");
+        }
+        if(!isUserBMExistWithId(bmId)){
+            log.error("There is no UserBM with the Id {} in the DB ", bmId);
+            throw new EntityNotFoundException("Aucun UserBm n'existe avec le bmIdn precise: "+bmId,
+                    ErrorCode.USERBM_NOT_FOUND);
+        }
+
+        //Il faut faire la recherche du UserBM et regarder si il est admin dune entreprise dans le systeme
+        Optional<List<Enterprise>> optionalEnterpriseList = entRepository.findAllEnterpriseAdministrateBy(bmId);
+        if(optionalEnterpriseList.isPresent()){
+            if(optionalEnterpriseList.get().size() != 0) {
+                /*
+                Si la taille de la liste des entreprises qu'il administre est differente de 0 alors il ne peut etre
+                supprime. il faut dabord affecter ces entreprises a un autre admin avant de le supprimer
+                 */
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
     public Boolean deleteUserBMByLogin(String bmLogin) {
         if(!StringUtils.hasLength(bmLogin)){
             log.error("bmLogin is null");
@@ -411,7 +447,11 @@ public class UserBMServiceImpl implements UserBMService {
             userBMRepository.delete(optionalUserBM.get());
             return true;
         }
-        return false;
+        else{
+            log.error("There is no UserBM with the login {} in the DB ", bmLogin);
+            throw new EntityNotFoundException("Aucun UserBm n'existe avec le bmLogin precise: "+bmLogin,
+                    ErrorCode.USERBM_NOT_FOUND);
+        }
     }
 
     @Override
@@ -425,7 +465,11 @@ public class UserBMServiceImpl implements UserBMService {
             userBMRepository.delete(optionalUserBM.get());
             return true;
         }
-        return false;
+        else{
+            log.error("There is no UserBM with the cni number {} in the DB ", bmCni);
+            throw new EntityNotFoundException("Aucun UserBm n'existe avec le bmCni precise: "+bmCni,
+                    ErrorCode.USERBM_NOT_FOUND);
+        }
     }
 
     @Override
@@ -441,7 +485,11 @@ public class UserBMServiceImpl implements UserBMService {
             userBMRepository.delete(optionalUserBM.get());
             return true;
         }
-        return false;
+        else{
+            log.error("There is no UserBM with the fullname {} {} born on {} in the DB ", bmName, bmSurname, bmDob);
+            throw new EntityNotFoundException("Aucun UserBm n'existe avec le fullname precise: "+bmName+"  "+
+                    bmSurname+" born on "+bmDob, ErrorCode.USERBM_NOT_FOUND);
+        }
     }
 
     @Override
@@ -455,7 +503,11 @@ public class UserBMServiceImpl implements UserBMService {
             userBMRepository.delete(optionalUserBM.get());
             return true;
         }
-        return false;
+        else{
+            log.error("There is no UserBM with the id {} in the DB ", bmId);
+            throw new EntityNotFoundException("Aucun UserBm n'existe avec l'ID precise: "+bmId,
+                    ErrorCode.USERBM_NOT_FOUND);
+        }
     }
 
     @Override
@@ -466,6 +518,10 @@ public class UserBMServiceImpl implements UserBMService {
 
     @Override
     public Page<UserBMDto> findAllUserBMContaining(String sample, int pagenum, int pagesize) {
+        if(!StringUtils.hasLength(sample)){
+            log.error("sample is null or empty");
+            throw new NullArgumentException("le sample passe en argument de la methode est null ou vide");
+        }
         Page<UserBM> pageofUserBM = userBMRepository.findAllByBmNameOrBmSurnameContaining(sample,
                 PageRequest.of(pagenum, pagesize, Sort.by(Sort.Direction.ASC, "bmName")));
         return pageofUserBM.map(UserBMDto::fromEntity);
@@ -473,12 +529,24 @@ public class UserBMServiceImpl implements UserBMService {
 
     @Override
     public List<UserBMDto> findAllUserBMofPos(Long idPos) {
+        if(idPos == null){
+            log.error("idPos is null");
+            throw new NullArgumentException("le idPos passe en argument de la methode est null");
+        }
         List<UserBM> listofUserBM = userBMRepository.findAllByBmPos(idPos);
         return listofUserBM.stream().map(UserBMDto::fromEntity).collect(Collectors.toList());
     }
 
     @Override
     public Page<UserBMDto> findAllUserBMofPos(Long idPos, String sample, int pagenum, int pagesize) {
+        if(idPos == null){
+            log.error("idPos is null");
+            throw new NullArgumentException("le idPos passe en argument de la methode est null");
+        }
+        if(!StringUtils.hasLength(sample)){
+            log.error("sample is null or empty");
+            throw new NullArgumentException("le sample passe en argument de la methode est null ou vide");
+        }
         Page<UserBM> pageofUserBM = userBMRepository.findAllByBmPosContaining(idPos, sample,
                 PageRequest.of(pagenum, pagesize, Sort.by(Sort.Direction.ASC, "bmName")));
         return pageofUserBM.map(UserBMDto::fromEntity);

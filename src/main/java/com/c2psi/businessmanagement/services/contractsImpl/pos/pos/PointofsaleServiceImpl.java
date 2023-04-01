@@ -286,6 +286,11 @@ public class PointofsaleServiceImpl implements PointofsaleService {
     }
 
     @Override
+    public Boolean isPointofsaleDeleteable(Long posId) {
+        return null;
+    }
+
+    @Override
     public Boolean isPosUnique(String posName, EnterpriseDto entDto) {
         if(!StringUtils.hasLength(posName)){
             log.error("Le pointofsale posName is null");
@@ -301,7 +306,7 @@ public class PointofsaleServiceImpl implements PointofsaleService {
     }
 
     @Override
-    public boolean deletePosById(Long posId) {
+    public Boolean deletePosById(Long posId) {
         if(posId == null){
             log.error("Pointofsale posId is null");
             throw new NullArgumentException("le PosId passe en argument de la methode est null");
@@ -315,7 +320,7 @@ public class PointofsaleServiceImpl implements PointofsaleService {
     }
 
     @Override
-    public boolean deletePosInEnterpriseByName(String posName, EnterpriseDto entDto) {
+    public Boolean deletePosInEnterpriseByName(String posName, EnterpriseDto entDto) {
         if(entDto == null){
             log.error("L'entreprise entDto is null");
             throw new NullArgumentException("le entDto passe en argument de la methode est null");

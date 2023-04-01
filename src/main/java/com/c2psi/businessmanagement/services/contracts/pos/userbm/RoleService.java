@@ -11,6 +11,7 @@ public interface RoleService {
     RoleDto saveRole(RoleDto roleDto);
     RoleDto findRoleById(Long id);
     RoleDto findRoleByRolename(RoleType roleName, Long entId);
+    Boolean isRoleDeleteable(Long id);
     Boolean deleteRoleById(Long id);
     Boolean deleteRoleByRolename(RoleType roleName, Long entId);
     List<RoleDto> findAllRoleOfEnterprise(Long entId);

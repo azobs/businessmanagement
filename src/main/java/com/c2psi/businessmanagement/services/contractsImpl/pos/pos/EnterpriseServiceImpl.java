@@ -462,6 +462,11 @@ public class EnterpriseServiceImpl implements EnterpriseService {
         }
     }
 
+    @Override
+    public Boolean isEnterpriseDeleteable(Long entId) {
+        return null;
+    }
+
     public Boolean deleteEnterprise(Enterprise ent){
         /***
          * It is not possible to detroy an enterprise wich contain pointofsale already
@@ -488,7 +493,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
      * @return
      */
     @Override
-    public boolean deleteEnterpriseByName(String entName) {
+    public Boolean deleteEnterpriseByName(String entName) {
         if(!StringUtils.hasLength(entName)){
             log.error("Enterprise entName is null");
             throw new NullArgumentException("le entName passe en argument de la methode est null");
@@ -501,7 +506,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
     }
 
     @Override
-    public boolean deleteEnterpriseByNiu(String entNiu) {
+    public Boolean deleteEnterpriseByNiu(String entNiu) {
         if(!StringUtils.hasLength(entNiu)){
             log.error("Enterprise entNiu is null");
             throw new NullArgumentException("le entNiu passe en argument de la methode est null");
@@ -514,7 +519,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
     }
 
     @Override
-    public boolean deleteEnterpriseById(Long entId) {
+    public Boolean deleteEnterpriseById(Long entId) {
         if(entId==null){
             log.error("Enterprise ID is null");
             throw new NullArgumentException("L'id specifie est null");
