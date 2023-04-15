@@ -4,6 +4,7 @@ import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.stock.product.PackagingDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.AddressDto;
 import com.c2psi.businessmanagement.models.Provider;
+import com.c2psi.businessmanagement.models.ProviderCashAccount;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
@@ -77,22 +78,7 @@ public class ProviderDto {
                 .providerCaDto(ProviderCashAccountDto.fromEntity(provider.getProviderCa()))
                 .providerAddressDto(AddressDto.fromEntity(provider.getProviderAddress()))
                 .providerPosDto(PointofsaleDto.fromEntity(provider.getProviderPos()))
-                /*.packagingDtoList(provider.getPackagingList() != null ?
-                        provider.getPackagingList().stream()
-                        .map(PackagingDto::fromEntity)
-                        .collect(Collectors.toList()) : null)
-                .providerCapsuleAccountDtoList(provider.getProviderCapsuleAccountList() != null ?
-                        provider.getProviderCapsuleAccountList().stream()
-                        .map(ProviderCapsuleAccountDto::fromEntity)
-                        .collect(Collectors.toList()) : null)
-                .providerPackagingAccountDtoList(provider.getProviderPackagingAccountList() != null ?
-                        provider.getProviderPackagingAccountList().stream()
-                                .map(ProviderPackagingAccountDto::fromEntity)
-                                .collect(Collectors.toList()) : null)
-                .providerDamageAccountDtoList(provider.getProviderDamageAccountList() != null ?
-                        provider.getProviderDamageAccountList().stream()
-                                .map(ProviderDamageAccountDto::fromEntity)
-                                .collect(Collectors.toList()) : null)*/
+
                 .build();
     }
     public static Provider toEntity(ProviderDto  providerDto){
@@ -102,27 +88,12 @@ public class ProviderDto {
         Provider p = new Provider();
         p.setId(providerDto.getId());
         p.setProviderAcronym(providerDto.getProviderAcronym());
+        p.setProviderName(providerDto.getProviderName());
+        p.setProviderDescription(providerDto.getProviderDescription());
+        p.setProviderCa(ProviderCashAccountDto.toEntity(providerDto.getProviderCaDto()));
         p.setProviderAddress(AddressDto.toEntity(providerDto.getProviderAddressDto()));
         p.setProviderPos(PointofsaleDto.toEntity(providerDto.providerPosDto));
-        p.setProviderDescription(providerDto.getProviderDescription());
-        p.setProviderName(providerDto.getProviderName());
-        /*p.setPackagingList(providerDto.getPackagingDtoList() != null ?
-                providerDto.getPackagingDtoList().stream()
-                .map(PackagingDto::toEntity)
-                .collect(Collectors.toList()) : null);
-        p.setProviderCapsuleAccountList(providerDto.getProviderCapsuleAccountDtoList() != null ?
-                providerDto.getProviderCapsuleAccountDtoList().stream()
-                        .map(ProviderCapsuleAccountDto::toEntity)
-                        .collect(Collectors.toList()) : null);
-        p.setProviderDamageAccountList(providerDto.getProviderDamageAccountDtoList() != null ?
-                providerDto.getProviderDamageAccountDtoList().stream()
-                        .map(ProviderDamageAccountDto::toEntity)
-                        .collect(Collectors.toList()) : null);
-        p.setProviderPackagingAccountList(providerDto.getProviderPackagingAccountDtoList() != null ?
-                providerDto.getProviderPackagingAccountDtoList().stream()
-                        .map(ProviderPackagingAccountDto::toEntity)
-                        .collect(Collectors.toList()) : null);
-        p.setProviderCa(ProviderCashAccountDto.toEntity(providerDto.getProviderCaDto()));*/
+
         return p;
     }
 }

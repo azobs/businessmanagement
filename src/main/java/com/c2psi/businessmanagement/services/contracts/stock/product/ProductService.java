@@ -9,8 +9,8 @@ public interface ProductService {
     ProductDto saveProduct(ProductDto prodDto);
     ProductDto updateProduct(ProductDto prodDto);
     ProductDto findProductById(Long prodId);
-    ProductDto findProductByProductCodeInPos(String prodName, Long posId);
-    Boolean isProductUniqueInPos(String prodName, Long posId);
+    ProductDto findProductByProductCodeInPos(String prodCode, Long posId);
+    Boolean isProductUniqueInPos(String prodCode, Long posId);
     Boolean deleteProductById(Long prodId);
     Boolean isProductDeleteable(Long prodId);
     List<ProductDto> findAllProductInPos(Long posId);

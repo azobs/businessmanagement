@@ -28,12 +28,14 @@ public class CurrencyServiceImpl implements CurrencyService {
 
     @Autowired
     public CurrencyServiceImpl(CurrencyRepository currencyRepository) {
-
         this.currencyRepository = currencyRepository;
     }
 
     @Override
     public CurrencyDto saveCurrency(CurrencyDto currencyDto) {
+        /********************
+         * ON doit valider le dto pris en parametre
+         */
         List<String> errors = CurrencyValidator.validate(currencyDto);
         if(!errors.isEmpty()){
             log.error("Entity currencyDto not valid {}", currencyDto);
@@ -41,6 +43,9 @@ public class CurrencyServiceImpl implements CurrencyService {
                     ErrorCode.CURRENCY_NOT_VALID, errors);
         }
 
+        /************************
+         * On doit se rassurer quapres ajout en BD il y aura pas de duplicata d'objet
+         */
         if(!this.isCurrencyUnique(currencyDto.getCurrencyName(), currencyDto.getCurrencyShortname())){
             log.error("An entity currency already exist may be with the same name and shortname  in the DB {}",
                     currencyDto);
@@ -82,6 +87,7 @@ public class CurrencyServiceImpl implements CurrencyService {
                         , ErrorCode.CURRENCY_DUPLICATED);
             }
         }
+        log.info("After all the verification the registration must be done without any problem");
 
         return CurrencyDto.fromEntity(
                 currencyRepository.save(currencyToUpdate)
@@ -155,7 +161,7 @@ public class CurrencyServiceImpl implements CurrencyService {
 
     @Override
     public Boolean isCurrencyDeleteable(Long currencyId) {
-        return null;
+        return true;
     }
 
     public Boolean isCurrencyExistWithFullname(String currencyName, String currencyShortName) {
@@ -185,10 +191,15 @@ public class CurrencyServiceImpl implements CurrencyService {
         }
         Optional<Currency> optionalCurrency = currencyRepository.findCurrencyById(currencyId);
         if(optionalCurrency.isPresent()){
+            if(!isCurrencyDeleteable(currencyId)){
+                throw new EntityNotDeleteableException("Le currency ne peut etre supprime car deja associe a dautres " +
+                        "elements", ErrorCode.CURRENCY_NOT_DELETEABLE);
+            }
             currencyRepository.delete(optionalCurrency.get());
             return true;
         }
-        return false;
+        throw new EntityNotFoundException("Aucune currency n'existe avec l'ID passe en argument "+currencyId,
+                ErrorCode.CURRENCY_NOT_FOUND);
     }
 
     @Override
@@ -206,9 +217,14 @@ public class CurrencyServiceImpl implements CurrencyService {
         Optional<Currency> optionalCurrency = currencyRepository.
                 findCurrencyByCurrencyNameAndAndCurrencyShortname(currencyName, currencyShortName);
         if(optionalCurrency.isPresent()){
+            if(!isCurrencyDeleteable(optionalCurrency.get().getId())){
+                throw new EntityNotDeleteableException("Le currency ne peut etre supprime car deja associe a dautres " +
+                        "elements", ErrorCode.CURRENCY_NOT_DELETEABLE);
+            }
             currencyRepository.delete(optionalCurrency.get());
             return true;
         }
-        return false;
+        throw new EntityNotFoundException("Aucune currency n'existe avec les attributs passe en argument "+
+                currencyName+ " "+currencyShortName, ErrorCode.CURRENCY_NOT_FOUND);
     }
 }

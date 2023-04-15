@@ -26,7 +26,7 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     Optional<List<Category>> findChildCategoryOf(@Param("catId") Long catId);
 
     @Query("SELECT cat FROM Category  cat WHERE cat.catName LIKE :sample AND cat.catPos.id=:posId ORDER BY cat.catName ASC")
-    Optional<Page<Category>> findAllByCatNameInPosContaining(Long posId, String sample, Pageable pageable);
+    Optional<Page<Category>> findAllByCatNameInPosContaining(@Param("posId") Long posId, @Param("sample") String sample, Pageable pageable);
 
 
 

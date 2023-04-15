@@ -7,14 +7,16 @@ import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
+import java.math.BigDecimal;
 
 @Data
 @Builder
 public class PosDamageAccountDto {
     Long id;
     @NotNull(message = "The number of damage product cannot be null")
-    @Positive(message = "The number of damage product must be positive")
-    Integer pdaNumber;
+    @PositiveOrZero(message = "The number of damage product must be positive ou null")
+    BigDecimal pdaNumber;
 
     /******************************
      * Relation between entities  *

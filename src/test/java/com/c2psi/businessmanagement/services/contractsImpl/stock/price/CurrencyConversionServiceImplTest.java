@@ -62,6 +62,64 @@ public class CurrencyConversionServiceImplTest {
         assertNotNull(currencyConversionDtoSaved.getId());
     }
 
+    @Test
+    public void updateCurrencyConversion_Valid(){
+        assertNotNull(currencyService);
+        assertNotNull(currencyConversionService);
+        CurrencyDto currencyDtoSourceSaved = saveCurrency("Dollard", "$");
+        CurrencyDto currencyDtoDestinationSaved = saveCurrency("Franc cfa", "F cfa");
+        double facteur = 655.0;
+
+        CurrencyConversionDto currencyConversionDtoSaved = saveCurrencyConversion(facteur, currencyDtoSourceSaved,
+                currencyDtoDestinationSaved);
+
+        assertNotNull(currencyConversionDtoSaved);
+        assertNotNull(currencyConversionDtoSaved.getId());
+
+        currencyConversionDtoSaved.setConversionFactor(BigDecimal.valueOf(650));
+        CurrencyConversionDto currencyConversionDtoUpdated = currencyConversionService.updateCurrencyConversion(
+                currencyConversionDtoSaved);
+        assertNotNull(currencyConversionDtoUpdated);
+        assertEquals(BigDecimal.valueOf(650), currencyConversionDtoUpdated.getConversionFactor());
+    }
+
+    @Test(expected = InvalidEntityException.class)
+    public void updateCurrencyConversion_NotValid(){
+        assertNotNull(currencyService);
+        assertNotNull(currencyConversionService);
+        CurrencyDto currencyDtoSourceSaved = saveCurrency("Dollard", "$");
+        CurrencyDto currencyDtoDestinationSaved = saveCurrency("Franc cfa", "F cfa");
+        CurrencyDto currencyDtoSourceSaved1 = saveCurrency("Yen", "Y");
+
+        double facteur = 655.0;
+
+        CurrencyConversionDto currencyConversionDtoSaved = saveCurrencyConversion(facteur, currencyDtoSourceSaved,
+                currencyDtoDestinationSaved);
+
+        assertNotNull(currencyConversionDtoSaved);
+        assertNotNull(currencyConversionDtoSaved.getId());
+        currencyConversionDtoSaved.setConversionFactor(BigDecimal.valueOf(650));
+        currencyConversionDtoSaved.setCurrencySourceDto(currencyDtoSourceSaved1);
+        CurrencyConversionDto currencyConversionDtoUpdated = currencyConversionService.updateCurrencyConversion(
+                currencyConversionDtoSaved);
+        //The above line is supposed to launch the expected exception
+    }
+
+    @Test(expected = InvalidEntityException.class)
+    public void saveCurrencyConversion_InValid(){
+        assertNotNull(currencyService);
+        assertNotNull(currencyConversionService);
+        CurrencyDto currencyDtoSourceSaved = saveCurrency("Dollard", "$");
+        CurrencyDto currencyDtoDestinationSaved = saveCurrency("Franc cfa", "F cfa");
+        double facteur = 655.0;
+        currencyDtoSourceSaved.setId(Long.valueOf(125478));
+        CurrencyConversionDto currencyConversionDtoSaved = saveCurrencyConversion(facteur, currencyDtoSourceSaved,
+                currencyDtoDestinationSaved);
+
+        assertNotNull(currencyConversionDtoSaved);
+        assertNotNull(currencyConversionDtoSaved.getId());
+    }
+
     @Test(expected = InvalidEntityException.class)
     public void saveCurrencyConversion_NullFacteur(){
         assertNotNull(currencyService);

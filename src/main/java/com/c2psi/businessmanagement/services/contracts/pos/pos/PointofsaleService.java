@@ -74,10 +74,10 @@ public interface PointofsaleService {
      */
     List<CurrencyDto> listofConvertibleCurrency(PointofsaleDto posDto);
 
-    /****************************************************************************************
+    /******************************************************
      * Return the default currency of a pointofsale
      * @param posDto
      * @return
-     */
+     ******************************************************/
     CurrencyDto findDefaultCurrency(PointofsaleDto posDto);
 }

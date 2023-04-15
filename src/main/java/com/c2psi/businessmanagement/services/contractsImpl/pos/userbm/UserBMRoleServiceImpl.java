@@ -5,10 +5,7 @@ import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.RoleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMRoleDto;
-import com.c2psi.businessmanagement.exceptions.EntityNotFoundException;
-import com.c2psi.businessmanagement.exceptions.ErrorCode;
-import com.c2psi.businessmanagement.exceptions.InvalidEntityException;
-import com.c2psi.businessmanagement.exceptions.NullArgumentException;
+import com.c2psi.businessmanagement.exceptions.*;
 import com.c2psi.businessmanagement.models.UserBMRole;
 import com.c2psi.businessmanagement.repositories.pos.userbm.UserBMRoleRepository;
 import com.c2psi.businessmanagement.services.contracts.pos.userbm.UserBMRoleService;
@@ -98,7 +95,7 @@ public class UserBMRoleServiceImpl implements UserBMRoleService {
 
     @Override
     public Boolean isUserBMRoleDeleteable(Long id) {
-        return null;
+        return true;
     }
 
     @Override
@@ -106,9 +103,14 @@ public class UserBMRoleServiceImpl implements UserBMRoleService {
         System.out.println("long id delete = "+id);
         Optional<UserBMRole> optionalUserBMRole = Optional.of(UserBMRoleDto.toEntity(this.findUserBMRoleById(id)));
         if(optionalUserBMRole.isPresent()){
-            userBMRoleRepository.delete(optionalUserBMRole.get());
-            return true;
+            if(isUserBMRoleDeleteable(id)){
+                userBMRoleRepository.delete(optionalUserBMRole.get());
+                return true;
+            }
+            log.error("The entity {} is not deleteable because it encompasses some other elements ", optionalUserBMRole.get());
+            throw new EntityNotDeleteableException("Ce userrole ne peut etre supprime ",
+                    ErrorCode.USERROLE_NOT_DELETEABLE);
         }
-        return false;
+        throw new EntityNotFoundException("Aucun userrole n'existe avec l'id = "+id);
     }
 }

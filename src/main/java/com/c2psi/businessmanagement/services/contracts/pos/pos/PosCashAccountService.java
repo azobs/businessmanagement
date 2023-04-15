@@ -14,7 +14,7 @@ public interface PosCashAccountService {
     /******************************************************************************
      * A certain amount of money can be paid into account of the point of sale
      * comming from outside. Means it is not in favor of a client or a provider
-     * The amount will be added to the amount present in the account the an operation
+     * The amount will be added to the amount present in the account.  An operation
      * that describe the paiement will also be added in the system
      * @param pcaId
      * @param amount

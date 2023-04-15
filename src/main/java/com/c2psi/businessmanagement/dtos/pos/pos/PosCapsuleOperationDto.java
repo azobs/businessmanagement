@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
+import java.math.BigDecimal;
 
 @Data
 @Builder
@@ -19,7 +20,7 @@ public class PosCapsuleOperationDto {
 
     @NotNull(message = "The number in mouvement cannot be null")
     @Positive(message = "The number in mouvement must be positive")
-    Integer poscsoNumberinmvt;
+    BigDecimal poscsoNumberinmvt;
     /******************************
      * Relation between entities  *
      * ****************************/

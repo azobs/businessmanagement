@@ -5,6 +5,7 @@ import com.c2psi.businessmanagement.dtos.pos.pos.PosDamageAccountDto;
 import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -17,7 +18,7 @@ public class PosDamageAccountValidatorTest {
     public void validate() {
         PosDamageAccountDto posDamageAccountDtoToValidate = PosDamageAccountDto.builder()
                 .pdaArticleDto(ArticleDto.builder().build())
-                .pdaNumber(12)
+                .pdaNumber(BigDecimal.valueOf(12))
                 .pdaPointofsaleDto(PointofsaleDto.builder().build())
                 .build();
 
@@ -31,7 +32,7 @@ public class PosDamageAccountValidatorTest {
     public void validateNull() {
         PosDamageAccountDto posDamageAccountDtoToValidate = PosDamageAccountDto.builder()
                 .pdaArticleDto(ArticleDto.builder().build())
-                .pdaNumber(12)
+                .pdaNumber(BigDecimal.valueOf(12))
                 .pdaPointofsaleDto(PointofsaleDto.builder().build())
                 .build();
 
@@ -46,7 +47,7 @@ public class PosDamageAccountValidatorTest {
     public void validateNullArticle() {
         PosDamageAccountDto posDamageAccountDtoToValidate = PosDamageAccountDto.builder()
                 .pdaArticleDto(null)
-                .pdaNumber(12)
+                .pdaNumber(BigDecimal.valueOf(12))
                 .pdaPointofsaleDto(PointofsaleDto.builder().build())
                 .build();
 
@@ -62,7 +63,7 @@ public class PosDamageAccountValidatorTest {
     public void validateNullPointofsale() {
         PosDamageAccountDto posDamageAccountDtoToValidate = PosDamageAccountDto.builder()
                 .pdaArticleDto(ArticleDto.builder().build())
-                .pdaNumber(12)
+                .pdaNumber(BigDecimal.valueOf(12))
                 .pdaPointofsaleDto(null)
                 .build();
 
@@ -78,7 +79,7 @@ public class PosDamageAccountValidatorTest {
     public void validateNumberNegative() {
         PosDamageAccountDto posDamageAccountDtoToValidate = PosDamageAccountDto.builder()
                 .pdaArticleDto(ArticleDto.builder().build())
-                .pdaNumber(-12)
+                .pdaNumber(BigDecimal.valueOf(-12))
                 .pdaPointofsaleDto(PointofsaleDto.builder().build())
                 .build();
 

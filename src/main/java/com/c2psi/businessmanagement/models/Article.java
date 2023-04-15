@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Data
@@ -28,19 +29,19 @@ public class Article extends AbstractEntity {
     String artShortname;
     String artDescription;
 
-    Integer artThreshold;
+    BigDecimal artThreshold;
 
     /*****
      * A negative value means there the article cannot be selling in whole
      */
-    Integer artLowLimitWholesale;
+    BigDecimal artLowLimitWholesale;
 
     /*****
      * A negative value means there the article cannot be selling in whole
      */
-    Integer artLowLimitSemiWholesale;
+    BigDecimal artLowLimitSemiWholesale;
 
-    Integer artQuantityinstock;
+    BigDecimal artQuantityinstock;
     /******************************
      * Relation between entities  *
      * ****************************/
@@ -53,7 +54,7 @@ public class Article extends AbstractEntity {
     @JoinColumn(name = "unit_id", nullable = false, referencedColumnName = "id")
     Unit artUnit;
     //Many baseprice is for 1 article
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "bp_id", nullable = false, referencedColumnName = "id")
     BasePrice artBp;
 
@@ -63,4 +64,8 @@ public class Article extends AbstractEntity {
 
     @OneToMany(mappedBy = "invlineArt", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<InventoryLine> inventoryLineList;
+
+    @OneToMany(mappedBy = "cltSpArt", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<ClientSpecialprice> clientSpecialpriceList;
+
 }

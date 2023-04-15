@@ -6,6 +6,7 @@ import com.c2psi.businessmanagement.dtos.pos.userbm.AddressDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -37,7 +38,7 @@ public class PosCapsuleOperationValidatorTest {
                             .opObject("object test")
                             .opType(OperationType.Credit)
                             .build())
-                    .poscsoNumberinmvt(12)
+                    .poscsoNumberinmvt(BigDecimal.valueOf(12))
                     .poscsoPosCapsuleAccountDto(null)
                     .poscsoUserbmDto(UserBMDto.builder().build())
                     .build();
@@ -63,7 +64,7 @@ public class PosCapsuleOperationValidatorTest {
                             .opObject("object test")
                             .opType(OperationType.Credit)
                             .build())
-                    .poscsoNumberinmvt(12)
+                    .poscsoNumberinmvt(BigDecimal.valueOf(12))
                     .poscsoPosCapsuleAccountDto(PosCapsuleAccountDto.builder().build())
                     .poscsoUserbmDto(null)
                     .build();
@@ -89,7 +90,7 @@ public class PosCapsuleOperationValidatorTest {
                             .opObject("object test")
                             .opType(OperationType.Credit)
                             .build())
-                    .poscsoNumberinmvt(-12)
+                    .poscsoNumberinmvt(BigDecimal.valueOf(-12))
                     .poscsoPosCapsuleAccountDto(PosCapsuleAccountDto.builder().build())
                     .poscsoUserbmDto(UserBMDto.builder().build())
                     .build();
@@ -141,7 +142,7 @@ public class PosCapsuleOperationValidatorTest {
                             .opObject("object test")
                             .opType(OperationType.Credit)
                             .build())
-                    .poscsoNumberinmvt(14)
+                    .poscsoNumberinmvt(BigDecimal.valueOf(14))
                     .poscsoPosCapsuleAccountDto(PosCapsuleAccountDto.builder().build())
                     .poscsoUserbmDto(UserBMDto.builder().build())
                     .build();

@@ -3,10 +3,7 @@ package com.c2psi.businessmanagement.services.contractsImpl.pos.pos;
 import com.c2psi.businessmanagement.Enumerations.OperationType;
 import com.c2psi.businessmanagement.dtos.pos.pos.PosCashAccountDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
-import com.c2psi.businessmanagement.exceptions.EntityNotFoundException;
-import com.c2psi.businessmanagement.exceptions.ErrorCode;
-import com.c2psi.businessmanagement.exceptions.InvalidEntityException;
-import com.c2psi.businessmanagement.exceptions.NullArgumentException;
+import com.c2psi.businessmanagement.exceptions.*;
 import com.c2psi.businessmanagement.models.Operation;
 import com.c2psi.businessmanagement.models.PosCashAccount;
 import com.c2psi.businessmanagement.models.PosCashOperation;
@@ -47,10 +44,12 @@ public class PosCashAccountServiceImpl implements PosCashAccountService {
 
     @Override
     public PosCashAccountDto savePosCashAccount(PosCashAccountDto pcaDto) {
+        /*********************************************************************
+         * On valide d'abord le parametre pris en parametre
+         */
         List<String> errors = PosCashAccountValidator.validate(pcaDto);
         if(!errors.isEmpty()){
             log.error("Entity pca not valid {}", pcaDto);
-            System.out.println("errors == "+errors);
             throw new InvalidEntityException("Le pca passé en argument n'est pas valide: "+errors,
                     ErrorCode.POSCASHACCOUNT_NOT_VALID, errors);
         }
@@ -118,10 +117,20 @@ public class PosCashAccountServiceImpl implements PosCashAccountService {
     @Override
     public Boolean saveCashOperation(Long pcaId, BigDecimal amount, OperationType operationType,
                                      Long userbmId, String opObject, String opDescription) {
-        if(pcaId == null || amount == null || userbmId == null){
-            throw new NullArgumentException("Appel de la methode saveCashDeposit avec des parametres null");
+        if(pcaId == null || amount == null || userbmId == null || operationType == null){
+            log.error("pcaId, amount or even userbmId is null ");
+            throw new NullArgumentException("Appel de la methode saveCashOperation avec des parametres null");
+        }
+        if(amount.compareTo(BigDecimal.valueOf(0)) <= 0){
+            log.error("The amount cannot be negative value");
+            throw new InvalidValueException("La valeur du montant ne saurait etre negative");
+        }
+        if(!operationType.equals(OperationType.Credit) && !operationType.equals(OperationType.Withdrawal)){
+            log.error("The operationType is not recognized for this operation");
+            throw new InvalidValueException("Le type d'operation precise n'est pas valide dans cette fonction ");
         }
         if(!this.isUserBMExistWithId(userbmId)){
+            log.error("The userbmId sent as argument don't identify any userBM in the DB");
             throw new EntityNotFoundException("Aucun UserBM n'existe avec le ID precise "+userbmId,
                     ErrorCode.USERBM_NOT_FOUND);
         }
@@ -142,7 +151,11 @@ public class PosCashAccountServiceImpl implements PosCashAccountService {
         if(operationType.equals(OperationType.Credit)){
             updatedSolde = solde.add(amount);//Car BigDecimal est immutable on peut pas directement modifier sa valeur
         }
-        else{
+        else if(operationType.equals(OperationType.Withdrawal)){
+            if(solde.compareTo(amount) < 0){
+                log.error("Insufficient balance");
+                throw new InvalidValueException("Solde insuffisant "+solde);
+            }
             updatedSolde = solde.subtract(amount);
         }
 
@@ -169,7 +182,7 @@ public class PosCashAccountServiceImpl implements PosCashAccountService {
 
     @Override
     public Boolean isPosCashAccountDeleteable(Long id) {
-        return null;
+        return true;
     }
 
     @Override
@@ -180,10 +193,13 @@ public class PosCashAccountServiceImpl implements PosCashAccountService {
         }
         Optional<PosCashAccount> optionalPosCashAccount = posCashAccountRepository.findPosCashAccountById(pcaId);
         if(optionalPosCashAccount.isPresent()){
-            posCashAccountRepository.delete(optionalPosCashAccount.get());
-            return true;
+            if(isPosCashAccountDeleteable(pcaId)){
+                posCashAccountRepository.delete(optionalPosCashAccount.get());
+                return true;
+            }
+
         }
-        return false;
+        throw new EntityNotFoundException("Aucun compte cash n'existe avec cet "+pcaId);
     }
 
 

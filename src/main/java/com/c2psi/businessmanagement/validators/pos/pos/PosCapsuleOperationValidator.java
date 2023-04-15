@@ -26,26 +26,6 @@ public class PosCapsuleOperationValidator {
             errors.add("--Le parametre a valider ne peut etre null--");
         }
         else{
-            if(!Optional.ofNullable(poscapsopDto.getPoscsoPosCapsuleAccountDto()).isPresent()){
-                errors.add("--Le compte capsule associe ne peut etre null--");
-            }
-            if(!Optional.ofNullable(poscapsopDto.getPoscsoUserbmDto()).isPresent()){
-                errors.add("--L'utilisteur qui a effectue l'operation ne saurait etre null--");
-            }
-            if(Optional.ofNullable(poscapsopDto.getPoscsoNumberinmvt()).isPresent()) {
-                if (poscapsopDto.getPoscsoNumberinmvt() < 0) {
-                    errors.add("--Le nombre de capsule en mouvement ne peut etre negatif--");
-                }
-            }
-            else{
-                errors.add("--Le nombre en mvt ne saurait etre null--");
-            }
-            List<String> errs = OperationValidator.validate(
-                    poscapsopDto.getPoscsoOperationDto());
-            if(errs.size()>0){
-                errors.addAll(errs);
-            }
-
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             Validator validator = factory.getValidator();
 

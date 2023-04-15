@@ -8,6 +8,7 @@ import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -20,7 +21,7 @@ public class PosCapsuleAccountValidatorTest {
     public void validate() {
         PosCapsuleAccountDto pcashToValidate = PosCapsuleAccountDto.builder()
                 .pcsaArticleDto(ArticleDto.builder().build())
-                .pcsaNumber(12)
+                .pcsaNumber(BigDecimal.valueOf(12))
                 .pcsaPointofsaleDto(PointofsaleDto.builder().build())
                 .build();
         List<String> errors = PosCapsuleAccountValidator.validate(pcashToValidate);
@@ -33,7 +34,7 @@ public class PosCapsuleAccountValidatorTest {
     public void validateNull() {
         PosCapsuleAccountDto pcashToValidate = PosCapsuleAccountDto.builder()
                 .pcsaArticleDto(ArticleDto.builder().build())
-                .pcsaNumber(12)
+                .pcsaNumber(BigDecimal.valueOf(12))
                 .pcsaPointofsaleDto(PointofsaleDto.builder().build())
                 .build();
         List<String> errors = PosCapsuleAccountValidator.validate(null);
@@ -47,7 +48,7 @@ public class PosCapsuleAccountValidatorTest {
     public void validateNullArticle() {
         PosCapsuleAccountDto pcashToValidate = PosCapsuleAccountDto.builder()
                 .pcsaArticleDto(null)
-                .pcsaNumber(12)
+                .pcsaNumber(BigDecimal.valueOf(12))
                 .pcsaPointofsaleDto(PointofsaleDto.builder().build())
                 .build();
         List<String> errors = PosCapsuleAccountValidator.validate(pcashToValidate);
@@ -62,7 +63,7 @@ public class PosCapsuleAccountValidatorTest {
     public void validateNullPointofsale() {
         PosCapsuleAccountDto pcashToValidate = PosCapsuleAccountDto.builder()
                 .pcsaArticleDto(ArticleDto.builder().build())
-                .pcsaNumber(12)
+                .pcsaNumber(BigDecimal.valueOf(12))
                 .pcsaPointofsaleDto(null)
                 .build();
         List<String> errors = PosCapsuleAccountValidator.validate(pcashToValidate);

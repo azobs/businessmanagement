@@ -8,10 +8,7 @@ import com.c2psi.businessmanagement.dtos.stock.price.CurrencyDto;
 import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
 import com.c2psi.businessmanagement.exceptions.*;
-import com.c2psi.businessmanagement.models.Currency;
-import com.c2psi.businessmanagement.models.CurrencyConversion;
-import com.c2psi.businessmanagement.models.Enterprise;
-import com.c2psi.businessmanagement.models.Pointofsale;
+import com.c2psi.businessmanagement.models.*;
 import com.c2psi.businessmanagement.repositories.pos.pos.EnterpriseRepository;
 import com.c2psi.businessmanagement.repositories.pos.pos.PointofsaleRepository;
 import com.c2psi.businessmanagement.repositories.pos.pos.PosCashAccountRepository;
@@ -106,26 +103,56 @@ public class PointofsaleServiceImpl implements PointofsaleService {
 
     @Override
     public PointofsaleDto savePointofsale(PointofsaleDto posDto) {
+        /**************************************************************************
+         * Il faut valider le parametre pris en parametre pour verifier la saisie
+         */
         List<String> errors = PointofsaleValidator.validate(posDto);
         if(!errors.isEmpty()){
             log.error("Entity Pointofsale not valid {}", posDto);
             throw new InvalidEntityException("Le pointofsale passe en argument n'est pas valide:  ",
                     ErrorCode.POINTOFSALE_NOT_VALID, errors);
         }
-        //Il faut deja se rassurer que l'entreprise associe avec le pointofsale est existante
-        if(Optional.ofNullable(posDto.getPosEnterpriseDto()).isPresent()){
-            Optional<Enterprise> optionalPosEnt = entRepository.findEnterpriseById(posDto.getPosEnterpriseDto().getId());
-            if(!optionalPosEnt.isPresent()){
-                log.error("The enterprise owner of the pointofsale precised does not exist in the system");
-                throw new EntityNotFoundException("L'entreprise associe avec le pointofsale n'existe pas en BD"
-                        , ErrorCode.ENTERPRISE_NOT_FOUND);
-            }
-        }
-        else{
+
+        /**********************************************************************
+         * On se rassure de l'existence de l'entreprise associe au pointofsale
+         */
+
+        if(posDto.getPosEnterpriseDto().getId() == null){
             log.error("The enterprise owner of the pointofsale has not been precised");
             throw new EntityNotFoundException("Aucune entreprise n'est associe avec le pointofsale"
                     , ErrorCode.ENTERPRISE_NOT_FOUND);
         }
+        Optional<Enterprise> optionalPosEnt = entRepository.findEnterpriseById(posDto.getPosEnterpriseDto().getId());
+        if(!optionalPosEnt.isPresent()){
+            log.error("The enterprise owner of the pointofsale precised does not exist in the system");
+            throw new EntityNotFoundException("L'entreprise associe avec le pointofsale n'existe pas en BD"
+                    , ErrorCode.ENTERPRISE_NOT_FOUND);
+        }
+
+        /****************************************************************
+         * On se rassure que le currency precise existe vraiment en BD
+         */
+        if(posDto.getPosCurrencyDto().getId() == null){
+            log.error("The currency id of currency associate with the pointofsale is null");
+            throw new InvalidEntityException("L'entite posDto a enregistrer n'est pas valide car l'id du " +
+                    "currency est null", ErrorCode.POINTOFSALE_NOT_VALID);
+        }
+        Optional<Currency> optionalCurrency = currencyRepository.findCurrencyById(posDto.getPosCurrencyDto().getId());
+        if(!optionalCurrency.isPresent()){
+            log.error("The currency precised for the pointofsale is not in the DB");
+            throw new EntityNotFoundException("Le currency indique pour le pointofsale n'existe pas encore en BD ",
+                    ErrorCode.CURRENCY_NOT_FOUND);
+        }
+
+        /**********************************************************************************
+         * Pour ce qui est du PosCashAccount du pointofsale il va etre creer
+         * pendant la creation du pointofsale a cause de la relation a sens unique
+         * OneToOne. C'est donc a partir du pointofsale quon aura access au PosCashAccount
+         */
+
+        /**************************************************************************
+         * Il faut se rassurer de l'unicite du pointofsale dans l'entreprise
+         */
         //IL faut verifier que le pointofsale sera unique dans l'entreprise
         if(!this.isPosUnique(posDto.getPosName(), posDto.getPosEnterpriseDto())){
             //Si c'est true alors le pointofsale sera unique donc le non signifie que ca ne va pas etre unique
@@ -202,6 +229,7 @@ public class PointofsaleServiceImpl implements PointofsaleService {
                         ErrorCode.POINTOFSALE_DUPLICATED);
             }
         }
+
         return PointofsaleDto.fromEntity(posRepository.save(posToUpdate));
     }
 
@@ -313,8 +341,13 @@ public class PointofsaleServiceImpl implements PointofsaleService {
         }
         Optional<Pointofsale> optionalPointofsale = posRepository.findPointofsaleById(posId);
         if(optionalPointofsale.isPresent()){
-            posRepository.delete(optionalPointofsale.get());
-            return true;
+            if(isPointofsaleDeleteable(posId)){
+                posRepository.delete(optionalPointofsale.get());
+                return true;
+            }
+            log.error("The entity {} is not deleteable because it encompasses some other elements ", optionalPointofsale.get());
+            throw new EntityNotDeleteableException("Ce pointofsale ne peut etre supprime ",
+                    ErrorCode.POINTOFASALE_NOT_DELETEABLE);
         }
         return false;
     }
@@ -332,10 +365,17 @@ public class PointofsaleServiceImpl implements PointofsaleService {
         Optional<Pointofsale> optionalPointofsale = posRepository.findPointofsaleOfEnterpriseByName(posName,
                 entDto.getId());
         if(optionalPointofsale.isPresent()){
-            posRepository.delete(optionalPointofsale.get());
-            return true;
+            if(isPointofsaleDeleteable(optionalPointofsale.get().getId())){
+                log.info("tout est bon et on peut supprimer le pointofsale {}", optionalPointofsale.get());
+                posRepository.delete(optionalPointofsale.get());
+                return true;
+            }
+            log.error("The entity {} is not deleteable because it encompasses some other elements ", optionalPointofsale.get());
+            throw new EntityNotDeleteableException("Ce pointofsale ne peut etre supprime ",
+                    ErrorCode.POINTOFASALE_NOT_DELETEABLE);
         }
-        return false;
+        throw new EntityNotFoundException("Aucun pointofsale n'a ete trouve avec les parametres indique name et entDto ",
+                ErrorCode.POINTOFSALE_NOT_FOUND);
 
     }
 

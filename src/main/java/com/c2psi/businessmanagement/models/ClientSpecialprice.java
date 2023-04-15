@@ -30,5 +30,9 @@ public class ClientSpecialprice extends AbstractEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "sp_id", nullable = false, referencedColumnName = "id")
     SpecialPrice cltSpSp;
+    //One clientspecialprice for 1 Article
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "art_id", nullable = false, referencedColumnName = "id")
+    Article cltSpArt;
 }
 

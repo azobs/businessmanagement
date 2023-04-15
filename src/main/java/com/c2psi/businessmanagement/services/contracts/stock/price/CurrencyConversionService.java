@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface CurrencyConversionService {
     CurrencyConversionDto saveCurrencyConversion(CurrencyConversionDto ccDto);
+    CurrencyConversionDto updateCurrencyConversion(CurrencyConversionDto ccDto);
     /*****************************************************************************
      * Helps to convert the amount from the source currency to the destination
      * currency

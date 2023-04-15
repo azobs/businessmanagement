@@ -1,19 +1,25 @@
 package com.c2psi.businessmanagement.services.contracts.stock.product;
 
-import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
+
 import com.c2psi.businessmanagement.dtos.stock.product.FormatDto;
+import org.springframework.data.domain.Page;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 public interface FormatService {
     FormatDto saveFormat(FormatDto formatDto);
-    FormatDto findFormat(Long formatId);
-    FormatDto findFormat(String format_name, BigDecimal formatCapacity,
-                         PointofsaleDto posDto);
-    Boolean isFormatUnique(String format_name, BigDecimal formatCapacity,
-                           PointofsaleDto posDto);
+    FormatDto updateFormat(FormatDto formatDto);
+    FormatDto findFormatById(Long formatId);
+    FormatDto findFormatInPointofsaleByFullcharacteristic(String format_name, BigDecimal formatCapacity,
+                         Long posId);
+    Boolean isFormatUniqueInPos(String format_name, BigDecimal formatCapacity,
+                           Long posId);
+    Boolean isFormatExistInPosWith(String format_name, BigDecimal formatCapacity,
+                                Long posId);
+    Boolean isFormatExistWithId(Long formatId);
     Boolean deleteFormatById(Long formatId);
-    Boolean isFormatUsed(FormatDto formatDto);
-    List<FormatDto> findAllFormat(PointofsaleDto posDto);
+    Boolean isFormatDeleteable(Long formatId);
+    List<FormatDto> findAllFormatInPos(Long posId);
+    Page<FormatDto> findPageFormatInPos(Long posId, int pagenum, int pagesize);
 }

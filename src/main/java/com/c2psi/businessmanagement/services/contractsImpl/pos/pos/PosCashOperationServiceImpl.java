@@ -57,7 +57,7 @@ public class PosCashOperationServiceImpl implements PosCashOperationService {
 
     @Override
     public Boolean isPosCashOperationDeleteable(Long pcopId) {
-        return null;
+        return true;
     }
 
     @Override
@@ -68,10 +68,14 @@ public class PosCashOperationServiceImpl implements PosCashOperationService {
         }
         Optional<PosCashOperation> optionalPosCashOperation = posCashOperationRepository.findPosCashOperationById(pcopId);
         if(optionalPosCashOperation.isPresent()){
-            posCashOperationRepository.delete(optionalPosCashOperation.get());
-            return true;
+            if(isPosCashOperationDeleteable(pcopId)){
+                posCashOperationRepository.delete(optionalPosCashOperation.get());
+                return true;
+            }
+
         }
-        return false;
+        throw new EntityNotFoundException("Aucune entite n'exise avec l'id passe en argument ",
+                ErrorCode.POSCASHOPERATION_NOT_FOUND);
     }
 
     public Boolean isPosCashOperationExistWithId(Long opId){

@@ -27,7 +27,7 @@ public class PosDamageOperationValidatorTest {
                             .opObject("object test")
                             .opType(OperationType.Credit)
                             .build())
-                    .posdoNumberinmvt(10)
+                    .posdoNumberinmvt(BigDecimal.valueOf(10))
                     .posdoPosDamageAccountDto(PosDamageAccountDto.builder().build())
                     .posdoUserbmDto(UserBMDto.builder().build())
                     .build();
@@ -53,7 +53,7 @@ public class PosDamageOperationValidatorTest {
                             .opObject("object test")
                             .opType(OperationType.Credit)
                             .build())
-                    .posdoNumberinmvt(10)
+                    .posdoNumberinmvt(BigDecimal.valueOf(10))
                     .posdoPosDamageAccountDto(PosDamageAccountDto.builder().build())
                     .posdoUserbmDto(UserBMDto.builder().build())
                     .build();
@@ -105,7 +105,7 @@ public class PosDamageOperationValidatorTest {
                             .opObject("object test")
                             .opType(OperationType.Credit)
                             .build())
-                    .posdoNumberinmvt(-12)
+                    .posdoNumberinmvt(BigDecimal.valueOf(-12))
                     .posdoPosDamageAccountDto(PosDamageAccountDto.builder().build())
                     .posdoUserbmDto(UserBMDto.builder().build())
                     .build();
@@ -131,7 +131,7 @@ public class PosDamageOperationValidatorTest {
                             .opObject("object test")
                             .opType(OperationType.Credit)
                             .build())
-                    .posdoNumberinmvt(12)
+                    .posdoNumberinmvt(BigDecimal.valueOf(12))
                     .posdoPosDamageAccountDto(null)
                     .posdoUserbmDto(UserBMDto.builder().build())
                     .build();
@@ -157,7 +157,7 @@ public class PosDamageOperationValidatorTest {
                             .opObject("object test")
                             .opType(OperationType.Credit)
                             .build())
-                    .posdoNumberinmvt(12)
+                    .posdoNumberinmvt(BigDecimal.valueOf(12))
                     .posdoPosDamageAccountDto(PosDamageAccountDto.builder().build())
                     .posdoUserbmDto(null)
                     .build();

@@ -8,6 +8,7 @@ import com.c2psi.businessmanagement.dtos.stock.product.UnitDto;
 import com.c2psi.businessmanagement.validators.stock.price.BasePriceValidator;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -25,12 +26,12 @@ public class ArticleValidatorTest {
                 .artCode("gggg")
                 .artDescription(null)
                 .artUnitDto(UnitDto.builder().build())
-                .artThreshold(Integer.valueOf(0))
+                .artThreshold(BigDecimal.valueOf(0))
                 .artName("dsdsd")
-                .artQuantityinstock(Integer.valueOf(0))
+                .artQuantityinstock(BigDecimal.valueOf(0))
                 .artShortname("dsdsds")
-                .artLowLimitWholesale(Integer.valueOf(10))
-                .artLowLimitSemiWholesale(Integer.valueOf(5))
+                .artLowLimitWholesale(BigDecimal.valueOf(10))
+                .artLowLimitSemiWholesale(BigDecimal.valueOf(5))
                 .build();
 
         List<String> errors = ArticleValidator.validate(articleDto);
@@ -48,12 +49,12 @@ public class ArticleValidatorTest {
                 .artCode("gggg")
                 .artDescription(null)
                 .artUnitDto(UnitDto.builder().build())
-                .artThreshold(Integer.valueOf(0))
+                .artThreshold(BigDecimal.valueOf(0))
                 .artName("dsdsd")
-                .artQuantityinstock(Integer.valueOf(0))
+                .artQuantityinstock(BigDecimal.valueOf(0))
                 .artShortname("dsdsds")
-                .artLowLimitWholesale(Integer.valueOf(10))
-                .artLowLimitSemiWholesale(Integer.valueOf(5))
+                .artLowLimitWholesale(BigDecimal.valueOf(10))
+                .artLowLimitSemiWholesale(BigDecimal.valueOf(5))
                 .build();
 
         List<String> errors = ArticleValidator.validate(null);
@@ -111,12 +112,12 @@ public class ArticleValidatorTest {
                 .artCode("")
                 .artDescription("")
                 .artUnitDto(UnitDto.builder().build())
-                .artThreshold(Integer.valueOf(0))
+                .artThreshold(BigDecimal.valueOf(0))
                 .artName("")
-                .artQuantityinstock(Integer.valueOf(0))
+                .artQuantityinstock(BigDecimal.valueOf(0))
                 .artShortname("")
-                .artLowLimitWholesale(Integer.valueOf(10))
-                .artLowLimitSemiWholesale(Integer.valueOf(5))
+                .artLowLimitWholesale(BigDecimal.valueOf(10))
+                .artLowLimitSemiWholesale(BigDecimal.valueOf(5))
                 .build();
 
         List<String> errors = ArticleValidator.validate(articleDto);
@@ -144,12 +145,12 @@ public class ArticleValidatorTest {
                 .artCode("    ")
                 .artDescription("          ")
                 .artUnitDto(UnitDto.builder().build())
-                .artThreshold(Integer.valueOf(0))
+                .artThreshold(BigDecimal.valueOf(0))
                 .artName("    ")
-                .artQuantityinstock(Integer.valueOf(0))
+                .artQuantityinstock(BigDecimal.valueOf(0))
                 .artShortname("    ")
-                .artLowLimitWholesale(Integer.valueOf(10))
-                .artLowLimitSemiWholesale(Integer.valueOf(5))
+                .artLowLimitWholesale(BigDecimal.valueOf(10))
+                .artLowLimitSemiWholesale(BigDecimal.valueOf(5))
                 .build();
 
         List<String> errors = ArticleValidator.validate(articleDto);
@@ -170,12 +171,12 @@ public class ArticleValidatorTest {
                 .artCode("sdssdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsds")
                 .artDescription(null)
                 .artUnitDto(UnitDto.builder().build())
-                .artThreshold(Integer.valueOf(0))
+                .artThreshold(BigDecimal.valueOf(0))
                 .artName("aq")
-                .artQuantityinstock(Integer.valueOf(0))
+                .artQuantityinstock(BigDecimal.valueOf(0))
                 .artShortname("asasqwqwqweeretrtrytytuyjhjhjnvbcvcvcvchjhjhjh")
-                .artLowLimitWholesale(Integer.valueOf(10))
-                .artLowLimitSemiWholesale(Integer.valueOf(5))
+                .artLowLimitWholesale(BigDecimal.valueOf(10))
+                .artLowLimitSemiWholesale(BigDecimal.valueOf(5))
                 .build();
 
         List<String> errors = ArticleValidator.validate(articleDto);
@@ -196,12 +197,12 @@ public class ArticleValidatorTest {
                 .artCode("sdssdsds")
                 .artDescription(null)
                 .artUnitDto(UnitDto.builder().build())
-                .artThreshold(Integer.valueOf(-1))
+                .artThreshold(BigDecimal.valueOf(-1))
                 .artName("aqxsx")
-                .artQuantityinstock(Integer.valueOf(-2))
+                .artQuantityinstock(BigDecimal.valueOf(-2))
                 .artShortname("asasqwq")
-                .artLowLimitWholesale(Integer.valueOf(10))
-                .artLowLimitSemiWholesale(Integer.valueOf(5))
+                .artLowLimitWholesale(BigDecimal.valueOf(10))
+                .artLowLimitSemiWholesale(BigDecimal.valueOf(5))
                 .build();
 
         List<String> errors = ArticleValidator.validate(articleDto);
@@ -221,12 +222,12 @@ public class ArticleValidatorTest {
                 .artCode("sdssdsds")
                 .artDescription(null)
                 .artUnitDto(UnitDto.builder().build())
-                .artThreshold(Integer.valueOf(10))
+                .artThreshold(BigDecimal.valueOf(10))
                 .artName("aqxsx")
-                .artQuantityinstock(Integer.valueOf(10))
+                .artQuantityinstock(BigDecimal.valueOf(10))
                 .artShortname("asasqwq")
-                .artLowLimitWholesale(Integer.valueOf(10))
-                .artLowLimitSemiWholesale(Integer.valueOf(15))
+                .artLowLimitWholesale(BigDecimal.valueOf(10))
+                .artLowLimitSemiWholesale(BigDecimal.valueOf(15))
                 .build();
 
         List<String> errors = ArticleValidator.validate(articleDto);

@@ -15,7 +15,7 @@ public class FormatDto {
     @NotNull(message = "The format name cannot be null")
     @NotEmpty(message = "The format name cannot be empty")
     @NotBlank(message = "The format name cannot be blank")
-    @Size(min = 3, max = 20, message = "The format name size must be between 3 and 20 characters")
+    @Size(min = 3, max = 100, message = "The format name size must be between 3 and 100 characters")
     String formatName;
     @NotNull(message = "The capacity cannot be null")
     @Positive(message = "The capacity must be positive")

@@ -22,35 +22,36 @@ public class ArticleDto {
     @NotNull(message = "The article code cannot be null")
     @NotEmpty(message = "The article code cannot be empty")
     @NotBlank(message = "The article code cannot be blank")
-    @Size(min = 3, max = 20, message = "The article code size must be between 3 and 10 characters")
+    @Size(min = 3, max = 30, message = "The article code size must be between 3 and 30 characters")
     String artCode;
     @NotNull(message = "The article name cannot be null")
     @NotEmpty(message = "The article name cannot be empty")
     @NotBlank(message = "The article name cannot be blank")
-    @Size(min = 3, max = 20, message = "The article name size must be between 3 and 20 characters")
+    @Size(min = 3, max = 75, message = "The article name size must be between 3 and 75 characters")
     String artName;
     @NotEmpty(message = "The article shortname cannot be empty")
     @NotBlank(message = "The article shortname cannot be blank")
-    @Size(min = 3, max = 20, message = "The article shortname size must be between 3 and 10 characters")
+    @Size(min = 3, max = 50, message = "The article shortname size must be between 3 and 50 characters")
     String artShortname;
+    @Size(max = 150, message = "The article shortname size must be at least 150 characters")
     String artDescription;
     @NotNull(message = "The threshold value cannot be null")
     @PositiveOrZero(message = "The threshold value must be positive or zero")
-    Integer artThreshold;
+    BigDecimal artThreshold;
     /*****
      * A negative value means there the article cannot be selling in whole
      */
     @NotNull(message = "The low limit value to sell in whole value cannot be null")
-    Integer artLowLimitWholesale;
+    BigDecimal artLowLimitWholesale;
     /*****
      * A negative value means there the article cannot be selling in semi whole
      * If an article cannot be selling in semi whole then it cannot be also selling in whole.
      */
     @NotNull(message = "The low limit value to sell in semi whole value cannot be null")
-    Integer artLowLimitSemiWholesale;
+    BigDecimal artLowLimitSemiWholesale;
     @NotNull(message = "The current quantity in stock cannot be null")
     @PositiveOrZero(message = "The current quantity in stock must be positive or zero")
-    Integer artQuantityinstock;
+    BigDecimal artQuantityinstock;
     /******************************
      * Relation between entities  *
      * ****************************/
@@ -90,10 +91,7 @@ public class ArticleDto {
                 .artUnitDto(UnitDto.fromEntity(article.getArtUnit()))
                 .artBpDto(BasePriceDto.fromEntity(article.getArtBp()))
                 .artPosDto(PointofsaleDto.fromEntity(article.getArtPos()))
-                /*.inventoryLineDtoList(article.getInventoryLineList() != null ?
-                        article.getInventoryLineList().stream()
-                        .map(InventoryLineDto::fromEntity)
-                        .collect(Collectors.toList()) : null)*/
+
                 .build();
     }
     public static Article toEntity(ArticleDto articleDto){
@@ -103,6 +101,8 @@ public class ArticleDto {
         Article art = new Article();
         art.setId(articleDto.getId());
         art.setArtCode(articleDto.getArtCode());
+        art.setArtName(articleDto.getArtName());
+        art.setArtShortname(articleDto.getArtShortname());
         art.setArtDescription(articleDto.getArtDescription());
         art.setArtThreshold(articleDto.getArtThreshold());
         art.setArtLowLimitWholesale(articleDto.getArtLowLimitWholesale());
@@ -112,10 +112,7 @@ public class ArticleDto {
         art.setArtUnit(UnitDto.toEntity(articleDto.getArtUnitDto()));
         art.setArtBp(BasePriceDto.toEntity(articleDto.getArtBpDto()));
         art.setArtPos(PointofsaleDto.toEntity(articleDto.getArtPosDto()));
-        /*art.setInventoryLineList(articleDto.getInventoryLineDtoList() != null ?
-                articleDto.getInventoryLineDtoList().stream()
-                .map(InventoryLineDto::toEntity)
-                .collect(Collectors.toList()) : null);*/
+
         return art;
     }
 }

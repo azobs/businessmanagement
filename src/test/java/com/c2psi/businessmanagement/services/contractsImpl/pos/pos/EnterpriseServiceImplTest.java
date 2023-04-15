@@ -8,7 +8,7 @@ import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.AddressDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.exceptions.*;
-import com.c2psi.businessmanagement.services.contractsImpl.UsedForTest;
+import com.c2psi.businessmanagement.services.contractsImpl.UsedForTestForAll;
 import com.c2psi.businessmanagement.services.contractsImpl.pos.userbm.UserBMServiceImpl;
 import com.c2psi.businessmanagement.services.contractsImpl.stock.price.CurrencyServiceImpl;
 import org.junit.Test;
@@ -1593,15 +1593,13 @@ public class EnterpriseServiceImplTest {
         }
     }
 
-    @Test(expected = EntityNotRemovableException.class)
+    @Test(expected = EntityNotDeleteableException.class)
     public void deleteEnterprise_NotEmpty(){
         assertNotNull(pointofsaleService);
         assertNotNull(enterpriseService);
         assertNotNull(userBMService);
-        UsedForTest usedForTest = new UsedForTest();
-        PointofsaleDto pointofsaleDto = usedForTest.savePointofsale("depot foret bar", "D2D",
-                "depot de boisson", "d2d@gmail.com", "676170067", 0.0,
-                "Franc cfa", "F cfa", pointofsaleService, enterpriseService,
+        UsedForTestForAll usedForTestForAll = new UsedForTestForAll();
+        PointofsaleDto pointofsaleDto = usedForTestForAll.savePointofsale(0, pointofsaleService, enterpriseService,
                 userBMService, currencyService);
         assertNotNull(pointofsaleDto);
         assertNotNull(pointofsaleDto.getPosEnterpriseDto());

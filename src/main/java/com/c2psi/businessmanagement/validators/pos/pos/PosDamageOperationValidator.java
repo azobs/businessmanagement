@@ -27,14 +27,6 @@ public class PosDamageOperationValidator {
             errors.add("--Le parametre a valider ne peut etre null--");
         }
         else{
-            if(Optional.ofNullable(posdamopDto.getPosdoNumberinmvt()).isPresent()) {
-                if (posdamopDto.getPosdoNumberinmvt() < 0) {
-                    errors.add("--Le nombre en mouvement ne peut etre negatif--");
-                }
-            }
-            else{
-                errors.add("--Le nombre en mvt ne peut etre null--");
-            }
 
             if(!Optional.ofNullable(posdamopDto.getPosdoPosDamageAccountDto()).isPresent()){
                 errors.add("--Le compte affecte par l'operation ne peut etre null--");

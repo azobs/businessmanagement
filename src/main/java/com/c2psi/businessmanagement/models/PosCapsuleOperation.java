@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
+import java.math.BigDecimal;
 import java.time.Instant;
 
 @Data
@@ -25,7 +26,7 @@ public class PosCapsuleOperation extends AbstractEntity {
     @Embedded
     Operation poscsoOperation;
 
-    Integer poscsoNumberinmvt;
+    BigDecimal poscsoNumberinmvt;
     /******************************
      * Relation between entities  *
      * ****************************/

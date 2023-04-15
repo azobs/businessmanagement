@@ -305,7 +305,7 @@ public class CategoryServiceImpl implements CategoryService {
         if(optionalCategoryPage.isPresent()){
             return optionalCategoryPage.get().map(CategoryDto::fromEntity);
         }
-        return null;
+        throw new EntityNotFoundException("Aucun pointofsale nexiste avec ce posId dans la BD "+posId);
     }
 
     @Override

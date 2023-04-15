@@ -8,16 +8,18 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
+import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name="pos_capsule_account")
+@Table(name="pos_capsule_account", uniqueConstraints = {@UniqueConstraint(
+        columnNames = {"pointofsale_id", "art_id"})})
 public class PosCapsuleAccount extends AbstractEntity{
 
-    Integer pcsaNumber;
+    BigDecimal pcsaNumber;
 
     /******************************
      * Relation between entities  *

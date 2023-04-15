@@ -7,13 +7,15 @@ import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
+import java.math.BigDecimal;
 
 @Data
 @Builder
 public class PosCapsuleAccountDto {
     Long id;
     @NotNull(message = "The number capsule cannot be null")
-    Integer pcsaNumber;
+    @PositiveOrZero(message = "The number of capsule product must be positive ou null")
+    BigDecimal pcsaNumber;
 
     /******************************
      * Relation between entities  *

@@ -163,7 +163,7 @@ public class RoleServiceImpl  implements RoleService {
 
     @Override
     public Boolean isRoleDeleteable(Long id) {
-        return null;
+        return true;
     }
 
     @Override
@@ -174,10 +174,15 @@ public class RoleServiceImpl  implements RoleService {
         }
         Optional<Role> optionalRole = Optional.of(RoleDto.toEntity(this.findRoleById(id)));
         if(optionalRole.isPresent()){
-            roleRepository.delete(optionalRole.get());
-            return true;
+            if(isRoleDeleteable(id)){
+                roleRepository.delete(optionalRole.get());
+                return true;
+            }
+            log.error("The entity {} is not deleteable because it encompasses some other elements ", optionalRole.get());
+            throw new EntityNotDeleteableException("Ce role ne peut etre supprime ",
+                    ErrorCode.ROLE_NOT_DELETEABLE);
         }
-        return false;
+        throw new EntityNotFoundException("Aucune role n'existe avec l'Id' =  "+id);
     }
 
     @Override
@@ -189,10 +194,16 @@ public class RoleServiceImpl  implements RoleService {
         }
         Optional<Role> optionalRole = Optional.of(RoleDto.toEntity(this.findRoleByRolename(roleName, entId)));
         if(optionalRole.isPresent()){
-            roleRepository.delete(optionalRole.get());
-            return true;
+            if(isRoleDeleteable(optionalRole.get().getId())){
+                roleRepository.delete(optionalRole.get());
+                return true;
+            }
+            log.error("The entity {} is not deleteable because it encompasses some other elements ", optionalRole.get());
+            throw new EntityNotDeleteableException("Ce role ne peut etre supprime ",
+                    ErrorCode.ROLE_NOT_DELETEABLE);
         }
-        return false;
+        throw new EntityNotFoundException("Aucune role n'existe avec les attributs indique roleName =  "+roleName+
+                " entId= "+entId);
     }
 
     @Override

@@ -471,16 +471,13 @@ public class EnterpriseServiceImpl implements EnterpriseService {
         /***
          * It is not possible to detroy an enterprise wich contain pointofsale already
          */
-        System.out.println("ici3");
         List<PointofsaleDto> pointofsaleDtoList = findAllPosofEnterprise(ent.getId());
         if(pointofsaleDtoList.size() == 0){
-            System.out.println("ici4");
             entRepository.delete(ent);
             return true;
         }
-        System.out.println("ici5");
-        throw new EntityNotRemovableException("L'entreprise d'ID "+ent.getId()
-             +" ne peut etre supprime car contient au moins un pointofsale ", ErrorCode.ENTERPRISE_NOT_REMOVABLE);
+        throw new EntityNotDeleteableException("L'entreprise d'ID "+ent.getId()
+             +" ne peut etre supprime car contient au moins un pointofsale ", ErrorCode.ENTERPRISE_NOT_DELETEABLE);
 
     }
 
@@ -500,9 +497,14 @@ public class EnterpriseServiceImpl implements EnterpriseService {
         }
         Optional<Enterprise> optionalEnterprise = entRepository.findEnterpriseByEntName(entName);
         if(optionalEnterprise.isPresent()){
-            return deleteEnterprise(optionalEnterprise.get());
+            if(isEnterpriseDeleteable(optionalEnterprise.get().getId())) {
+                return deleteEnterprise(optionalEnterprise.get());
+            }
+            throw new EntityNotDeleteableException("L'entreprise ne peut etre supprime car deja associe avec dautre " +
+                    "elements ", ErrorCode.ENTERPRISE_NOT_DELETEABLE);
         }
-        return false;
+        throw new EntityNotFoundException("Aucune entreprise n'existe avec le name passe en argument "+entName,
+                ErrorCode.ENTERPRISE_NOT_FOUND);
     }
 
     @Override
@@ -513,9 +515,14 @@ public class EnterpriseServiceImpl implements EnterpriseService {
         }
         Optional<Enterprise> optionalEnterprise = entRepository.findEnterpriseByEntNiu(entNiu);
         if(optionalEnterprise.isPresent()){
-            return deleteEnterprise(optionalEnterprise.get());
+            if(isEnterpriseDeleteable(optionalEnterprise.get().getId())) {
+                return deleteEnterprise(optionalEnterprise.get());
+            }
+            throw new EntityNotDeleteableException("L'entreprise ne peut etre supprime car deja associe avec dautre " +
+                    "elements ", ErrorCode.ENTERPRISE_NOT_DELETEABLE);
         }
-        return false;
+        throw new EntityNotFoundException("Aucune entreprise n'existe avec le niu passe en argument "+entNiu,
+                ErrorCode.ENTERPRISE_NOT_FOUND);
     }
 
     @Override
@@ -524,13 +531,16 @@ public class EnterpriseServiceImpl implements EnterpriseService {
             log.error("Enterprise ID is null");
             throw new NullArgumentException("L'id specifie est null");
         }
-        System.out.println("ici1");
         Optional<Enterprise> optionalEnterprise = entRepository.findEnterpriseById(entId);
         if(optionalEnterprise.isPresent()){
-            System.out.println("ici2");
-            return deleteEnterprise(optionalEnterprise.get());
+            if(isEnterpriseDeleteable(entId)) {
+                return deleteEnterprise(optionalEnterprise.get());
+            }
+            throw new EntityNotDeleteableException("L'entreprise ne peut etre supprime car deja associe avec dautre " +
+                    "elements ", ErrorCode.ENTERPRISE_NOT_DELETEABLE);
         }
-        return false;
+        throw new EntityNotFoundException("Aucune entreprise n'existe avec le id passe en argument "+entId,
+                ErrorCode.ENTERPRISE_NOT_FOUND);
     }
 
     @Override

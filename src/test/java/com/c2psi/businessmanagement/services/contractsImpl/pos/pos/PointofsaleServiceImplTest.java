@@ -14,7 +14,7 @@ import com.c2psi.businessmanagement.exceptions.DuplicateEntityException;
 import com.c2psi.businessmanagement.exceptions.EntityNotFoundException;
 import com.c2psi.businessmanagement.exceptions.InvalidEntityException;
 import com.c2psi.businessmanagement.exceptions.NullArgumentException;
-import com.c2psi.businessmanagement.repositories.stock.price.CurrencyConversionRepository;
+import com.c2psi.businessmanagement.services.contractsImpl.UsedForTestForAll;
 import com.c2psi.businessmanagement.services.contractsImpl.pos.userbm.UserBMServiceImpl;
 import com.c2psi.businessmanagement.services.contractsImpl.stock.price.CurrencyConversionServiceImpl;
 import com.c2psi.businessmanagement.services.contractsImpl.stock.price.CurrencyServiceImpl;
@@ -48,6 +48,8 @@ public class PointofsaleServiceImplTest {
 
     @Autowired
     CurrencyConversionServiceImpl currencyConversionService;
+    @Autowired
+    UsedForTestForAll usedForTestForAll;
 
     public AddressDto getAddressDto(String email, String numtel1){
         return AddressDto.builder()
@@ -198,11 +200,15 @@ public class PointofsaleServiceImplTest {
         assertNotNull(posCashAccountService);
         assertNotNull(currencyService);
 
-        PointofsaleDto pointofsaleSaved = savePointofsale("depot foret bar", "D2D",
-                "depot de boisson", "d2d@gmail.com", "676170067", 0.0,
-                "Franc cfa", "F cfa");
+        PointofsaleDto pointofsaleSaved = usedForTestForAll.savePointofsale(0, pointofsaleService, enterpriseService,
+                userBMService, currencyService);
         assertNotNull(pointofsaleSaved);
         assertNotNull(pointofsaleSaved.getId());
+        /****
+         *On se rassure que le compte cash du pointofsale a bel et bien ete cree avec son id
+         *         pendant la creation du pointofsale
+         */
+        assertNotNull(pointofsaleSaved.getPosCashaccountDto().getId());
 
     }
 

@@ -444,8 +444,13 @@ public class UserBMServiceImpl implements UserBMService {
         }
         Optional<UserBM> optionalUserBM = Optional.of(UserBMDto.toEntity(this.findUserBMByLogin(bmLogin)));
         if(optionalUserBM.isPresent()){
-            userBMRepository.delete(optionalUserBM.get());
-            return true;
+            if(isUserBMDeleteable(optionalUserBM.get().getId())){
+                userBMRepository.delete(optionalUserBM.get());
+                return true;
+            }
+            log.error("The entity {} is not deleteable because it encompasses some other elements ", optionalUserBM.get());
+            throw new EntityNotDeleteableException("Ce role ne peut etre supprime ",
+                    ErrorCode.USERBM_NOT_DELETEABLE);
         }
         else{
             log.error("There is no UserBM with the login {} in the DB ", bmLogin);
@@ -462,8 +467,13 @@ public class UserBMServiceImpl implements UserBMService {
         }
         Optional<UserBM> optionalUserBM = Optional.of(UserBMDto.toEntity(this.findUserBMByCni(bmCni)));
         if(optionalUserBM.isPresent()){
-            userBMRepository.delete(optionalUserBM.get());
-            return true;
+            if(isUserBMDeleteable(optionalUserBM.get().getId())){
+                userBMRepository.delete(optionalUserBM.get());
+                return true;
+            }
+            log.error("The entity {} is not deleteable because it encompasses some other elements ", optionalUserBM.get());
+            throw new EntityNotDeleteableException("Ce role ne peut etre supprime ",
+                    ErrorCode.USERBM_NOT_DELETEABLE);
         }
         else{
             log.error("There is no UserBM with the cni number {} in the DB ", bmCni);
@@ -482,8 +492,13 @@ public class UserBMServiceImpl implements UserBMService {
         Optional<UserBM> optionalUserBM = Optional.of(UserBMDto.toEntity(
                 this.findUserBMByFullNameAndDob(bmName, bmSurname, bmDob)));
         if(optionalUserBM.isPresent()){
-            userBMRepository.delete(optionalUserBM.get());
-            return true;
+            if(isUserBMDeleteable(optionalUserBM.get().getId())){
+                userBMRepository.delete(optionalUserBM.get());
+                return true;
+            }
+            log.error("The entity {} is not deleteable because it encompasses some other elements ", optionalUserBM.get());
+            throw new EntityNotDeleteableException("Ce role ne peut etre supprime ",
+                    ErrorCode.USERBM_NOT_DELETEABLE);
         }
         else{
             log.error("There is no UserBM with the fullname {} {} born on {} in the DB ", bmName, bmSurname, bmDob);
@@ -500,8 +515,13 @@ public class UserBMServiceImpl implements UserBMService {
         }
         Optional<UserBM> optionalUserBM = userBMRepository.findUserBMById(bmId);
         if(optionalUserBM.isPresent()){
-            userBMRepository.delete(optionalUserBM.get());
-            return true;
+            if(isUserBMDeleteable(bmId)){
+                userBMRepository.delete(optionalUserBM.get());
+                return true;
+            }
+            log.error("The entity {} is not deleteable because it encompasses some other elements ", optionalUserBM.get());
+            throw new EntityNotDeleteableException("Ce role ne peut etre supprime ",
+                    ErrorCode.USERBM_NOT_DELETEABLE);
         }
         else{
             log.error("There is no UserBM with the id {} in the DB ", bmId);

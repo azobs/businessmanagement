@@ -22,7 +22,8 @@ import java.util.List;
 public class Unit extends AbstractEntity {
 
     /****
-     * This Unit represent what we call conditionnement
+     * This Unit represent what we call conditionnement: Bouteille, quart de casier, tier de casier,
+     * Demi casier, trois quart de casier, casier, etc.
      */
     @Column(nullable = false)
     String unitName;
