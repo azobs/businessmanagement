@@ -11,6 +11,7 @@ import com.c2psi.businessmanagement.repositories.stock.product.ArticleRepository
 import com.c2psi.businessmanagement.services.contracts.pos.pos.PosDamageAccountService;
 import com.c2psi.businessmanagement.validators.pos.pos.PosDamageAccountValidator;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,7 @@ public class PosDamageAccountServiceImpl implements PosDamageAccountService {
     private ArticleRepository articleRepository;
     private PointofsaleRepository pointofsaleRepository;
 
+    @Autowired
     public PosDamageAccountServiceImpl(PosDamageAccountRepository posDamAccountRepository,
                                        PosDamageOperationRepository posDamOperationRepository,
                                        UserBMRepository userBMRepository, ArticleRepository articleRepository,
