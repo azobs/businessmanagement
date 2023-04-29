@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -32,25 +33,25 @@ public interface PosCashOperationRepository extends JpaRepository<PosCashOperati
 
     @Query("SELECT pco FROM PosCashOperation  pco WHERE pco.poscoPosCashAccount.id=:pcaId AND (pco.poscoOperation.opDate>=:startDate AND pco.poscoOperation.opDate<=:endDate)")
     List<PosCashOperation> findAllPosCashOperationBetween(@Param("pcaId") Long pcaId,
-                                                          @Param("startDate") Date startDate,
-                                                          @Param("endDate") Date endDate);
+                                                          @Param("startDate") Instant startDate,
+                                                          @Param("endDate") Instant endDate);
 
     @Query("SELECT pco FROM PosCashOperation  pco WHERE pco.poscoPosCashAccount.id=:pcaId AND (pco.poscoOperation.opDate>=:startDate AND pco.poscoOperation.opDate<=:endDate)")
     Page<PosCashOperation> findAllPosCashOperationBetween(@Param("pcaId") Long pcaId,
-                                                          @Param("startDate") Date startDate,
-                                                          @Param("endDate") Date endDate,
+                                                          @Param("startDate") Instant startDate,
+                                                          @Param("endDate") Instant endDate,
                                                           Pageable pageable);
 
     @Query("SELECT pco FROM PosCashOperation  pco WHERE pco.poscoPosCashAccount.id=:pcaId AND pco.poscoOperation.opType=:opType AND (pco.poscoOperation.opDate>=:startDate AND pco.poscoOperation.opDate<=:endDate)")
     List<PosCashOperation> findAllPosCashOperationOfTypeBetween(@Param("pcaId") Long pcaId,
                                                                 @Param("opType") OperationType opType,
-                                                                @Param("startDate") Date startDate,
-                                                                @Param("endDate") Date endDate);
+                                                                @Param("startDate") Instant startDate,
+                                                                @Param("endDate") Instant endDate);
 
     @Query("SELECT pco FROM PosCashOperation  pco WHERE pco.poscoPosCashAccount.id=:pcaId AND pco.poscoOperation.opType=:opType AND (pco.poscoOperation.opDate>=:startDate AND pco.poscoOperation.opDate<=:endDate)")
     Page<PosCashOperation> findAllPosCashOperationOfTypeBetween(@Param("pcaId") Long pcaId,
                                                                 @Param("opType") OperationType opType,
-                                                                @Param("startDate") Date startDate,
-                                                                @Param("endDate") Date endDate,
+                                                                @Param("startDate") Instant startDate,
+                                                                @Param("endDate") Instant endDate,
                                                                 Pageable pageable);
 }

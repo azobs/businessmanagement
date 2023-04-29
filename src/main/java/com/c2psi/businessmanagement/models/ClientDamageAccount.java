@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
@@ -15,7 +16,7 @@ import javax.persistence.*;
 @Table(name="client_damage_account")
 public class ClientDamageAccount extends AbstractEntity {
 
-    Integer cdaNumber;
+    BigDecimal cdaNumber;
     /******************************
      * Relation between entities  *
      * ****************************/

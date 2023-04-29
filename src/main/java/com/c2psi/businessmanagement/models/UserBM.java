@@ -39,7 +39,7 @@ public class UserBM extends AbstractEntity {
 
     String bmSurname;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(nullable = false)
     Date bmDob;
 

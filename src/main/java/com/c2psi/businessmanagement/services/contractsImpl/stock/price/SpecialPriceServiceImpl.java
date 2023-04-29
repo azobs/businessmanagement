@@ -3,6 +3,7 @@ package com.c2psi.businessmanagement.services.contractsImpl.stock.price;
 import com.c2psi.businessmanagement.dtos.stock.price.BasePriceDto;
 import com.c2psi.businessmanagement.dtos.stock.price.CurrencyDto;
 import com.c2psi.businessmanagement.dtos.stock.price.SpecialPriceDto;
+import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
 import com.c2psi.businessmanagement.exceptions.*;
 import com.c2psi.businessmanagement.models.BasePrice;
 import com.c2psi.businessmanagement.models.Currency;
@@ -15,6 +16,9 @@ import com.c2psi.businessmanagement.validators.stock.price.BasePriceValidator;
 import com.c2psi.businessmanagement.validators.stock.price.SpecialPriceValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -149,7 +153,7 @@ public class SpecialPriceServiceImpl implements SpecialPriceService {
             log.error("The basePriceid precise is null");
             throw new NullArgumentException("L'argument de la methode findListofSpecialPriceof is null");
         }
-        Optional<List<SpecialPrice>> optionalSpecialPriceList = spRepository.findListofSpecialPriceOf(basePriceId);
+        Optional<List<SpecialPrice>> optionalSpecialPriceList = spRepository.findAllSpecialPriceOf(basePriceId);
         if(!optionalSpecialPriceList.isPresent()){
             log.error("The specialprice is not found in the DB");
             throw new EntityNotFoundException("Aucun specialprice n'est retrouve dans la BD ",
@@ -157,6 +161,25 @@ public class SpecialPriceServiceImpl implements SpecialPriceService {
         }
         List<SpecialPrice> specialPriceList = optionalSpecialPriceList.get();
         return specialPriceList.stream().map(SpecialPriceDto::fromEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<SpecialPriceDto> findPageofSpecialPriceOf(Long basePriceId, int pagenum, int pagesize) {
+        if(basePriceId == null){
+            log.error("The basePriceid precise is null");
+            throw new NullArgumentException("L'argument de la methode findListofSpecialPriceof is null");
+        }
+
+        Optional<Page<SpecialPrice>> optionalSpecialPricePage = spRepository.findPageSpecialPriceOf(basePriceId,
+                PageRequest.of(pagenum, pagesize, Sort.Direction.ASC,"spDetailprice"));
+        if(!optionalSpecialPricePage.isPresent()){
+            log.error("The specialprice is not found in the DB");
+            throw new EntityNotFoundException("Aucun specialprice n'est retrouve dans la BD ",
+                    ErrorCode.SPECIALPRICE_NOT_FOUND);
+        }
+        Page<SpecialPrice> specialPricePage = optionalSpecialPricePage.get();
+
+        return specialPricePage.map(SpecialPriceDto::fromEntity);
     }
 
     @Override

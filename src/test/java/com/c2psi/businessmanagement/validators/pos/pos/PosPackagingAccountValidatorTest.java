@@ -7,6 +7,7 @@ import com.c2psi.businessmanagement.dtos.stock.product.PackagingDto;
 import com.c2psi.businessmanagement.models.PosPackagingAccount;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -18,7 +19,7 @@ public class PosPackagingAccountValidatorTest {
     @Test
     public void validate() {
         PosPackagingAccountDto pospackaccToValidate = PosPackagingAccountDto.builder()
-                .ppaNumber(10)
+                .ppaNumber(BigDecimal.valueOf(10))
                 .ppaPackagingDto(PackagingDto.builder().build())
                 .ppaPointofsaleDto(PointofsaleDto.builder().build())
                 .build();
@@ -33,7 +34,7 @@ public class PosPackagingAccountValidatorTest {
     @Test
     public void validateNull() {
         PosPackagingAccountDto pospackaccToValidate = PosPackagingAccountDto.builder()
-                .ppaNumber(10)
+                .ppaNumber(BigDecimal.valueOf(10))
                 .ppaPackagingDto(PackagingDto.builder().build())
                 .ppaPointofsaleDto(PointofsaleDto.builder().build())
                 .build();
@@ -48,7 +49,7 @@ public class PosPackagingAccountValidatorTest {
     @Test
     public void validateNullPackaging() {
         PosPackagingAccountDto pospackaccToValidate = PosPackagingAccountDto.builder()
-                .ppaNumber(10)
+                .ppaNumber(BigDecimal.valueOf(10))
                 .ppaPackagingDto(null)
                 .ppaPointofsaleDto(PointofsaleDto.builder().build())
                 .build();
@@ -63,7 +64,7 @@ public class PosPackagingAccountValidatorTest {
     @Test
     public void validateNullPointofsale() {
         PosPackagingAccountDto pospackaccToValidate = PosPackagingAccountDto.builder()
-                .ppaNumber(10)
+                .ppaNumber(BigDecimal.valueOf(10))
                 .ppaPackagingDto(PackagingDto.builder().build())
                 .ppaPointofsaleDto(null)
                 .build();

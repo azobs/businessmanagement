@@ -6,6 +6,7 @@ import com.c2psi.businessmanagement.dtos.stock.provider.ProviderPackagingAccount
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderPackagingOperationDto;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -20,7 +21,7 @@ public class ProviderPackagingOperationValidatorTest {
                 .propoOperationDto(OperationDto.builder().build())
                 .propoProPackagingAccountDto(ProviderPackagingAccountDto.builder().build())
                 .propoUserbmDto(UserBMDto.builder().build())
-                .propoNumberinmvt(Integer.valueOf(1))
+                .propoNumberinmvt(BigDecimal.valueOf(1))
                 .build();
 
         List<String> errors = ProviderPackagingOperationValidator.validate(providerPackagingOperationDto);
@@ -36,7 +37,7 @@ public class ProviderPackagingOperationValidatorTest {
                 .propoOperationDto(OperationDto.builder().build())
                 .propoProPackagingAccountDto(ProviderPackagingAccountDto.builder().build())
                 .propoUserbmDto(UserBMDto.builder().build())
-                .propoNumberinmvt(Integer.valueOf(1))
+                .propoNumberinmvt(BigDecimal.valueOf(1))
                 .build();
 
         List<String> errors = ProviderPackagingOperationValidator.validate(null);
@@ -71,7 +72,7 @@ public class ProviderPackagingOperationValidatorTest {
                 .propoOperationDto(OperationDto.builder().build())
                 .propoProPackagingAccountDto(ProviderPackagingAccountDto.builder().build())
                 .propoUserbmDto(UserBMDto.builder().build())
-                .propoNumberinmvt(Integer.valueOf(0))
+                .propoNumberinmvt(BigDecimal.valueOf(0))
                 .build();
 
         List<String> errors = ProviderPackagingOperationValidator.validate(providerPackagingOperationDto);

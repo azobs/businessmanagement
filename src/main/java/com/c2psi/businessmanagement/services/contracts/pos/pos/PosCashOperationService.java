@@ -5,11 +5,12 @@ import com.c2psi.businessmanagement.dtos.pos.pos.PosCashAccountDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PosCashOperationDto;
 import org.springframework.data.domain.Page;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
 public interface PosCashOperationService {
-    PosCashOperationDto savePosCashOperation(PosCashOperationDto pcopDto);
+    PosCashOperationDto updatePosCashOperation(PosCashOperationDto pcopDto);
 
     Boolean isPosCashOperationDeleteable(Long pcopId);
     Boolean deletePosCashOperationById(Long pcopId);
@@ -19,18 +20,18 @@ public interface PosCashOperationService {
     List<PosCashOperationDto> findAllPosCashOperation(
             Long pcaId);
 
-    Page<PosCashOperationDto> findAllPosCashOperation(Long pcaId, int pagenum, int pagesize);
+    Page<PosCashOperationDto> findPagePosCashOperation(Long pcaId, int pagenum, int pagesize);
 
     List<PosCashOperationDto> findAllPosCashOperationBetween(
-            Long pcaId, Date startDate, Date endDate);
+            Long pcaId, Instant startDate, Instant endDate);
 
-    Page<PosCashOperationDto> findAllPosCashOperationBetween(Long pcaId, Date startDate, Date endDate,
+    Page<PosCashOperationDto> findPagePosCashOperationBetween(Long pcaId, Instant startDate, Instant endDate,
                                                              int pagenum, int pagesize);
 
     List<PosCashOperationDto> findAllPosCashOperationBetween(
-            Long pcaId, OperationType op_type, Date startDate, Date endDate);
+            Long pcaId, OperationType op_type, Instant startDate, Instant endDate);
 
-    Page<PosCashOperationDto> findAllPosCashOperationBetween(Long pcaId, OperationType op_type,
-                                                             Date startDate, Date endDate,
+    Page<PosCashOperationDto> findPagePosCashOperationBetween(Long pcaId, OperationType op_type,
+                                                             Instant startDate, Instant endDate,
                                                              int pagenum, int pagesize);
 }

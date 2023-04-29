@@ -45,7 +45,7 @@ public class Provider extends AbstractEntity {
     //List of providerpackageaccount applied to a client one per pointofsale
     @OneToMany(mappedBy = "ppaProvider", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<ProviderPackagingAccount> providerPackagingAccountList;
-    //List of clientcashaccount applied to a client one per pointofsale
+    //List of providercashaccount applied to a client one per pointofsale
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "pca_id", nullable = false, referencedColumnName = "id")
     ProviderCashAccount providerCa;

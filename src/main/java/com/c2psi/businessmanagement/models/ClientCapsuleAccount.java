@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
@@ -14,14 +15,8 @@ import javax.persistence.*;
 @Entity
 @Table(name="client_capsule_account")
 public class ClientCapsuleAccount extends AbstractEntity {
-    /*****
-     * ccsa_number < 0 signifie que le client doit verser des capsules
-     * donc il a été payé sous reserve des capsules de l'article en question
-     * ccsa_number > 0 signifie que le point de vente a recu les capsules du client
-     * mais ne les a pas encore echangé en article
-     */
 
-    Integer ccsaNumber;
+    BigDecimal ccsaNumber;
     /******************************
      * Relation between entities  *
      * ****************************/

@@ -65,13 +65,13 @@ public class PointofsaleServiceImplTest {
     }
 
     public UserBMDto saveUserBM(String login, String name, String email, String cni){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             UserBMDto userBMToSave = UserBMDto.builder()
                     .bmAddressDto(getAddressDto(email, "678470262"))
                     .bmCni("107235260")
                     .bmCni(cni)
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15 00:00:00"))
                     .bmLogin(login)
                     .bmName(name)
                     .bmPassword("password")

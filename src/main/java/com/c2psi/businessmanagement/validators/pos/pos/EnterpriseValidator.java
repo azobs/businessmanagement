@@ -45,18 +45,6 @@ public class EnterpriseValidator {
                     errors.addAll(address_errors);
                 }
             }
-            if(!StringUtils.hasLength(entDto.getEntRegime())){
-                errors.add("--Le regime de l'entreprise ne peut etre vide--");
-            }
-            if(!StringUtils.hasLength(entDto.getEntSocialreason())){
-                errors.add("--La raison sociale de l'entreprise ne peut etre vide--");
-            }
-            if(!StringUtils.hasLength(entDto.getEntName())){
-                errors.add("--Le nom de l'entreprise ne peut etre vide--");
-            }
-            if(!Optional.ofNullable(entDto.getEntAdminDto()).isPresent()){
-                errors.add("--Le user admin de l'entreprise ne peut etre null--");
-            }
 
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             Validator validator = factory.getValidator();

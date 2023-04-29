@@ -1,19 +1,19 @@
 package com.c2psi.businessmanagement.dtos.stock.provider;
 
-import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
 import com.c2psi.businessmanagement.models.ProviderDamageAccount;
 import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 @Data
 @Builder
 public class ProviderDamageAccountDto {
     Long id;
     @NotNull(message = "The number of damage product cannot be null")
-    Integer pdaNumber;
+    BigDecimal pdaNumber;
     /******************************
      * Relation between entities  *
      * ****************************/

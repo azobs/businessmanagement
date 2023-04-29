@@ -1,27 +1,26 @@
 package com.c2psi.businessmanagement.services.contracts.pos.pos;
 
+import com.c2psi.businessmanagement.Enumerations.OperationType;
 import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
+import com.c2psi.businessmanagement.dtos.pos.pos.PosCapsuleAccountDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PosPackagingAccountDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
+import org.springframework.data.domain.Page;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface PosPackagingAccountService {
-    PosPackagingAccountDto savePosPackagingAccount(PosPackagingAccountDto posdaccDto);
-
-    PosPackagingAccountDto findPosPackagingAccountById(Long posdacc_id);
-
-    PosPackagingAccountDto findPosPackagingAccountByPosArticle(PointofsaleDto posDto,
-                                          ArticleDto artDto);
-
-    List<PosPackagingAccountDto> findAllPackagingAccountPos(PointofsaleDto posDto);
-
-    Boolean deletePosPackagingAccountById(Long posda_id);
-
-    Boolean savePackagingDeposit(PosPackagingAccountDto posdaDto, Integer number,
-                               UserBMDto userbmDto);
-
-    Boolean savePackagingWithdrawal(PosPackagingAccountDto posdaDto, Integer number,
-                                  UserBMDto userbmDto);
+    PosPackagingAccountDto savePosPackagingAccount(PosPackagingAccountDto ppackaccDto);
+    PosPackagingAccountDto findPosPackagingAccountById(Long ppackaccId);
+    PosPackagingAccountDto findPosPackagingAccountInPos(Long packagingId, Long posId);
+    List<PosPackagingAccountDto> findAllPackagingAccountInPos(Long posId);
+    Page<PosPackagingAccountDto> findPagePackagingAccountInPos(Long posId, int pagenum, int pagesize);
+    List<PosPackagingAccountDto> findAllPackagingAccount(Long packagingId);
+    Page<PosPackagingAccountDto> findPagePackagingAccount(Long packagingId, int pagenum, int pagesize);
+    Boolean deletePosPackagingAccountById(Long ppackaccId);
+    Boolean isPosPackagingAccountDeleteable(Long ppackaccId);
+    Boolean savePackagingOperation(Long ppackaccId, BigDecimal qte, OperationType operationType,
+                                 Long userBMId, String opObject, String opDescription);
 }

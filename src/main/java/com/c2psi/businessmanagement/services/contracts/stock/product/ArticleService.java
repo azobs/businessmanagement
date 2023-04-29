@@ -30,4 +30,5 @@ public interface ArticleService {
     ArticleDto addDamageArticleof(Long artId, BigDecimal qteToAdd);
     ArticleDto reduceDamageArticle(Long artId, BigDecimal qteToReduce);
 
+
 }

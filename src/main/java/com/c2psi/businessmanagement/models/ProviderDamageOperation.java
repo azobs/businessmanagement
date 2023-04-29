@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
+import java.math.BigDecimal;
 import java.time.Instant;
 
 @Data
@@ -24,9 +25,8 @@ public class ProviderDamageOperation extends AbstractEntity{
     OperationType prodo_Type;*/
     @Embedded
     Operation prodoOperation;
-    @NotNull
-    @PositiveOrZero
-    Integer prodoNumberinmvt;
+
+    BigDecimal prodoNumberinmvt;
     /******************************
      * Relation between entities  *
      * ****************************/

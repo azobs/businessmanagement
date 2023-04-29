@@ -8,6 +8,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.math.BigDecimal;
 
 @Data
 @Builder
@@ -17,7 +18,7 @@ public class ProviderDamageOperationDto {
     OperationDto prodoOperationDto;
     @NotNull(message = "The number in mvt in the damage operation cannot be null")
     @Positive(message = "The number in mvt in the damage operation must be positive")
-    Integer prodoNumberinmvt;
+    BigDecimal prodoNumberinmvt;
     /******************************
      * Relation between entities  *
      * ****************************/

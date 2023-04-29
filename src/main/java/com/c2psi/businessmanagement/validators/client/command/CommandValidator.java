@@ -38,17 +38,7 @@ public class CommandValidator {
             errors.add("--Le  parametre a valider ne saurait etre null--");
         }
         else{
-            if(Optional.ofNullable(commandDto.getCmdCode()).isPresent()){
-                if(!StringUtils.hasLength(commandDto.getCmdCode())){
-                    errors.add("--le code de la commande ne peut etre vide--");
-                }
-            }
-            else{
-                errors.add("--Le code de la commande ne peut etre null--");
-            }
-            /*if(!commandDto.getCmdDate().isBefore(new Date().toInstant())){
-                errors.add("--La date d'une commande ne saurait etre antérieure a la date courante: "+errors);
-            }*/
+
             if(Optional.ofNullable(commandDto.getCmdState()).isPresent() &&
                     Optional.ofNullable(commandDto.getCmdType()).isPresent() &&
                     Optional.ofNullable(commandDto.getCmdStatus()).isPresent()){
@@ -65,18 +55,6 @@ public class CommandValidator {
                         !commandDto.getCmdStatus().equals(CommandStatus.Cash)){
                     errors.add("--Status de commande non reconnu par le système--");
                 }
-            }
-            else{
-                errors.add("--Ni l'etat, ni le status ni le type de la commande ne peut etre null--");
-            }
-            if(!Optional.ofNullable(commandDto.getCmdClientDto()).isPresent()){
-                errors.add("--Le client associe a la commande ne peut etre null--");
-            }
-            if(!Optional.ofNullable(commandDto.getCmdUserbmDto()).isPresent()){
-                errors.add("--L'utilisateur qui enregistre la commande ne peut etre null--");
-            }
-            if(!Optional.ofNullable(commandDto.getCmdPosDto()).isPresent()){
-                errors.add("--Le point de vente de la commande ne peut etre null--");
             }
 
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();

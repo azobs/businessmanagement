@@ -1,15 +1,12 @@
 package com.c2psi.businessmanagement.models;
 
-import com.c2psi.businessmanagement.Enumerations.OperationType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
-import java.time.Instant;
+import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
@@ -24,9 +21,8 @@ public class ProviderPackagingOperation extends AbstractEntity {
     OperationType propo_Type;*/
     @Embedded
     Operation propoOperation;
-    @NotNull
-    @PositiveOrZero
-    Integer propoNumberinmvt;
+
+    BigDecimal propoNumberinmvt;
     /******************************
      * Relation between entities  *
      * ****************************/

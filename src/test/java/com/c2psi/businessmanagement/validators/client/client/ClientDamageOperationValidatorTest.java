@@ -8,6 +8,7 @@ import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.validators.pos.pos.PosCashOperationValidator;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -24,7 +25,7 @@ public class ClientDamageOperationValidatorTest {
         try {
             ClientDamageOperationDto cltDamOpToValidate = ClientDamageOperationDto.builder()
                 .cltdoCltDamageAccountDto(ClientDamageAccountDto.builder().build())
-                .cltdoNumberinmvt(10)
+                .cltdoNumberinmvt(BigDecimal.valueOf(10))
                 .cltdoOperationDto(OperationDto.builder()
                         .opDate(sdf.parse("2022-12-22").toInstant())
                         .opDescription("object description")
@@ -51,7 +52,7 @@ public class ClientDamageOperationValidatorTest {
         try {
             ClientDamageOperationDto cltDamOpToValidate = ClientDamageOperationDto.builder()
                     .cltdoCltDamageAccountDto(ClientDamageAccountDto.builder().build())
-                    .cltdoNumberinmvt(10)
+                    .cltdoNumberinmvt(BigDecimal.valueOf(10))
                     .cltdoOperationDto(OperationDto.builder()
                             .opDate(sdf.parse("2022-12-22").toInstant())
                             .opDescription("object description")
@@ -109,7 +110,7 @@ public class ClientDamageOperationValidatorTest {
         try {
             ClientDamageOperationDto cltDamOpToValidate = ClientDamageOperationDto.builder()
                     .cltdoCltDamageAccountDto(ClientDamageAccountDto.builder().build())
-                    .cltdoNumberinmvt(-12)
+                    .cltdoNumberinmvt(BigDecimal.valueOf(-12))
                     .cltdoOperationDto(OperationDto.builder()
                             .opDate(sdf.parse("2022-12-22").toInstant())
                             .opDescription("object description")
@@ -137,7 +138,7 @@ public class ClientDamageOperationValidatorTest {
         try {
             ClientDamageOperationDto cltDamOpToValidate = ClientDamageOperationDto.builder()
                     .cltdoCltDamageAccountDto(ClientDamageAccountDto.builder().build())
-                    .cltdoNumberinmvt(0)
+                    .cltdoNumberinmvt(BigDecimal.valueOf(0))
                     .cltdoOperationDto(OperationDto.builder()
                             .opDate(sdf.parse("2022-12-22").toInstant())
                             .opDescription("object description")

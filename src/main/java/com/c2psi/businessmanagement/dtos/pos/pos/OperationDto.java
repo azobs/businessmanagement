@@ -5,10 +5,7 @@ import com.c2psi.businessmanagement.models.Operation;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.*;
 import java.time.Instant;
 
 @Data
@@ -21,6 +18,7 @@ public class OperationDto {
     @NotNull(message = "The object of an operation cannot be null")
     @NotEmpty(message = "The object of an operation cannot be empty value")
     @NotBlank(message = "The object of an operation cannot be blank value")
+    @Size(max = 75, message = "The Object of an operation can't exceed 75 characters")
     String opObject;
     String opDescription;
     @NotNull(message = "The operation type cannot be null")

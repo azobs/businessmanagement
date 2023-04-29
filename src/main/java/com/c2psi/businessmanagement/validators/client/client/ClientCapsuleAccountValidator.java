@@ -31,15 +31,6 @@ public class ClientCapsuleAccountValidator {
             errors.add("--Le compte capsule client ne peut être null--");
         }
         else{
-            if(ccapsaDto.getCcsaArticleDto() == null){
-                errors.add("--L'article associé à ce compte capsule client est null--");
-            }
-            if(ccapsaDto.getCcsaClientDto() == null){
-                errors.add("--Le client associé à ce compte capsule client est null--");
-            }
-            if(ccapsaDto.getCcsaNumber() == null){
-                errors.add("--Le nombre de capsule dans le compte ne peuit etre null--");
-            }
 
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             Validator validator = factory.getValidator();
@@ -52,30 +43,6 @@ public class ClientCapsuleAccountValidator {
                 }
             }
 
-            /*else {
-                //Le client doit être un client du point de vente auquel le compte est lié
-                int isClientofPos = 0;
-                List<ClientDto> clientDtoList = ccapsaDto.getCcsaPointofsaleDto().getClientDtoList();
-                for (ClientDto clientDto : clientDtoList) {
-                    if (clientDto.getId().equals(ccapsaDto.getCcsaClientDto().getId())) {
-                        isClientofPos = 1;
-                    }
-                }
-                if (isClientofPos == 0) {
-                    errors.add("--Le client specifié n'est pas un client du point de vente: "+errors);
-                }
-                //L'article doit etre un article du point de vente auquel le compte est lié
-                int isArticleofPos = 0;
-                List<ArticleDto> articleDtoList = ccapsaDto.getCcsaPointofsaleDto().getArticleDtoList();
-                for (ArticleDto articleDto : articleDtoList) {
-                    if (articleDto.getId().equals(ccapsaDto.getCcsaArticleDto().getId())) {
-                        isArticleofPos = 1;
-                    }
-                }
-                if (isArticleofPos == 0) {
-                    errors.add("--L'article spécifié n'est pas un article du point de vente: "+errors);
-                }
-            }*/
         }
         return errors;
     }

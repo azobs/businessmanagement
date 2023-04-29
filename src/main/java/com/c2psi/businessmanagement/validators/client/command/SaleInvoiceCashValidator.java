@@ -22,11 +22,7 @@ public class SaleInvoiceCashValidator {
             errors.add("--Le parametre a valider ne saurait etre null--");
         }
         else{
-            /*if(Optional.ofNullable(sicDto.getSaleicashCode()).isPresent()){
-                if(!StringUtils.hasLength(sicDto.getSaleicashCode())){
-                    errors.add("--Le code de la facture de vente cash ne peut etre vide: "+errors);
-                }
-            }*/
+
             if(Optional.ofNullable(sicDto.getSaleicashDeliveryDate()).isPresent() &&
                     Optional.ofNullable(sicDto.getSaleicashInvoicingDate()).isPresent()) {
                 if (sicDto.getSaleicashDeliveryDate().isBefore(

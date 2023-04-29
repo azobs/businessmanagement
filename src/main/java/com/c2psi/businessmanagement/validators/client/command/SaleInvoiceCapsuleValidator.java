@@ -24,19 +24,6 @@ public class SaleInvoiceCapsuleValidator {
            errors.add("--Le paramètre à valider ne peut etre null--");
        }
        else{
-           /*
-           if(Optional.ofNullable(sicapsDto.getSaleicapsCode()).isPresent()){
-               if(!StringUtils.hasLength(sicapsDto.getSaleicapsCode())){
-                   errors.add("--Le code de la facture de vente capsule ne peut etre vide--");
-               }
-           }*/
-           if(Optional.ofNullable(sicapsDto.getSaleicapsDeliveryDate()).isPresent() &&
-                   Optional.ofNullable(sicapsDto.getSaleicapsInvoicingDate()).isPresent()) {
-               if (sicapsDto.getSaleicapsDeliveryDate().isBefore(
-                       sicapsDto.getSaleicapsInvoicingDate())) {
-                   errors.add("--La date de livraison ne saurait être antérieure à la date de facturation--");
-               }
-           }
 
            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
            Validator validator = factory.getValidator();

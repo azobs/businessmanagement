@@ -8,6 +8,7 @@ import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.validators.pos.pos.PosCapsuleOperationValidator;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -24,7 +25,7 @@ public class ClientCapsuleOperationValidatorTest {
         try {
             ClientCapsuleOperationDto cltCapsOpDtoToValidate = ClientCapsuleOperationDto.builder()
                     .cltcsoCltCapsuleAccountDto(ClientCapsuleAccountDto.builder().build())
-                    .cltcsoNumberinmvt(12)
+                    .cltcsoNumberinmvt(BigDecimal.valueOf(12))
                     .cltcsoOperationDto(OperationDto.builder()
                             .opDate(sdf.parse("2022-12-22").toInstant())
                             .opDescription("object description")
@@ -50,7 +51,7 @@ public class ClientCapsuleOperationValidatorTest {
         try {
             ClientCapsuleOperationDto cltCapsOpDtoToValidate = ClientCapsuleOperationDto.builder()
                     .cltcsoCltCapsuleAccountDto(ClientCapsuleAccountDto.builder().build())
-                    .cltcsoNumberinmvt(12)
+                    .cltcsoNumberinmvt(BigDecimal.valueOf(12))
                     .cltcsoOperationDto(OperationDto.builder()
                             .opDate(sdf.parse("2022-12-22").toInstant())
                             .opDescription("object description")
@@ -106,7 +107,7 @@ public class ClientCapsuleOperationValidatorTest {
         try {
             ClientCapsuleOperationDto cltCapsOpDtoToValidate = ClientCapsuleOperationDto.builder()
                     .cltcsoCltCapsuleAccountDto(ClientCapsuleAccountDto.builder().build())
-                    .cltcsoNumberinmvt(-12)
+                    .cltcsoNumberinmvt(BigDecimal.valueOf(-12))
                     .cltcsoOperationDto(OperationDto.builder()
                             .opDate(sdf.parse("2022-12-22").toInstant())
                             .opDescription("object description")
@@ -132,7 +133,7 @@ public class ClientCapsuleOperationValidatorTest {
         try {
             ClientCapsuleOperationDto cltCapsOpDtoToValidate = ClientCapsuleOperationDto.builder()
                     .cltcsoCltCapsuleAccountDto(ClientCapsuleAccountDto.builder().build())
-                    .cltcsoNumberinmvt(0)
+                    .cltcsoNumberinmvt(BigDecimal.valueOf(0))
                     .cltcsoOperationDto(OperationDto.builder()
                             .opDate(sdf.parse("2022-12-22").toInstant())
                             .opDescription("object description")

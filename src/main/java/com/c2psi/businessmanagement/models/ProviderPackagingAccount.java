@@ -6,17 +6,18 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name="provider_packaging_account")
+@Table(name="provider_packaging_account", uniqueConstraints = {@UniqueConstraint(
+        columnNames = {"provider_id", "packaging_id"})})
 public class ProviderPackagingAccount extends AbstractEntity {
-    @NotNull
-    Integer ppaNumber;
+
+    BigDecimal ppaNumber;
     /******************************
      * Relation between entities  *
      * ****************************/

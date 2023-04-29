@@ -43,7 +43,7 @@ public class EnterpriseServiceImplTest {
     public void saveEnterprise_Valid() {
         assertNotNull(userBMService);
         assertNotNull(enterpriseService);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             UserBMDto userBMToSave = UserBMDto.builder()
                     .bmAddressDto(AddressDto.builder()
@@ -57,7 +57,7 @@ public class EnterpriseServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15 00:00:00"))
                     .bmLogin("useradmin")
                     .bmName("admin")
                     .bmPassword("password")
@@ -100,12 +100,12 @@ public class EnterpriseServiceImplTest {
     public void saveEnterprise_InvalidData() {
         assertNotNull(userBMService);
         assertNotNull(enterpriseService);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             UserBMDto userBMToSave = UserBMDto.builder()
                     .bmAddressDto(null)
                     .bmCni("107235260")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15 00:00:00"))
                     .bmLogin("useradmin")
                     .bmName("admin")
                     .bmPassword("password")
@@ -148,7 +148,7 @@ public class EnterpriseServiceImplTest {
     public void saveEnterprise_AdminEnterpriseIsMissing() {
         assertNotNull(userBMService);
         assertNotNull(enterpriseService);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             UserBMDto userBMToSave = UserBMDto.builder()
                     .bmAddressDto(AddressDto.builder()
@@ -162,7 +162,7 @@ public class EnterpriseServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15 00:00:00"))
                     .bmLogin("useradmin")
                     .bmName("admin")
                     .bmPassword("password")
@@ -204,7 +204,7 @@ public class EnterpriseServiceImplTest {
     public void saveEnterprise_AdminIsNotAdminEnterprise() {
         assertNotNull(userBMService);
         assertNotNull(enterpriseService);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             UserBMDto userBMToSave = UserBMDto.builder()
                     .bmAddressDto(AddressDto.builder()
@@ -218,7 +218,7 @@ public class EnterpriseServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15 00:00:00"))
                     .bmLogin("useradmin")
                     .bmName("admin")
                     .bmPassword("password")
@@ -261,7 +261,7 @@ public class EnterpriseServiceImplTest {
     public void saveEnterprise_DuplicateEnterprise() {
         assertNotNull(userBMService);
         assertNotNull(enterpriseService);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             UserBMDto userBMToSave = UserBMDto.builder()
                     .bmAddressDto(AddressDto.builder()
@@ -275,7 +275,7 @@ public class EnterpriseServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15 00:00:00"))
                     .bmLogin("useradmin")
                     .bmName("admin")
                     .bmPassword("password")
@@ -341,7 +341,7 @@ public class EnterpriseServiceImplTest {
     public void updateEnterprise_Valid() {
         assertNotNull(userBMService);
         assertNotNull(enterpriseService);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             //On prepare et enregistre un adminEnterprise
             UserBMDto userBMToSave = UserBMDto.builder()
@@ -356,7 +356,7 @@ public class EnterpriseServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15 00:00:00"))
                     .bmLogin("useradmin")
                     .bmName("admin")
                     .bmPassword("password")
@@ -417,7 +417,7 @@ public class EnterpriseServiceImplTest {
     public void updateEnterprise_EnterpriseNotValidBecauseOfNiu() {
         assertNotNull(userBMService);
         assertNotNull(enterpriseService);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             //On prepare et enregistre un adminEnterprise
             UserBMDto userBMToSave = UserBMDto.builder()
@@ -432,7 +432,7 @@ public class EnterpriseServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15 00:00:00"))
                     .bmLogin("useradmin")
                     .bmName("admin")
                     .bmPassword("password")
@@ -493,7 +493,7 @@ public class EnterpriseServiceImplTest {
     public void updateEnterprise_EnterpriseNotFoundBecauseOfId() {
         assertNotNull(userBMService);
         assertNotNull(enterpriseService);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             //On prepare et enregistre un adminEnterprise
             UserBMDto userBMToSave = UserBMDto.builder()
@@ -508,7 +508,7 @@ public class EnterpriseServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15 00:00:00"))
                     .bmLogin("useradmin")
                     .bmName("admin")
                     .bmPassword("password")
@@ -570,7 +570,7 @@ public class EnterpriseServiceImplTest {
     public void updateEnterprise_EnterpriseDuplicateBecauseOfEmail() {
         assertNotNull(userBMService);
         assertNotNull(enterpriseService);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             //On prepare et enregistre un adminEnterprise
             UserBMDto userBMToSave = UserBMDto.builder()
@@ -585,7 +585,7 @@ public class EnterpriseServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15 00:00:00"))
                     .bmLogin("useradmin")
                     .bmName("admin")
                     .bmPassword("password")
@@ -664,7 +664,7 @@ public class EnterpriseServiceImplTest {
     public void updateEnterprise_EnterpriseDuplicateBecauseOfNiu() {
         assertNotNull(userBMService);
         assertNotNull(enterpriseService);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             //On prepare et enregistre un adminEnterprise
             UserBMDto userBMToSave = UserBMDto.builder()
@@ -679,7 +679,7 @@ public class EnterpriseServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15 00:00:00"))
                     .bmLogin("useradmin")
                     .bmName("admin")
                     .bmPassword("password")
@@ -758,7 +758,7 @@ public class EnterpriseServiceImplTest {
     public void updateEnterprise_EnterpriseDuplicateBecauseOfName() {
         assertNotNull(userBMService);
         assertNotNull(enterpriseService);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             //On prepare et enregistre un adminEnterprise
             UserBMDto userBMToSave = UserBMDto.builder()
@@ -773,7 +773,7 @@ public class EnterpriseServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15 00:00:00"))
                     .bmLogin("useradmin")
                     .bmName("admin")
                     .bmPassword("password")
@@ -853,7 +853,7 @@ public class EnterpriseServiceImplTest {
     public void setAdminEnterprise_Valid() {
         assertNotNull(userBMService);
         assertNotNull(enterpriseService);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             //On prepare et enregistre un adminEnterprise
             UserBMDto userBMToSave1 = UserBMDto.builder()
@@ -868,7 +868,7 @@ public class EnterpriseServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260_1")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15 00:00:00"))
                     .bmLogin("useradmin1")
                     .bmName("admin1")
                     .bmPassword("password")
@@ -894,7 +894,7 @@ public class EnterpriseServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260_2")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15 00:00:00"))
                     .bmLogin("useradmin2")
                     .bmName("admin2")
                     .bmPassword("password")
@@ -948,7 +948,7 @@ public class EnterpriseServiceImplTest {
     public void setAdminEnterprise_EnterpriseNull() {
         assertNotNull(userBMService);
         assertNotNull(enterpriseService);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             //On prepare et enregistre un adminEnterprise
             UserBMDto userBMToSave1 = UserBMDto.builder()
@@ -963,7 +963,7 @@ public class EnterpriseServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260_1")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15 00:00:00"))
                     .bmLogin("useradmin1")
                     .bmName("admin1")
                     .bmPassword("password")
@@ -989,7 +989,7 @@ public class EnterpriseServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260_2")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15 00:00:00"))
                     .bmLogin("useradmin2")
                     .bmName("admin2")
                     .bmPassword("password")
@@ -1043,7 +1043,7 @@ public class EnterpriseServiceImplTest {
     public void setAdminEnterprise_WrongEnterpriseID() {
         assertNotNull(userBMService);
         assertNotNull(enterpriseService);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             //On prepare et enregistre un adminEnterprise
             UserBMDto userBMToSave1 = UserBMDto.builder()
@@ -1058,7 +1058,7 @@ public class EnterpriseServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260_1")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15 00:00:00"))
                     .bmLogin("useradmin1")
                     .bmName("admin1")
                     .bmPassword("password")
@@ -1084,7 +1084,7 @@ public class EnterpriseServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260_2")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15 00:00:00"))
                     .bmLogin("useradmin2")
                     .bmName("admin2")
                     .bmPassword("password")
@@ -1138,7 +1138,7 @@ public class EnterpriseServiceImplTest {
     public void setAdminEnterprise_WrongUserBMID() {
         assertNotNull(userBMService);
         assertNotNull(enterpriseService);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             //On prepare et enregistre un adminEnterprise
             UserBMDto userBMToSave1 = UserBMDto.builder()
@@ -1153,7 +1153,7 @@ public class EnterpriseServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260_1")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15 00:00:00"))
                     .bmLogin("useradmin1")
                     .bmName("admin1")
                     .bmPassword("password")
@@ -1179,7 +1179,7 @@ public class EnterpriseServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260_2")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15 00:00:00"))
                     .bmLogin("useradmin2")
                     .bmName("admin2")
                     .bmPassword("password")
@@ -1234,7 +1234,7 @@ public class EnterpriseServiceImplTest {
     public void setAdminEnterprise_WrongTypeOfUserBM() {
         assertNotNull(userBMService);
         assertNotNull(enterpriseService);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             //On prepare et enregistre un adminEnterprise
             UserBMDto userBMToSave1 = UserBMDto.builder()
@@ -1249,7 +1249,7 @@ public class EnterpriseServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260_1")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15 00:00:00"))
                     .bmLogin("useradmin1")
                     .bmName("admin1")
                     .bmPassword("password")
@@ -1275,7 +1275,7 @@ public class EnterpriseServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260_2")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15 00:00:00"))
                     .bmLogin("useradmin2")
                     .bmName("admin2")
                     .bmPassword("password")
@@ -1329,7 +1329,7 @@ public class EnterpriseServiceImplTest {
     public void deleteEnterpriseByName_Valid() {
         assertNotNull(userBMService);
         assertNotNull(enterpriseService);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             //On prepare et enregistre un adminEnterprise
             UserBMDto userBMToSave1 = UserBMDto.builder()
@@ -1344,7 +1344,7 @@ public class EnterpriseServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260_1")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15 00:00:00"))
                     .bmLogin("useradmin1")
                     .bmName("admin1")
                     .bmPassword("password")
@@ -1397,7 +1397,7 @@ public class EnterpriseServiceImplTest {
     public void deleteEnterpriseByName_NullArgument() {
         assertNotNull(userBMService);
         assertNotNull(enterpriseService);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             //On prepare et enregistre un adminEnterprise
             UserBMDto userBMToSave1 = UserBMDto.builder()
@@ -1412,7 +1412,7 @@ public class EnterpriseServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260_1")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15 00:00:00"))
                     .bmLogin("useradmin1")
                     .bmName("admin1")
                     .bmPassword("password")
@@ -1463,7 +1463,7 @@ public class EnterpriseServiceImplTest {
     public void deleteEnterpriseByNiu_Valid() {
         assertNotNull(userBMService);
         assertNotNull(enterpriseService);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             //On prepare et enregistre un adminEnterprise
             UserBMDto userBMToSave1 = UserBMDto.builder()
@@ -1478,7 +1478,7 @@ public class EnterpriseServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260_1")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15 00:00:00"))
                     .bmLogin("useradmin1")
                     .bmName("admin1")
                     .bmPassword("password")
@@ -1531,7 +1531,7 @@ public class EnterpriseServiceImplTest {
     public void deleteEnterpriseByNiu_NullArgument() {
         assertNotNull(userBMService);
         assertNotNull(enterpriseService);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             //On prepare et enregistre un adminEnterprise
             UserBMDto userBMToSave1 = UserBMDto.builder()
@@ -1546,7 +1546,7 @@ public class EnterpriseServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260_1")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15 00:00:00"))
                     .bmLogin("useradmin1")
                     .bmName("admin1")
                     .bmPassword("password")
@@ -1612,7 +1612,7 @@ public class EnterpriseServiceImplTest {
     public void deleteEnterpriseById_Valid() {
         assertNotNull(userBMService);
         assertNotNull(enterpriseService);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             //On prepare et enregistre un adminEnterprise
             UserBMDto userBMToSave1 = UserBMDto.builder()
@@ -1627,7 +1627,7 @@ public class EnterpriseServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260_1")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15 00:00:00"))
                     .bmLogin("useradmin1")
                     .bmName("admin1")
                     .bmPassword("password")

@@ -7,6 +7,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
+import java.time.Instant;
 import java.util.Date;
 
 @Data
@@ -15,7 +16,7 @@ public class ClientSpecialpriceDto {
     Long id;
     @NotNull(message = "The application date of special price to a client cannot be null")
     @PastOrPresent(message = "The application date cannot be in the future")
-    Date cltSpApplieddate;
+    Instant cltSpApplieddate;
     /******************************
      * Relation between entities  *
      * ****************************/

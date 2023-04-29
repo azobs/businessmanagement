@@ -1,6 +1,7 @@
 package com.c2psi.businessmanagement.services.contractsImpl.stock.provider;
 
 import com.c2psi.businessmanagement.BusinessmanagementApplication;
+import com.c2psi.businessmanagement.dtos.client.client.ClientDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
 import com.c2psi.businessmanagement.exceptions.DuplicateEntityException;
@@ -16,7 +17,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -212,6 +216,65 @@ public class ProviderServiceImplTest {
         assertNotNull(providerDtoUpdated);
         assertEquals("Congo", providerDtoUpdated.getProviderAddressDto().getPays());
         assertEquals("double FSD", providerDtoUpdated.getProviderName());
+    }
+
+    @Test
+    public void validate_FindProviderByNameofPos() {
+        PointofsaleDto posDtoSaved = usedForTestForAll.savePointofsale(0, pointofsaleService, enterpriseService,
+                userBMService, currencyService);
+        assertNotNull(posDtoSaved);
+
+        ProviderDto providerDtoSaved = usedForTestForProvider.saveProvider(5, posDtoSaved, providerService);
+        assertNotNull(providerDtoSaved);
+        assertNotNull(providerDtoSaved.getProviderCaDto().getId());
+
+        ProviderDto providerDtoFound = providerService.findProviderByNameofPos(providerDtoSaved.getProviderName(),
+                posDtoSaved.getId());
+        assertNotNull(providerDtoFound);
+        assertEquals(providerDtoSaved.getProviderName(), providerDtoFound.getProviderName());
+    }
+
+    @Test
+    public void validate_FindAllProviderByNameofPos() {
+        PointofsaleDto posDtoSaved = usedForTestForAll.savePointofsale(0, pointofsaleService, enterpriseService,
+                userBMService, currencyService);
+        assertNotNull(posDtoSaved);
+
+        ProviderDto providerDtoSaved = usedForTestForProvider.saveProvider(5, posDtoSaved, providerService);
+        assertNotNull(providerDtoSaved);
+        assertNotNull(providerDtoSaved.getProviderCaDto().getId());
+
+        List<ProviderDto> providerDtoList = providerService.findAllProviderofPos(posDtoSaved.getId());
+        assertNotNull(providerDtoList);
+        assertEquals(1, providerDtoList.size());
+    }
+
+    @Test
+    public void validate_FindPageProviderByNameofPos() {
+        PointofsaleDto posDtoSaved = usedForTestForAll.savePointofsale(0, pointofsaleService, enterpriseService,
+                userBMService, currencyService);
+        assertNotNull(posDtoSaved);
+
+        ProviderDto providerDtoSaved = usedForTestForProvider.saveProvider(5, posDtoSaved, providerService);
+        assertNotNull(providerDtoSaved);
+        assertNotNull(providerDtoSaved.getProviderCaDto().getId());
+
+        Page<ProviderDto> providerDtoPage = providerService.findPageProviderofPos(posDtoSaved.getId(),0,3);
+        assertNotNull(providerDtoPage);
+        assertEquals(1, providerDtoPage.getTotalPages());
+    }
+
+    @Test
+    public void validate_DeleteProvider() {
+        PointofsaleDto posDtoSaved = usedForTestForAll.savePointofsale(0, pointofsaleService, enterpriseService,
+                userBMService, currencyService);
+        assertNotNull(posDtoSaved);
+
+        ProviderDto providerDtoSaved = usedForTestForProvider.saveProvider(5, posDtoSaved, providerService);
+        assertNotNull(providerDtoSaved);
+        assertNotNull(providerDtoSaved.getProviderCaDto().getId());
+
+        assertTrue(providerService.deleteProviderById(providerDtoSaved.getId()));
     }
 
 

@@ -5,6 +5,7 @@ import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDamageAccountDto
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -18,7 +19,7 @@ public class ProviderDamageAccountValidatorTest {
         ProviderDamageAccountDto providerDamageAccountDto = ProviderDamageAccountDto.builder()
                 .pdaProviderDto(ProviderDto.builder().build())
                 .pdaArticleDto(ArticleDto.builder().build())
-                .pdaNumber(Integer.valueOf(10))
+                .pdaNumber(BigDecimal.valueOf(10))
                 .build();
         List<String> errors = ProviderDamageAccountValidator.validate(providerDamageAccountDto);
         System.out.println("errors == " + errors);
@@ -32,7 +33,7 @@ public class ProviderDamageAccountValidatorTest {
         ProviderDamageAccountDto providerDamageAccountDto = ProviderDamageAccountDto.builder()
                 .pdaProviderDto(ProviderDto.builder().build())
                 .pdaArticleDto(ArticleDto.builder().build())
-                .pdaNumber(Integer.valueOf(10))
+                .pdaNumber(BigDecimal.valueOf(10))
                 .build();
         List<String> errors = ProviderDamageAccountValidator.validate(null);
         System.out.println("errors == " + errors);

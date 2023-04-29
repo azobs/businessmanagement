@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
@@ -15,8 +16,8 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name="provider_damage_account")
 public class ProviderDamageAccount extends AbstractEntity {
-    @NotNull
-    Integer pdaNumber;
+
+    BigDecimal pdaNumber;
     /******************************
      * Relation between entities  *
      * ****************************/

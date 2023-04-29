@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
+import java.math.BigDecimal;
 
 @Data
 @Builder
@@ -23,7 +24,7 @@ public class ClientPackagingOperationDto {
     OperationDto cltpoOperationDto;
     @NotNull(message = "The number in mvt cannot be null")
     @Positive(message = "The number in mvt must be positive")
-    Integer cltpoNumberinmvt;
+    BigDecimal cltpoNumberinmvt;
     /******************************
      * Relation between entities  *
      * ****************************/

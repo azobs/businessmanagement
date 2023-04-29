@@ -1,39 +1,19 @@
 package com.c2psi.businessmanagement.services.contracts.client.client;
 
 import com.c2psi.businessmanagement.dtos.client.client.*;
-import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
-import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
-import com.c2psi.businessmanagement.dtos.stock.product.PackagingDto;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 public interface ClientService {
-    ClientDto saveClient(ClientDto cltDto);
-    List<ClientCapsuleAccountDto> findAllCapsuleAccount(ClientDto cltDto);
-
-    List<ClientPackagingAccountDto> findAllPackagingAccount(ClientDto cltDto);
-
-    List<ClientDamageAccountDto> findAllDamageAccount(ClientDto cltDto);
-
-    ClientCashAccountDto findCashAccount(ClientDto cltDto);
-
-    List<ClientDto> findAllClientWithCapsuleAccountofArticle(
-            PointofsaleDto posDto, ArticleDto artDto);
-
-    List<ClientDto> findAllClientWithDamageAccountofArticle(
-            PointofsaleDto posDto, ArticleDto artDto);
-
-    List<ClientDto> findAllClientWithPackagingAccountofArticle(
-            PointofsaleDto posDto, PackagingDto packDto);
-
-    List<ClientDto> findAllClientOfPos(PointofsaleDto posDto);
-
-    Integer getNumberofPackaging(PointofsaleDto posDto);
-
-    Integer getNumberofPackaging(PointofsaleDto posDto, ClientDto cltDto);
-
-    Boolean damageArticleChangedByPos(ArticleDto artDto, Integer qte_needed,
-                                 Integer qte_changed);
-    Boolean deleteClientById(Long id);
-
+    ClientDto saveClient(ClientDto clientDto);
+    ClientDto updateClient(ClientDto clientDto);
+    ClientDto findClientByNameofPos(String clientName, String clientOthername, Long posId);
+    Boolean isClientUniqueForPos(String clientName, String clientOthername, String clientCni, String clientEmail, Long posId);
+    ClientDto findClientByCniofPos(String clientCni, Long posId);
+    ClientDto findClientByEmail(String clientEmail);
+    List<ClientDto> findAllClientofPos(Long posId);
+    Page<ClientDto> findPageClientofPos(Long posId, int pagenum, int pagesize);
+    Boolean isClientDeleteable(Long clientId);
+    Boolean deleteClientById(Long clientId);
 }

@@ -1,7 +1,10 @@
 package com.c2psi.businessmanagement.repositories.stock.provider;
 
+
 import com.c2psi.businessmanagement.models.Pointofsale;
 import com.c2psi.businessmanagement.models.Provider;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,8 +16,16 @@ public interface ProviderRepository extends JpaRepository<Provider, Long> {
     List<Provider> findAllByProviderPos(Pointofsale pos);
     Optional<Provider> findProviderById(Long providerId);
     @Query("SELECT prov FROM Provider prov WHERE prov.providerName=:providerName AND prov.providerPos.id=:posId")
-    Optional<Provider> findProviderByNameAndPosid(@Param("providerName") String providerName, @Param("posId") Long posId);
+    Optional<Provider> findProviderByNameAndPos(@Param("providerName") String providerName, @Param("posId") Long posId);
 
     @Query("SELECT prov FROM Provider  prov WHERE prov.providerAddress.email=:providerEmail")
     Optional<Provider> findProviderByProviderEmail(@Param("providerEmail") String providerEmail);
+
+    @Query("SELECT prov FROM Provider prov WHERE prov.providerPos.id=:posId")
+    Optional<List<Provider>> findAllProviderofPos(Long posId);
+
+    @Query("SELECT prov FROM Provider prov WHERE prov.providerPos.id=:posId")
+    Optional<Page<Provider>> findPageProviderofPos(Long posId, Pageable pageable);
+
+
 }

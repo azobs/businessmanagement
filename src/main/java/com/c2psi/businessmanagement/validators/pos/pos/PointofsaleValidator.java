@@ -39,20 +39,7 @@ public class PointofsaleValidator {
                     errors.addAll(errs);
                 }
             }
-            if(!StringUtils.hasLength(posDto.getPosName())){
-                errors.add("--Le nom du point de vente ne peut etre vide--");
-            }
 
-            if(!StringUtils.hasLength(posDto.getPosAcronym())){
-                errors.add("--L'acronym du point de vente ne peut etre vide--");
-            }
-
-            if(!Optional.ofNullable(posDto.getPosCashaccountDto()).isPresent()){
-                errors.add("--Le compte cash associe au point de vente ne peut etre null--");
-            }
-            if(!Optional.ofNullable(posDto.getPosEnterpriseDto()).isPresent()){
-                errors.add("--L'entreprise associe au point de vente ne peut etre null--");
-            }
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             Validator validator = factory.getValidator();
 

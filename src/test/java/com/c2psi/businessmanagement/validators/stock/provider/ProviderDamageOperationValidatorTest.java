@@ -6,6 +6,7 @@ import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDamageAccountDto
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDamageOperationDto;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -20,7 +21,7 @@ public class ProviderDamageOperationValidatorTest {
                 .prodoOperationDto(OperationDto.builder().build())
                 .prodoProDamageAccountDto(ProviderDamageAccountDto.builder().build())
                 .prodoUserbmDto(UserBMDto.builder().build())
-                .prodoNumberinmvt(Integer.valueOf(12))
+                .prodoNumberinmvt(BigDecimal.valueOf(10))
                 .build();
         List<String> errors = ProviderDamageOperationValidator.validate(providerDamageOperationDto);
         System.out.println("errors == " + errors);
@@ -35,7 +36,7 @@ public class ProviderDamageOperationValidatorTest {
                 .prodoOperationDto(OperationDto.builder().build())
                 .prodoProDamageAccountDto(ProviderDamageAccountDto.builder().build())
                 .prodoUserbmDto(UserBMDto.builder().build())
-                .prodoNumberinmvt(Integer.valueOf(12))
+                .prodoNumberinmvt(BigDecimal.valueOf(12))
                 .build();
         List<String> errors = ProviderDamageOperationValidator.validate(null);
         System.out.println("errors == " + errors);
@@ -68,7 +69,7 @@ public class ProviderDamageOperationValidatorTest {
                 .prodoOperationDto(OperationDto.builder().build())
                 .prodoProDamageAccountDto(ProviderDamageAccountDto.builder().build())
                 .prodoUserbmDto(UserBMDto.builder().build())
-                .prodoNumberinmvt(Integer.valueOf(0))
+                .prodoNumberinmvt(BigDecimal.valueOf(0))
                 .build();
         List<String> errors = ProviderDamageOperationValidator.validate(providerDamageOperationDto);
         System.out.println("errors == " + errors);

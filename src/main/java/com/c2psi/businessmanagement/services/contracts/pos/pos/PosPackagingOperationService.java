@@ -1,29 +1,29 @@
 package com.c2psi.businessmanagement.services.contracts.pos.pos;
 
 import com.c2psi.businessmanagement.Enumerations.OperationType;
-import com.c2psi.businessmanagement.dtos.pos.pos.PosPackagingAccountDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PosPackagingOperationDto;
+import org.springframework.data.domain.Page;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 
 public interface PosPackagingOperationService {
-    PosPackagingOperationDto savePosPackagingOperation(PosPackagingOperationDto pospopDto);
+    PosPackagingOperationDto updatePosPackagingOperation(PosPackagingOperationDto ppackopDto);
+    Boolean isPosPackagingOperationDeleteable(Long ppackopId);
+    Boolean deletePosPackagingOperationById(Long ppackopId);
+    List<PosPackagingOperationDto> findAllPosPackagingOperation(Long ppackopId);
+    List<PosPackagingOperationDto> findAllPosPackagingOperationofType(Long ppackopId, OperationType opType);
+    Page<PosPackagingOperationDto> findPagePosPackagingOperation(Long ppackopId, int pagenum, int pagesize);
+    Page<PosPackagingOperationDto> findPagePosPackagingOperationofType(Long ppackopId, OperationType opType,
+                                                                       int pagenum, int pagesize);
+    List<PosPackagingOperationDto> findAllPosPackagingOperationBetween(Long ppackopId, Instant startDate,
+                                                                       Instant endDate);
+    Page<PosPackagingOperationDto> findPagePosPackagingOperationBetween(Long ppackopId, Instant startDate,
+                                                                        Instant endDate, int pagenum, int pagesize);
+    List<PosPackagingOperationDto> findAllPosPackagingOperationBetween(Long ppackopId, OperationType op_type,
+                                                                       Instant startDate, Instant endDate);
 
-    PosPackagingOperationDto findPosPackagingOperationById(Long id);
-
-    List<PosPackagingOperationDto> findAllByPosPackagingAccount(
-            PosPackagingAccountDto pospaccDto);
-
-    List<PosPackagingOperationDto> findAllByPosPackagingAccount(
-            PosPackagingAccountDto pospaccDto, OperationType op_type);
-
-    List<PosPackagingOperationDto> findAllByPosPackagingAccountBetween(
-            PosPackagingAccountDto pospaccDto, Date startDate, Date endDate);
-
-    List<PosPackagingOperationDto> findAllByPosPackagingAccountBetween(
-            PosPackagingAccountDto pospaccDto, Date startDate, Date endDate,
-            OperationType op_type);
-
-    Boolean deletePosPackagingOperationById(Long pospopId);
+    Page<PosPackagingOperationDto> findPagePosPackagingOperationBetween(Long ppackopId, OperationType op_type,
+                                                                        Instant startDate, Instant endDate,
+                                                                        int pagenum, int pagesize);
 }

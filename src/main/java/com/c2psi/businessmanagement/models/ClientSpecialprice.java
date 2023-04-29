@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.Instant;
 
 @Data
 @NoArgsConstructor
@@ -16,9 +16,9 @@ import java.util.Date;
 @Entity
 @Table(name="client_specialprice")
 public class ClientSpecialprice extends AbstractEntity {
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(nullable = false)
-    Date cltSpApplieddate;
+    Instant cltSpApplieddate;
     /******************************
      * Relation between entities  *
      * ****************************/
@@ -26,11 +26,11 @@ public class ClientSpecialprice extends AbstractEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "clt_id", nullable = false, referencedColumnName = "id")
     Client cltSpClient;
-    //Many clientspecialprice for 1 Specialprice
+    //Many Clientspecialprice for 1 Specialprice
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "sp_id", nullable = false, referencedColumnName = "id")
     SpecialPrice cltSpSp;
-    //One clientspecialprice for 1 Article
+    //One Clientspecialprice for 1 Article
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "art_id", nullable = false, referencedColumnName = "id")
     Article cltSpArt;

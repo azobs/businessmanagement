@@ -6,6 +6,7 @@ import com.c2psi.businessmanagement.dtos.stock.provider.ProviderCapsuleAccountDt
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderCapsuleOperationDto;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -20,7 +21,7 @@ public class ProviderCapsuleOperationValidatorTest {
                 .proscoOperationDto(OperationDto.builder().build())
                 .procsoProCapsuleAccountDto(ProviderCapsuleAccountDto.builder().build())
                 .procsoUserbmDto(UserBMDto.builder().build())
-                .procsoNumberinmvt(Integer.valueOf(1))
+                .procsoNumberinmvt(BigDecimal.valueOf(1))
                 .build();
         List<String> errors = ProviderCapsuleOperationValidator.validate(providerCapsuleOperationDto);
         System.out.println("errors == " + errors);
@@ -35,7 +36,7 @@ public class ProviderCapsuleOperationValidatorTest {
                 .proscoOperationDto(OperationDto.builder().build())
                 .procsoProCapsuleAccountDto(ProviderCapsuleAccountDto.builder().build())
                 .procsoUserbmDto(UserBMDto.builder().build())
-                .procsoNumberinmvt(Integer.valueOf(1))
+                .procsoNumberinmvt(BigDecimal.valueOf(1))
                 .build();
         List<String> errors = ProviderCapsuleOperationValidator.validate(null);
         System.out.println("errors == " + errors);
@@ -68,7 +69,7 @@ public class ProviderCapsuleOperationValidatorTest {
                 .proscoOperationDto(OperationDto.builder().build())
                 .procsoProCapsuleAccountDto(ProviderCapsuleAccountDto.builder().build())
                 .procsoUserbmDto(UserBMDto.builder().build())
-                .procsoNumberinmvt(Integer.valueOf(0))
+                .procsoNumberinmvt(BigDecimal.valueOf(0))
                 .build();
         List<String> errors = ProviderCapsuleOperationValidator.validate(providerCapsuleOperationDto);
         System.out.println("errors == " + errors);

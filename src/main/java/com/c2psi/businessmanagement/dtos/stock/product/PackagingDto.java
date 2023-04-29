@@ -54,7 +54,6 @@ public class PackagingDto {
                 .packPrice(packaging.getPackPrice())
                 .packProviderDto(ProviderDto.fromEntity(packaging.getPackProvider()))
                 .packPosDto(PointofsaleDto.fromEntity(packaging.getPackPos()))
-                //.packEntDto(EnterpriseDto.fromEntity(packaging.getPackEnt()))
                 .build();
     }
     public static Packaging toEntity(PackagingDto packagingDto){
@@ -69,7 +68,6 @@ public class PackagingDto {
         packaging.setPackPrice(packagingDto.getPackPrice());
         packaging.setPackProvider(ProviderDto.toEntity(packagingDto.getPackProviderDto()));
         packaging.setPackPos(PointofsaleDto.toEntity(packagingDto.getPackPosDto()));
-        //packaging.setPackEnt(EnterpriseDto.toEntity(packagingDto.getPackEntDto()));
         return packaging;
     }
 }

@@ -29,22 +29,6 @@ public class ClientCashOperationValidator {
             errors.add("--le parametre à valider ne peut etre null--");
         }
         else {
-            if(Optional.ofNullable(ccopDto.getCcoAmountinmvt()).isPresent()) {
-                if (ccopDto.getCcoAmountinmvt().doubleValue() < 0) {
-                    errors.add("--Le montant en mouvement ne saurait être négatif--");
-                }
-            }
-            else{
-                errors.add("--Le montant en mouvement ne saurait etre null--");
-            }
-
-            if(!Optional.ofNullable(ccopDto.getCcoCltCashAccountDto()).isPresent()){
-                errors.add("--Le compte qui sera affecte ne saurait etre null--");
-            }
-
-            if(!Optional.ofNullable(ccopDto.getCcoUserbmDto()).isPresent()){
-                errors.add("--L'utilisteur qui a effectue l'operation ne saurait etre null--");
-            }
 
             List<String> opt_errors = OperationValidator.validate(
                     ccopDto.getCcoOperationDto());

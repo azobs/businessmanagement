@@ -43,18 +43,6 @@ public class ClientCashAccountValidator {
                 }
             }
 
-            /*else {
-                int isClientofPos = 0;
-                List<ClientDto> clientDtoList = ccaDto.getCcaPointofsaleDto().getClientDtoList();
-                for (ClientDto clientDto : clientDtoList) {
-                    if (clientDto.getId().equals(ccaDto.getCcaClientDto().getId())) {
-                        isClientofPos = 1;
-                    }
-                }
-                if (isClientofPos == 0) {
-                    errors.add("--Le client specifié n'est pas un client du point de vente: "+errors);
-                }
-            }*/
         }
         return errors;
     }

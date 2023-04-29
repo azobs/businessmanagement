@@ -31,22 +31,6 @@ public class ClientPackagingOperationValidator {
             errors.add("--le parametre à valider ne peut etre null--");
         }
         else {
-            if(cpopDto.getCltpoNumberinmvt() == null){
-                errors.add("--le nombre de packaging en mouvement ne saurait null--");
-            }
-            else {
-                if (cpopDto.getCltpoNumberinmvt() <= 0) {
-                    errors.add("--le nombre de packaging en mouvement ne saurait être négatif ou null--");
-                }
-            }
-
-            if(!Optional.ofNullable(cpopDto.getCltpoCltPackagingAccountDto()).isPresent()){
-                errors.add("--Le compte qui sera affecte ne saurait etre null--");
-            }
-
-            if(!Optional.ofNullable(cpopDto.getCltpoUserbmDto()).isPresent()){
-                errors.add("--L'utilisteur qui a effectue l'operation ne saurait etre null--");
-            }
 
             List<String> opt_errors = OperationValidator.validate(
                     cpopDto.getCltpoOperationDto());

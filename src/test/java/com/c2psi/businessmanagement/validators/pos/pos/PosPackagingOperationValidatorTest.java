@@ -5,6 +5,7 @@ import com.c2psi.businessmanagement.dtos.pos.pos.*;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -26,7 +27,7 @@ public class PosPackagingOperationValidatorTest {
                             .opObject("object test")
                             .opType(OperationType.Credit)
                             .build())
-                    .pospoNumberinmvt(10)
+                    .pospoNumberinmvt(BigDecimal.valueOf(10))
                     .pospoPosPackagingAccountDto(PosPackagingAccountDto.builder().build())
                     .pospoUserbmDto(UserBMDto.builder().build())
                     .build();
@@ -52,7 +53,7 @@ public class PosPackagingOperationValidatorTest {
                             .opObject("object test")
                             .opType(OperationType.Credit)
                             .build())
-                    .pospoNumberinmvt(10)
+                    .pospoNumberinmvt(BigDecimal.valueOf(10))
                     .pospoPosPackagingAccountDto(PosPackagingAccountDto.builder().build())
                     .pospoUserbmDto(UserBMDto.builder().build())
                     .build();
@@ -104,7 +105,7 @@ public class PosPackagingOperationValidatorTest {
                             .opObject("object test")
                             .opType(OperationType.Credit)
                             .build())
-                    .pospoNumberinmvt(-10)
+                    .pospoNumberinmvt(BigDecimal.valueOf(-10))
                     .pospoPosPackagingAccountDto(PosPackagingAccountDto.builder().build())
                     .pospoUserbmDto(UserBMDto.builder().build())
                     .build();
@@ -130,7 +131,7 @@ public class PosPackagingOperationValidatorTest {
                             .opObject("object test")
                             .opType(OperationType.Credit)
                             .build())
-                    .pospoNumberinmvt(10)
+                    .pospoNumberinmvt(BigDecimal.valueOf(10))
                     .pospoPosPackagingAccountDto(null)
                     .pospoUserbmDto(UserBMDto.builder().build())
                     .build();
@@ -156,7 +157,7 @@ public class PosPackagingOperationValidatorTest {
                             .opObject("object test")
                             .opType(OperationType.Credit)
                             .build())
-                    .pospoNumberinmvt(10)
+                    .pospoNumberinmvt(BigDecimal.valueOf(10))
                     .pospoPosPackagingAccountDto(PosPackagingAccountDto.builder().build())
                     .pospoUserbmDto(null)
                     .build();

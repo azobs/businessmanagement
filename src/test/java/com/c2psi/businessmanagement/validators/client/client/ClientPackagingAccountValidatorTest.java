@@ -5,6 +5,7 @@ import com.c2psi.businessmanagement.dtos.client.client.ClientPackagingAccountDto
 import com.c2psi.businessmanagement.dtos.stock.product.PackagingDto;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -17,7 +18,7 @@ public class ClientPackagingAccountValidatorTest {
     public void validate() {
         ClientPackagingAccountDto clientPackagingAccountDto = ClientPackagingAccountDto.builder()
                 .cpaClientDto(ClientDto.builder().build())
-                .cpaNumber(10)
+                .cpaNumber(BigDecimal.valueOf(10))
                 .cpaPackagingDto(PackagingDto.builder().build())
                 .build();
 
@@ -33,7 +34,7 @@ public class ClientPackagingAccountValidatorTest {
     public void validateNull() {
         ClientPackagingAccountDto clientPackagingAccountDto = ClientPackagingAccountDto.builder()
                 .cpaClientDto(ClientDto.builder().build())
-                .cpaNumber(10)
+                .cpaNumber(BigDecimal.valueOf(10))
                 .cpaPackagingDto(PackagingDto.builder().build())
                 .build();
 

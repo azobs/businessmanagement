@@ -27,22 +27,6 @@ public class PosPackagingOperationValidator {
             errors.add("--Le parametre a valider ne peut etre null--");
         }
         else{
-            if(Optional.ofNullable(pospackopDto.getPospoNumberinmvt()).isPresent()) {
-                if (pospackopDto.getPospoNumberinmvt() < 0) {
-                    errors.add("--Le nombre d'emballage dans l'operation ne peut etre negatif--");
-                }
-            }
-            else{
-                errors.add("--Le nombre d'emballage dans l'operation ne peut etre null--");
-            }
-
-            if(!Optional.ofNullable(pospackopDto.getPospoPosPackagingAccountDto()).isPresent()){
-                errors.add("--Le compte affecte par l'operation ne peut etre null--");
-            }
-
-            if(!Optional.ofNullable(pospackopDto.getPospoUserbmDto()).isPresent()){
-                errors.add("--L'utilisteur qui a effectue l'operation ne saurait etre null--");
-            }
 
             List<String> opt_errors = OperationValidator.validate(
                     pospackopDto.getPospoOperationDto());

@@ -5,6 +5,7 @@ import com.c2psi.businessmanagement.dtos.client.client.ClientDto;
 import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -18,7 +19,7 @@ public class ClientCapsuleAccountValidatorTest {
         ClientCapsuleAccountDto clientCapsuleAccountDtoToValidate = ClientCapsuleAccountDto.builder()
                 .ccsaArticleDto(ArticleDto.builder().build())
                 .ccsaClientDto(ClientDto.builder().build())
-                .ccsaNumber(0)
+                .ccsaNumber(BigDecimal.valueOf(0))
                 .build();
         List<String> errors = ClientCapsuleAccountValidator.validate(clientCapsuleAccountDtoToValidate);
         System.out.println("errors are : "+errors);
@@ -32,7 +33,7 @@ public class ClientCapsuleAccountValidatorTest {
         ClientCapsuleAccountDto clientCapsuleAccountDtoToValidate = ClientCapsuleAccountDto.builder()
                 .ccsaArticleDto(ArticleDto.builder().build())
                 .ccsaClientDto(ClientDto.builder().build())
-                .ccsaNumber(0)
+                .ccsaNumber(BigDecimal.valueOf(0))
                 .build();
         List<String> errors = ClientCapsuleAccountValidator.validate(null);
         System.out.println("errors are : "+errors);

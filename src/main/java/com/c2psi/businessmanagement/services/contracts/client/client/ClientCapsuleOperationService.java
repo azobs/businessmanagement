@@ -3,32 +3,29 @@ package com.c2psi.businessmanagement.services.contracts.client.client;
 import com.c2psi.businessmanagement.Enumerations.OperationType;
 import com.c2psi.businessmanagement.dtos.client.client.ClientCapsuleAccountDto;
 import com.c2psi.businessmanagement.dtos.client.client.ClientCapsuleOperationDto;
+import com.c2psi.businessmanagement.dtos.stock.provider.ProviderCapsuleOperationDto;
+import org.springframework.data.domain.Page;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
 public interface ClientCapsuleOperationService {
-    ClientCapsuleOperationDto saveClientCapsuleOperation(ClientCapsuleOperationDto cltcsopDto);
+    ClientCapsuleOperationDto updateClientCapsuleOperation(ClientCapsuleOperationDto ccopDto);
+    Boolean isClientCapsuleOperationDeleteable(Long ccopId);
+    Boolean deleteClientCapsuleOperationById(Long ccopId);
+    List<ClientCapsuleOperationDto> findAllClientCapsuleOperation(Long ccaccId);
+    Page<ClientCapsuleOperationDto> findPageClientCapsuleOperation(Long ccaccId, int pagenum, int pagesize);
+    List<ClientCapsuleOperationDto> findAllClientCapsuleOperationofType(Long ccaccId, OperationType opType);
+    Page<ClientCapsuleOperationDto> findPageClientCapsuleOperationofType(Long ccaccId, OperationType opType,
+                                                                             int pagenum, int pagesize);
+    List<ClientCapsuleOperationDto> findAllClientCapsuleOperationBetween(
+            Long ccaccId, Instant startDate, Instant endDate);
 
-    ClientCapsuleOperationDto findClientCapsuleOperationById(Long id);
-
-    /******************************************************************************************
-     * Cette methode retourne la liste des operations effectue sur un compte capsule d'un client
-     * @param cltcsaccDto
-     * @return
-     */
-    List<ClientCapsuleOperationDto> findAllByClientCapsuleAccount(
-            ClientCapsuleAccountDto cltcsaccDto);
-
-    List<ClientCapsuleOperationDto> findAllByClientCapsuleAccount(
-            ClientCapsuleAccountDto cltcsaccDto, OperationType opType);
-
-    List<ClientCapsuleOperationDto> findAllByClientCapsuleAccountBetween(
-            ClientCapsuleAccountDto cltcsaccDto, Date startDate, Date endDate);
-
-    List<ClientCapsuleOperationDto> findAllByClientCapsuleAccountBetween(
-            ClientCapsuleAccountDto cltcsaccDto, Date startDate, Date endDate,
-            OperationType opType);
-
-    Boolean deleteClientCapsuleOperationById(Long cltcsop_id);
+    Page<ClientCapsuleOperationDto> findPageClientCapsuleOperationBetween(
+            Long ccaccId, Instant startDate, Instant endDate, int pagenum, int pagesize);
+    List<ClientCapsuleOperationDto> findAllClientCapsuleOperationBetween(
+            Long ccaccId, OperationType opType, Instant startDate, Instant endDate);
+    Page<ClientCapsuleOperationDto> findPageClientCapsuleOperationBetween(
+            Long ccaccId, OperationType opType, Instant startDate, Instant endDate, int pagenum, int pagesize);
 }

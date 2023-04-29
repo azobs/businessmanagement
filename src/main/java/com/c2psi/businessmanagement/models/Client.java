@@ -15,17 +15,17 @@ import java.util.List;
 @Entity
 @Table(name="client",
         uniqueConstraints = {@UniqueConstraint(
-                columnNames = {"cltName", "cltOthername", "pos_id"}),
+                columnNames = {"clientName", "clientOthername", "pos_id"}),
                 @UniqueConstraint(
-                        columnNames = {"cltCni", "pos_id"})})
+                        columnNames = {"clientCni", "pos_id"})})
 public class Client extends AbstractEntity {
 
     @Column(nullable = false)
-    String cltName;
-    String cltOthername;
-    String cltCni;
+    String clientName;
+    String clientOthername;
+    String clientCni;
     @Embedded
-    Address cltAddress;
+    Address clientAddress;
     /******************************
      * Relation between entities  *
      * ****************************/
@@ -35,7 +35,7 @@ public class Client extends AbstractEntity {
     //List of clientcashaccount applied to a client one per pointofsale
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cca_id", nullable = false, referencedColumnName = "id")
-    ClientCashAccount cltCa;
+    ClientCashAccount clientCa;
     //List of clientcapsuleaccount applied to a client one per pointofsale
     @OneToMany(mappedBy = "ccsaClient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<ClientCapsuleAccount> clientCapsuleAccountList;
@@ -52,5 +52,5 @@ public class Client extends AbstractEntity {
     //Each client belongs to 1 pointofsale
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "pos_id", nullable = false, referencedColumnName = "id")
-    Pointofsale cltPos;
+    Pointofsale clientPos;
 }

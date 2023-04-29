@@ -33,20 +33,13 @@ public class ClientValidator {
             errors.add("--Le parametre à valider ne peut etre null--");
         }
         else{
-            if(clientDto.getCltCaDto() == null){
-                errors.add("--Un compte cash doit etre associe au client des l'enregistrement--");
-            }
-            if(clientDto.getCltName() == null){
-                errors.add("--Le nom du client ne peut etre null--");
+            if(!Optional.ofNullable(clientDto.getClientAddressDto()).isPresent()){
+                errors.add("--L'address du client ne peut etre null--");
             }
             else{
-                if(!StringUtils.hasLength(clientDto.getCltName())){
-                    errors.add("--Le nom du client ne doit pas etre vide--");
-                }
-                List<String> adr_errors = AddressValidator.validate(
-                        clientDto.getCltAddressDto());
-                if(adr_errors.size()>0){
-                    errors.addAll(adr_errors);
+                List<String> errs = AddressValidator.validate(clientDto.getClientAddressDto());
+                if(errs.size()>0){
+                    errors.addAll(errs);
                 }
             }
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();

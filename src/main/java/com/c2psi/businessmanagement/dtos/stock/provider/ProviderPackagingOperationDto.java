@@ -8,6 +8,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.math.BigDecimal;
 
 @Data
 @Builder
@@ -17,7 +18,7 @@ public class ProviderPackagingOperationDto {
     OperationDto propoOperationDto;
     @NotNull(message = "The number of packaging in mvt cannot be null")
     @Positive(message = "The number of packaging in mvt must be positive")
-    Integer propoNumberinmvt;
+    BigDecimal propoNumberinmvt;
     /******************************
      * Relation between entities  *
      * ****************************/

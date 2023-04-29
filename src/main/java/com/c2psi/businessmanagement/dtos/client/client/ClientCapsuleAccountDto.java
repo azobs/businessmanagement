@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 
 @Data
@@ -15,7 +16,7 @@ public class ClientCapsuleAccountDto {
     Long id;
 
     @NotNull(message = "The number of capsule in the account cannot be null")
-    Integer ccsaNumber;
+    BigDecimal ccsaNumber;
     /******************************
      * Relation between entities  *
      * ****************************/

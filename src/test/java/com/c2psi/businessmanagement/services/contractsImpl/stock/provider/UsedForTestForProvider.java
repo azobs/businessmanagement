@@ -2,10 +2,10 @@ package com.c2psi.businessmanagement.services.contractsImpl.stock.provider;
 
 import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.AddressDto;
-import com.c2psi.businessmanagement.dtos.stock.provider.ProviderCashAccountDto;
-import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
-import com.c2psi.businessmanagement.services.contracts.stock.provider.ProviderCashAccountService;
-import com.c2psi.businessmanagement.services.contracts.stock.provider.ProviderService;
+import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
+import com.c2psi.businessmanagement.dtos.stock.product.PackagingDto;
+import com.c2psi.businessmanagement.dtos.stock.provider.*;
+import com.c2psi.businessmanagement.services.contracts.stock.provider.*;
 import com.c2psi.businessmanagement.services.contractsImpl.UsedForTestForAll;
 import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +25,42 @@ public class UsedForTestForProvider {
         Assert.assertNotNull(providerCashAccountService);
         ProviderCashAccountDto providerCashAccountDtoToSave = ProviderCashAccountDto.builder()
                 .pcaBalance(BigDecimal.valueOf(4552))
+                .build();
+        ProviderCashAccountDto providerCashAccountDtoSaved = providerCashAccountService.saveProviderCashAccount(
+                providerCashAccountDtoToSave);
+        return providerCashAccountDtoSaved;
+    }
+
+    public ProviderCapsuleAccountDto saveProviderCapsuleAccount(int solde, ProviderDto providerDtoSaved, ArticleDto articleDtoSaved,
+                                                                ProviderCapsuleAccountService providerCapsuleAccountService){
+        Assert.assertNotNull(providerCapsuleAccountService);
+        ProviderCapsuleAccountDto providerCapsuleAccountDtoToSave = ProviderCapsuleAccountDto.builder()
+                .pcsaProviderDto(providerDtoSaved)
+                .pcsaArticleDto(articleDtoSaved)
+                .pcsaNumber(BigDecimal.valueOf(solde))
+                .build();
+        ProviderCapsuleAccountDto providerCapsuleAccountDtoSaved = providerCapsuleAccountService.saveProviderCapsuleAccount(
+                providerCapsuleAccountDtoToSave);
+        return providerCapsuleAccountDtoSaved;
+    }
+
+    public ProviderDamageAccountDto saveProviderDamageAccount(int solde, ProviderDto providerDtoSaved, ArticleDto articleDtoSaved,
+                                                               ProviderDamageAccountService providerDamageAccountService){
+        Assert.assertNotNull(providerDamageAccountService);
+        ProviderDamageAccountDto providerDamageAccountDtoToSave = ProviderDamageAccountDto.builder()
+                .pdaProviderDto(providerDtoSaved)
+                .pdaArticleDto(articleDtoSaved)
+                .pdaNumber(BigDecimal.valueOf(solde))
+                .build();
+        ProviderDamageAccountDto providerDamageAccountDtoSaved = providerDamageAccountService.saveProviderDamageAccount(
+                providerDamageAccountDtoToSave);
+        return providerDamageAccountDtoSaved;
+    }
+
+    public ProviderCashAccountDto saveProviderCashAccount_Invalid(int num, ProviderCashAccountService providerCashAccountService){
+        Assert.assertNotNull(providerCashAccountService);
+        ProviderCashAccountDto providerCashAccountDtoToSave = ProviderCashAccountDto.builder()
+                .pcaBalance(null)
                 .build();
         ProviderCashAccountDto providerCashAccountDtoSaved = providerCashAccountService.saveProviderCashAccount(
                 providerCashAccountDtoToSave);
@@ -75,6 +111,32 @@ public class UsedForTestForProvider {
 
         ProviderDto providerDtoSaved = providerService.saveProvider(providerDtoToSave);
         return providerDtoSaved;
+    }
+
+    public ProviderPackagingAccountDto saveProviderPackagingAccount(int solde, ProviderDto providerDtoSaved, PackagingDto packagingDtoSaved,
+                                                                 ProviderPackagingAccountService providerPackagingAccountService){
+        Assert.assertNotNull(providerPackagingAccountService);
+        ProviderPackagingAccountDto providerPackagingAccountDtoToSave = ProviderPackagingAccountDto.builder()
+                .ppaProviderDto(providerDtoSaved)
+                .ppaPackagingDto(packagingDtoSaved)
+                .ppaNumber(BigDecimal.valueOf(solde))
+                .build();
+        ProviderPackagingAccountDto providerPackagingAccountDtoSaved = providerPackagingAccountService.saveProviderPackagingAccount(
+                providerPackagingAccountDtoToSave);
+        return providerPackagingAccountDtoSaved;
+    }
+
+    public ProviderPackagingAccountDto saveProviderPackagingAccount_Invalid(int solde, ProviderDto providerDtoSaved, PackagingDto packagingDtoSaved,
+                                                                    ProviderPackagingAccountService providerPackagingAccountService){
+        Assert.assertNotNull(providerPackagingAccountService);
+        ProviderPackagingAccountDto providerPackagingAccountDtoToSave = ProviderPackagingAccountDto.builder()
+                .ppaProviderDto(providerDtoSaved)
+                .ppaPackagingDto(packagingDtoSaved)
+                .ppaNumber(null)
+                .build();
+        ProviderPackagingAccountDto providerPackagingAccountDtoSaved = providerPackagingAccountService.saveProviderPackagingAccount(
+                providerPackagingAccountDtoToSave);
+        return providerPackagingAccountDtoSaved;
     }
 
 

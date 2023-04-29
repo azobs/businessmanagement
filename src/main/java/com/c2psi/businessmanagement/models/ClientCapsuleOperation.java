@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
@@ -18,7 +19,7 @@ public class ClientCapsuleOperation extends AbstractEntity {
     @Embedded
     Operation cltcsoOperation;
 
-    Integer cltcsoNumberinmvt;
+    BigDecimal cltcsoNumberinmvt;
     /******************************
      * Relation between entities  *
      * ****************************/

@@ -25,22 +25,6 @@ public class ClientDamageOperationValidator {
             errors.add("--Le parametre à valider ne peut etre null--");
         }
         else{
-            if(Optional.ofNullable(cdopDto.getCltdoNumberinmvt()).isPresent()) {
-                if (cdopDto.getCltdoNumberinmvt() <= 0) {
-                    errors.add("--Le nombre d'article en mouvement ne saurait être négatif ou null--");
-                }
-            }
-            else{
-                errors.add("--Le nombre d'article en mvt ne peut etre null--");
-            }
-
-            if(!Optional.ofNullable(cdopDto.getCltdoCltDamageAccountDto()).isPresent()){
-                errors.add("--Le compte qui sera affecte ne saurait etre null--");
-            }
-
-            if(!Optional.ofNullable(cdopDto.getCltdoUserbmDto()).isPresent()){
-                errors.add("--L'utilisteur qui a effectue l'operation ne saurait etre null--");
-            }
 
             List<String> opt_errors = OperationValidator.validate(
                     cdopDto.getCltdoOperationDto());

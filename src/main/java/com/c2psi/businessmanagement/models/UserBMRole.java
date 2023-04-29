@@ -18,7 +18,7 @@ import java.time.Instant;
         uniqueConstraints = {@UniqueConstraint(
                 columnNames = {"role_id", "userbm_id"})})
 public class UserBMRole extends AbstractEntity {
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(nullable = false)
     Instant userbmroleAttributionDate;
     /******************************

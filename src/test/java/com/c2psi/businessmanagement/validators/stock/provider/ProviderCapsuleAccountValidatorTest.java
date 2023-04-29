@@ -6,6 +6,7 @@ import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
 import com.c2psi.businessmanagement.validators.stock.product.UnitValidator;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -19,7 +20,7 @@ public class ProviderCapsuleAccountValidatorTest {
         ProviderCapsuleAccountDto providerCapsuleAccountDto = ProviderCapsuleAccountDto.builder()
                 .pcsaProviderDto(ProviderDto.builder().build())
                 .pcsaArticleDto(ArticleDto.builder().build())
-                .pcsaNumber(Integer.valueOf(0))
+                .pcsaNumber(BigDecimal.valueOf(0))
                 .build();
         List<String> errors = ProviderCapsuleAccountValidator.validate(providerCapsuleAccountDto);
         System.out.println("errors == " + errors);
@@ -33,7 +34,7 @@ public class ProviderCapsuleAccountValidatorTest {
         ProviderCapsuleAccountDto providerCapsuleAccountDto = ProviderCapsuleAccountDto.builder()
                 .pcsaProviderDto(ProviderDto.builder().build())
                 .pcsaArticleDto(ArticleDto.builder().build())
-                .pcsaNumber(Integer.valueOf(0))
+                .pcsaNumber(BigDecimal.valueOf(0))
                 .build();
         List<String> errors = ProviderCapsuleAccountValidator.validate(null);
         System.out.println("errors == " + errors);

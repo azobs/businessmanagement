@@ -41,7 +41,7 @@ public class Pointofsale extends AbstractEntity{
     @OneToMany(mappedBy = "pdaPointofsale", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<PosDamageAccount> posDamageAccountList;
     //Each pointofsale has a list of client
-    @OneToMany(mappedBy = "cltPos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "clientPos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Client> clientList;
     //Each pointofsale has a list of client
     @OneToMany(mappedBy = "providerPos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

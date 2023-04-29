@@ -56,7 +56,7 @@ public interface PointofsaleService {
     PointofsaleDto findPointofsaleById(Long posId);
 
     PointofsaleDto findPosInEnterpriseByName(String posName, EnterpriseDto entDto);
-    Boolean isPosUnique(String posName, EnterpriseDto entDto);
+    Boolean isPosUnique(String posName, String posEmail, EnterpriseDto entDto);
 
     Boolean isPointofsaleExistWithId(Long posId);
     Boolean isPointofsaleDeleteable(Long posId);

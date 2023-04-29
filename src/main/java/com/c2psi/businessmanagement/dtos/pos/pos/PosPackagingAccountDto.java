@@ -6,13 +6,14 @@ import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 @Data
 @Builder
 public class PosPackagingAccountDto {
     Long id;
     @NotNull(message = "The number of package cannot be null")
-    Integer ppaNumber;
+    BigDecimal ppaNumber;
 
 
     /******************************

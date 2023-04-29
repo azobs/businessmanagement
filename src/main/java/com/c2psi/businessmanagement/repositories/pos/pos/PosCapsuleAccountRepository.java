@@ -21,9 +21,9 @@ public interface PosCapsuleAccountRepository
     Optional<List<PosCapsuleAccount>> findAllCapsuleAccountInPos(@Param("posId") Long posId);
     @Query("SELECT poscapsacc FROM PosCapsuleAccount poscapsacc WHERE poscapsacc.pcsaPointofsale.id=:posId ORDER BY poscapsacc.pcsaArticle.artPf.pfProduct.prodCat.catName ASC, poscapsacc.pcsaArticle.artName")
     Optional<Page<PosCapsuleAccount>> findPageCapsuleAccountInPos(@Param("posId") Long posId, Pageable pageable);
-    @Query("SELECT poscapsacc FROM PosCapsuleAccount poscapsacc WHERE poscapsacc.pcsaArticle.id=:posId ORDER BY poscapsacc.pcsaArticle.artPf.pfProduct.prodCat.catName ASC, poscapsacc.pcsaArticle.artName")
-    Optional<List<PosCapsuleAccount>> findAllCapsuleAccountofArticle(@Param("posId") Long posId);
-    @Query("SELECT poscapsacc FROM PosCapsuleAccount poscapsacc WHERE poscapsacc.pcsaArticle.id=:posId ORDER BY poscapsacc.pcsaArticle.artPf.pfProduct.prodCat.catName ASC, poscapsacc.pcsaArticle.artName")
-    Optional<Page<PosCapsuleAccount>> findPageCapsuleAccountofArticle(@Param("posId") Long posId, Pageable pageable);
+    @Query("SELECT poscapsacc FROM PosCapsuleAccount poscapsacc WHERE poscapsacc.pcsaArticle.id=:artId ORDER BY poscapsacc.pcsaArticle.artPf.pfProduct.prodCat.catName ASC, poscapsacc.pcsaArticle.artName")
+    Optional<List<PosCapsuleAccount>> findAllCapsuleAccountofArticle(@Param("artId") Long artId);
+    @Query("SELECT poscapsacc FROM PosCapsuleAccount poscapsacc WHERE poscapsacc.pcsaArticle.id=:artId ORDER BY poscapsacc.pcsaArticle.artPf.pfProduct.prodCat.catName ASC, poscapsacc.pcsaArticle.artName")
+    Optional<Page<PosCapsuleAccount>> findPageCapsuleAccountofArticle(@Param("artId") Long artId, Pageable pageable);
 
 }

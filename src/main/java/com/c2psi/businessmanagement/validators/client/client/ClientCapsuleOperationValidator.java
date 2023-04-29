@@ -32,22 +32,6 @@ public class ClientCapsuleOperationValidator {
             errors.add("--le parametre à valider ne peut etre null--");
         }
         else {
-            if(Optional.ofNullable(ccapsopDto.getCltcsoNumberinmvt()).isPresent()) {
-                if (ccapsopDto.getCltcsoNumberinmvt() <= 0) {
-                    errors.add("--Le nombre de capsule en mouvement ne saurait être négatif--");
-                }
-            }
-            else{
-                errors.add("--Le nombre de capsule en mouvement ne saurait etre null--");
-            }
-
-            if(!Optional.ofNullable(ccapsopDto.getCltcsoCltCapsuleAccountDto()).isPresent()){
-                errors.add("--Le compte qui sera affecte ne saurait etre null--");
-            }
-
-            if(!Optional.ofNullable(ccapsopDto.getCltcsoUserbmDto()).isPresent()){
-                errors.add("--L'utilisteur qui a effectue l'operation ne saurait etre null--");
-            }
 
             List<String> opt_errors = OperationValidator.validate(
                     ccapsopDto.getCltcsoOperationDto());

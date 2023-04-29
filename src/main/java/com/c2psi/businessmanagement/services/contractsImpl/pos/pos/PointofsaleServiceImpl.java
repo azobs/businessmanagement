@@ -154,7 +154,7 @@ public class PointofsaleServiceImpl implements PointofsaleService {
          * Il faut se rassurer de l'unicite du pointofsale dans l'entreprise
          */
         //IL faut verifier que le pointofsale sera unique dans l'entreprise
-        if(!this.isPosUnique(posDto.getPosName(), posDto.getPosEnterpriseDto())){
+        if(!this.isPosUnique(posDto.getPosName(), posDto.getPosAddressDto().getEmail(), posDto.getPosEnterpriseDto())){
             //Si c'est true alors le pointofsale sera unique donc le non signifie que ca ne va pas etre unique
             throw new DuplicateEntityException("Un Pointofsale existe deja dans l'entreprise precise avec  " +
                     "le meme nom :", ErrorCode.POINTOFSALE_DUPLICATED);
@@ -319,7 +319,7 @@ public class PointofsaleServiceImpl implements PointofsaleService {
     }
 
     @Override
-    public Boolean isPosUnique(String posName, EnterpriseDto entDto) {
+    public Boolean isPosUnique(String posName, String posEmail, EnterpriseDto entDto) {
         if(!StringUtils.hasLength(posName)){
             log.error("Le pointofsale posName is null");
             throw new NullArgumentException("le posName passe en argument de la methode est null");
@@ -330,7 +330,10 @@ public class PointofsaleServiceImpl implements PointofsaleService {
         }
         Optional<Pointofsale> optionalPointofsale = posRepository.findPointofsaleOfEnterpriseByName(posName,
                 entDto.getId());
-        return optionalPointofsale.isPresent()?false:true;
+
+        Optional<Pointofsale> optionalPointofsale1 = posRepository.findPointofsaleByPosEmail(posEmail);
+
+        return optionalPointofsale.isEmpty() && optionalPointofsale1.isEmpty();
     }
 
     @Override

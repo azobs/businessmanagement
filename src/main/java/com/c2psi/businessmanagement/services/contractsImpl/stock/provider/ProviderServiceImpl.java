@@ -19,12 +19,15 @@ import com.c2psi.businessmanagement.validators.stock.provider.ProviderValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service(value="ProviderServiceV1")
 @Slf4j
@@ -85,7 +88,8 @@ public class ProviderServiceImpl implements ProviderService {
         /*********************************************************************************************
          * Il faut se rassurer qu'il n'y aurait pas de duplicata de provider dans la base de donnee
          */
-        if(!isProviderUniqueForPos(providerDto.getProviderName(), providerDto.getProviderPosDto().getId())){
+        if(!isProviderUniqueForPos(providerDto.getProviderName(), providerDto.getProviderAddressDto().getEmail(),
+                providerDto.getProviderPosDto().getId())){
             log.error("A provider already exist in the DB for the same pointofsale with the same name");
             throw new DuplicateEntityException("Un provider existe deja dans le pointofsale precise avec le " +
                     "meme providerName ", ErrorCode.PROVIDER_DUPLICATED);
@@ -153,9 +157,10 @@ public class ProviderServiceImpl implements ProviderService {
                 throw new DuplicateEntityException("Une autre entite en BD utilise deja cet email ",
                         ErrorCode.PROVIDER_DUPLICATED);
             }
+            //Tout est bon au niveau de l'adresse donc on peut mettre a jour
+            providerToUpdate.setProviderAddress(AddressDto.toEntity(providerDto.getProviderAddressDto()));
         }
-        //Tout est bon au niveau de l'adresse donc on peut mettre a jour
-        providerToUpdate.setProviderAddress(AddressDto.toEntity(providerDto.getProviderAddressDto()));
+
 
         /*********************************************************************
          * On verifie si c'est le nom qu'on veut modifier et
@@ -166,10 +171,10 @@ public class ProviderServiceImpl implements ProviderService {
             /***************
              * On se rassure quil y aura pas de duplicata de provider
              */
-            if(!isProviderUniqueForPos(providerDto.getProviderName(), providerDto.getProviderPosDto().getId())){
-                log.error("A provider already exist in the DB for the same pointofsale with the same name");
-                throw new DuplicateEntityException("Un provider existe deja dans le pointofsale precise avec le " +
-                        "meme providerName ", ErrorCode.PROVIDER_DUPLICATED);
+            if(isProviderExistWithNameinPos(providerDto.getProviderName(), providerDto.getProviderPosDto().getId())){
+                log.error("The new email precised for the provider already used by another entity");
+                throw new DuplicateEntityException("Une autre entite en BD utilise deja cet email ",
+                        ErrorCode.PROVIDER_DUPLICATED);
             }
             //Ici on est sur qu'il y aura pas de duplicata donc on peut mettre a jour le providerName
             providerToUpdate.setProviderName(providerDto.getProviderName());
@@ -195,6 +200,22 @@ public class ProviderServiceImpl implements ProviderService {
         return optionalProvider.isPresent()?true:false;
     }
 
+    public Boolean isProviderExistWithNameinPos(String providerName, Long posId) {
+        if(!StringUtils.hasLength(providerName)){
+            log.error("Provider providerName is null");
+            throw new NullArgumentException("Le name passe en argument de la methode est null");
+        }
+
+        if(posId == null){
+            log.error("Provider posId is null");
+            throw new NullArgumentException("Le posId passe en argument de la methode est null");
+        }
+
+        Optional<Provider> optionalProvider = providerRepository.findProviderByNameAndPos(providerName, posId);
+
+        return optionalProvider.isPresent()?true:false;
+    }
+
     @Override
     public ProviderDto findProviderByNameofPos(String providerName, Long posId) {
         if(!StringUtils.hasLength(providerName)){
@@ -205,7 +226,7 @@ public class ProviderServiceImpl implements ProviderService {
             log.error("posId is null");
             throw new NullArgumentException("le posId passe en argument de la methode est null");
         }
-        Optional<Provider> optionalProvider = providerRepository.findProviderByNameAndPosid(providerName, posId);
+        Optional<Provider> optionalProvider = providerRepository.findProviderByNameAndPos(providerName, posId);
         if(!optionalProvider.isPresent()){
             log.error("There is no provider with the name {} in the pointofsale {}",providerName, posId);
             throw new EntityNotFoundException("Aucun provider n'existe avec name indique dans le pointofsale indique");
@@ -214,7 +235,7 @@ public class ProviderServiceImpl implements ProviderService {
     }
 
     @Override
-    public Boolean isProviderUniqueForPos(String providerName, Long posId) {
+    public Boolean isProviderUniqueForPos(String providerName, String providerEmail, Long posId) {
         if(!StringUtils.hasLength(providerName)){
             log.error("Provider providerName is null");
             throw new NullArgumentException("le providerName passe en argument de la methode est null");
@@ -223,33 +244,69 @@ public class ProviderServiceImpl implements ProviderService {
             log.error("posId is null");
             throw new NullArgumentException("le posId passe en argument de la methode est null");
         }
-        Optional<Provider> optionalProvider = providerRepository.findProviderByNameAndPosid(providerName, posId);
+        Optional<Provider> optionalProvider = providerRepository.findProviderByNameAndPos(providerName, posId);
 
-        return optionalProvider.isPresent()?false:true;
+        //on doit aussi verifier que lemail sera unique dans ladresse
+        Optional<Provider> optionalProvider1 = providerRepository.findProviderByProviderEmail(providerEmail);
+
+        return optionalProvider.isEmpty() && optionalProvider1.isEmpty();
     }
 
     @Override
     public List<ProviderDto> findAllProviderofPos(Long posId) {
-        return null;
+        if(posId == null){
+            log.error("The posId precised in the method is null");
+            throw new NullArgumentException("L'argument de la methode est null");
+        }
+        Optional<List<Provider>> optionalProviderList = providerRepository.findAllProviderofPos(posId);
+
+        if(!optionalProviderList.isPresent()){
+            log.error("There is no pointofsale with the id {}", posId);
+            throw new EntityNotFoundException("Aucun pointofsale n'a l'id precise "+posId, ErrorCode.POINTOFSALE_NOT_FOUND);
+        }
+
+        return optionalProviderList.get().stream().map(ProviderDto::fromEntity).collect(Collectors.toList());
     }
 
     @Override
     public Page<ProviderDto> findPageProviderofPos(Long posId, int pagenum, int pagesize) {
-        return null;
+        if(posId == null){
+            log.error("The posId precised in the method is null");
+            throw new NullArgumentException("L'argument de la methode est null");
+        }
+        Optional<Page<Provider>> optionalProviderPage = providerRepository.findPageProviderofPos(posId,
+                PageRequest.of(pagenum, pagesize, Sort.Direction.ASC,"providerName"));
+
+        if(!optionalProviderPage.isPresent()){
+            log.error("There is no pointofsale with the id {}", posId);
+            throw new EntityNotFoundException("Aucun pointofsale n'a l'id precise "+posId, ErrorCode.POINTOFSALE_NOT_FOUND);
+        }
+        return optionalProviderPage.get().map(ProviderDto::fromEntity);
     }
 
     @Override
-    public List<ProviderDto> findAllProviderofArticleInPos(Long artId, Long posId) {
-        return null;
+    public Boolean isProviderDeleteable(Long providerId) {
+        return true;
     }
 
     @Override
-    public Page<ProviderDto> findPageProviderofArticleInPos(Long artId, Long posId, int pagenum, int pagesize) {
-        return null;
-    }
+    public Boolean deleteProviderById(Long providerId) {
+        if(providerId == null){
+            log.error("The argument is null");
+            throw new NullArgumentException("L'argument de la methode deleteProvider est null");
+        }
+        Optional<Provider> optionalProvider = providerRepository.findProviderById(providerId);
+        if(!optionalProvider.isPresent()){
+            log.error("There is no provider with the precised id {}", providerId);
+            throw new EntityNotFoundException("Aucun provider n'existe avec l'id "+providerId, ErrorCode.PROVIDER_NOT_FOUND);
+        }
+        if(!isProviderDeleteable(providerId)){
+            log.error("The provider precised can't be deleted");
+            throw new EntityNotDeleteableException("Impossible de supprimer le provider indique ",
+                    ErrorCode.PROVIDER_NOT_DELETEABLE);
+        }
 
-    @Override
-    public Boolean deleteProviderById(Long id) {
-        return null;
+        providerRepository.delete(optionalProvider.get());
+        return true;
     }
 }

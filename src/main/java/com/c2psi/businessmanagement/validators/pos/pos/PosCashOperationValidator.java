@@ -27,28 +27,6 @@ public class PosCashOperationValidator {
             errors.add("--Le parametre a valider ne doit pas etre null--");
         }
         else{
-            if(Optional.ofNullable(poscashopDto.getPoscoAmountinmvt()).isPresent()) {
-                if (poscashopDto.getPoscoAmountinmvt().doubleValue() < 0) {
-                    errors.add("--Le montant en mouvement ne doit pas etre negatif--");
-                }
-            }
-            else{
-                errors.add("--Le montant associe a l'operation ne peut etre null--");
-            }
-
-            List<String> errs = OperationValidator.validate(
-                    poscashopDto.getPoscoOperationDto());
-            if(errs.size()>0){
-                errors.addAll(errs);
-            }
-
-            if(!Optional.ofNullable(poscashopDto.getPoscoPosCashAccountDto()).isPresent()){
-                errors.add("--Le compte cash associe ne peut etre null--");
-            }
-
-            if(!Optional.ofNullable(poscashopDto.getPoscoUserbmDto()).isPresent()){
-                errors.add("--L'utilisteur qui a effectue l'operation ne saurait etre null--");
-            }
 
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             Validator validator = factory.getValidator();

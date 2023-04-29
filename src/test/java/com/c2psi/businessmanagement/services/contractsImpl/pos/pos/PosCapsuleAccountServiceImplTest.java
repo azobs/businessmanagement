@@ -4,6 +4,7 @@ import com.c2psi.businessmanagement.BusinessmanagementApplication;
 import com.c2psi.businessmanagement.Enumerations.OperationType;
 import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PosCapsuleAccountDto;
+import com.c2psi.businessmanagement.dtos.pos.pos.PosCapsuleOperationDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.dtos.stock.price.BasePriceDto;
 import com.c2psi.businessmanagement.dtos.stock.price.CurrencyDto;
@@ -26,6 +27,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -47,6 +51,8 @@ public class PosCapsuleAccountServiceImplTest {
     CurrencyConversionServiceImpl currencyConversionService;
     @Autowired
     PosCapsuleAccountServiceImpl posCapsuleAccountService;
+    @Autowired
+    PosCapsuleOperationServiceImpl posCapsuleOperationService;
     @Autowired
     FormatServiceImpl formatService;
     @Autowired
@@ -737,6 +743,81 @@ public class PosCapsuleAccountServiceImplTest {
                 posCapsuleAccountDtoSaved.getId());
         System.err.println("solde == "+posCapsuleAccountDtoFound1.getPcsaNumber());
         assertTrue(BigDecimal.valueOf(0).compareTo(posCapsuleAccountDtoFound1.getPcsaNumber())==0);
+
+        BigDecimal newQteToSave = qteToSave.add(BigDecimal.valueOf(5));
+        System.err.println("qteToSave == "+qteToSave);
+
+        assertTrue(posCapsuleAccountService.saveCapsuleOperation(posCapsuleAccountDtoSaved.getId(), newQteToSave,
+                OperationType.Credit, userBMDtoSaved.getId(), "credit ", "sdsds"));
+        PosCapsuleAccountDto posCapsuleAccountDtoFound2 = posCapsuleAccountService.findPosCapsuleAccountById(
+                posCapsuleAccountDtoSaved.getId());
+        System.err.println("solde == "+posCapsuleAccountDtoFound2.getPcsaNumber());
+        assertTrue(BigDecimal.valueOf(20).compareTo(posCapsuleAccountDtoFound2.getPcsaNumber())==0);
+
+        //On teste List<PosCapsuleOperationDto> findAllPosCapsuleOperation(Long pcapsopId)
+        List<PosCapsuleOperationDto> posCapsuleOperationDtoList = posCapsuleOperationService.findAllPosCapsuleOperation(
+                posCapsuleAccountDtoSaved.getId());
+        assertNotNull(posCapsuleOperationDtoList);
+        assertEquals(3, posCapsuleOperationDtoList.size());
+
+        //On teste Page<PosCapsuleOperationDto> findPagePosCapsuleOperation(Long pcapsopId, int pagenum, int pagesize)
+        Page<PosCapsuleOperationDto> posCapsuleOperationDtoPage = posCapsuleOperationService.findPagePosCapsuleOperation(
+                posCapsuleAccountDtoSaved.getId(), 0, 2);
+        assertNotNull(posCapsuleOperationDtoPage);
+        assertEquals(2, posCapsuleOperationDtoPage.getTotalPages());
+
+        //On teste List<PosCapsuleOperationDto> findAllPosCapsuleOperationBetween(Long pcapsopId, Instant startDate,
+        //                                                                          Instant endDate)
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date startDate1 = new Date();
+            String startDateString = sdf.format(startDate1);
+
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(startDate1);
+            cal.add(Calendar.DAY_OF_MONTH, 1);
+            Date endDate1 = cal.getTime();
+            String endDateString = sdf.format(endDate1);
+
+            Date startDate = sdf.parse(startDateString);
+            Date endDate = sdf.parse(endDateString);
+
+            List<PosCapsuleOperationDto> posCapsuleOperationDtoListBetween = posCapsuleOperationService.
+                    findAllPosCapsuleOperationBetween(posCapsuleAccountDtoSaved.getId(), startDate.toInstant(),
+                            endDate.toInstant());
+            assertNotNull(posCapsuleOperationDtoListBetween);
+            assertEquals(3, posCapsuleOperationDtoListBetween.size());
+
+            //Page<PosCapsuleOperationDto> findPagePosCapsuleOperationBetween(Long pcapsopId, Instant startDate,
+            //                                           Instant endDate, int pagenum, int pagesize)
+            Page<PosCapsuleOperationDto> posCapsuleOperationDtoPageBetween = posCapsuleOperationService.
+                    findPagePosCapsuleOperationBetween(posCapsuleAccountDtoSaved.getId(), startDate.toInstant(),
+                            endDate.toInstant(), 0, 2);
+            assertNotNull(posCapsuleOperationDtoPageBetween);
+            assertEquals(2, posCapsuleOperationDtoPageBetween.getTotalPages());
+
+            //List<PosCapsuleOperationDto> findAllPosCapsuleOperationBetween(Long pcapsopId, OperationType op_type,
+            //                                                        Instant startDate, Instant endDate)
+            List<PosCapsuleOperationDto> posCapsuleOperationDtoListBetweenoftype = posCapsuleOperationService.
+                    findAllPosCapsuleOperationBetween(posCapsuleAccountDtoSaved.getId(), OperationType.Credit,
+                            startDate.toInstant(), endDate.toInstant());
+            assertNotNull(posCapsuleOperationDtoListBetweenoftype);
+            assertEquals(2, posCapsuleOperationDtoListBetweenoftype.size());
+
+            //Page<PosCapsuleOperationDto> findPagePosCapsuleOperationBetween(Long pcapsopId, OperationType op_type,
+            //                                                                 Instant startDate, Instant endDate,
+            //                                                                 int pagenum, int pagesize)
+            Page<PosCapsuleOperationDto> posCapsuleOperationDtoPageBetweenoftype = posCapsuleOperationService.
+                    findPagePosCapsuleOperationBetween(posCapsuleAccountDtoSaved.getId(), OperationType.Credit,
+                            startDate.toInstant(), endDate.toInstant(), 0, 2);
+            assertNotNull(posCapsuleOperationDtoPageBetweenoftype);
+            assertEquals(1, posCapsuleOperationDtoPageBetweenoftype.getTotalPages());
+        }
+        catch (Exception e){
+            System.err.println("There is an exception not manage in the program means a big problem appears");
+            e.printStackTrace();
+        }
+
     }
 
     @Test(expected = InvalidValueException.class)

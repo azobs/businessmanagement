@@ -31,15 +31,6 @@ public class ClientPackagingAccountValidator {
             errors.add("--Le compte packaging client ne peut être null--");
         }
         else{
-            if(cpaDto.getCpaPackagingDto() == null){
-                errors.add("--Le packaging associé à ce compte packaging client est null--");
-            }
-            if(cpaDto.getCpaClientDto() == null){
-                errors.add("--Le client associé à ce compte packaging client est null--");
-            }
-            if(cpaDto.getCpaNumber() == null){
-                errors.add("--Le nombre de packaging dans le compte ne peut etre null--");
-            }
 
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             Validator validator = factory.getValidator();
@@ -51,31 +42,6 @@ public class ClientPackagingAccountValidator {
                     errors.add(contraintes.getMessage());
                 }
             }
-
-            /*else {
-                //Le client doit être un client du point de vente auquel le compte est lié
-                int isClientofPos = 0;
-                List<ClientDto> clientDtoList = cpaDto.getCpaPointofsaleDto().getClientDtoList();
-                for (ClientDto clientDto : clientDtoList) {
-                    if (clientDto.getId().equals(cpaDto.getCpaClientDto().getId())) {
-                        isClientofPos = 1;
-                    }
-                }
-                if (isClientofPos == 0) {
-                    errors.add("--Le client specifié n'est pas un client du point de vente: "+errors);
-                }
-                //Le packaging doit etre un packaging du point de vente auquel le compte est lié
-                int isPackagingofPos = 0;
-                List<PackagingDto> packagingDtoList = cpaDto.getCpaPointofsaleDto().getPackagingDtoList();
-                for (PackagingDto packagingDto : packagingDtoList) {
-                    if (packagingDto.getId().equals(cpaDto.getCpaPackagingDto().getId())) {
-                        isPackagingofPos = 1;
-                    }
-                }
-                if (isPackagingofPos == 0) {
-                    errors.add("--Le packaging spécifié n'est pas un packaging du point de vente: "+errors);
-                }
-            }*/
         }
         return errors;
     }

@@ -100,6 +100,11 @@ public class ProviderCashAccountServiceImpl implements ProviderCashAccountServic
             updatedSolde = solde.add(amount);//Car BigDecimal est immutable on peut pas directement modifier sa valeur
         }
         else if(operationType.equals(OperationType.Withdrawal)){
+            if(solde.compareTo(amount)<0){
+                //Cela veut dire le solde est insuffisant
+                log.error("The account balance is insufficient for the operation asked");
+                throw new InvalidValueException("Le solde du compte est insuffisant pour retirer le montant demamdee ");
+            }
             updatedSolde = solde.subtract(amount);
         }
 
@@ -135,7 +140,6 @@ public class ProviderCashAccountServiceImpl implements ProviderCashAccountServic
         List<String> errors = ProviderCashAccountValidator.validate(pcaDto);
         if(!errors.isEmpty()){
             log.error("Entity pca not valid {}", pcaDto);
-            System.out.println("errors == "+errors);
             throw new InvalidEntityException("Le pca passé en argument n'est pas valide: "+errors,
                     ErrorCode.PROVIDERCASHACCOUNT_NOT_VALID, errors);
         }

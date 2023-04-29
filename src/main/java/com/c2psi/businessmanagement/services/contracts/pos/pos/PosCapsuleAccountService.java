@@ -1,21 +1,14 @@
 package com.c2psi.businessmanagement.services.contracts.pos.pos;
 
 import com.c2psi.businessmanagement.Enumerations.OperationType;
-import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PosCapsuleAccountDto;
-import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
-import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
 import org.springframework.data.domain.Page;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 public interface PosCapsuleAccountService {
-    /*********************************************************************************
-     * Creer un compte capsule lie a un article pour un point de vente.
-     * @param poscapsaccDto
-     * @return
-     */
+
     PosCapsuleAccountDto savePosCapsuleAccount(PosCapsuleAccountDto poscapsaccDto);
 
     PosCapsuleAccountDto findPosCapsuleAccountById(Long poscapsaccId);
@@ -30,7 +23,8 @@ public interface PosCapsuleAccountService {
 
     Boolean deletePosCapsuleAccountById(Long poscapsaccId);
 
-    Boolean saveCapsuleOperation(Long posdamaccId, BigDecimal qte, OperationType operationType,
+    Boolean saveCapsuleOperation(Long poscapsaccId, BigDecimal qte, OperationType operationType,
                                  Long userBMId, String opObject, String opDescription);
+
     Boolean isPosCapsuleAccountDeleteable(Long posCapsAccId);
 }

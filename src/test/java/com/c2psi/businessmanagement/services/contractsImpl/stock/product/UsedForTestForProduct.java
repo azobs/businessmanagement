@@ -5,6 +5,7 @@ import com.c2psi.businessmanagement.dtos.stock.price.BasePriceDto;
 import com.c2psi.businessmanagement.dtos.stock.price.CurrencyDto;
 import com.c2psi.businessmanagement.dtos.stock.price.SpecialPriceDto;
 import com.c2psi.businessmanagement.dtos.stock.product.*;
+import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
 import com.c2psi.businessmanagement.services.contracts.stock.price.BasePriceService;
 import com.c2psi.businessmanagement.services.contracts.stock.price.SpecialPriceService;
 import com.c2psi.businessmanagement.services.contracts.stock.product.*;
@@ -227,6 +228,46 @@ public class UsedForTestForProduct {
 
         ArticleDto articleDtoSaved = articleService.saveArticle(articleDtoToSave);
         return articleDtoSaved;
+    }
+
+    public PackagingDto savePackaging(int num, ProviderDto providerDtoSaved, PointofsaleDto pointofsaleDtoSaved,
+                                    PackagingService packagingService){
+        Assert.assertNotNull(providerDtoSaved);
+        Assert.assertNotNull(pointofsaleDtoSaved);
+        Assert.assertNotNull(packagingService);
+
+
+        PackagingDto packagingDtoToSaved = PackagingDto.builder()
+                .packLabel("casier_"+num)
+                .packFirstcolor("rouge_"+num)
+                .packDescription("Casier de 12_"+num)
+                .packPrice(BigDecimal.valueOf(3600))
+                .packProviderDto(providerDtoSaved)
+                .packPosDto(pointofsaleDtoSaved)
+                .build();
+
+        PackagingDto packagingDtoSaved = packagingService.savePackaging(packagingDtoToSaved);
+        return packagingDtoSaved;
+    }
+
+    public PackagingDto savePackaging_Invalid(int num, ProviderDto providerDtoSaved, PointofsaleDto pointofsaleDtoSaved,
+                                      PackagingService packagingService){
+        Assert.assertNotNull(providerDtoSaved);
+        Assert.assertNotNull(pointofsaleDtoSaved);
+        Assert.assertNotNull(packagingService);
+
+
+        PackagingDto packagingDtoToSaved = PackagingDto.builder()
+                .packLabel("casier_"+num)
+                .packFirstcolor("rouge_"+num)
+                .packDescription("Casier de 12_"+num)
+                .packPrice(null)
+                .packProviderDto(providerDtoSaved)
+                .packPosDto(pointofsaleDtoSaved)
+                .build();
+
+        PackagingDto packagingDtoSaved = packagingService.savePackaging(packagingDtoToSaved);
+        return packagingDtoSaved;
     }
 
 

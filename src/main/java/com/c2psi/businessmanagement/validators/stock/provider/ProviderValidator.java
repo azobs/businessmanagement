@@ -31,6 +31,15 @@ public class ProviderValidator {
             errors.add("--le parametre a valider ne peut etre null--");
         }
         else{
+            if(!Optional.ofNullable(providerDto.getProviderAddressDto()).isPresent()){
+                errors.add("--L'address du provider ne peut etre null--");
+            }
+            else{
+                List<String> errs = AddressValidator.validate(providerDto.getProviderAddressDto());
+                if(errs.size()>0){
+                    errors.addAll(errs);
+                }
+            }
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             Validator validator = factory.getValidator();
 

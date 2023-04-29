@@ -5,6 +5,7 @@ import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderPackagingAccountDto;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -18,7 +19,7 @@ public class ProviderPackagingAccountValidatorTest {
         ProviderPackagingAccountDto providerPackagingAccountDto = ProviderPackagingAccountDto.builder()
                 .ppaPackagingDto(PackagingDto.builder().build())
                 .ppaProviderDto(ProviderDto.builder().build())
-                .ppaNumber(Integer.valueOf(10))
+                .ppaNumber(BigDecimal.valueOf(10))
                 .build();
 
         List<String> errors = ProviderPackagingAccountValidator.validate(providerPackagingAccountDto);
@@ -33,7 +34,7 @@ public class ProviderPackagingAccountValidatorTest {
         ProviderPackagingAccountDto providerPackagingAccountDto = ProviderPackagingAccountDto.builder()
                 .ppaPackagingDto(PackagingDto.builder().build())
                 .ppaProviderDto(ProviderDto.builder().build())
-                .ppaNumber(Integer.valueOf(10))
+                .ppaNumber(BigDecimal.valueOf(10))
                 .build();
 
         List<String> errors = ProviderPackagingAccountValidator.validate(null);

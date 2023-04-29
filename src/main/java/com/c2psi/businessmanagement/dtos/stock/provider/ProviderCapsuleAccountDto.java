@@ -1,19 +1,20 @@
 package com.c2psi.businessmanagement.dtos.stock.provider;
 
-import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
+
 import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
 import com.c2psi.businessmanagement.models.ProviderCapsuleAccount;
 import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 @Data
 @Builder
 public class ProviderCapsuleAccountDto {
     Long id;
     @NotNull(message = "The number of capsule in the account cannot be null")
-    Integer pcsaNumber;
+    BigDecimal pcsaNumber;
     /******************************
      * Relation between entities  *
      * ****************************/

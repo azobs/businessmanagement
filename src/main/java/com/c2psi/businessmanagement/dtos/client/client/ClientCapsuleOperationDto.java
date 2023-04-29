@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
+import java.math.BigDecimal;
 
 @Data
 @Builder
@@ -24,7 +25,7 @@ public class ClientCapsuleOperationDto {
     OperationDto cltcsoOperationDto;
     @NotNull(message = "The number in mvt in the operation cannot be null")
     @Positive(message = "The number in mvt in the operation must be positive")
-    Integer cltcsoNumberinmvt;
+    BigDecimal cltcsoNumberinmvt;
     /******************************
      * Relation between entities  *
      * ****************************/

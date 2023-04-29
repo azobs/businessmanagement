@@ -1,29 +1,40 @@
 package com.c2psi.businessmanagement.services.contracts.pos.pos;
 
 import com.c2psi.businessmanagement.Enumerations.OperationType;
+import com.c2psi.businessmanagement.dtos.pos.pos.PosDamageOperationDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PosDamageAccountDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PosDamageOperationDto;
+import org.springframework.data.domain.Page;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
 public interface PosDamageOperationService {
-    PosDamageOperationDto savePosDamageOperation(PosDamageOperationDto posdopDto);
+    PosDamageOperationDto updatePosDamageOperation(PosDamageOperationDto posdamopDto);
 
-    PosDamageOperationDto findPosDamageOperationById(Long id);
+    Boolean isPosDamageOperationDeleteable(Long posdamopId);
 
-    List<PosDamageOperationDto> findAllByPosDamageAccount(
-            PosDamageAccountDto posdaccDto);
+    Boolean deletePosDamageOperationById(Long posdamopId);
 
-    List<PosDamageOperationDto> findAllByPosDamageAccount(
-            PosDamageAccountDto posdaccDto, OperationType opType);
+    List<PosDamageOperationDto> findAllPosDamageOperation(Long posdamopId);
+    List<PosDamageOperationDto> findAllPosDamageOperationofType(Long posdamopId, OperationType opType);
 
-    List<PosDamageOperationDto> findAllByPosDamageAccountBetween(
-            PosDamageAccountDto posdaccDto, Date startDate, Date endDate);
+    Page<PosDamageOperationDto> findPagePosDamageOperation(Long posdamopId, int pagenum, int pagesize);
 
-    List<PosDamageOperationDto> findAllByPosDamageAccountBetween(
-            PosDamageAccountDto posdaccDto, Date startDate, Date endDate,
-            OperationType opType);
+    Page<PosDamageOperationDto> findPagePosDamageOperationofType(Long posdamopId, OperationType opType,
+                                                                   int pagenum, int pagesize);
 
-    Boolean deletePosDamageOperationById(Long posdopId);
+    List<PosDamageOperationDto> findAllPosDamageOperationBetween(
+            Long posdamopId, Instant startDate, Instant endDate);
+
+    Page<PosDamageOperationDto> findPagePosDamageOperationBetween(Long posdamopId, Instant startDate, Instant endDate,
+                                                                    int pagenum, int pagesize);
+
+    List<PosDamageOperationDto> findAllPosDamageOperationBetween(
+            Long posdamopId, OperationType op_type, Instant startDate, Instant endDate);
+
+    Page<PosDamageOperationDto> findPagePosDamageOperationBetween(Long posdamopId, OperationType op_type,
+                                                                    Instant startDate, Instant endDate,
+                                                                    int pagenum, int pagesize);
 }

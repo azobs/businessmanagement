@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
@@ -26,7 +27,7 @@ public class ClientPackagingOperation extends AbstractEntity {
     OperationType cltpo_Type;*/
     @Embedded
     Operation cltpoOperation;
-    Integer cltpoNumberinmvt;
+    BigDecimal cltpoNumberinmvt;
     /******************************
      * Relation between entities  *
      * ****************************/

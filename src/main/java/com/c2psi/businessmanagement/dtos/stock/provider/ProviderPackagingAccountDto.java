@@ -7,13 +7,14 @@ import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 @Data
 @Builder
 public class ProviderPackagingAccountDto {
     Long id;
     @NotNull(message = "The number in the packaging account cannot ne null")
-    Integer ppaNumber;
+    BigDecimal ppaNumber;
     /******************************
      * Relation between entities  *
      * ****************************/

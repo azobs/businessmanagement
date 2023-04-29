@@ -8,6 +8,7 @@ import lombok.Data;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 
 @Data
@@ -15,7 +16,7 @@ import javax.validation.constraints.NotNull;
 public class ClientDamageAccountDto {
     Long id;
     @NotNull(message = "The number in the account cannot be null")
-    Integer cdaNumber;
+    BigDecimal cdaNumber;
     /******************************
      * Relation between entities  *
      * ****************************/

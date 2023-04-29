@@ -18,7 +18,7 @@ import java.time.Instant;
 @Embeddable
 public class Operation {
 
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(nullable = false)
     Instant opDate;
 

@@ -31,24 +31,6 @@ public class ClientSpecialpriceValidator {
             errors.add("--Le parametre à valider ne peut etre null--");
         }
         else{
-            Optional<ClientDto> optionalCltDto = Optional.ofNullable(cltSpDto.getCltSpClientDto());
-            if(!optionalCltDto.isPresent()){
-                errors.add("--Le client associe à ce prix special ne peut etre null--");
-            }
-            Optional<SpecialPriceDto> optionalSpDto = Optional.ofNullable(cltSpDto.getCltSpPDto());
-            if(!optionalSpDto.isPresent()){
-                errors.add("--Le prix special a associer ne peut etre null--");
-            }
-            if(cltSpDto.getCltSpApplieddate() == null){
-                errors.add("--La date d'association de prix special ne peut etre null--");
-            }
-            else {
-                Instant dateCourante = new Date().toInstant();
-                Instant appliedDate = cltSpDto.getCltSpApplieddate().toInstant();
-                if (dateCourante.isBefore(appliedDate)) {
-                    errors.add("--La date d'application ne saurait etre ultérieure a la date courante--");
-                }
-            }
 
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             Validator validator = factory.getValidator();

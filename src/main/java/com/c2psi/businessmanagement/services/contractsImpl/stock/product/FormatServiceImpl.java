@@ -112,14 +112,14 @@ public class FormatServiceImpl implements FormatService {
             throw new EntityNotFoundException("Aucun format n'existe avec l'Id passe dans le formatDto envoye");
         }
 
-        Format formatDtoToUpdate = FormatDto.toEntity(this.findFormatById(formatDto.getId()));
+        Format formatToUpdate = FormatDto.toEntity(this.findFormatById(formatDto.getId()));
         /************************
          * On verifie d'abord si cest le formatCapacity ou le formatName quon veut modifier
          * On verifie qu'apres modification le format va rester unique dans la BD c'est a dire que le triplet
          * formatName, formatCapacity et posId va rester unique
          */
-        if(!formatDto.getFormatName().equals(formatDtoToUpdate.getFormatName()) ||
-                formatDto.getFormatCapacity().doubleValue() == formatDtoToUpdate.getFormatCapacity().doubleValue()){
+        if(!formatDto.getFormatName().equals(formatToUpdate.getFormatName()) ||
+                formatDto.getFormatCapacity().doubleValue() == formatToUpdate.getFormatCapacity().doubleValue()){
             if(isFormatExistInPosWith(formatDto.getFormatName(), formatDto.getFormatCapacity(),
                     formatDto.getFormatPosDto().getId())){
                 log.error("An entity format already exist with the same characteristic in the DB {}", formatDto);
@@ -127,11 +127,11 @@ public class FormatServiceImpl implements FormatService {
                         ErrorCode.FORMAT_DUPLICATED);
             }
             log.info("After all verification, the record {} can be updated on the DB", formatDto);
-            formatDtoToUpdate.setFormatCapacity(formatDto.getFormatCapacity());
-            formatDtoToUpdate.setFormatName(formatDto.getFormatName());
+            formatToUpdate.setFormatCapacity(formatDto.getFormatCapacity());
+            formatToUpdate.setFormatName(formatDto.getFormatName());
         }
 
-        return FormatDto.fromEntity(formatRepository.save(formatDtoToUpdate));
+        return FormatDto.fromEntity(formatRepository.save(formatToUpdate));
     }
 
     @Override

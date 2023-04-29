@@ -2,8 +2,7 @@ package com.c2psi.businessmanagement.services.contractsImpl.pos.pos;
 
 import com.c2psi.businessmanagement.BusinessmanagementApplication;
 import com.c2psi.businessmanagement.Enumerations.OperationType;
-import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
-import com.c2psi.businessmanagement.dtos.pos.pos.PosDamageAccountDto;
+import com.c2psi.businessmanagement.dtos.pos.pos.*;
 import com.c2psi.businessmanagement.dtos.pos.pos.PosDamageAccountDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.dtos.stock.price.BasePriceDto;
@@ -27,6 +26,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -42,13 +44,13 @@ public class PosDamageAccountServiceImplTest {
     @Autowired
     UserBMServiceImpl userBMService;
     @Autowired
-    PosCashAccountServiceImpl posCashAccountService;
-    @Autowired
     CurrencyServiceImpl currencyService;
     @Autowired
     CurrencyConversionServiceImpl currencyConversionService;
     @Autowired
     PosDamageAccountServiceImpl posDamageAccountService;
+    @Autowired
+    PosDamageOperationServiceImpl posDamageOperationService;
     @Autowired
     FormatServiceImpl formatService;
     @Autowired
@@ -739,6 +741,73 @@ public class PosDamageAccountServiceImplTest {
                 posDamageAccountDtoSaved.getId());
         System.err.println("solde == "+posDamageAccountDtoFound1.getPdaNumber());
         assertTrue(BigDecimal.valueOf(0).compareTo(posDamageAccountDtoFound1.getPdaNumber())==0);
+
+        //On teste List<PosDamageOperationDto> findAllPosDamageOperation(Long pdamopId)
+        List<PosDamageOperationDto> posDamageOperationDtoList = posDamageOperationService.findAllPosDamageOperation(
+                posDamageAccountDtoSaved.getId());
+        assertNotNull(posDamageOperationDtoList);
+        assertEquals(2, posDamageOperationDtoList.size());
+
+        //On teste Page<PosDamageOperationDto> findPagePosDamageOperation(Long pcapsopId, int pagenum, int pagesize)
+        Page<PosDamageOperationDto> posDamageOperationDtoPage = posDamageOperationService.findPagePosDamageOperation(
+                posDamageAccountDtoSaved.getId(), 0, 2);
+        assertNotNull(posDamageOperationDtoPage);
+        assertEquals(1, posDamageOperationDtoPage.getTotalPages());
+
+        //On teste List<PosCapsuleOperationDto> findAllPosCapsuleOperationBetween(Long pcapsopId, Instant startDate,
+        //                                                                          Instant endDate)
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date startDate1 = new Date();
+            String startDateString = sdf.format(startDate1);
+
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(startDate1);
+            cal.add(Calendar.DAY_OF_MONTH, 1);
+            Date endDate1 = cal.getTime();
+            String endDateString = sdf.format(endDate1);
+
+            Date startDate = sdf.parse(startDateString);
+            Date endDate = sdf.parse(endDateString);
+
+            List<PosDamageOperationDto> posDamageOperationDtoListBetween = posDamageOperationService.
+                    findAllPosDamageOperationBetween(posDamageAccountDtoSaved.getId(), startDate.toInstant(),
+                            endDate.toInstant());
+            assertNotNull(posDamageOperationDtoListBetween);
+            assertEquals(2, posDamageOperationDtoListBetween.size());
+
+            //Page<PosDamageOperationDto> findPagePosDamageOperationBetween(Long pcapsopId, Instant startDate,
+            //                                           Instant endDate, int pagenum, int pagesize)
+            Page<PosDamageOperationDto> posDamageOperationDtoPageBetween = posDamageOperationService.
+                    findPagePosDamageOperationBetween(posDamageAccountDtoSaved.getId(), startDate.toInstant(),
+                            endDate.toInstant(), 0, 2);
+            assertNotNull(posDamageOperationDtoPageBetween);
+            assertEquals(1, posDamageOperationDtoPageBetween.getTotalPages());
+
+            //List<PosDamageOperationDto> findAllPosDamageOperationBetween(Long pcapsopId, OperationType op_type,
+            //                                                        Instant startDate, Instant endDate)
+            List<PosDamageOperationDto> posDamageOperationDtoListBetweenoftype = posDamageOperationService.
+                    findAllPosDamageOperationBetween(posDamageAccountDtoSaved.getId(), OperationType.Credit,
+                            startDate.toInstant(), endDate.toInstant());
+            assertNotNull(posDamageOperationDtoListBetweenoftype);
+            assertEquals(1, posDamageOperationDtoListBetweenoftype.size());
+
+            //Page<PosDamageOperationDto> findPagePosDamageOperationBetween(Long pcapsopId, OperationType op_type,
+            //                                                                 Instant startDate, Instant endDate,
+            //                                                                 int pagenum, int pagesize)
+            Page<PosDamageOperationDto> posDamageOperationDtoPageBetweenoftype = posDamageOperationService.
+                    findPagePosDamageOperationBetween(posDamageAccountDtoSaved.getId(), OperationType.Credit,
+                            startDate.toInstant(), endDate.toInstant(), 0, 2);
+            assertNotNull(posDamageOperationDtoPageBetweenoftype);
+            assertEquals(1, posDamageOperationDtoPageBetweenoftype.getTotalPages());
+
+        }
+        catch (Exception e){
+            System.err.println("There is an exception not manage in the program means a big problem appears");
+            e.printStackTrace();
+        }
+
+
     }
 
     @Test(expected = InvalidValueException.class)
