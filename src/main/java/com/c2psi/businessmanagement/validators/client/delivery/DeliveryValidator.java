@@ -30,6 +30,9 @@ public class DeliveryValidator {
             errors.add("--Le parametre a valider ne peut etre null--");
         }
         else{
+
+
+
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             Validator validator = factory.getValidator();
 

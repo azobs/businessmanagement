@@ -1,5 +1,6 @@
 package com.c2psi.businessmanagement.models;
 
+import com.c2psi.businessmanagement.Enumerations.CashSourceType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -29,10 +30,10 @@ public class SupplyInvoiceCash extends AbstractEntity {
     String sicashCode;
     String sicashComment;
     String sicashPicture;
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(nullable = false)
     Instant sicashDeliveryDate;
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(nullable = false)
     Instant sicashInvoicingDate;
 
@@ -40,7 +41,9 @@ public class SupplyInvoiceCash extends AbstractEntity {
 
     BigDecimal sicashAmountpaid;
 
-    Integer sicashTotalcolis;
+    BigDecimal sicashTotalcolis;
+
+    CashSourceType sicashSourceofcash;
 
     /******************************
      * Relation between entities  *

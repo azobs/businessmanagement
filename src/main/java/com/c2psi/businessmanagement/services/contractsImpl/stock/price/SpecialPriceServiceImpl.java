@@ -5,12 +5,14 @@ import com.c2psi.businessmanagement.dtos.stock.price.CurrencyDto;
 import com.c2psi.businessmanagement.dtos.stock.price.SpecialPriceDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
 import com.c2psi.businessmanagement.exceptions.*;
+import com.c2psi.businessmanagement.models.Article;
 import com.c2psi.businessmanagement.models.BasePrice;
 import com.c2psi.businessmanagement.models.Currency;
 import com.c2psi.businessmanagement.models.SpecialPrice;
 import com.c2psi.businessmanagement.repositories.stock.price.BasePriceRepository;
 import com.c2psi.businessmanagement.repositories.stock.price.CurrencyRepository;
 import com.c2psi.businessmanagement.repositories.stock.price.SpecialPriceRepository;
+import com.c2psi.businessmanagement.repositories.stock.product.ArticleRepository;
 import com.c2psi.businessmanagement.services.contracts.stock.price.SpecialPriceService;
 import com.c2psi.businessmanagement.validators.stock.price.BasePriceValidator;
 import com.c2psi.businessmanagement.validators.stock.price.SpecialPriceValidator;
@@ -33,12 +35,14 @@ public class SpecialPriceServiceImpl implements SpecialPriceService {
 
     private BasePriceRepository bpRepository;
     private SpecialPriceRepository spRepository;
+    private ArticleRepository articleRepository;
 
     @Autowired
-    public SpecialPriceServiceImpl(CurrencyRepository currencyRepository, BasePriceRepository bpRepository,
-                                   SpecialPriceRepository spRepository) {
+    public SpecialPriceServiceImpl(BasePriceRepository bpRepository, SpecialPriceRepository spRepository,
+                                   ArticleRepository articleRepository) {
         this.bpRepository = bpRepository;
         this.spRepository = spRepository;
+        this.articleRepository = articleRepository;
     }
 
     @Override
@@ -148,10 +152,10 @@ public class SpecialPriceServiceImpl implements SpecialPriceService {
     }
 
     @Override
-    public List<SpecialPriceDto> findListofSpecialPriceOf(Long basePriceId) {
+    public List<SpecialPriceDto> findAllofSpecialpriceofBaseprice(Long basePriceId) {
         if(basePriceId == null){
             log.error("The basePriceid precise is null");
-            throw new NullArgumentException("L'argument de la methode findListofSpecialPriceof is null");
+            throw new NullArgumentException("L'argument de la methode findAllofSpecialpriceofBaseprice is null");
         }
         Optional<List<SpecialPrice>> optionalSpecialPriceList = spRepository.findAllSpecialPriceOf(basePriceId);
         if(!optionalSpecialPriceList.isPresent()){
@@ -164,10 +168,10 @@ public class SpecialPriceServiceImpl implements SpecialPriceService {
     }
 
     @Override
-    public Page<SpecialPriceDto> findPageofSpecialPriceOf(Long basePriceId, int pagenum, int pagesize) {
+    public Page<SpecialPriceDto> findPageofSpecialpriceofBaseprice(Long basePriceId, int pagenum, int pagesize) {
         if(basePriceId == null){
             log.error("The basePriceid precise is null");
-            throw new NullArgumentException("L'argument de la methode findListofSpecialPriceof is null");
+            throw new NullArgumentException("L'argument de la methode findPageofSpecialpriceofBaseprice is null");
         }
 
         Optional<Page<SpecialPrice>> optionalSpecialPricePage = spRepository.findPageSpecialPriceOf(basePriceId,
@@ -180,6 +184,90 @@ public class SpecialPriceServiceImpl implements SpecialPriceService {
         Page<SpecialPrice> specialPricePage = optionalSpecialPricePage.get();
 
         return specialPricePage.map(SpecialPriceDto::fromEntity);
+    }
+
+    @Override
+    public List<SpecialPriceDto> findAllSpecialpriceofArticle(Long articleId) {
+        /************************************************************************************
+         * Il faut verifier que l'Id nest pas null et qu'il represente un article de la BD
+         */
+        if(articleId == null){
+            log.error("The articleId precise is null");
+            throw new NullArgumentException("L'argument de la methode findAllSpecialpriceofArticle is null");
+        }
+
+        /**********************************************************************
+         * Il faut recuperer l'article dont l'Id est passe en argument
+         */
+        Optional<Article> optionalArticle = articleRepository.findArticleById(articleId);
+        if(!optionalArticle.isPresent()){
+            log.error("There is no article in the DB with the id {} precise as argument ", articleId);
+            throw new InvalidEntityException("L'id precise en argument ne correspond a aucun article dans la " +
+                    "BD "+articleId, ErrorCode.ARTICLE_NOT_FOUND);
+        }
+
+        /**********************************************************
+         * recuperer le baseprice de l'article en question
+         */
+        Optional<BasePrice> optionalBasePrice = Optional.of(optionalArticle.get().getArtBp());
+        if(!optionalBasePrice.isPresent()){
+            log.error("The baseprice of the article is not found ");
+            throw new InvalidEntityException("Le baseprice de l'article n'est pas existant en BD ",
+                    ErrorCode.BASEPRICE_NOT_FOUND);
+        }
+
+        /*********************************************************************************************
+         * Recuperer la liste des specialprice associe au baseprice de l'article recupere ci-dessus
+         */
+        List<SpecialPriceDto> specialPriceDtoList = this.findAllofSpecialpriceofBaseprice(optionalBasePrice.get().getId());
+
+        /*********************************
+         * Retourner la liste ci-dessus
+         */
+        return specialPriceDtoList;
+    }
+
+    @Override
+    public Page<SpecialPriceDto> findPageSpecialpriceofArticle(Long articleId, int pagenum, int pagesize) {
+
+        /************************************************************************************
+         * Il faut verifier que l'Id nest pas null et qu'il represente un article de la BD
+         */
+        if(articleId == null){
+            log.error("The articleId precise is null");
+            throw new NullArgumentException("L'argument de la methode findAllSpecialpriceofArticle is null");
+        }
+
+        /**********************************************************************
+         * Il faut recuperer l'article dont l'Id est passe en argument
+         */
+        Optional<Article> optionalArticle = articleRepository.findArticleById(articleId);
+        if(!optionalArticle.isPresent()){
+            log.error("There is no article in the DB with the id {} precise as argument ", articleId);
+            throw new InvalidEntityException("L'id precise en argument ne correspond a aucun article dans la " +
+                    "BD "+articleId, ErrorCode.ARTICLE_NOT_FOUND);
+        }
+
+        /**********************************************************
+         * recuperer le baseprice de l'article en question
+         */
+        Optional<BasePrice> optionalBasePrice = Optional.of(optionalArticle.get().getArtBp());
+        if(!optionalBasePrice.isPresent()){
+            log.error("The baseprice of the article is not found ");
+            throw new InvalidEntityException("Le baseprice de l'article n'est pas existant en BD ",
+                    ErrorCode.BASEPRICE_NOT_FOUND);
+        }
+
+        /*********************************************************************************************
+         * Recuperer la liste des specialprice associe au baseprice de l'article recupere ci-dessus
+         */
+        Page<SpecialPriceDto> specialPriceDtoPage = this.findPageofSpecialpriceofBaseprice(optionalBasePrice.get().getId(),
+                pagenum, pagesize);
+
+        /*********************************
+         * Retourner la liste ci-dessus
+         */
+        return specialPriceDtoPage;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.c2psi.businessmanagement.dtos.client.client;
 
 import com.c2psi.businessmanagement.dtos.stock.price.SpecialPriceDto;
+import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
 import com.c2psi.businessmanagement.models.ClientSpecialprice;
 import lombok.Builder;
 import lombok.Data;
@@ -29,6 +30,9 @@ public class ClientSpecialpriceDto {
     @NotNull(message = "The special price associated cannot be null")
     SpecialPriceDto cltSpPDto;
 
+    @NotNull(message = "The article associated cannot be null")
+    ArticleDto cltSpArtDto;
+
     /***********************************
      * Mapping method development:   ***
      * method fromEntity and toEntity **
@@ -42,6 +46,7 @@ public class ClientSpecialpriceDto {
                 .cltSpApplieddate(csp.getCltSpApplieddate())
                 .cltSpClientDto(ClientDto.fromEntity(csp.getCltSpClient()))
                 .cltSpPDto(SpecialPriceDto.fromEntity(csp.getCltSpSp()))
+                .cltSpArtDto(ArticleDto.fromEntity(csp.getCltSpArt()))
                 .build();
     }
     public static ClientSpecialprice toEntity(ClientSpecialpriceDto cspDto){
@@ -53,6 +58,7 @@ public class ClientSpecialpriceDto {
         csp.setCltSpApplieddate(cspDto.getCltSpApplieddate());
         csp.setCltSpClient(ClientDto.toEntity(cspDto.getCltSpClientDto()));
         csp.setCltSpSp(SpecialPriceDto.toEntity(cspDto.getCltSpPDto()));
+        csp.setCltSpArt(ArticleDto.toEntity(cspDto.getCltSpArtDto()));
         return csp;
     }
 }

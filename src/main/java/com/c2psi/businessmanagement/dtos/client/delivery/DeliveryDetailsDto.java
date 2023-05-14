@@ -8,6 +8,7 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
+import java.math.BigDecimal;
 
 
 @Data
@@ -16,10 +17,10 @@ public class DeliveryDetailsDto {
     Long id;
     @NotNull(message = "The number of package used for the delivery details cannot be null")
     @Positive(message = "The number of package used for the delivery details mut b positive")
-    Integer ddNumberofpackageused;
+    BigDecimal ddNumberofpackageused;
     @NotNull(message = "The number of package return after delivery cannot be null")
     @PositiveOrZero(message = "The number of package return after delivery must be positive or null")
-    Integer ddNumberofpackagereturn;
+    BigDecimal ddNumberofpackagereturn;
 
     /******************************
      * Relation between entities  *

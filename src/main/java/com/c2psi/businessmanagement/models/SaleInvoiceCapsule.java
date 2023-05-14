@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.Instant;
 
 @Data
@@ -22,16 +23,16 @@ public class SaleInvoiceCapsule extends AbstractEntity {
     @Column(nullable = false)
     String saleicapsCode;
 
-    Integer saleicapsNumbertochange;
+    BigDecimal saleicapsNumbertochange;
 
-    Integer saleicapsNumberchanged;
+    BigDecimal saleicapsNumberchanged;
 
-    Integer saleicapsTotalcolis;
+    BigDecimal saleicapsTotalcolis;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(nullable = false)
     Instant saleicapsDeliveryDate;
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(nullable = false)
     Instant saleicapsInvoicingDate;
 

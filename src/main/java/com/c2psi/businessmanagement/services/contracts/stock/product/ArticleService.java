@@ -30,5 +30,14 @@ public interface ArticleService {
     ArticleDto addDamageArticleof(Long artId, BigDecimal qteToAdd);
     ArticleDto reduceDamageArticle(Long artId, BigDecimal qteToReduce);
 
+    /**************************************************************************************************************
+     * Methode pour avoir le prix par defaut pour les client divers ou alors les clients a qui aucun prixspecial
+     * n'est associe. Car si un prixpecial est associe a un client cest ce prix la quil faudra retourner
+     * @param qteCommand
+     * @param articleId
+     * @return
+     */
+    BigDecimal getCommonEffectivePriceToApplied(BigDecimal qteCommand, Long articleId);
+
 
 }

@@ -1,5 +1,6 @@
 package com.c2psi.businessmanagement.dtos.client.command;
 
+import com.c2psi.businessmanagement.Enumerations.CashSourceType;
 import com.c2psi.businessmanagement.dtos.client.client.ClientDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
@@ -24,8 +25,10 @@ public class SaleInvoiceCashDto {
     @Size(min = 3, max = 20, message = "The sale invoice cash code size must be between 3 and 20 characters")
     String saleicashCode;
     @NotNull(message = "The expected amount of a sale invoice cash cannot be null")
-    @Positive(message = "The expected amount of a sale invoice cash must be positive")
     BigDecimal saleicashAmountexpected;
+    @NotNull(message = "The current amount expected of a sale invoice cash cannot be null")
+    @Positive(message = "The current amount expected of a sale invoice cash must be positive")
+    BigDecimal saleicashCurrentAmountexpected;
     @NotNull(message = "The amount paid of a sale invoice cash cannot be null")
     @PositiveOrZero(message = "The amount paid of a sale invoice cash must be positive or zero")
     BigDecimal saleicashAmountpaid;
@@ -34,7 +37,9 @@ public class SaleInvoiceCashDto {
     BigDecimal saleicashAmountreimbourse;
     @NotNull(message = "The total colis of a sale invoice cash cannot be null")
     @Positive(message = "The total colis of a sale invoice cash must be positive")
-    Integer saleicashTotalcolis;
+    BigDecimal saleicashTotalcolis;
+    @NotNull(message = "The source of cash of a sale invoice cash cannot be null")
+    CashSourceType saleicashSourceofcash;
     @NotNull(message = "The invoicing date of a sale invoice cash cannot be null")
     @PastOrPresent(message = "The invoicing date of a sale invoice cash cannot be in the future")
     Instant saleicashInvoicingDate;
@@ -57,10 +62,12 @@ public class SaleInvoiceCashDto {
         return SaleInvoiceCashDto.builder()
                 .id(sic.getId())
                 .saleicashCode(sic.getSaleicashCode())
+                .saleicashCurrentAmountexpected(sic.getSaleicashCurrentAmountexpected())
                 .saleicashAmountexpected(sic.getSaleicashAmountexpected())
                 .saleicashAmountpaid(sic.getSaleicashAmountpaid())
                 .saleicashAmountreimbourse(sic.getSaleicashAmountreimbourse())
                 .saleicashTotalcolis(sic.getSaleicashTotalcolis())
+                .saleicashSourceofcash(sic.getSaleicashSourceofcash())
                 .saleicashInvoicingDate(sic.getSaleicashInvoicingDate())
                 .saleicashDeliveryDate(sic.getSaleicashDeliveryDate())
                 .saleicashPosDto(PointofsaleDto.fromEntity(sic.getSaleicashPos()))
@@ -75,10 +82,12 @@ public class SaleInvoiceCashDto {
         SaleInvoiceCash sic = new SaleInvoiceCash();
         sic.setId(sicDto.getId());
         sic.setSaleicashCode(sicDto.getSaleicashCode());
+        sic.setSaleicashCurrentAmountexpected(sicDto.getSaleicashCurrentAmountexpected());
         sic.setSaleicashAmountexpected(sicDto.getSaleicashAmountexpected());
         sic.setSaleicashAmountpaid(sicDto.getSaleicashAmountpaid());
         sic.setSaleicashAmountreimbourse(sicDto.getSaleicashAmountreimbourse());
         sic.setSaleicashTotalcolis(sicDto.getSaleicashTotalcolis());
+        sic.setSaleicashSourceofcash(sicDto.getSaleicashSourceofcash());
         sic.setSaleicashDeliveryDate(sicDto.getSaleicashDeliveryDate());
         sic.setSaleicashInvoicingDate(sicDto.getSaleicashInvoicingDate());
         sic.setSaleicashPos(PointofsaleDto.toEntity(sicDto.getSaleicashPosDto()));

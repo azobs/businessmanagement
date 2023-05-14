@@ -32,8 +32,7 @@ public class InventoryDto {
     @NotNull(message = "The point of sale associated with the inventory cannot be null")
     PointofsaleDto invPosDto;
 
-    /*@JsonIgnore
-    List<InventoryLineDto> inventoryLineDtoList;*/
+
     /***********************************
      * Mapping method development:   ***
      * method fromEntity and toEntity **
@@ -48,10 +47,6 @@ public class InventoryDto {
                 .invComment(inv.getInvComment())
                 .invDate(inv.getInvDate())
                 .invPosDto(PointofsaleDto.fromEntity(inv.getInvPos()))
-                /*.inventoryLineDtoList(inv.getInventoryLineList() != null ?
-                        inv.getInventoryLineList().stream()
-                        .map(InventoryLineDto::fromEntity)
-                        .collect(Collectors.toList()) : null)*/
                 .build();
     }
 
@@ -60,14 +55,11 @@ public class InventoryDto {
             return null;
         }
         Inventory inv = new Inventory();
+        inv.setId(invDto.getId());
         inv.setInvCode(invDto.getInvCode());
         inv.setInvComment(invDto.getInvComment());
         inv.setInvDate(invDto.getInvDate());
         inv.setInvPos(PointofsaleDto.toEntity(invDto.getInvPosDto()));
-        /*inv.setInventoryLineList(invDto.getInventoryLineDtoList() != null ?
-                invDto.getInventoryLineDtoList().stream()
-                .map(InventoryLineDto::toEntity)
-                .collect(Collectors.toList()) : null);*/
         return inv;
     }
 }

@@ -1,5 +1,6 @@
 package com.c2psi.businessmanagement.dtos.stock.product;
 
+import com.c2psi.businessmanagement.Enumerations.CashSourceType;
 import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
@@ -38,7 +39,9 @@ public class SupplyInvoiceCashDto {
     BigDecimal sicashAmountpaid;
     @NotNull(message = "The total number of colis cannot be null")
     @Positive(message = "The total number of colis must be positive")
-    Integer sicashTotalcolis;
+    BigDecimal sicashTotalcolis;
+    @NotNull(message = "The source of cash must be precised")
+    CashSourceType sicashSourceofcash;
 
     /******************************
      * Relation between entities  *
@@ -49,11 +52,12 @@ public class SupplyInvoiceCashDto {
     @NotNull(message = "The point of sale associated cannot be null")
     PointofsaleDto sicashPosDto;
 
-    //List of specialprice applied to a client
     /*@JsonIgnore
     List<CashArrivalDto> cashArrivalDtoList;*/
     @NotNull(message = "The userbm associated cannot be null")
     UserBMDto sicashUserbmDto;
+
+
     /***********************************
      * Mapping method development:   ***
      * method fromEntity and toEntity **
@@ -72,13 +76,10 @@ public class SupplyInvoiceCashDto {
                 .sicashDeliveryDate(sic.getSicashDeliveryDate())
                 .sicashInvoicingDate(sic.getSicashInvoicingDate())
                 .sicashPicture(sic.getSicashPicture())
+                .sicashSourceofcash(sic.getSicashSourceofcash())
                 .sicashProviderDto(ProviderDto.fromEntity(sic.getSicashProvider()))
                 .sicashUserbmDto(UserBMDto.fromEntity(sic.getSicashUserbm()))
                 .sicashPosDto(PointofsaleDto.fromEntity(sic.getSicashPos()))
-                /*.cashArrivalDtoList(sic.getCashArrivalList() != null ?
-                        sic.getCashArrivalList().stream()
-                                .map(CashArrivalDto::fromEntity)
-                                .collect(Collectors.toList()) : null)*/
                 .build();
     }
     public static SupplyInvoiceCash toEntity(SupplyInvoiceCashDto sicDto){
@@ -95,13 +96,11 @@ public class SupplyInvoiceCashDto {
         sic.setSicashDeliveryDate(sicDto.getSicashDeliveryDate());
         sic.setSicashInvoicingDate(sicDto.getSicashInvoicingDate());
         sic.setSicashPicture(sicDto.getSicashPicture());
+        sic.setSicashSourceofcash(sicDto.getSicashSourceofcash());
         sic.setSicashProvider(ProviderDto.toEntity(sicDto.getSicashProviderDto()));
         sic.setSicashUserbm(UserBMDto.toEntity(sicDto.getSicashUserbmDto()));
         sic.setSicashPos(PointofsaleDto.toEntity(sicDto.getSicashPosDto()));
-        /*sic.setCashArrivalList(sicDto.getCashArrivalDtoList() != null ?
-                sicDto.getCashArrivalDtoList().stream()
-                        .map(CashArrivalDto::toEntity)
-                        .collect(Collectors.toList()) : null);*/
+
         return sic;
     }
 }

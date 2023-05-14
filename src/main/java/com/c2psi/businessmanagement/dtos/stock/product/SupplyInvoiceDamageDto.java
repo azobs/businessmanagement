@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.*;
+import java.math.BigDecimal;
 import java.time.Instant;
 
 @Data
@@ -29,13 +30,13 @@ public class SupplyInvoiceDamageDto {
     Instant sidamInvoicingDate;
     @NotNull(message = "The total number of colis cannot be null")
     @Positive(message = "The total number of colis must be positive")
-    Integer sidamTotalcolis;
+    BigDecimal sidamTotalcolis;
     @NotNull(message = "The total number of article to change cannot be null")
     @Positive(message = "The total number of article must be positive")
-    Integer sidamTotalDamToChange;
+    BigDecimal sidamTotalDamToChange;
     @NotNull(message = "The total number of article changed cannot be null")
     @Positive(message = "The total number of article changed must be positive")
-    Integer sidamTotalDamChange;
+    BigDecimal sidamTotalDamChange;
     @NotNull(message = "The provider associated cannot be null")
     ProviderDto sidamProviderDto;
     @NotNull(message = "The userbm associated cannot be null")
@@ -61,6 +62,7 @@ public class SupplyInvoiceDamageDto {
                 .sidamProviderDto(ProviderDto.fromEntity(sid.getSidamProvider()))
                 .sidamTotalDamChange(sid.getSidamTotalDamChange())
                 .sidamTotalDamToChange(sid.getSidamTotalDamToChange())
+                .sidamTotalcolis(sid.getSidamTotalcolis())
                 .sidamUserbmDto(UserBMDto.fromEntity(sid.getSidamUserbm()))
                 .build();
     }
@@ -70,6 +72,7 @@ public class SupplyInvoiceDamageDto {
             return null;
         }
         SupplyInvoiceDamage sid = new SupplyInvoiceDamage();
+        sid.setId(sidDto.getId());
         sid.setSidamCode(sidDto.getSidamCode());
         sid.setSidamComment(sidDto.getSidamComment());
         sid.setSidamDeliveryDate(sidDto.getSidamDeliveryDate());

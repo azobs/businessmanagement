@@ -27,7 +27,7 @@ public class SaleInvoiceCashValidatorTest {
                 .saleicashCode("cscxcx")
                 .saleicashAmountreimbourse(BigDecimal.valueOf(200))
                 .saleicashDeliveryDate(new Date().toInstant())
-                .saleicashTotalcolis(10)
+                .saleicashTotalcolis(BigDecimal.valueOf(10))
                 .saleicashAmountexpected(BigDecimal.valueOf(800))
                 .build();
 
@@ -48,7 +48,7 @@ public class SaleInvoiceCashValidatorTest {
                 .saleicashCode("cscxcx")
                 .saleicashAmountreimbourse(BigDecimal.valueOf(200))
                 .saleicashDeliveryDate(new Date().toInstant())
-                .saleicashTotalcolis(10)
+                .saleicashTotalcolis(BigDecimal.valueOf(10))
                 .saleicashAmountexpected(BigDecimal.valueOf(800))
                 .build();
 
@@ -102,7 +102,7 @@ public class SaleInvoiceCashValidatorTest {
                 .saleicashCode("")
                 .saleicashAmountreimbourse(BigDecimal.valueOf(200))
                 .saleicashDeliveryDate(new Date().toInstant())
-                .saleicashTotalcolis(10)
+                .saleicashTotalcolis(BigDecimal.valueOf(10))
                 .saleicashAmountexpected(BigDecimal.valueOf(800))
                 .build();
 
@@ -126,7 +126,7 @@ public class SaleInvoiceCashValidatorTest {
                 .saleicashCode("  ")
                 .saleicashAmountreimbourse(BigDecimal.valueOf(200))
                 .saleicashDeliveryDate(new Date().toInstant())
-                .saleicashTotalcolis(10)
+                .saleicashTotalcolis(BigDecimal.valueOf(10))
                 .saleicashAmountexpected(BigDecimal.valueOf(800))
                 .build();
 
@@ -149,7 +149,7 @@ public class SaleInvoiceCashValidatorTest {
                 .saleicashCode("ab")
                 .saleicashAmountreimbourse(BigDecimal.valueOf(200))
                 .saleicashDeliveryDate(new Date().toInstant())
-                .saleicashTotalcolis(10)
+                .saleicashTotalcolis(BigDecimal.valueOf(10))
                 .saleicashAmountexpected(BigDecimal.valueOf(800))
                 .build();
 
@@ -171,7 +171,7 @@ public class SaleInvoiceCashValidatorTest {
                 .saleicashCode("ababababababababababab")
                 .saleicashAmountreimbourse(BigDecimal.valueOf(200))
                 .saleicashDeliveryDate(new Date().toInstant())
-                .saleicashTotalcolis(10)
+                .saleicashTotalcolis(BigDecimal.valueOf(10))
                 .saleicashAmountexpected(BigDecimal.valueOf(800))
                 .build();
 
@@ -193,7 +193,7 @@ public class SaleInvoiceCashValidatorTest {
                 .saleicashCode("abababa")
                 .saleicashAmountreimbourse(BigDecimal.valueOf(0))
                 .saleicashDeliveryDate(new Date().toInstant())
-                .saleicashTotalcolis(-1)
+                .saleicashTotalcolis(BigDecimal.valueOf(-1))
                 .saleicashAmountexpected(BigDecimal.valueOf(0))
                 .build();
 

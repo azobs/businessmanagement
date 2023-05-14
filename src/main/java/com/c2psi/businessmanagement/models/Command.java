@@ -26,7 +26,6 @@ public class Command extends AbstractEntity{
     @Column(nullable = false)
     String cmdCode;
     @DateTimeFormat(pattern="yyyy-MM-dd")
-
     @Column(nullable = false)
     Instant cmdDate;
 
@@ -49,8 +48,8 @@ public class Command extends AbstractEntity{
     /******************************
      * Relation between entities  *
      * ****************************/
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "delivery_id", nullable = false, referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "delivery_id",  referencedColumnName = "id")
     Delivery cmdDelivery;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -68,15 +67,15 @@ public class Command extends AbstractEntity{
     @JoinColumn(name = "userbm_id", nullable = false, referencedColumnName = "id")
     UserBM cmdUserbm;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "saleicash_id",  referencedColumnName = "id")
     SaleInvoiceCash cmdSaleicash;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sicaps_id",  referencedColumnName = "id")
     SaleInvoiceCapsule cmdSicaps;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sidam_id",  referencedColumnName = "id")
     SaleInvoiceDamage cmdSidam;
 

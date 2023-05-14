@@ -23,7 +23,7 @@ public class Delivery extends AbstractEntity {
 
     @Column(nullable = false)
     String deliveryCode;
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(nullable = false)
     Instant deliveryDate;
 

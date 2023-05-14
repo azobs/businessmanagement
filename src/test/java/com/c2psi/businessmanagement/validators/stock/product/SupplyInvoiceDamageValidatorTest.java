@@ -6,6 +6,7 @@ import com.c2psi.businessmanagement.dtos.stock.product.SupplyInvoiceDamageDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -27,9 +28,9 @@ public class SupplyInvoiceDamageValidatorTest {
                 .sidamComment("")
                 .sidamCode("dsdsdsd")
                 .sidamPicture("   ")
-                .sidamTotalDamChange(Integer.valueOf(10))
-                .sidamTotalDamToChange(Integer.valueOf(10))
-                .sidamTotalcolis(Integer.valueOf(10))
+                .sidamTotalDamChange(BigDecimal.valueOf(10))
+                .sidamTotalDamToChange(BigDecimal.valueOf(10))
+                .sidamTotalcolis(BigDecimal.valueOf(10))
                 .build();
 
         List<String> errors = SupplyInvoiceDamageValidator.validate(supplyInvoiceDamageDto);
@@ -50,9 +51,9 @@ public class SupplyInvoiceDamageValidatorTest {
                 .sidamComment("")
                 .sidamCode("dsdsdsd")
                 .sidamPicture("   ")
-                .sidamTotalDamChange(Integer.valueOf(10))
-                .sidamTotalDamToChange(Integer.valueOf(10))
-                .sidamTotalcolis(Integer.valueOf(10))
+                .sidamTotalDamChange(BigDecimal.valueOf(10))
+                .sidamTotalDamToChange(BigDecimal.valueOf(10))
+                .sidamTotalcolis(BigDecimal.valueOf(10))
                 .build();
 
         List<String> errors = SupplyInvoiceDamageValidator.validate(null);
@@ -106,9 +107,9 @@ public class SupplyInvoiceDamageValidatorTest {
                 .sidamComment("")
                 .sidamCode("")
                 .sidamPicture("")
-                .sidamTotalDamChange(Integer.valueOf(10))
-                .sidamTotalDamToChange(Integer.valueOf(10))
-                .sidamTotalcolis(Integer.valueOf(10))
+                .sidamTotalDamChange(BigDecimal.valueOf(10))
+                .sidamTotalDamToChange(BigDecimal.valueOf(10))
+                .sidamTotalcolis(BigDecimal.valueOf(10))
                 .build();
 
         List<String> errors = SupplyInvoiceDamageValidator.validate(supplyInvoiceDamageDto);
@@ -131,9 +132,9 @@ public class SupplyInvoiceDamageValidatorTest {
                 .sidamComment("    ")
                 .sidamCode("     ")
                 .sidamPicture("      ")
-                .sidamTotalDamChange(Integer.valueOf(10))
-                .sidamTotalDamToChange(Integer.valueOf(10))
-                .sidamTotalcolis(Integer.valueOf(10))
+                .sidamTotalDamChange(BigDecimal.valueOf(10))
+                .sidamTotalDamToChange(BigDecimal.valueOf(10))
+                .sidamTotalcolis(BigDecimal.valueOf(10))
                 .build();
 
         List<String> errors = SupplyInvoiceDamageValidator.validate(supplyInvoiceDamageDto);
@@ -154,9 +155,9 @@ public class SupplyInvoiceDamageValidatorTest {
                 .sidamComment("    ")
                 .sidamCode("adsdsdasdsadsadsadsadsasdsadsadsadsadsadsa")
                 .sidamPicture("      ")
-                .sidamTotalDamChange(Integer.valueOf(10))
-                .sidamTotalDamToChange(Integer.valueOf(10))
-                .sidamTotalcolis(Integer.valueOf(10))
+                .sidamTotalDamChange(BigDecimal.valueOf(10))
+                .sidamTotalDamToChange(BigDecimal.valueOf(10))
+                .sidamTotalcolis(BigDecimal.valueOf(10))
                 .build();
 
         List<String> errors = SupplyInvoiceDamageValidator.validate(supplyInvoiceDamageDto);
@@ -177,9 +178,9 @@ public class SupplyInvoiceDamageValidatorTest {
                 .sidamComment("    ")
                 .sidamCode("adsd")
                 .sidamPicture("      ")
-                .sidamTotalDamChange(Integer.valueOf(-10))
-                .sidamTotalDamToChange(Integer.valueOf(-10))
-                .sidamTotalcolis(Integer.valueOf(-10))
+                .sidamTotalDamChange(BigDecimal.valueOf(-10))
+                .sidamTotalDamToChange(BigDecimal.valueOf(-10))
+                .sidamTotalcolis(BigDecimal.valueOf(-10))
                 .build();
 
         List<String> errors = SupplyInvoiceDamageValidator.validate(supplyInvoiceDamageDto);
@@ -204,9 +205,9 @@ public class SupplyInvoiceDamageValidatorTest {
                     .sidamComment("    ")
                     .sidamCode("adsd")
                     .sidamPicture("      ")
-                    .sidamTotalDamChange(Integer.valueOf(10))
-                    .sidamTotalDamToChange(Integer.valueOf(10))
-                    .sidamTotalcolis(Integer.valueOf(10))
+                    .sidamTotalDamChange(BigDecimal.valueOf(10))
+                    .sidamTotalDamToChange(BigDecimal.valueOf(10))
+                    .sidamTotalcolis(BigDecimal.valueOf(10))
                     .build();
 
             List<String> errors = SupplyInvoiceDamageValidator.validate(supplyInvoiceDamageDto);
@@ -234,9 +235,9 @@ public class SupplyInvoiceDamageValidatorTest {
                     .sidamComment("    ")
                     .sidamCode("adsd")
                     .sidamPicture("      ")
-                    .sidamTotalDamChange(Integer.valueOf(10))
-                    .sidamTotalDamToChange(Integer.valueOf(10))
-                    .sidamTotalcolis(Integer.valueOf(10))
+                    .sidamTotalDamChange(BigDecimal.valueOf(10))
+                    .sidamTotalDamToChange(BigDecimal.valueOf(10))
+                    .sidamTotalcolis(BigDecimal.valueOf(10))
                     .build();
 
             List<String> errors = SupplyInvoiceDamageValidator.validate(supplyInvoiceDamageDto);

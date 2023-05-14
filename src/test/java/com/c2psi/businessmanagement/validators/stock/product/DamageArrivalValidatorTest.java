@@ -4,6 +4,7 @@ import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
 import com.c2psi.businessmanagement.dtos.stock.product.DamageArrivalDto;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -15,9 +16,9 @@ public class DamageArrivalValidatorTest {
     @Test
     public void validate() {
         DamageArrivalDto damageArrivalDto = DamageArrivalDto.builder()
-                .damaArt(ArticleDto.builder().build())
-                .damaDeliveryquantity(Integer.valueOf(10))
-                .damaQuantityartchanged(Integer.valueOf(10))
+                .damaArtDto(ArticleDto.builder().build())
+                .damaDeliveryquantity(BigDecimal.valueOf(10))
+                .damaQuantityartchanged(BigDecimal.valueOf(10))
                 .build();
 
         List<String> errors = DamageArrivalValidator.validate(damageArrivalDto);
@@ -29,9 +30,9 @@ public class DamageArrivalValidatorTest {
     @Test
     public void validateNull() {
         DamageArrivalDto damageArrivalDto = DamageArrivalDto.builder()
-                .damaArt(ArticleDto.builder().build())
-                .damaDeliveryquantity(Integer.valueOf(10))
-                .damaQuantityartchanged(Integer.valueOf(10))
+                .damaArtDto(ArticleDto.builder().build())
+                .damaDeliveryquantity(BigDecimal.valueOf(10))
+                .damaQuantityartchanged(BigDecimal.valueOf(10))
                 .build();
 
         List<String> errors = DamageArrivalValidator.validate(null);
@@ -44,7 +45,7 @@ public class DamageArrivalValidatorTest {
     @Test
     public void validateNullValue() {
         DamageArrivalDto damageArrivalDto = DamageArrivalDto.builder()
-                .damaArt(null)
+                .damaArtDto(null)
                 .damaDeliveryquantity(null)
                 .damaQuantityartchanged(null)
                 .build();
@@ -61,9 +62,9 @@ public class DamageArrivalValidatorTest {
     @Test
     public void validatePositiveValue() {
         DamageArrivalDto damageArrivalDto = DamageArrivalDto.builder()
-                .damaArt(ArticleDto.builder().build())
-                .damaDeliveryquantity(Integer.valueOf(-10))
-                .damaQuantityartchanged(Integer.valueOf(-10))
+                .damaArtDto(ArticleDto.builder().build())
+                .damaDeliveryquantity(BigDecimal.valueOf(-10))
+                .damaQuantityartchanged(BigDecimal.valueOf(-10))
                 .build();
 
         List<String> errors = DamageArrivalValidator.validate(damageArrivalDto);

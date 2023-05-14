@@ -1,28 +1,61 @@
 package com.c2psi.businessmanagement.services.contracts.client.command;
 
-import com.c2psi.businessmanagement.dtos.client.client.ClientDto;
 import com.c2psi.businessmanagement.dtos.client.command.SaleInvoiceCapsuleDto;
-import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
-import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
+import org.springframework.data.domain.Page;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 
 public interface SaleInvoiceCapsuleService {
-    SaleInvoiceCapsuleDto saveSaleInvoiceCapsule(SaleInvoiceCapsuleDto saleicapsDto);
-    Boolean deleteSaleInvoiceCapsuleById(Long saleicapsDto);
-    SaleInvoiceCapsuleDto findSaleInvoiceCapsuleById(Long saleicapsId);
-    SaleInvoiceCapsuleDto findSaleInvoiceCapsuleByCode(String saleicaps_code,
-                                                 PointofsaleDto posDto);
-    List<SaleInvoiceCapsuleDto> findAllSaleInvoiceCapsuleBetween(
-            PointofsaleDto posDto, Date startDate, Date endDate);
+    SaleInvoiceCapsuleDto saveSaleInvoiceCapsule(SaleInvoiceCapsuleDto saleiCapsuleDto);
+    SaleInvoiceCapsuleDto updateSaleInvoiceCapsule(SaleInvoiceCapsuleDto saleiCapsuleDto);
+    Boolean isSaleInvoiceCapsuleUniqueinPos(String saleiCapsuleCode, Long posId);
+    Boolean isSaleInvoiceCapsuleDeleteable(Long saleiCapsuleId);
+    Boolean deleteSaleInvoiceCapsuleById(Long saleiCapsuleId);
+    SaleInvoiceCapsuleDto findSaleInvoiceCapsuleById(Long saleiCapsuleId);
+    SaleInvoiceCapsuleDto findSaleInvoiceCapsuleByCode(String saleiCapsuleCode, Long posId);
 
-    List<SaleInvoiceCapsuleDto> findAllSaleInvoiceCapsuleBetween(
-            PointofsaleDto posDto, ClientDto cltDto, Date startDate, Date endDate);
+    //Faire la liste des SaleInvoiceCapsule dans un intervalle de temps puis page par page
+    List<SaleInvoiceCapsuleDto> findAllSaleiCapsuleBetween(Instant startDate, Instant endDate);
+    Page<SaleInvoiceCapsuleDto> findPageSaleiCapsuleBetween(Instant startDate, Instant endDate, int pagenum, int pagesize);
 
-    List<SaleInvoiceCapsuleDto> findAllSaleInvoiceCapsuleBetween(
-            PointofsaleDto posDto, UserBMDto userbmDto, Date startDate, Date endDate);
-    List<SaleInvoiceCapsuleDto> findAllSaleInvoiceCapsuleBetween(
-            PointofsaleDto posDto, ClientDto cltDto, UserBMDto userbmDto,
-            Date startDate, Date endDate);
+
+    //Faire la liste des SaleInvoiceCapsule d'un client dans un intervalle de temps puis page par page
+    List<SaleInvoiceCapsuleDto> findAllSaleiCapsuleofClientBetween(Long clientId, Instant startDate, Instant endDate);
+    Page<SaleInvoiceCapsuleDto> findPageSaleiCapsuleofClientBetween(Long clientId, Instant startDate, Instant endDate,
+                                                                    int pagenum, int pagesize);
+
+
+    //Faire la liste des SaleInvoiceCapsule d'un userBM dans un intervalle de temps puis page par page
+    List<SaleInvoiceCapsuleDto> findAllSaleiCapsuleofUserbmBetween(Long userbmId, Instant startDate, Instant endDate);
+    Page<SaleInvoiceCapsuleDto> findPageSaleiCapsuleofUserbmBetween(Long userbmId, Instant startDate, Instant endDate,
+                                                                    int pagenum, int pagesize);
+
+
+    //Faire la liste des SaleInvoiceCapsule dans un Pos dans un intervalle de temps puis page par page
+    List<SaleInvoiceCapsuleDto> findAllSaleiCapsuleinPosBetween(Long posId, Instant startDate, Instant endDate);
+    Page<SaleInvoiceCapsuleDto> findAllSaleiCapsuleinPosBetween(Long posId, Instant startDate, Instant endDate,
+                                                                int pagenum, int pagesize);
+    //Faire la liste des SaleInvoiceCapsule d'un userBM dans un Pos dans un intervalle de temps puis page par page
+    List<SaleInvoiceCapsuleDto> findAllSaleiCapsuleofUserbminPosBetween(Long userbmId, Long posId, Instant startDate,
+                                                                        Instant endDate);
+    Page<SaleInvoiceCapsuleDto> findAllSaleiCapsuleofUserbminPosBetween(Long userbmId, Long posId, Instant startDate,
+                                                                        Instant endDate, int pagenum, int pagesize);
+
+    //Faire la liste des SaleInvoiceCapsule d'un client dans un Pos dans un intervalle de temps puis page par page
+    List<SaleInvoiceCapsuleDto> findAllSaleiCapsuleofClientinPosBetween(Long clientId, Long posId, Instant startDate,
+                                                                        Instant endDate);
+    Page<SaleInvoiceCapsuleDto> findPageSaleiCapsuleofClientinPosBetween(Long clientId, Long posId, Instant startDate,
+                                                                         Instant endDate, int pagenum, int pagesize);
+    //Faire la liste des SaleInvoiceCapsule d'un client enregistre par un userBM dans un intervalle de temps puis page par page
+    List<SaleInvoiceCapsuleDto> findAllSaleiCapsuleofClientforUserbmBetween(Long clientId, Long userbmId, Instant startDate,
+                                                                            Instant endDate);
+    Page<SaleInvoiceCapsuleDto> findPageSaleiCapsuleofClientforUserbmBetween(Long clientId, Long userbmId, Instant startDate,
+                                                                             Instant endDate, int pagenum, int pagesize);
+    //Faire la liste des SaleInvoiceCapsule d'un client enregistre par un userBM dans un intervalle de temps puis page par page
+    List<SaleInvoiceCapsuleDto> findAllSaleiCapsuleofClientforUserbminPosBetween(Long clientId, Long userbmId, Long posId,
+                                                                                 Instant startDate, Instant endDate);
+    Page<SaleInvoiceCapsuleDto> findPageSaleiCapsuleofClientforUserbminPosBetween(Long clientId, Long userbmId, Long posId,
+                                                                                  Instant startDate, Instant endDate,
+                                                                                  int pagenum, int pagesize);
 }

@@ -2,6 +2,7 @@ package com.c2psi.businessmanagement.dtos.client.delivery;
 
 import com.c2psi.businessmanagement.Enumerations.DeliveryState;
 import com.c2psi.businessmanagement.dtos.client.command.CommandDto;
+import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.models.Delivery;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -34,6 +35,8 @@ public class DeliveryDto {
 
     @NotNull(message = "The userbm associated with the delivery cannot be null")
     UserBMDto deliveryUserbmDto;
+    @NotNull(message = "The pointofsale associated with the delivery cannot be null")
+    PointofsaleDto deliveryPosDto;
     /***********************************
      * Mapping method development:   ***
      * method fromEntity and toEntity **
@@ -49,6 +52,7 @@ public class DeliveryDto {
                 .deliveryState(delivery.getDeliveryState())
                 .deliveryComment(delivery.getDeliveryComment())
                 .deliveryUserbmDto(UserBMDto.fromEntity(delivery.getDeliveryUserbm()))
+                .deliveryPosDto(PointofsaleDto.fromEntity(delivery.getDeliveryPos()))
                 .build();
     }
     public static Delivery toEntity(DeliveryDto deliveryDto){
@@ -62,6 +66,7 @@ public class DeliveryDto {
         delivery.setDeliveryState(deliveryDto.getDeliveryState());
         delivery.setDeliveryComment(deliveryDto.getDeliveryComment());
         delivery.setDeliveryUserbm(UserBMDto.toEntity(deliveryDto.getDeliveryUserbmDto()));
+        delivery.setDeliveryPos(PointofsaleDto.toEntity(deliveryDto.getDeliveryPosDto()));
         return delivery;
     }
 }

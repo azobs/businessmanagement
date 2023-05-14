@@ -10,6 +10,8 @@ import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.*;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,13 +35,13 @@ public class SupplyInvoiceCapsuleDto {
     Instant sicapsInvoicingDate;
     @NotNull(message = "The total colis delivery cannot be null")
     @Positive(message = "The total colis delivery must be positive")
-    Integer sicapsTotalcolis;
+    BigDecimal sicapsTotalcolis;
     @NotNull(message = "The total capsule to change cannot be null")
     @Positive(message = "The total capsule to change must be positive")
-    Integer sicapsTotalCapsToChange;
+    BigDecimal sicapsTotalCapsToChange;
     @NotNull(message = "The total capsule changed cannot be null")
     @Positive(message = "The total capsule changed must be positive")
-    Integer sicapsTotalCapsChange;
+    BigDecimal sicapsTotalCapsChange;
     /******************************
      * Relation between entities  *
      * ****************************/
@@ -73,10 +75,6 @@ public class SupplyInvoiceCapsuleDto {
                 .sicapsProviderDto(ProviderDto.fromEntity(sics.getSicapsProvider()))
                 .sicapsUserbmDto(UserBMDto.fromEntity(sics.getSicapsUserbm()))
                 .sicapsPosDto(PointofsaleDto.fromEntity(sics.getSicapsPos()))
-                /*.capsuleArrivalDtoList(sics.getCapsuleArrivalList() != null ?
-                        sics.getCapsuleArrivalList().stream()
-                        .map(CapsuleArrivalDto::fromEntity)
-                        .collect(Collectors.toList()) : null)*/
                 .build();
     }
     public static SupplyInvoiceCapsule toEntity(SupplyInvoiceCapsuleDto sicsDto){
@@ -96,10 +94,7 @@ public class SupplyInvoiceCapsuleDto {
         sics.setSicapsTotalCapsChange(sicsDto.getSicapsTotalCapsChange());
         sics.setSicapsUserbm(UserBMDto.toEntity(sicsDto.getSicapsUserbmDto()));
         sics.setSicapsPos(PointofsaleDto.toEntity(sicsDto.getSicapsPosDto()));
-        /*sics.setCapsuleArrivalList(sicsDto.getCapsuleArrivalDtoList() != null ?
-                sicsDto.getCapsuleArrivalDtoList().stream()
-                .map(CapsuleArrivalDto::toEntity)
-                .collect(Collectors.toList()) : null);*/
+
         return sics;
     }
 }

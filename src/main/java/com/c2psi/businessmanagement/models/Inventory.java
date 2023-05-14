@@ -22,7 +22,7 @@ import java.util.List;
                 columnNames = {"invCode", "pos_id"})})
 public class Inventory extends AbstractEntity {
     String invComment;
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(nullable = false)
     Instant invDate;
 

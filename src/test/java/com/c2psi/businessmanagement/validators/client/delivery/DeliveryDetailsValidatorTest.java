@@ -6,6 +6,7 @@ import com.c2psi.businessmanagement.dtos.stock.product.PackagingDto;
 import com.c2psi.businessmanagement.validators.client.command.BackInDetailsValidator;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -19,8 +20,8 @@ public class DeliveryDetailsValidatorTest {
         DeliveryDetailsDto deliveryDetailsDto = DeliveryDetailsDto.builder()
                 .ddDeliveryDto(DeliveryDto.builder().build())
                 .ddPackagingDto(PackagingDto.builder().build())
-                .ddNumberofpackageused(Integer.valueOf(5))
-                .ddNumberofpackagereturn(Integer.valueOf(4))
+                .ddNumberofpackageused(BigDecimal.valueOf(5))
+                .ddNumberofpackagereturn(BigDecimal.valueOf(4))
                 .build();
 
         List<String> errors = DeliveryDetailsValidator.validate(deliveryDetailsDto);
@@ -34,8 +35,8 @@ public class DeliveryDetailsValidatorTest {
         DeliveryDetailsDto deliveryDetailsDto = DeliveryDetailsDto.builder()
                 .ddDeliveryDto(DeliveryDto.builder().build())
                 .ddPackagingDto(PackagingDto.builder().build())
-                .ddNumberofpackageused(Integer.valueOf(5))
-                .ddNumberofpackagereturn(Integer.valueOf(4))
+                .ddNumberofpackageused(BigDecimal.valueOf(5))
+                .ddNumberofpackagereturn(BigDecimal.valueOf(4))
                 .build();
 
         List<String> errors = DeliveryDetailsValidator.validate(null);
@@ -69,8 +70,8 @@ public class DeliveryDetailsValidatorTest {
         DeliveryDetailsDto deliveryDetailsDto = DeliveryDetailsDto.builder()
                 .ddDeliveryDto(DeliveryDto.builder().build())
                 .ddPackagingDto(PackagingDto.builder().build())
-                .ddNumberofpackageused(Integer.valueOf(0))
-                .ddNumberofpackagereturn(Integer.valueOf(-1))
+                .ddNumberofpackageused(BigDecimal.valueOf(0))
+                .ddNumberofpackagereturn(BigDecimal.valueOf(-1))
                 .build();
 
         List<String> errors = DeliveryDetailsValidator.validate(deliveryDetailsDto);

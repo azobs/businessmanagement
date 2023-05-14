@@ -1,5 +1,6 @@
 package com.c2psi.businessmanagement.models;
 
+import com.c2psi.businessmanagement.Enumerations.CashSourceType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -27,18 +28,22 @@ public class SaleInvoiceCash extends AbstractEntity {
     @Column(nullable = false)
     String saleicashCode;
 
-    BigDecimal saleicashAmountexpected;
+    BigDecimal saleicashAmountexpected;//The total amount after the calculation of debt and all due to all the last command
 
-    BigDecimal saleicashAmountpaid;
+    BigDecimal saleicashCurrentAmountexpected;//The real amount of the current client command
 
-    BigDecimal saleicashAmountreimbourse;
+    BigDecimal saleicashAmountpaid;//The real amount paid by the corresponding client
 
-    Integer saleicashTotalcolis;
+    BigDecimal saleicashAmountreimbourse;//The real amount reimbourse
 
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    BigDecimal saleicashTotalcolis;
+
+    CashSourceType saleicashSourceofcash;//If the money was paid by electronic money or direct cash
+
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(nullable = false)
     Instant saleicashDeliveryDate;
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(nullable = false)
     Instant saleicashInvoicingDate;
 

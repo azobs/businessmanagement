@@ -6,6 +6,7 @@ import com.c2psi.businessmanagement.dtos.stock.product.SupplyInvoiceCapsuleDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -25,11 +26,11 @@ public class SupplyInvoiceCapsuleValidatorTest {
                 .sicapsComment("")
                 .sicapsUserbmDto(UserBMDto.builder().build())
                 .sicapsDeliveryDate(new Date().toInstant())
-                .sicapsTotalcolis(Integer.valueOf(10))
+                .sicapsTotalcolis(BigDecimal.valueOf(10))
                 .sicapsPicture("")
                 .sicapsCode("dsdsds")
-                .sicapsTotalCapsChange(Integer.valueOf(10))
-                .sicapsTotalCapsToChange(Integer.valueOf(10))
+                .sicapsTotalCapsChange(BigDecimal.valueOf(10))
+                .sicapsTotalCapsToChange(BigDecimal.valueOf(10))
                 .build();
 
         List<String> errors = SupplyInvoiceCapsuleValidator.validate(supplyInvoiceCapsuleDto);
@@ -48,11 +49,11 @@ public class SupplyInvoiceCapsuleValidatorTest {
                 .sicapsComment("")
                 .sicapsUserbmDto(UserBMDto.builder().build())
                 .sicapsDeliveryDate(new Date().toInstant())
-                .sicapsTotalcolis(Integer.valueOf(10))
+                .sicapsTotalcolis(BigDecimal.valueOf(10))
                 .sicapsPicture("")
                 .sicapsCode("dsdsds")
-                .sicapsTotalCapsChange(Integer.valueOf(10))
-                .sicapsTotalCapsToChange(Integer.valueOf(10))
+                .sicapsTotalCapsChange(BigDecimal.valueOf(10))
+                .sicapsTotalCapsToChange(BigDecimal.valueOf(10))
                 .build();
 
         List<String> errors = SupplyInvoiceCapsuleValidator.validate(null);
@@ -104,11 +105,11 @@ public class SupplyInvoiceCapsuleValidatorTest {
                 .sicapsComment("")
                 .sicapsUserbmDto(UserBMDto.builder().build())
                 .sicapsDeliveryDate(new Date().toInstant())
-                .sicapsTotalcolis(Integer.valueOf(10))
+                .sicapsTotalcolis(BigDecimal.valueOf(10))
                 .sicapsPicture("")
                 .sicapsCode("")
-                .sicapsTotalCapsChange(Integer.valueOf(10))
-                .sicapsTotalCapsToChange(Integer.valueOf(10))
+                .sicapsTotalCapsChange(BigDecimal.valueOf(10))
+                .sicapsTotalCapsToChange(BigDecimal.valueOf(10))
                 .build();
 
         List<String> errors = SupplyInvoiceCapsuleValidator.validate(supplyInvoiceCapsuleDto);
@@ -129,11 +130,11 @@ public class SupplyInvoiceCapsuleValidatorTest {
                 .sicapsComment("    ")
                 .sicapsUserbmDto(UserBMDto.builder().build())
                 .sicapsDeliveryDate(new Date().toInstant())
-                .sicapsTotalcolis(Integer.valueOf(10))
+                .sicapsTotalcolis(BigDecimal.valueOf(10))
                 .sicapsPicture("    ")
                 .sicapsCode("    ")
-                .sicapsTotalCapsChange(Integer.valueOf(10))
-                .sicapsTotalCapsToChange(Integer.valueOf(10))
+                .sicapsTotalCapsChange(BigDecimal.valueOf(10))
+                .sicapsTotalCapsToChange(BigDecimal.valueOf(10))
                 .build();
 
         List<String> errors = SupplyInvoiceCapsuleValidator.validate(supplyInvoiceCapsuleDto);
@@ -152,11 +153,11 @@ public class SupplyInvoiceCapsuleValidatorTest {
                 .sicapsComment("    ")
                 .sicapsUserbmDto(UserBMDto.builder().build())
                 .sicapsDeliveryDate(new Date().toInstant())
-                .sicapsTotalcolis(Integer.valueOf(10))
+                .sicapsTotalcolis(BigDecimal.valueOf(10))
                 .sicapsPicture("    ")
                 .sicapsCode("ab")
-                .sicapsTotalCapsChange(Integer.valueOf(10))
-                .sicapsTotalCapsToChange(Integer.valueOf(10))
+                .sicapsTotalCapsChange(BigDecimal.valueOf(10))
+                .sicapsTotalCapsToChange(BigDecimal.valueOf(10))
                 .build();
 
         List<String> errors = SupplyInvoiceCapsuleValidator.validate(supplyInvoiceCapsuleDto);
@@ -177,11 +178,11 @@ public class SupplyInvoiceCapsuleValidatorTest {
                     .sicapsComment("    ")
                     .sicapsUserbmDto(UserBMDto.builder().build())
                     .sicapsDeliveryDate(sdf.parse("2024-02-02").toInstant())
-                    .sicapsTotalcolis(Integer.valueOf(10))
+                    .sicapsTotalcolis(BigDecimal.valueOf(10))
                     .sicapsPicture("    ")
                     .sicapsCode("abc")
-                    .sicapsTotalCapsChange(Integer.valueOf(10))
-                    .sicapsTotalCapsToChange(Integer.valueOf(10))
+                    .sicapsTotalCapsChange(BigDecimal.valueOf(10))
+                    .sicapsTotalCapsToChange(BigDecimal.valueOf(10))
                     .build();
 
             List<String> errors = SupplyInvoiceCapsuleValidator.validate(supplyInvoiceCapsuleDto);
@@ -207,11 +208,11 @@ public class SupplyInvoiceCapsuleValidatorTest {
                     .sicapsComment("    ")
                     .sicapsUserbmDto(UserBMDto.builder().build())
                     .sicapsDeliveryDate(sdf.parse("2023-01-31").toInstant())
-                    .sicapsTotalcolis(Integer.valueOf(10))
+                    .sicapsTotalcolis(BigDecimal.valueOf(10))
                     .sicapsPicture("    ")
                     .sicapsCode("abc")
-                    .sicapsTotalCapsChange(Integer.valueOf(10))
-                    .sicapsTotalCapsToChange(Integer.valueOf(10))
+                    .sicapsTotalCapsChange(BigDecimal.valueOf(10))
+                    .sicapsTotalCapsToChange(BigDecimal.valueOf(10))
                     .build();
 
             List<String> errors = SupplyInvoiceCapsuleValidator.validate(supplyInvoiceCapsuleDto);

@@ -11,6 +11,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.Instant;
 import java.util.List;
 
@@ -28,16 +30,16 @@ public class SupplyInvoiceDamage extends AbstractEntity {
     String sidamCode;
     String sidamComment;
     String sidamPicture;
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(nullable = false)
     Instant sidamDeliveryDate;
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(nullable = false)
     Instant sidamInvoicingDate;
 
-    Integer sidamTotalcolis;
-    Integer sidamTotalDamToChange;
-    Integer sidamTotalDamChange;
+    BigDecimal sidamTotalcolis;
+    BigDecimal sidamTotalDamToChange;
+    BigDecimal sidamTotalDamChange;
     /******************************
      * Relation between entities  *
      * ****************************/

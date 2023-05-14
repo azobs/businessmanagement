@@ -29,19 +29,12 @@ import java.util.stream.Collectors;
 @Slf4j
 @Transactional
 public class ClientServiceImpl implements ClientService {
-    private ClientCashAccountRepository clientCashAccountRepository;
-    private UserBMRepository userBMRepository;
-    private ClientCashOperationRepository clientCashOperationRepository;
     private ClientRepository clientRepository;
     private PointofsaleRepository pointofsaleRepository;
 
     @Autowired
-    public ClientServiceImpl(ClientCashAccountRepository clientCashAccountRepository, UserBMRepository userBMRepository,
-                             ClientCashOperationRepository clientCashOperationRepository,
-                             ClientRepository clientRepository, PointofsaleRepository pointofsaleRepository) {
-        this.clientCashAccountRepository = clientCashAccountRepository;
-        this.userBMRepository = userBMRepository;
-        this.clientCashOperationRepository = clientCashOperationRepository;
+    public ClientServiceImpl(ClientRepository clientRepository,
+                             PointofsaleRepository pointofsaleRepository) {
         this.clientRepository = clientRepository;
         this.pointofsaleRepository = pointofsaleRepository;
     }
@@ -71,7 +64,7 @@ public class ClientServiceImpl implements ClientService {
                 (clientDto.getClientPosDto().getId());
         if(!optionalPointofsale.isPresent()){
             log.error("The pointofsale precised does not exist in the DB");
-            throw new EntityNotFoundException("Le Pointofsale associe avec le client n'existe pas en BD"
+            throw new InvalidEntityException("Le Pointofsale associe avec le client n'existe pas en BD"
                     , ErrorCode.POINTOFSALE_NOT_FOUND);
         }
 

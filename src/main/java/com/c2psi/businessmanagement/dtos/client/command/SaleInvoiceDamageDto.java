@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.*;
+import java.math.BigDecimal;
 import java.time.Instant;
 
 @Data
@@ -21,13 +22,13 @@ public class SaleInvoiceDamageDto {
     String saleidamCode;
     @NotNull(message = "The sale invoice number of damage to change cannot be null")
     @Positive(message = "The sale invoice number of damage to change must be positive")
-    Integer saleidamNumbertochange;
+    BigDecimal saleidamNumbertochange;
     @NotNull(message = "The sale invoice number of damage change cannot be null")
     @Positive(message = "The sale invoice number of damage change must be positive")
-    Integer saleidamNumberchanged;
+    BigDecimal saleidamNumberchanged;
     @NotNull(message = "The sale invoice number of colis cannot be null")
     @Positive(message = "The sale invoice number of colis must be positive")
-    Integer saleidamTotalcolis;
+    BigDecimal saleidamTotalcolis;
     @NotNull(message = "The sale invoice delivery date changed cannot be null")
     Instant saleidamDeliveryDate;
     @NotNull(message = "The sale invoice delivery date changed cannot be null")

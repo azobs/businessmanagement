@@ -109,7 +109,7 @@ public class UserBMRoleServiceImpl implements UserBMRoleService {
             }
             log.error("The entity {} is not deleteable because it encompasses some other elements ", optionalUserBMRole.get());
             throw new EntityNotDeleteableException("Ce userrole ne peut etre supprime ",
-                    ErrorCode.USERROLE_NOT_DELETEABLE);
+                    ErrorCode.USERBMROLE_NOT_DELETEABLE);
         }
         throw new EntityNotFoundException("Aucun userrole n'existe avec l'id = "+id);
     }

@@ -31,6 +31,11 @@ public class SaleInvoiceCashValidator {
                 }
             }
 
+            /*******************************************************************************************************
+             * saleicashAmountexpected = saleicashCurrentAmountexpected + clientcashaccountBalance(it can be 0 ,
+             * negatif [if the pos have the client cash] or positif [if the client have the pos cash])
+             */
+
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             Validator validator = factory.getValidator();
 

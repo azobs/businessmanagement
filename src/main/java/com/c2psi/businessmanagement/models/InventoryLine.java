@@ -16,7 +16,8 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name="inventory_line")
+@Table(name="inventory_line", uniqueConstraints = {@UniqueConstraint(
+        columnNames = {"inv_id", "art_id"})})
 public class InventoryLine extends AbstractEntity{
     String invlineComment;
 

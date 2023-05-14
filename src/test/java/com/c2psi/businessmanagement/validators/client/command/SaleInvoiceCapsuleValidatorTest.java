@@ -6,6 +6,7 @@ import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,9 +26,9 @@ public class SaleInvoiceCapsuleValidatorTest {
                 .saleicapsCode("dsdsdsdsd")
                 .saleicapsInvoicingDate(new Date().toInstant())
                 .saleicapsUserbmDto(UserBMDto.builder().build())
-                .saleicapsNumberchanged(10)
-                .saleicapsNumbertochange(10)
-                .saleicapsTotalcolis(10)
+                .saleicapsNumberchanged(BigDecimal.valueOf(10))
+                .saleicapsNumbertochange(BigDecimal.valueOf(10))
+                .saleicapsTotalcolis(BigDecimal.valueOf(10))
                 .saleicapsDeliveryDate(new Date().toInstant())
                 .build();
 
@@ -45,9 +46,9 @@ public class SaleInvoiceCapsuleValidatorTest {
                 .saleicapsCode("dsdsdsdsd")
                 .saleicapsInvoicingDate(new Date().toInstant())
                 .saleicapsUserbmDto(UserBMDto.builder().build())
-                .saleicapsNumberchanged(10)
-                .saleicapsNumbertochange(10)
-                .saleicapsTotalcolis(10)
+                .saleicapsNumberchanged(BigDecimal.valueOf(10))
+                .saleicapsNumbertochange(BigDecimal.valueOf(10))
+                .saleicapsTotalcolis(BigDecimal.valueOf(10))
                 .saleicapsDeliveryDate(new Date().toInstant())
                 .build();
 
@@ -97,9 +98,9 @@ public class SaleInvoiceCapsuleValidatorTest {
                 .saleicapsCode("")
                 .saleicapsInvoicingDate(new Date().toInstant())
                 .saleicapsUserbmDto(UserBMDto.builder().build())
-                .saleicapsNumberchanged(10)
-                .saleicapsNumbertochange(10)
-                .saleicapsTotalcolis(10)
+                .saleicapsNumberchanged(BigDecimal.valueOf(10))
+                .saleicapsNumbertochange(BigDecimal.valueOf(10))
+                .saleicapsTotalcolis(BigDecimal.valueOf(10))
                 .saleicapsDeliveryDate(new Date().toInstant())
                 .build();
 
@@ -120,9 +121,9 @@ public class SaleInvoiceCapsuleValidatorTest {
                 .saleicapsCode("                  ")
                 .saleicapsInvoicingDate(new Date().toInstant())
                 .saleicapsUserbmDto(UserBMDto.builder().build())
-                .saleicapsNumberchanged(10)
-                .saleicapsNumbertochange(10)
-                .saleicapsTotalcolis(10)
+                .saleicapsNumberchanged(BigDecimal.valueOf(10))
+                .saleicapsNumbertochange(BigDecimal.valueOf(10))
+                .saleicapsTotalcolis(BigDecimal.valueOf(10))
                 .saleicapsDeliveryDate(new Date().toInstant())
                 .build();
 
@@ -141,9 +142,9 @@ public class SaleInvoiceCapsuleValidatorTest {
                 .saleicapsCode("ab")
                 .saleicapsInvoicingDate(new Date().toInstant())
                 .saleicapsUserbmDto(UserBMDto.builder().build())
-                .saleicapsNumberchanged(10)
-                .saleicapsNumbertochange(10)
-                .saleicapsTotalcolis(10)
+                .saleicapsNumberchanged(BigDecimal.valueOf(10))
+                .saleicapsNumbertochange(BigDecimal.valueOf(10))
+                .saleicapsTotalcolis(BigDecimal.valueOf(10))
                 .saleicapsDeliveryDate(new Date().toInstant())
                 .build();
 
@@ -162,9 +163,9 @@ public class SaleInvoiceCapsuleValidatorTest {
                 .saleicapsCode("abbgtrefdsedfcvxsadert")
                 .saleicapsInvoicingDate(new Date().toInstant())
                 .saleicapsUserbmDto(UserBMDto.builder().build())
-                .saleicapsNumberchanged(10)
-                .saleicapsNumbertochange(10)
-                .saleicapsTotalcolis(10)
+                .saleicapsNumberchanged(BigDecimal.valueOf(10))
+                .saleicapsNumbertochange(BigDecimal.valueOf(10))
+                .saleicapsTotalcolis(BigDecimal.valueOf(10))
                 .saleicapsDeliveryDate(new Date().toInstant())
                 .build();
 
@@ -183,9 +184,9 @@ public class SaleInvoiceCapsuleValidatorTest {
                 .saleicapsCode("abbgtrefd")
                 .saleicapsInvoicingDate(new Date().toInstant())
                 .saleicapsUserbmDto(UserBMDto.builder().build())
-                .saleicapsNumberchanged(-10)
-                .saleicapsNumbertochange(-10)
-                .saleicapsTotalcolis(-10)
+                .saleicapsNumberchanged(BigDecimal.valueOf(-10))
+                .saleicapsNumbertochange(BigDecimal.valueOf(-10))
+                .saleicapsTotalcolis(BigDecimal.valueOf(-10))
                 .saleicapsDeliveryDate(new Date().toInstant())
                 .build();
 
@@ -206,9 +207,9 @@ public class SaleInvoiceCapsuleValidatorTest {
                 .saleicapsCode("abbgtrefd")
                 .saleicapsInvoicingDate(new Date().toInstant())
                 .saleicapsUserbmDto(UserBMDto.builder().build())
-                .saleicapsNumberchanged(0)
-                .saleicapsNumbertochange(0)
-                .saleicapsTotalcolis(0)
+                .saleicapsNumberchanged(BigDecimal.valueOf(0))
+                .saleicapsNumbertochange(BigDecimal.valueOf(0))
+                .saleicapsTotalcolis(BigDecimal.valueOf(0))
                 .saleicapsDeliveryDate(new Date().toInstant())
                 .build();
 
@@ -231,9 +232,9 @@ public class SaleInvoiceCapsuleValidatorTest {
                     .saleicapsCode("abbgtrefd")
                     .saleicapsInvoicingDate(sdf.parse("2023-01-23").toInstant())
                     .saleicapsUserbmDto(UserBMDto.builder().build())
-                    .saleicapsNumberchanged(1)
-                    .saleicapsNumbertochange(1)
-                    .saleicapsTotalcolis(1)
+                    .saleicapsNumberchanged(BigDecimal.valueOf(1))
+                    .saleicapsNumbertochange(BigDecimal.valueOf(1))
+                    .saleicapsTotalcolis(BigDecimal.valueOf(1))
                     .saleicapsDeliveryDate(sdf.parse("2023-01-22").toInstant())
                     .build();
 

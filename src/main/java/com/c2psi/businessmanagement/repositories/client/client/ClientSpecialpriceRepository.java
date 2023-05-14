@@ -17,14 +17,14 @@ public interface ClientSpecialpriceRepository
     @Query("SELECT cltspeprice FROM ClientSpecialprice cltspeprice WHERE cltspeprice.cltSpClient.id=:clientId AND cltspeprice.cltSpArt.id=:articleId")
     Optional<ClientSpecialprice> findClientSpecialpriceofArticleforClient(Long clientId, Long articleId);
     //Faire la liste des prix speciaux d'un article puis page par page
-    @Query("SELECT cltspeprice FROM ClientSpecialprice cltspeprice WHERE cltspeprice.cltSpArt.id=:articleId")
+    @Query("SELECT cltspeprice FROM ClientSpecialprice cltspeprice WHERE cltspeprice.cltSpArt.id=:articleId ORDER BY cltspeprice.cltSpClient.clientName")
     Optional<List<ClientSpecialprice>> findAllSpecialpriceofArticle(Long articleId);
-    @Query("SELECT cltspeprice FROM ClientSpecialprice cltspeprice WHERE cltspeprice.cltSpArt.id=:articleId")
+    @Query("SELECT cltspeprice FROM ClientSpecialprice cltspeprice WHERE cltspeprice.cltSpArt.id=:articleId ORDER BY cltspeprice.cltSpClient.clientName")
     Optional<Page<ClientSpecialprice>> findPageSpecialpriceofArticle(Long articleId, Pageable pageable);
     //Faire la liste des prix speciaux associe a un client puis page par page
-    @Query("SELECT cltspeprice FROM ClientSpecialprice cltspeprice WHERE cltspeprice.cltSpClient.id=:clientId")
+    @Query("SELECT cltspeprice FROM ClientSpecialprice cltspeprice WHERE cltspeprice.cltSpClient.id=:clientId ORDER BY cltspeprice.cltSpArt.artName")
     Optional<List<ClientSpecialprice>> findAllSpecialpriceofClient(Long clientId);
-    @Query("SELECT cltspeprice FROM ClientSpecialprice cltspeprice WHERE cltspeprice.cltSpClient.id=:clientId")
+    @Query("SELECT cltspeprice FROM ClientSpecialprice cltspeprice WHERE cltspeprice.cltSpClient.id=:clientId ORDER BY cltspeprice.cltSpArt.artName")
     Optional<Page<ClientSpecialprice>> findPageSpecialpriceofClient(Long clientId, Pageable pageable);
     @Query("SELECT cltspeprice FROM ClientSpecialprice cltspeprice WHERE cltspeprice.cltSpSp.id=:spepriceId")
     Optional<List<ClientSpecialprice>> findAllClientSpecialpriceofSpecialprice(Long spepriceId);

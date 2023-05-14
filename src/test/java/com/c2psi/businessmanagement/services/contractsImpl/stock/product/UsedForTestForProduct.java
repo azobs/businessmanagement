@@ -1,6 +1,13 @@
 package com.c2psi.businessmanagement.services.contractsImpl.stock.product;
 
+import com.c2psi.businessmanagement.Enumerations.CashArrivalType;
+import com.c2psi.businessmanagement.Enumerations.CashSourceType;
+import com.c2psi.businessmanagement.dtos.client.client.ClientDto;
+import com.c2psi.businessmanagement.dtos.client.command.SaleInvoiceCapsuleDto;
+import com.c2psi.businessmanagement.dtos.client.command.SaleInvoiceCashDto;
+import com.c2psi.businessmanagement.dtos.client.command.SaleInvoiceDamageDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
+import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.dtos.stock.price.BasePriceDto;
 import com.c2psi.businessmanagement.dtos.stock.price.CurrencyDto;
 import com.c2psi.businessmanagement.dtos.stock.price.SpecialPriceDto;
@@ -9,10 +16,14 @@ import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
 import com.c2psi.businessmanagement.services.contracts.stock.price.BasePriceService;
 import com.c2psi.businessmanagement.services.contracts.stock.price.SpecialPriceService;
 import com.c2psi.businessmanagement.services.contracts.stock.product.*;
+import com.c2psi.businessmanagement.services.contractsImpl.client.command.SaleInvoiceCapsuleServiceImpl;
+import com.c2psi.businessmanagement.services.contractsImpl.client.command.SaleInvoiceCashServiceImpl;
+import com.c2psi.businessmanagement.services.contractsImpl.client.command.SaleInvoiceDamageServiceImpl;
 import org.junit.Assert;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Service
 public class UsedForTestForProduct {
@@ -269,6 +280,568 @@ public class UsedForTestForProduct {
         PackagingDto packagingDtoSaved = packagingService.savePackaging(packagingDtoToSaved);
         return packagingDtoSaved;
     }
+
+    public SupplyInvoiceCashDto saveSupplyInvoiceCash(int num, UserBMDto userbmDtoSaved, ProviderDto providerDtoSaved,
+                                                      PointofsaleDto pointofsaleDtoSaved,
+                                                      SupplyInvoiceCashService supplyInvoiceCashService){
+        Assert.assertNotNull(providerDtoSaved);
+        Assert.assertNotNull(pointofsaleDtoSaved);
+        Assert.assertNotNull(userbmDtoSaved);
+        Assert.assertNotNull(supplyInvoiceCashService);
+
+        SupplyInvoiceCashDto supplyInvoiceCashDtoToSaved = SupplyInvoiceCashDto.builder()
+                .sicashAmountexpected(BigDecimal.valueOf(100000))
+                .sicashAmountpaid(BigDecimal.valueOf(95600))
+                .sicashPicture("cxxcx"+num)
+                .sicashCode("codeFacture_"+num)
+                .sicashComment("Commentaire sur la facture remis par le founisseur")
+                .sicashTotalcolis(BigDecimal.valueOf(78))
+                .sicashInvoicingDate(new Date().toInstant())
+                .sicashDeliveryDate(new Date().toInstant())
+                .sicashSourceofcash(CashSourceType.CASH)
+                .sicashPosDto(pointofsaleDtoSaved)
+                .sicashUserbmDto(userbmDtoSaved)
+                .sicashProviderDto(providerDtoSaved)
+                .build();
+
+        SupplyInvoiceCashDto supplyInvoiceCashDtoSaved = supplyInvoiceCashService.
+                saveSupplyInvoiceCash(supplyInvoiceCashDtoToSaved);
+        return supplyInvoiceCashDtoSaved;
+    }
+
+    public SupplyInvoiceCashDto saveSupplyInvoiceCash_Invalid(int num, UserBMDto userbmDtoSaved, ProviderDto providerDtoSaved,
+                                                      PointofsaleDto pointofsaleDtoSaved,
+                                                      SupplyInvoiceCashService supplyInvoiceCashService){
+        Assert.assertNotNull(providerDtoSaved);
+        Assert.assertNotNull(pointofsaleDtoSaved);
+        Assert.assertNotNull(userbmDtoSaved);
+        Assert.assertNotNull(supplyInvoiceCashService);
+
+        SupplyInvoiceCashDto supplyInvoiceCashDtoToSaved = SupplyInvoiceCashDto.builder()
+                .sicashAmountexpected(BigDecimal.valueOf(100000))
+                .sicashAmountpaid(BigDecimal.valueOf(95600))
+                .sicashPicture("cxxcx"+num)
+                .sicashCode("codeFacture_"+num)
+                .sicashComment("Commentaire sur la facture remis par le founisseur")
+                .sicashTotalcolis(BigDecimal.valueOf(78))
+                .sicashInvoicingDate(new Date().toInstant())
+                .sicashDeliveryDate(null)
+                .sicashSourceofcash(CashSourceType.CASH)
+                .sicashPosDto(pointofsaleDtoSaved)
+                .sicashUserbmDto(userbmDtoSaved)
+                .sicashProviderDto(providerDtoSaved)
+                .build();
+
+        SupplyInvoiceCashDto supplyInvoiceCashDtoSaved = supplyInvoiceCashService.
+                saveSupplyInvoiceCash(supplyInvoiceCashDtoToSaved);
+        return supplyInvoiceCashDtoSaved;
+    }
+
+    public SupplyInvoiceCapsuleDto saveSupplyInvoiceCapsule(int num, UserBMDto userbmDtoSaved, ProviderDto providerDtoSaved,
+                                                            PointofsaleDto pointofsaleDtoSaved,
+                                                            SupplyInvoiceCapsuleService supplyInvoiceCapsuleService){
+        Assert.assertNotNull(providerDtoSaved);
+        Assert.assertNotNull(pointofsaleDtoSaved);
+        Assert.assertNotNull(userbmDtoSaved);
+        Assert.assertNotNull(supplyInvoiceCapsuleService);
+
+        SupplyInvoiceCapsuleDto supplyInvoiceCapsDtoToSaved = SupplyInvoiceCapsuleDto.builder()
+                .sicapsTotalCapsToChange(BigDecimal.valueOf(10))
+                .sicapsTotalCapsChange(BigDecimal.valueOf(9))
+                .sicapsPicture("cxxcx"+num)
+                .sicapsCode("codeFacture_"+num)
+                .sicapsComment("Commentaire sur la facture remis par le founisseur")
+                .sicapsTotalcolis(BigDecimal.valueOf(9))
+                .sicapsInvoicingDate(new Date().toInstant())
+                .sicapsDeliveryDate(new Date().toInstant())
+                .sicapsPosDto(pointofsaleDtoSaved)
+                .sicapsUserbmDto(userbmDtoSaved)
+                .sicapsProviderDto(providerDtoSaved)
+                .build();
+
+        SupplyInvoiceCapsuleDto supplyInvoiceCapsDtoSaved = supplyInvoiceCapsuleService.
+                saveSupplyInvoiceCapsule(supplyInvoiceCapsDtoToSaved);
+        return supplyInvoiceCapsDtoSaved;
+    }
+
+    public SupplyInvoiceCapsuleDto saveSupplyInvoiceCapsule_Invalid(int num, UserBMDto userbmDtoSaved, ProviderDto providerDtoSaved,
+                                                            PointofsaleDto pointofsaleDtoSaved,
+                                                            SupplyInvoiceCapsuleService supplyInvoiceCapsuleService){
+        Assert.assertNotNull(providerDtoSaved);
+        Assert.assertNotNull(pointofsaleDtoSaved);
+        Assert.assertNotNull(userbmDtoSaved);
+        Assert.assertNotNull(supplyInvoiceCapsuleService);
+
+        SupplyInvoiceCapsuleDto supplyInvoiceCapsDtoToSaved = SupplyInvoiceCapsuleDto.builder()
+                .sicapsTotalCapsToChange(BigDecimal.valueOf(10))
+                .sicapsTotalCapsChange(BigDecimal.valueOf(9))
+                .sicapsPicture("cxxcx"+num)
+                .sicapsCode(null)
+                .sicapsComment("Commentaire sur la facture remis par le founisseur")
+                .sicapsTotalcolis(BigDecimal.valueOf(9))
+                .sicapsInvoicingDate(new Date().toInstant())
+                .sicapsDeliveryDate(new Date().toInstant())
+                .sicapsPosDto(pointofsaleDtoSaved)
+                .sicapsUserbmDto(userbmDtoSaved)
+                .sicapsProviderDto(providerDtoSaved)
+                .build();
+
+        SupplyInvoiceCapsuleDto supplyInvoiceCapsDtoSaved = supplyInvoiceCapsuleService.
+                saveSupplyInvoiceCapsule(supplyInvoiceCapsDtoToSaved);
+        return supplyInvoiceCapsDtoSaved;
+    }
+
+    public SupplyInvoiceDamageDto saveSupplyInvoiceDamage(int num, UserBMDto userbmDtoSaved, ProviderDto providerDtoSaved,
+                                                            PointofsaleDto pointofsaleDtoSaved,
+                                                            SupplyInvoiceDamageService supplyInvoiceDamageService){
+        Assert.assertNotNull(providerDtoSaved);
+        Assert.assertNotNull(pointofsaleDtoSaved);
+        Assert.assertNotNull(userbmDtoSaved);
+        Assert.assertNotNull(supplyInvoiceDamageService);
+
+        SupplyInvoiceDamageDto supplyInvoiceDamDtoToSaved = SupplyInvoiceDamageDto.builder()
+                .sidamTotalDamToChange(BigDecimal.valueOf(10))
+                .sidamTotalDamChange(BigDecimal.valueOf(9))
+                .sidamPicture("cxxcx"+num)
+                .sidamCode("codeFacture_"+num)
+                .sidamComment("Commentaire sur la facture remis par le founisseur")
+                .sidamTotalcolis(BigDecimal.valueOf(9))
+                .sidamInvoicingDate(new Date().toInstant())
+                .sidamDeliveryDate(new Date().toInstant())
+                .sidamPosDto(pointofsaleDtoSaved)
+                .sidamUserbmDto(userbmDtoSaved)
+                .sidamProviderDto(providerDtoSaved)
+                .build();
+
+        SupplyInvoiceDamageDto supplyInvoiceDamDtoSaved = supplyInvoiceDamageService.
+                saveSupplyInvoiceDamage(supplyInvoiceDamDtoToSaved);
+        return supplyInvoiceDamDtoSaved;
+    }
+
+    public SupplyInvoiceDamageDto saveSupplyInvoiceDamage_Invalid(int num, UserBMDto userbmDtoSaved, ProviderDto providerDtoSaved,
+                                                          PointofsaleDto pointofsaleDtoSaved,
+                                                          SupplyInvoiceDamageService supplyInvoiceDamageService){
+        Assert.assertNotNull(providerDtoSaved);
+        Assert.assertNotNull(pointofsaleDtoSaved);
+        Assert.assertNotNull(userbmDtoSaved);
+        Assert.assertNotNull(supplyInvoiceDamageService);
+
+        SupplyInvoiceDamageDto supplyInvoiceDamDtoToSaved = SupplyInvoiceDamageDto.builder()
+                .sidamTotalDamToChange(BigDecimal.valueOf(10))
+                .sidamTotalDamChange(BigDecimal.valueOf(9))
+                .sidamPicture("cxxcx"+num)
+                .sidamCode(null)
+                .sidamComment("Commentaire sur la facture remis par le founisseur")
+                .sidamTotalcolis(BigDecimal.valueOf(9))
+                .sidamInvoicingDate(new Date().toInstant())
+                .sidamDeliveryDate(new Date().toInstant())
+                .sidamPosDto(pointofsaleDtoSaved)
+                .sidamUserbmDto(userbmDtoSaved)
+                .sidamProviderDto(providerDtoSaved)
+                .build();
+
+        SupplyInvoiceDamageDto supplyInvoiceDamDtoSaved = supplyInvoiceDamageService.
+                saveSupplyInvoiceDamage(supplyInvoiceDamDtoToSaved);
+        return supplyInvoiceDamDtoSaved;
+    }
+
+    public CashArrivalDto saveCashArrival(int num, ArticleDto articleDtoSaved, SupplyInvoiceCashDto sicashDtoSaved,
+                                          CashArrivalService cashArrivalService){
+
+        //Assert.assertNotNull(sicashDtoSaved);
+        Assert.assertNotNull(articleDtoSaved);
+        Assert.assertNotNull(cashArrivalService);
+
+        CashArrivalDto cashArrivalDtoToSave = CashArrivalDto.builder()
+                .cashaUnitprice(BigDecimal.valueOf(6000))
+                .cashaArrivaltype(CashArrivalType.Divers)
+                .cashaDeliveryquantity(BigDecimal.valueOf(15))
+                .cashaArrivalEntryDate(new Date().toInstant())
+                .cashaArtDto(articleDtoSaved)
+                .cashaSicashDto(sicashDtoSaved)
+                .build();
+
+        CashArrivalDto cashArrivalDtoSaved = cashArrivalService.saveCashArrival(cashArrivalDtoToSave);
+        return cashArrivalDtoSaved;
+    }
+
+    public CashArrivalDto saveCashArrival_NullSicash(int num, ArticleDto articleDtoSaved, SupplyInvoiceCashDto sicashDtoSaved,
+                                          CashArrivalService cashArrivalService){
+
+        //Assert.assertNotNull(sicashDtoSaved);
+        Assert.assertNotNull(articleDtoSaved);
+        Assert.assertNotNull(cashArrivalService);
+
+        CashArrivalDto cashArrivalDtoToSave = CashArrivalDto.builder()
+                .cashaUnitprice(BigDecimal.valueOf(6000))
+                .cashaArrivaltype(CashArrivalType.Divers)
+                .cashaDeliveryquantity(BigDecimal.valueOf(15))
+                .cashaArrivalEntryDate(new Date().toInstant())
+                .cashaArtDto(articleDtoSaved)
+                .cashaSicashDto(null)
+                .build();
+
+        CashArrivalDto cashArrivalDtoSaved = cashArrivalService.saveCashArrival(cashArrivalDtoToSave);
+        return cashArrivalDtoSaved;
+    }
+
+    public CashArrivalDto saveCashArrival_Invalid(int num, ArticleDto articleDtoSaved, SupplyInvoiceCashDto sicashDtoSaved,
+                                          CashArrivalService cashArrivalService){
+
+        //Assert.assertNotNull(sicashDtoSaved);
+        Assert.assertNotNull(articleDtoSaved);
+        Assert.assertNotNull(cashArrivalService);
+
+        CashArrivalDto cashArrivalDtoToSave = CashArrivalDto.builder()
+                .cashaUnitprice(BigDecimal.valueOf(6000))
+                .cashaArrivaltype(null)
+                .cashaDeliveryquantity(BigDecimal.valueOf(15))
+                .cashaArrivalEntryDate(new Date().toInstant())
+                .cashaArtDto(articleDtoSaved)
+                .cashaSicashDto(sicashDtoSaved)
+                .build();
+
+        CashArrivalDto cashArrivalDtoSaved = cashArrivalService.saveCashArrival(cashArrivalDtoToSave);
+        return cashArrivalDtoSaved;
+    }
+
+    public DamageArrivalDto saveDamageArrival(int num, ArticleDto articleDtoSaved, SupplyInvoiceDamageDto sidamDtoSaved,
+                                          DamageArrivalService damageArrivalService){
+
+        //Assert.assertNotNull(sicashDtoSaved);
+        Assert.assertNotNull(articleDtoSaved);
+        Assert.assertNotNull(damageArrivalService);
+
+        DamageArrivalDto damageArrivalDtoToSave = DamageArrivalDto.builder()
+                .damaArtDto(articleDtoSaved)
+                .damaSidamDto(sidamDtoSaved)
+                .damaQuantityartchanged(BigDecimal.valueOf(10))
+                .damaDeliveryquantity(BigDecimal.valueOf(10))
+                .damaArrivalEntryDate(new Date().toInstant())
+                .build();
+
+        DamageArrivalDto damageArrivalDtoSaved = damageArrivalService.saveDamageArrival(damageArrivalDtoToSave);
+        return damageArrivalDtoSaved;
+    }
+
+    public DamageArrivalDto saveDamArrival_NullSidam(int num, ArticleDto articleDtoSaved, SupplyInvoiceDamageDto sidamDtoSaved,
+                                                     DamageArrivalService damageArrivalService){
+
+        //Assert.assertNotNull(sicashDtoSaved);
+        Assert.assertNotNull(articleDtoSaved);
+        Assert.assertNotNull(damageArrivalService);
+
+        DamageArrivalDto damageArrivalDtoToSave = DamageArrivalDto.builder()
+                .damaArtDto(articleDtoSaved)
+                .damaSidamDto(null)
+                .damaQuantityartchanged(BigDecimal.valueOf(10))
+                .damaDeliveryquantity(BigDecimal.valueOf(10))
+                .damaArrivalEntryDate(new Date().toInstant())
+                .build();
+
+        DamageArrivalDto damageArrivalDtoSaved = damageArrivalService.saveDamageArrival(damageArrivalDtoToSave);
+        return damageArrivalDtoSaved;
+    }
+
+    public DamageArrivalDto saveDamageArrival_Invalid(int num, ArticleDto articleDtoSaved, SupplyInvoiceDamageDto sidamDtoSaved,
+                                                  DamageArrivalService damageArrivalService){
+
+        //Assert.assertNotNull(sicashDtoSaved);
+        Assert.assertNotNull(articleDtoSaved);
+        Assert.assertNotNull(damageArrivalService);
+
+        DamageArrivalDto damageArrivalDtoToSave = DamageArrivalDto.builder()
+                .damaArtDto(articleDtoSaved)
+                .damaSidamDto(null)
+                .damaQuantityartchanged(null)
+                .damaDeliveryquantity(BigDecimal.valueOf(10))
+                .damaArrivalEntryDate(new Date().toInstant())
+                .build();
+
+        DamageArrivalDto damageArrivalDtoSaved = damageArrivalService.saveDamageArrival(damageArrivalDtoToSave);
+        return damageArrivalDtoSaved;
+    }
+
+    public CapsuleArrivalDto saveCapsuleArrival(int num, ArticleDto articleDtoSaved, SupplyInvoiceCapsuleDto sicapsDtoSaved,
+                                              CapsuleArrivalService capsuleArrivalService){
+
+        //Assert.assertNotNull(sicashDtoSaved);
+        Assert.assertNotNull(articleDtoSaved);
+        Assert.assertNotNull(capsuleArrivalService);
+
+        CapsuleArrivalDto capsuleArrivalDtoToSave = CapsuleArrivalDto.builder()
+                .capsaArtDto(articleDtoSaved)
+                .capsaSicapsDto(sicapsDtoSaved)
+                .capsaDeliveryquantity(BigDecimal.valueOf(10))
+                .capsaQuantitycapschanged(BigDecimal.valueOf(10))
+                .capsaArrivalEntryDate(new Date().toInstant())
+                .build();
+
+        CapsuleArrivalDto capsuleArrivalDtoSaved = capsuleArrivalService.saveCapsuleArrival(capsuleArrivalDtoToSave);
+        return capsuleArrivalDtoSaved;
+    }
+
+    public CapsuleArrivalDto saveCapsArrival_NullSiCaps(int num, ArticleDto articleDtoSaved, SupplyInvoiceCapsuleDto sicapsDtoSaved,
+                                                     CapsuleArrivalService capsuleArrivalService){
+
+        //Assert.assertNotNull(sicashDtoSaved);
+        Assert.assertNotNull(articleDtoSaved);
+        Assert.assertNotNull(capsuleArrivalService);
+
+        CapsuleArrivalDto capsuleArrivalDtoToSave = CapsuleArrivalDto.builder()
+                .capsaArtDto(articleDtoSaved)
+                .capsaSicapsDto(null)
+                .capsaDeliveryquantity(BigDecimal.valueOf(10))
+                .capsaQuantitycapschanged(BigDecimal.valueOf(10))
+                .capsaArrivalEntryDate(new Date().toInstant())
+                .build();
+
+        CapsuleArrivalDto capsuleArrivalDtoSaved = capsuleArrivalService.saveCapsuleArrival(capsuleArrivalDtoToSave);
+        return capsuleArrivalDtoSaved;
+    }
+
+    public CapsuleArrivalDto saveCapsuleArrival_Invalid(int num, ArticleDto articleDtoSaved, SupplyInvoiceCapsuleDto siCapsDtoSaved,
+                                                      CapsuleArrivalService capsuleArrivalService){
+
+        //Assert.assertNotNull(sicashDtoSaved);
+        Assert.assertNotNull(articleDtoSaved);
+        Assert.assertNotNull(capsuleArrivalService);
+
+        CapsuleArrivalDto capsuleArrivalDtoToSave = CapsuleArrivalDto.builder()
+                .capsaArtDto(null)
+                .capsaSicapsDto(null)
+                .capsaDeliveryquantity(BigDecimal.valueOf(10))
+                .capsaQuantitycapschanged(BigDecimal.valueOf(10))
+                .capsaArrivalEntryDate(new Date().toInstant())
+                .build();
+
+        CapsuleArrivalDto capsuleArrivalDtoSaved = capsuleArrivalService.saveCapsuleArrival(capsuleArrivalDtoToSave);
+        return capsuleArrivalDtoSaved;
+    }
+
+    public InventoryDto saveInventory(int num, PointofsaleDto pointofsaleDtoSaved, InventoryService inventoryService){
+
+        Assert.assertNotNull(inventoryService);
+        Assert.assertNotNull(pointofsaleDtoSaved);
+
+        InventoryDto inventoryDtoToSave = InventoryDto.builder()
+                .invCode("invCode"+num)
+                .invComment("invComment"+num)
+                .invDate(new Date().toInstant())
+                .invPosDto(pointofsaleDtoSaved)
+                .build();
+
+        InventoryDto inventoryDtoSaved = inventoryService.saveInventory(inventoryDtoToSave);
+        return inventoryDtoSaved;
+    }
+
+    public InventoryDto saveInventory_Invalid(int num, PointofsaleDto pointofsaleDtoSaved, InventoryService inventoryService){
+
+        Assert.assertNotNull(inventoryService);
+        Assert.assertNotNull(pointofsaleDtoSaved);
+
+        InventoryDto inventoryDtoToSave = InventoryDto.builder()
+                .invCode(null)
+                .invComment("invComment"+num)
+                .invDate(new Date().toInstant())
+                .invPosDto(pointofsaleDtoSaved)
+                .build();
+
+        InventoryDto inventoryDtoSaved = inventoryService.saveInventory(inventoryDtoToSave);
+        return inventoryDtoSaved;
+    }
+
+    public InventoryLineDto saveInventoryLine(int num, PointofsaleDto pointofsaleDtoSaved, ArticleDto articleDtoSaved,
+                                              InventoryDto inventoryDtoSaved, InventoryLineService inventoryLineService){
+
+        Assert.assertNotNull(inventoryLineService);
+        Assert.assertNotNull(pointofsaleDtoSaved);
+        Assert.assertNotNull(inventoryDtoSaved);
+
+        InventoryLineDto inventoryLineDtoToSave = InventoryLineDto.builder()
+                .invlineComment("invlineComment"+num)
+                .invlineRealqteinstock(BigDecimal.valueOf(15))
+                .invlineLogicqteinstock(BigDecimal.valueOf(16))
+                .invlineInvDto(inventoryDtoSaved)
+                .invlineArtDto(articleDtoSaved)
+                .build();
+
+        InventoryLineDto inventorylineDtoSaved = inventoryLineService.saveInventoryLine(inventoryLineDtoToSave);
+        return inventorylineDtoSaved;
+    }
+
+    public InventoryLineDto saveInventoryLine_Invalid(int num, PointofsaleDto pointofsaleDtoSaved, ArticleDto articleDtoSaved,
+                                              InventoryDto inventoryDtoSaved, InventoryLineService inventoryLineService){
+
+        Assert.assertNotNull(inventoryLineService);
+        Assert.assertNotNull(pointofsaleDtoSaved);
+        Assert.assertNotNull(inventoryDtoSaved);
+
+        InventoryLineDto inventoryLineDtoToSave = InventoryLineDto.builder()
+                .invlineComment("invlineComment"+num)
+                .invlineRealqteinstock(BigDecimal.valueOf(15))
+                .invlineLogicqteinstock(BigDecimal.valueOf(16))
+                .invlineInvDto(null)
+                .invlineArtDto(articleDtoSaved)
+                .build();
+
+        InventoryLineDto inventorylineDtoSaved = inventoryLineService.saveInventoryLine(inventoryLineDtoToSave);
+        return inventorylineDtoSaved;
+    }
+
+
+    public SaleInvoiceCashDto saveSaleInvoiceCashDto(int num, UserBMDto userBMDtoSaved, PointofsaleDto pointofsaleDtoSaved,
+                                                     ClientDto clientDtoSaved, SaleInvoiceCashServiceImpl saleInvoiceCashService){
+
+        Assert.assertNotNull(saleInvoiceCashService);
+        Assert.assertNotNull(pointofsaleDtoSaved);
+        Assert.assertNotNull(userBMDtoSaved);
+        Assert.assertNotNull(clientDtoSaved);
+
+        SaleInvoiceCashDto saleInvoiceCashDtoToUpdate = SaleInvoiceCashDto.builder()
+                .saleicashCurrentAmountexpected(BigDecimal.valueOf(74000))
+                .saleicashAmountexpected(BigDecimal.valueOf(74000))
+                .saleicashAmountpaid(BigDecimal.valueOf(74000))
+                .saleicashAmountreimbourse(BigDecimal.valueOf(0))
+                .saleicashTotalcolis(BigDecimal.valueOf(50))
+                .saleicashDeliveryDate(new Date().toInstant())
+                .saleicashInvoicingDate(new Date().toInstant())
+                .saleicashCode("salecashCode"+num)
+                .saleicashUserbmDto(userBMDtoSaved)
+                .saleicashPosDto(pointofsaleDtoSaved)
+                .saleicashClientDto(clientDtoSaved)
+                .saleicashSourceofcash(CashSourceType.CASH)
+                .build();
+
+        SaleInvoiceCashDto saleInvoiceCashDtoUpdated = saleInvoiceCashService.saveSaleInvoiceCash(saleInvoiceCashDtoToUpdate);
+        return saleInvoiceCashDtoUpdated;
+    }
+
+    public SaleInvoiceCashDto saveSaleInvoiceCashDto_Invalid(int num, UserBMDto userBMDtoSaved, PointofsaleDto pointofsaleDtoSaved,
+                                                     ClientDto clientDtoSaved, SaleInvoiceCashServiceImpl saleInvoiceCashService){
+
+        Assert.assertNotNull(saleInvoiceCashService);
+        Assert.assertNotNull(pointofsaleDtoSaved);
+        Assert.assertNotNull(userBMDtoSaved);
+        Assert.assertNotNull(clientDtoSaved);
+
+        SaleInvoiceCashDto saleInvoiceCashDtoToUpdate = SaleInvoiceCashDto.builder()
+                .saleicashCurrentAmountexpected(BigDecimal.valueOf(74000))
+                .saleicashAmountexpected(BigDecimal.valueOf(74000))
+                .saleicashAmountpaid(BigDecimal.valueOf(74000))
+                .saleicashAmountreimbourse(BigDecimal.valueOf(0))
+                .saleicashTotalcolis(BigDecimal.valueOf(50))
+                .saleicashDeliveryDate(new Date().toInstant())
+                .saleicashInvoicingDate(new Date().toInstant())
+                .saleicashCode(null)
+                .saleicashUserbmDto(userBMDtoSaved)
+                .saleicashPosDto(pointofsaleDtoSaved)
+                .saleicashClientDto(clientDtoSaved)
+                .saleicashSourceofcash(CashSourceType.CASH)
+                .build();
+
+        SaleInvoiceCashDto saleInvoiceCashDtoUpdated = saleInvoiceCashService.saveSaleInvoiceCash(saleInvoiceCashDtoToUpdate);
+        return saleInvoiceCashDtoUpdated;
+    }
+
+    public SaleInvoiceCapsuleDto saveSaleInvoiceCapsuleDto(int num, UserBMDto userBMDtoSaved, PointofsaleDto pointofsaleDtoSaved,
+                                                           ClientDto clientDtoSaved, SaleInvoiceCapsuleServiceImpl saleInvoiceCapsuleService){
+
+        Assert.assertNotNull(saleInvoiceCapsuleService);
+        Assert.assertNotNull(pointofsaleDtoSaved);
+        Assert.assertNotNull(userBMDtoSaved);
+        Assert.assertNotNull(clientDtoSaved);
+
+        SaleInvoiceCapsuleDto saleInvoiceCapsuleDtoToUpdate = SaleInvoiceCapsuleDto.builder()
+                .saleicapsNumbertochange(BigDecimal.valueOf(5))
+                .saleicapsNumberchanged(BigDecimal.valueOf(5))
+                .saleicapsTotalcolis(BigDecimal.valueOf(5))
+                .saleicapsDeliveryDate(new Date().toInstant())
+                .saleicapsInvoicingDate(new Date().toInstant())
+                .saleicapsCode("salecashCode"+num)
+                .saleicapsUserbmDto(userBMDtoSaved)
+                .saleicapsPosDto(pointofsaleDtoSaved)
+                .saleicapsClientDto(clientDtoSaved)
+                .build();
+
+        SaleInvoiceCapsuleDto saleInvoiceCapsuleDtoUpdated = saleInvoiceCapsuleService.saveSaleInvoiceCapsule(saleInvoiceCapsuleDtoToUpdate);
+        return saleInvoiceCapsuleDtoUpdated;
+    }
+
+
+    public SaleInvoiceCapsuleDto saveSaleInvoiceCapsuleDto_Invalid(int num, UserBMDto userBMDtoSaved, PointofsaleDto pointofsaleDtoSaved,
+                                                           ClientDto clientDtoSaved, SaleInvoiceCapsuleServiceImpl saleInvoiceCapsuleService){
+
+        Assert.assertNotNull(saleInvoiceCapsuleService);
+        Assert.assertNotNull(pointofsaleDtoSaved);
+        Assert.assertNotNull(userBMDtoSaved);
+        Assert.assertNotNull(clientDtoSaved);
+
+        SaleInvoiceCapsuleDto saleInvoiceCapsuleDtoToUpdate = SaleInvoiceCapsuleDto.builder()
+                .saleicapsNumbertochange(BigDecimal.valueOf(5))
+                .saleicapsNumberchanged(BigDecimal.valueOf(5))
+                .saleicapsTotalcolis(BigDecimal.valueOf(5))
+                .saleicapsDeliveryDate(new Date().toInstant())
+                .saleicapsInvoicingDate(new Date().toInstant())
+                .saleicapsCode(null)
+                .saleicapsUserbmDto(userBMDtoSaved)
+                .saleicapsPosDto(pointofsaleDtoSaved)
+                .saleicapsClientDto(clientDtoSaved)
+                .build();
+
+        SaleInvoiceCapsuleDto saleInvoiceCapsuleDtoUpdated = saleInvoiceCapsuleService.saveSaleInvoiceCapsule(saleInvoiceCapsuleDtoToUpdate);
+        return saleInvoiceCapsuleDtoUpdated;
+    }
+
+
+    public SaleInvoiceDamageDto saveSaleInvoiceDamageDto(int num, UserBMDto userBMDtoSaved, PointofsaleDto pointofsaleDtoSaved,
+                                                         ClientDto clientDtoSaved, SaleInvoiceDamageServiceImpl saleInvoiceDamageService){
+
+        Assert.assertNotNull(saleInvoiceDamageService);
+        Assert.assertNotNull(pointofsaleDtoSaved);
+        Assert.assertNotNull(userBMDtoSaved);
+        Assert.assertNotNull(clientDtoSaved);
+
+        SaleInvoiceDamageDto saleInvoiceDamageDtoToUpdate = SaleInvoiceDamageDto.builder()
+                .saleidamNumbertochange(BigDecimal.valueOf(5))
+                .saleidamNumberchanged(BigDecimal.valueOf(5))
+                .saleidamTotalcolis(BigDecimal.valueOf(5))
+                .saleidamDeliveryDate(new Date().toInstant())
+                .saleidamInvoicingDate(new Date().toInstant())
+                .saleidamCode("saledamCode"+num)
+                .saleidamUserbmDto(userBMDtoSaved)
+                .saleidamPosDto(pointofsaleDtoSaved)
+                .saleidamClientDto(clientDtoSaved)
+                .build();
+
+        SaleInvoiceDamageDto saleInvoiceDamageDtoUpdated = saleInvoiceDamageService.saveSaleInvoiceDamage(saleInvoiceDamageDtoToUpdate);
+        return saleInvoiceDamageDtoUpdated;
+    }
+
+    public SaleInvoiceDamageDto saveSaleInvoiceDamageDto_Invalid(int num, UserBMDto userBMDtoSaved, PointofsaleDto pointofsaleDtoSaved,
+                                                         ClientDto clientDtoSaved, SaleInvoiceDamageServiceImpl saleInvoiceDamageService){
+
+        Assert.assertNotNull(saleInvoiceDamageService);
+        Assert.assertNotNull(pointofsaleDtoSaved);
+        Assert.assertNotNull(userBMDtoSaved);
+        Assert.assertNotNull(clientDtoSaved);
+
+        SaleInvoiceDamageDto saleInvoiceDamageDtoToUpdate = SaleInvoiceDamageDto.builder()
+                .saleidamNumbertochange(BigDecimal.valueOf(5))
+                .saleidamNumberchanged(BigDecimal.valueOf(5))
+                .saleidamTotalcolis(BigDecimal.valueOf(5))
+                .saleidamDeliveryDate(new Date().toInstant())
+                .saleidamInvoicingDate(new Date().toInstant())
+                .saleidamCode(null)
+                .saleidamUserbmDto(userBMDtoSaved)
+                .saleidamPosDto(pointofsaleDtoSaved)
+                .saleidamClientDto(clientDtoSaved)
+                .build();
+
+        SaleInvoiceDamageDto saleInvoiceDamageDtoUpdated = saleInvoiceDamageService.saveSaleInvoiceDamage(saleInvoiceDamageDtoToUpdate);
+        return saleInvoiceDamageDtoUpdated;
+    }
+
 
 
 }

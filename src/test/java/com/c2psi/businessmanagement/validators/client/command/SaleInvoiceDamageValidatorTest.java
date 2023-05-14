@@ -6,6 +6,7 @@ import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -24,10 +25,10 @@ public class SaleInvoiceDamageValidatorTest {
                 .saleidamInvoicingDate(new Date().toInstant())
                 .saleidamPosDto(PointofsaleDto.builder().build())
                 .saleidamDeliveryDate(new Date().toInstant())
-                .saleidamTotalcolis(Integer.valueOf(10))
-                .saleidamNumbertochange(Integer.valueOf(1))
-                .saleidamNumberchanged(Integer.valueOf(1))
-                .saleidamTotalcolis(Integer.valueOf(1))
+                .saleidamTotalcolis(BigDecimal.valueOf(10))
+                .saleidamNumbertochange(BigDecimal.valueOf(1))
+                .saleidamNumberchanged(BigDecimal.valueOf(1))
+                .saleidamTotalcolis(BigDecimal.valueOf(1))
                 .saleidamUserbmDto(UserBMDto.builder().build())
                 .build();
 
@@ -45,10 +46,10 @@ public class SaleInvoiceDamageValidatorTest {
                 .saleidamInvoicingDate(new Date().toInstant())
                 .saleidamPosDto(PointofsaleDto.builder().build())
                 .saleidamDeliveryDate(new Date().toInstant())
-                .saleidamTotalcolis(Integer.valueOf(10))
-                .saleidamNumbertochange(Integer.valueOf(1))
-                .saleidamNumberchanged(Integer.valueOf(1))
-                .saleidamTotalcolis(Integer.valueOf(1))
+                .saleidamTotalcolis(BigDecimal.valueOf(10))
+                .saleidamNumbertochange(BigDecimal.valueOf(1))
+                .saleidamNumberchanged(BigDecimal.valueOf(1))
+                .saleidamTotalcolis(BigDecimal.valueOf(1))
                 .saleidamUserbmDto(UserBMDto.builder().build())
                 .build();
 
@@ -99,10 +100,10 @@ public class SaleInvoiceDamageValidatorTest {
                 .saleidamInvoicingDate(new Date().toInstant())
                 .saleidamPosDto(PointofsaleDto.builder().build())
                 .saleidamDeliveryDate(new Date().toInstant())
-                .saleidamTotalcolis(Integer.valueOf(10))
-                .saleidamNumbertochange(Integer.valueOf(1))
-                .saleidamNumberchanged(Integer.valueOf(1))
-                .saleidamTotalcolis(Integer.valueOf(1))
+                .saleidamTotalcolis(BigDecimal.valueOf(10))
+                .saleidamNumbertochange(BigDecimal.valueOf(1))
+                .saleidamNumberchanged(BigDecimal.valueOf(1))
+                .saleidamTotalcolis(BigDecimal.valueOf(1))
                 .saleidamUserbmDto(UserBMDto.builder().build())
                 .build();
 
@@ -123,10 +124,10 @@ public class SaleInvoiceDamageValidatorTest {
                 .saleidamInvoicingDate(new Date().toInstant())
                 .saleidamPosDto(PointofsaleDto.builder().build())
                 .saleidamDeliveryDate(new Date().toInstant())
-                .saleidamTotalcolis(Integer.valueOf(10))
-                .saleidamNumbertochange(Integer.valueOf(1))
-                .saleidamNumberchanged(Integer.valueOf(1))
-                .saleidamTotalcolis(Integer.valueOf(1))
+                .saleidamTotalcolis(BigDecimal.valueOf(10))
+                .saleidamNumbertochange(BigDecimal.valueOf(1))
+                .saleidamNumberchanged(BigDecimal.valueOf(1))
+                .saleidamTotalcolis(BigDecimal.valueOf(1))
                 .saleidamUserbmDto(UserBMDto.builder().build())
                 .build();
 
@@ -146,10 +147,10 @@ public class SaleInvoiceDamageValidatorTest {
                 .saleidamInvoicingDate(new Date().toInstant())
                 .saleidamPosDto(PointofsaleDto.builder().build())
                 .saleidamDeliveryDate(new Date().toInstant())
-                .saleidamTotalcolis(Integer.valueOf(10))
-                .saleidamNumbertochange(Integer.valueOf(1))
-                .saleidamNumberchanged(Integer.valueOf(1))
-                .saleidamTotalcolis(Integer.valueOf(1))
+                .saleidamTotalcolis(BigDecimal.valueOf(10))
+                .saleidamNumbertochange(BigDecimal.valueOf(1))
+                .saleidamNumberchanged(BigDecimal.valueOf(1))
+                .saleidamTotalcolis(BigDecimal.valueOf(1))
                 .saleidamUserbmDto(UserBMDto.builder().build())
                 .build();
 
@@ -168,9 +169,9 @@ public class SaleInvoiceDamageValidatorTest {
                 .saleidamInvoicingDate(new Date().toInstant())
                 .saleidamPosDto(PointofsaleDto.builder().build())
                 .saleidamDeliveryDate(new Date().toInstant())
-                .saleidamTotalcolis(Integer.valueOf(0))
-                .saleidamNumbertochange(Integer.valueOf(0))
-                .saleidamNumberchanged(Integer.valueOf(0))
+                .saleidamTotalcolis(BigDecimal.valueOf(0))
+                .saleidamNumbertochange(BigDecimal.valueOf(0))
+                .saleidamNumberchanged(BigDecimal.valueOf(0))
                 .saleidamUserbmDto(UserBMDto.builder().build())
                 .build();
 
@@ -193,9 +194,9 @@ public class SaleInvoiceDamageValidatorTest {
                     .saleidamInvoicingDate(sdf.parse("2023-1-22").toInstant())
                     .saleidamPosDto(PointofsaleDto.builder().build())
                     .saleidamDeliveryDate(sdf.parse("2023-1-21").toInstant())
-                    .saleidamTotalcolis(Integer.valueOf(1))
-                    .saleidamNumbertochange(Integer.valueOf(1))
-                    .saleidamNumberchanged(Integer.valueOf(1))
+                    .saleidamTotalcolis(BigDecimal.valueOf(1))
+                    .saleidamNumbertochange(BigDecimal.valueOf(1))
+                    .saleidamNumberchanged(BigDecimal.valueOf(1))
                     .saleidamUserbmDto(UserBMDto.builder().build())
                     .build();
 

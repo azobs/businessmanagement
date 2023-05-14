@@ -78,6 +78,31 @@ public class UsedForTestForAll {
         return null;
     }
 
+    public UserBMDto saveUserBM(int num, PointofsaleDto posDtoSaved, UserBMService userBMService){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            UserBMDto userBMToSave = UserBMDto.builder()
+                    .bmAddressDto(getAddressDto(num+1))
+                    .bmCni("10723526"+num)
+                    .bmDob(sdf.parse("1942-05-15 00:00:00"))
+                    .bmLogin("login"+num)
+                    .bmName("name"+num)
+                    .bmPassword("password"+num)
+                    .bmRepassword("password"+num)
+                    .bmState(UserBMState.Activated)
+                    .bmUsertype(UserBMType.Employe)
+                    .bmSurname("user"+num)
+                    .bmPosDto(posDtoSaved)
+                    .build();
+            UserBMDto userBMSaved = userBMService.saveUserBM(userBMToSave);
+            return userBMSaved;
+        }
+        catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public EnterpriseDto saveEnterprise(int num, EnterpriseService enterpriseService, UserBMService userBMService){
         UserBMDto userBMSaved = saveUserBM(num, userBMService);
         EnterpriseDto enterpriseDtoToSave = EnterpriseDto.builder()

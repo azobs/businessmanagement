@@ -23,7 +23,7 @@ public class CashArrivalValidatorTest {
                 .cashaSicashDto(null)
                 .cashaArrivaltype(CashArrivalType.Divers)
                 .cashaUnitprice(BigDecimal.valueOf(100))
-                .cashaDeliveryquantity(Integer.valueOf(10))
+                .cashaDeliveryquantity(BigDecimal.valueOf(10))
                 .build();
 
         List<String> errors = CashArrivalValidator.validate(cashArrivalDto);
@@ -39,7 +39,7 @@ public class CashArrivalValidatorTest {
                 .cashaSicashDto(null)
                 .cashaArrivaltype(CashArrivalType.Divers)
                 .cashaUnitprice(BigDecimal.valueOf(100))
-                .cashaDeliveryquantity(Integer.valueOf(10))
+                .cashaDeliveryquantity(BigDecimal.valueOf(10))
                 .build();
 
         List<String> errors = CashArrivalValidator.validate(null);
@@ -76,7 +76,7 @@ public class CashArrivalValidatorTest {
                 .cashaSicashDto(null)
                 .cashaArrivaltype(CashArrivalType.Divers)
                 .cashaUnitprice(BigDecimal.valueOf(0))
-                .cashaDeliveryquantity(Integer.valueOf(0))
+                .cashaDeliveryquantity(BigDecimal.valueOf(0))
                 .build();
 
         List<String> errors = CashArrivalValidator.validate(cashArrivalDto);
@@ -94,7 +94,7 @@ public class CashArrivalValidatorTest {
                 .cashaSicashDto(null)
                 .cashaArrivaltype(CashArrivalType.Standard)
                 .cashaUnitprice(BigDecimal.valueOf(10))
-                .cashaDeliveryquantity(Integer.valueOf(10))
+                .cashaDeliveryquantity(BigDecimal.valueOf(10))
                 .build();
 
         List<String> errors = CashArrivalValidator.validate(cashArrivalDto);
@@ -111,7 +111,7 @@ public class CashArrivalValidatorTest {
                 .cashaSicashDto(SupplyInvoiceCashDto.builder().build())
                 .cashaArrivaltype(CashArrivalType.Standard)
                 .cashaUnitprice(BigDecimal.valueOf(10))
-                .cashaDeliveryquantity(Integer.valueOf(10))
+                .cashaDeliveryquantity(BigDecimal.valueOf(10))
                 .build();
 
         List<String> errors = CashArrivalValidator.validate(cashArrivalDto);

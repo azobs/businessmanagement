@@ -4,6 +4,7 @@ import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
 import com.c2psi.businessmanagement.dtos.stock.product.CapsuleArrivalDto;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -17,8 +18,8 @@ public class CapsuleArrivalValidatorTest {
         CapsuleArrivalDto capsuleArrivalDto = CapsuleArrivalDto.builder()
                 .capsaArtDto(ArticleDto.builder().build())
                 .capsaSicapsDto(null)
-                .capsaDeliveryquantity(Integer.valueOf(100))
-                .capsaQuantitycapschanged(Integer.valueOf(100))
+                .capsaDeliveryquantity(BigDecimal.valueOf(100))
+                .capsaQuantitycapschanged(BigDecimal.valueOf(100))
                 .build();
 
         List<String> errors = CapsuleArrivalValidator.validate(capsuleArrivalDto);
@@ -32,8 +33,8 @@ public class CapsuleArrivalValidatorTest {
         CapsuleArrivalDto capsuleArrivalDto = CapsuleArrivalDto.builder()
                 .capsaArtDto(ArticleDto.builder().build())
                 .capsaSicapsDto(null)
-                .capsaDeliveryquantity(Integer.valueOf(100))
-                .capsaQuantitycapschanged(Integer.valueOf(100))
+                .capsaDeliveryquantity(BigDecimal.valueOf(100))
+                .capsaQuantitycapschanged(BigDecimal.valueOf(100))
                 .build();
 
         List<String> errors = CapsuleArrivalValidator.validate(null);
@@ -66,8 +67,8 @@ public class CapsuleArrivalValidatorTest {
         CapsuleArrivalDto capsuleArrivalDto = CapsuleArrivalDto.builder()
                 .capsaArtDto(ArticleDto.builder().build())
                 .capsaSicapsDto(null)
-                .capsaDeliveryquantity(Integer.valueOf(-100))
-                .capsaQuantitycapschanged(Integer.valueOf(-100))
+                .capsaDeliveryquantity(BigDecimal.valueOf(-100))
+                .capsaQuantitycapschanged(BigDecimal.valueOf(-100))
                 .build();
 
         List<String> errors = CapsuleArrivalValidator.validate(capsuleArrivalDto);

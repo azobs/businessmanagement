@@ -11,6 +11,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.Instant;
 import java.util.List;
 
@@ -28,16 +30,16 @@ public class SupplyInvoiceCapsule extends AbstractEntity {
     String sicapsCode;
     String sicapsComment;
     String sicapsPicture;
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(nullable = false)
     Instant sicapsDeliveryDate;
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(nullable = false)
     Instant sicapsInvoicingDate;
 
-    Integer sicapsTotalcolis;
-    Integer sicapsTotalCapsToChange;
-    Integer sicapsTotalCapsChange;
+    BigDecimal sicapsTotalcolis;
+    BigDecimal sicapsTotalCapsToChange;
+    BigDecimal sicapsTotalCapsChange;
     /******************************
      * Relation between entities  *
      * ****************************/

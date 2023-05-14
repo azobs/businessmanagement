@@ -1,6 +1,5 @@
 package com.c2psi.businessmanagement.services.contractsImpl.stock.product;
 
-
 import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
 import com.c2psi.businessmanagement.exceptions.*;
 import com.c2psi.businessmanagement.models.*;
@@ -763,5 +762,61 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public ArticleDto reduceDamageArticle(Long artId, BigDecimal qteToReduce) {
         return null;
+    }
+
+    @Override
+    public BigDecimal getCommonEffectivePriceToApplied(BigDecimal qteCommand, Long articleId) {
+        /**************************************************
+         * Verifier que les parametres ne sont pas null
+         */
+        if(qteCommand == null || articleId == null){
+            log.error("The articleId or the qteCommand is null");
+            throw new NullArgumentException("Un des arguments de la methodes est null");
+        }
+
+        /*******************************************************
+         * On doit se rassurer que la qteCommand est positive
+         */
+        if(qteCommand.compareTo(BigDecimal.valueOf(0))<=0){
+            log.error("The quantity commanded for an article can't be negative or null");
+            throw new InvalidValueException("La quantite commande pour un article ne peut etre negative ou null");
+        }
+
+        /*************************************************************
+         * On va recuperer l'article dont le prix sera calcule
+         */
+        Optional<Article> optionalArticle = articleRepository.findArticleById(articleId);
+        if(!optionalArticle.isPresent()){
+            log.error("There is no article identified with the id {} passed as argument", articleId);
+            throw new EntityNotFoundException("Aucun article n'est identifie en BD avec l'id passe en argument ",
+                    ErrorCode.ARTICLE_NOT_FOUND);
+        }
+        //On a l'article
+        Article article = optionalArticle.get();
+
+        /******************************
+         * A partir de l'article on va recuperer le prixdebase
+         */
+        BasePrice basePriceofArticle = article.getArtBp();
+
+        /****************************************************
+         * si qtecommand < artLowLimitSemiWholesale alors on retourne le prix de detail
+         * si qtecommand > artLowLimitSemiWholesale et < artLowLimitWholesale alors on retourne le prix de semi gros
+         * si qtecommand >= artLowLimitWholesale alors on retourne le prix de gros
+         ***********************************************************/
+        //Si la quantite est superieur ou egale a la quantite a partir duquel on vend en gros
+        if(qteCommand.compareTo(article.getArtLowLimitWholesale())>=0){
+            return basePriceofArticle.getBpWholesaleprice();
+        }
+
+        //Ici on est sur que la quantite est inferieur a celle de la vente en gros.
+        //On verifie donc si elle atteint ou est superieur a celle de la vente en semi gros
+        if(qteCommand.compareTo(article.getArtLowLimitSemiWholesale())>=0){
+            return basePriceofArticle.getBpSemiwholesaleprice();
+        }
+        /*
+        Ici on est sur que cette quantite est inferieur a celle de la vente en semi gros donc on retourne le prix de detail
+         */
+        return basePriceofArticle.getBpDetailprice();
     }
 }
