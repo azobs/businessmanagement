@@ -153,6 +153,14 @@ public class PointofsaleServiceImpl implements PointofsaleService {
         /**************************************************************************
          * Il faut se rassurer de l'unicite du pointofsale dans l'entreprise
          */
+        if(posDto.getPosAddressDto().getEmail() != null) {
+            if (!this.isPosUnique(posDto.getPosAddressDto().getEmail())) {
+                //Si c'est true alors le pointofsale sera unique donc le non signifie que ca ne va pas etre unique
+                throw new DuplicateEntityException("Un Pointofsale existe deja  avec  le meme email :",
+                        ErrorCode.POINTOFSALE_DUPLICATED);
+            }
+        }
+
         //IL faut verifier que le pointofsale sera unique dans l'entreprise
         if(!this.isPosUnique(posDto.getPosName(), posDto.getPosAddressDto().getEmail(), posDto.getPosEnterpriseDto())){
             //Si c'est true alors le pointofsale sera unique donc le non signifie que ca ne va pas etre unique
@@ -172,9 +180,9 @@ public class PointofsaleServiceImpl implements PointofsaleService {
     @Override
     public PointofsaleDto updatePointofsale(PointofsaleDto posDto) {
         List<String> errors = PointofsaleValidator.validate(posDto);
-        if(!errors.isEmpty()){
+        if (!errors.isEmpty()) {
             log.error("Entity Pointofsale not valid {}", posDto);
-            throw new InvalidEntityException("Le pointofsale passe en argument n'est pas valide:  "+errors,
+            throw new InvalidEntityException("Le pointofsale passe en argument n'est pas valide:  " + errors,
                     ErrorCode.POINTOFSALE_NOT_VALID, errors);
         }
         /***
@@ -183,7 +191,7 @@ public class PointofsaleServiceImpl implements PointofsaleService {
          * Les parametres sur lesquelles il faut faire attention sont:
          * posName, email
          */
-        if(!this.isPointofsaleExistWithId(posDto.getId())){
+        if (!this.isPointofsaleExistWithId(posDto.getId())) {
             throw new EntityNotFoundException("Le pointofsale a update n'existe pas dans la BD",
                     ErrorCode.POINTOFSALE_NOT_VALID, errors);
         }
@@ -192,7 +200,7 @@ public class PointofsaleServiceImpl implements PointofsaleService {
 
         posToUpdate.setPosAcronym(posDto.getPosAcronym());
         posToUpdate.setPosDescription(posToUpdate.getPosDescription());
-        if(posDto.getPosAddressDto() != null){
+        if (posDto.getPosAddressDto() != null) {
             posToUpdate.getPosAddress().setLocalisation(posDto.getPosAddressDto().getLocalisation());
             posToUpdate.getPosAddress().setPays(posDto.getPosAddressDto().getPays());
             posToUpdate.getPosAddress().setVille(posDto.getPosAddressDto().getVille());
@@ -201,18 +209,18 @@ public class PointofsaleServiceImpl implements PointofsaleService {
             posToUpdate.getPosAddress().setNumtel2(posDto.getPosAddressDto().getNumtel2());
             posToUpdate.getPosAddress().setNumtel1(posDto.getPosAddressDto().getNumtel1());
         }
-
-        if(!posToUpdate.getPosAddress().getEmail().equalsIgnoreCase(posDto.getPosAddressDto().getEmail())){
-            /**
-             * Si les adresse email ne sont pas les meme alors on souhaite modifier les adresses email
-             * Il faut donc verifier l'unicite de l'adresse email en BD
-             */
-            if(!this.isPointofsaleExistWithEmail(posDto.getPosAddressDto().getEmail())){
-                posToUpdate.getPosAddress().setEmail(posDto.getPosAddressDto().getEmail());
-            }
-            else{
-                throw new DuplicateEntityException("Un pointofsale existe en BD avec cet email",
-                        ErrorCode.POINTOFSALE_DUPLICATED);
+        if(posToUpdate.getPosAddress().getEmail() != null && posDto.getPosAddressDto().getEmail() != null){
+            if (!posToUpdate.getPosAddress().getEmail().equalsIgnoreCase(posDto.getPosAddressDto().getEmail())) {
+                /**
+                 * Si les adresse email ne sont pas les meme alors on souhaite modifier les adresses email
+                 * Il faut donc verifier l'unicite de l'adresse email en BD
+                 */
+                if (!this.isPointofsaleExistWithEmail(posDto.getPosAddressDto().getEmail())) {
+                    posToUpdate.getPosAddress().setEmail(posDto.getPosAddressDto().getEmail());
+                } else {
+                    throw new DuplicateEntityException("Un pointofsale existe en BD avec cet email",
+                            ErrorCode.POINTOFSALE_DUPLICATED);
+                }
             }
         }
 
@@ -334,6 +342,18 @@ public class PointofsaleServiceImpl implements PointofsaleService {
         Optional<Pointofsale> optionalPointofsale1 = posRepository.findPointofsaleByPosEmail(posEmail);
 
         return optionalPointofsale.isEmpty() && optionalPointofsale1.isEmpty();
+    }
+
+    @Override
+    public Boolean isPosUnique(String posEmail) {
+        if(!StringUtils.hasLength(posEmail)){
+            log.error("Le pointofsale posEmail is null");
+            throw new NullArgumentException("le posEmail passe en argument de la methode est null");
+        }
+
+        Optional<Pointofsale> optionalPointofsale1 = posRepository.findPointofsaleByPosEmail(posEmail);
+
+        return optionalPointofsale1.isEmpty();
     }
 
     @Override

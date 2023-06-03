@@ -34,7 +34,8 @@ public interface EnterpriseService {
 
     EnterpriseDto findEnterpriseByNiu (String entNiu);
 
-    Boolean isEnterpriseUnique(String entName, String entNiu, String entEmail);
+    Boolean isEnterpriseUnique(String entName, String entNiu);
+    Boolean isEnterpriseUnique(String entEmail);
 
     EnterpriseDto findEnterpriseById (Long entId);
 

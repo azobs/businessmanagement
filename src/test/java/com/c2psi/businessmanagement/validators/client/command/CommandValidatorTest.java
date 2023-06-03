@@ -33,7 +33,7 @@ public class CommandValidatorTest {
                 .cmdDate(new Date().toInstant())
                 .cmdDeliveryDto(null)
                 .cmdSaleicashDto(null)
-                .cmdSicapsDto(null)
+                .cmdSaleicapsDto(null)
                 .build();
 
         List<String> errors = CommandValidator.validate(commandDto);
@@ -56,7 +56,7 @@ public class CommandValidatorTest {
                 .cmdDate(new Date().toInstant())
                 .cmdDeliveryDto(null)
                 .cmdSaleicashDto(null)
-                .cmdSicapsDto(null)
+                .cmdSaleicapsDto(null)
                 .build();
 
         List<String> errors = CommandValidator.validate(null);
@@ -80,7 +80,7 @@ public class CommandValidatorTest {
                 .cmdDate(null)
                 .cmdDeliveryDto(null)
                 .cmdSaleicashDto(null)
-                .cmdSicapsDto(null)
+                .cmdSaleicapsDto(null)
                 .build();
 
         List<String> errors = CommandValidator.validate(commandDto);
@@ -105,7 +105,7 @@ public class CommandValidatorTest {
                 .cmdDate(new Date().toInstant())
                 .cmdDeliveryDto(null)
                 .cmdSaleicashDto(null)
-                .cmdSicapsDto(null)
+                .cmdSaleicapsDto(null)
                 .build();
 
         List<String> errors = CommandValidator.validate(commandDto);
@@ -133,7 +133,7 @@ public class CommandValidatorTest {
                 .cmdDate(new Date().toInstant())
                 .cmdDeliveryDto(null)
                 .cmdSaleicashDto(null)
-                .cmdSicapsDto(null)
+                .cmdSaleicapsDto(null)
                 .build();
 
         List<String> errors = CommandValidator.validate(commandDto);
@@ -158,7 +158,7 @@ public class CommandValidatorTest {
                 .cmdDate(new Date().toInstant())
                 .cmdDeliveryDto(null)
                 .cmdSaleicashDto(null)
-                .cmdSicapsDto(null)
+                .cmdSaleicapsDto(null)
                 .build();
 
         List<String> errors = CommandValidator.validate(commandDto);
@@ -183,7 +183,7 @@ public class CommandValidatorTest {
                 .cmdDate(new Date().toInstant())
                 .cmdDeliveryDto(null)
                 .cmdSaleicashDto(null)
-                .cmdSicapsDto(null)
+                .cmdSaleicapsDto(null)
                 .build();
 
         List<String> errors = CommandValidator.validate(commandDto);

@@ -18,9 +18,8 @@ public class BackInValidatorTest {
     public void validate() {
         BackInDto backInDto = BackInDto.builder()
                 .biDate(new Date().toInstant())
-                .biCode("sdsdsd")
-                .biCommand(CommandDto.builder().build())
-                .biUserbm(UserBMDto.builder().build())
+                .biCommandDto(CommandDto.builder().build())
+                .biUserbmDto(UserBMDto.builder().build())
                 .biComment(null)
                 .build();
 
@@ -34,9 +33,8 @@ public class BackInValidatorTest {
     public void validateNull() {
         BackInDto backInDto = BackInDto.builder()
                 .biDate(new Date().toInstant())
-                .biCode("sdsdsd")
-                .biCommand(CommandDto.builder().build())
-                .biUserbm(UserBMDto.builder().build())
+                .biCommandDto(CommandDto.builder().build())
+                .biUserbmDto(UserBMDto.builder().build())
                 .biComment(null)
                 .build();
 
@@ -51,9 +49,8 @@ public class BackInValidatorTest {
     public void validateNullValue() {
         BackInDto backInDto = BackInDto.builder()
                 .biDate(null)
-                .biCode(null)
-                .biCommand(null)
-                .biUserbm(null)
+                .biCommandDto(null)
+                .biUserbmDto(null)
                 .biComment(null)
                 .build();
 
@@ -73,9 +70,8 @@ public class BackInValidatorTest {
     public void validateEmptyValue() {
         BackInDto backInDto = BackInDto.builder()
                 .biDate(new Date().toInstant())
-                .biCode("")
-                .biCommand(CommandDto.builder().build())
-                .biUserbm(UserBMDto.builder().build())
+                .biCommandDto(CommandDto.builder().build())
+                .biUserbmDto(UserBMDto.builder().build())
                 .biComment(null)
                 .build();
 
@@ -92,9 +88,8 @@ public class BackInValidatorTest {
     public void validateBlankValue() {
         BackInDto backInDto = BackInDto.builder()
                 .biDate(new Date().toInstant())
-                .biCode("      ")
-                .biCommand(CommandDto.builder().build())
-                .biUserbm(UserBMDto.builder().build())
+                .biCommandDto(CommandDto.builder().build())
+                .biUserbmDto(UserBMDto.builder().build())
                 .biComment(null)
                 .build();
 
@@ -109,9 +104,8 @@ public class BackInValidatorTest {
     public void validateSizeValueBetween3and20() {
         BackInDto backInDto = BackInDto.builder()
                 .biDate(new Date().toInstant())
-                .biCode("asasasasasasasasasasasasasasasasasasasasasasa")
-                .biCommand(CommandDto.builder().build())
-                .biUserbm(UserBMDto.builder().build())
+                .biCommandDto(CommandDto.builder().build())
+                .biUserbmDto(UserBMDto.builder().build())
                 .biComment(null)
                 .build();
 

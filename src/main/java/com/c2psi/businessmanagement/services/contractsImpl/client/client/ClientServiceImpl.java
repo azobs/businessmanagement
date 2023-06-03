@@ -77,9 +77,16 @@ public class ClientServiceImpl implements ClientService {
         /*********************************************************************************************
          * Il faut se rassurer qu'il n'y aurait pas de duplicata de client dans la base de donnee
          */
+        if(clientDto.getClientAddressDto().getEmail() != null){
+            if(!isClientUniqueWithEmail(clientDto.getClientAddressDto().getEmail())){
+                log.error("The email precised is already used");
+                throw new DuplicateEntityException("L'email precise pour le client est deja utilise ",
+                        ErrorCode.CLIENT_DUPLICATED);
+            }
+        }
 
         if(!isClientUniqueForPos(clientDto.getClientName(), clientDto.getClientOthername(), clientDto.getClientCni(),
-                clientDto.getClientAddressDto().getEmail(), clientDto.getClientPosDto().getId())){
+                clientDto.getClientPosDto().getId())){
 
             log.error("A client already exist in the DB for the same pointofsale with the same name, cni or email");
             throw new DuplicateEntityException("Un client existe deja dans le pointofsale precise avec le " +
@@ -140,18 +147,39 @@ public class ClientServiceImpl implements ClientService {
         /**********************************************************
          * On verifie si c'est l'adresse email quon veut modifier
          */
-        if(!clientDto.getClientAddressDto().getEmail().equalsIgnoreCase(clientToUpdate.getClientAddress().getEmail())){
-            /****
-             * On verifie donc que la nouvelle adresse n'existe pas encore en BD
-             */
-            if(isClientExistWithEmail(clientDto.getClientAddressDto().getEmail())){
-                log.error("The new email precised for the client already used by another entity");
-                throw new DuplicateEntityException("Une autre entite en BD utilise deja cet email ",
-                        ErrorCode.CLIENT_DUPLICATED);
+        if(clientDto.getClientAddressDto().getEmail() != null) {
+            if (!clientDto.getClientAddressDto().getEmail().equalsIgnoreCase(clientToUpdate.getClientAddress().getEmail())) {
+                /****
+                 * On verifie donc que la nouvelle adresse n'existe pas encore en BD
+                 */
+                if (isClientExistWithEmail(clientDto.getClientAddressDto().getEmail())) {
+                    log.error("The new email precised for the client already used by another entity");
+                    throw new DuplicateEntityException("Une autre entite en BD utilise deja cet email ",
+                            ErrorCode.CLIENT_DUPLICATED);
+                }
+                //Tout est bon au niveau de l'adresse donc on peut mettre a jour
+                clientToUpdate.setClientAddress(AddressDto.toEntity(clientDto.getClientAddressDto()));
             }
-            //Tout est bon au niveau de l'adresse donc on peut mettre a jour
-            clientToUpdate.setClientAddress(AddressDto.toEntity(clientDto.getClientAddressDto()));
         }
+        /*
+        Mise a jour des donnes de ladresse
+        String numtel1;
+        String numtel2;
+        String numtel3;
+        String quartier;
+        String pays;
+        String ville;
+        String localisation;
+        String email;
+         */
+        clientToUpdate.getClientAddress().setLocalisation(clientDto.getClientAddressDto().getLocalisation());
+        clientToUpdate.getClientAddress().setNumtel1(clientDto.getClientAddressDto().getNumtel1());
+        clientToUpdate.getClientAddress().setNumtel2(clientDto.getClientAddressDto().getNumtel2());
+        clientToUpdate.getClientAddress().setNumtel3(clientDto.getClientAddressDto().getNumtel3());
+        clientToUpdate.getClientAddress().setQuartier(clientDto.getClientAddressDto().getQuartier());
+        clientToUpdate.getClientAddress().setPays(clientDto.getClientAddressDto().getPays());
+        clientToUpdate.getClientAddress().setVille(clientDto.getClientAddressDto().getVille());
+
 
         /**********************************************************
          * On verifie si c'est le fullname quon veut modifier
@@ -252,11 +280,10 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Boolean isClientUniqueForPos(String clientName, String clientOthername, String clientCni,
-                                        String clientEmail, Long posId) {
+    public Boolean isClientUniqueForPos(String clientName, String clientOthername, String clientCni, Long posId) {
 
         if(!StringUtils.hasLength(clientName) || !StringUtils.hasLength(clientOthername) ||
-                !StringUtils.hasLength(clientCni) || !StringUtils.hasLength(clientEmail)){
+                !StringUtils.hasLength(clientCni)){
             log.error("Client clientName or clientOthername or clientCni or clientEmail is null");
             throw new NullArgumentException("le clientName or clientOthername or clientEmail or clientCni" +
                     " passe en argument de la methode est null");
@@ -269,13 +296,26 @@ public class ClientServiceImpl implements ClientService {
         //On verifie que le clientName et clientOthername seront unique dans la BD
         Optional<Client> optionalClient = clientRepository.findClientByNameAndPos(clientName, clientOthername, posId);
 
-        //on doit aussi verifier que lemail sera unique dans ladresse
-        Optional<Client> optionalClient1 = clientRepository.findClientByClientEmail(clientEmail);
-
         //On doit aussi verifier que le cni sera unique pour le client
         Optional<Client> optionalClient2 = clientRepository.findClientByCniAndPos(clientCni, posId);
 
-        return optionalClient.isEmpty() && optionalClient1.isEmpty() && optionalClient2.isEmpty();
+        return optionalClient.isEmpty() && optionalClient2.isEmpty();
+    }
+
+    @Override
+    public Boolean isClientUniqueWithEmail(String clientEmail) {
+
+        if(!StringUtils.hasLength(clientEmail)){
+            log.error("Client clientName or clientOthername or clientCni or clientEmail is null");
+            throw new NullArgumentException("le clientName or clientOthername or clientEmail or clientCni" +
+                    " passe en argument de la methode est null");
+        }
+
+        //on doit aussi verifier que lemail sera unique dans ladresse
+        Optional<Client> optionalClient1 = clientRepository.findClientByClientEmail(clientEmail);
+
+
+        return optionalClient1.isEmpty();
     }
 
     @Override

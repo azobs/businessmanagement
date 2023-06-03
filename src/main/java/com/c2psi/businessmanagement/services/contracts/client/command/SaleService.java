@@ -1,17 +1,20 @@
 package com.c2psi.businessmanagement.services.contracts.client.command;
 
-import com.c2psi.businessmanagement.dtos.client.command.CommandDto;
 import com.c2psi.businessmanagement.dtos.client.command.SaleDto;
-import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 public interface SaleService {
     SaleDto saveSale(SaleDto saleDto);
+    SaleDto updateSale(SaleDto saleDto);
     SaleDto findSaleById(Long saleId);
+    Boolean isSaleUniqueInCommand(Long cmdId, Long artId);
+    Boolean isSaleDeleteableInCommand(Long saleId);
+    SaleDto findSaleinCommandaboutArticle(Long cmdId, Long artId);
     Boolean deleteSaleById(Long saleId);
-    List<SaleDto> findAllSale(ArticleDto artDto);
-    List<SaleDto> findAllSale(CommandDto cmdDto);
-    SaleDto findSaleInCommand(CommandDto cmdDto, ArticleDto artDto);
-    Boolean isSaleUniqueInCommand(CommandDto cmdDto, ArticleDto artDto);
+    List<SaleDto> findAllSaleofCommand(Long cmdId);
+    Page<SaleDto> findPageSaleofCommand(Long cmdId, int pagenum, int pagesize);
+    List<SaleDto> findAllSaleonArticle(Long artId);
+    Page<SaleDto> findPageSaleonArticle(Long artId, int pagenum, int pagesize);
 }

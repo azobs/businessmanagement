@@ -19,14 +19,14 @@ public class LoadingValidatorTest {
 
     @Test
     public void validate() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             LoadingDto loadingDtoToValidate = LoadingDto.builder()
                     .loadCode("dffdfdfd")
                     .loadComment("dfdfdfd")
                     .loadPosDto(PointofsaleDto.builder().build())
                     .loadSalereport("fdfdfdfdfd")
-                    .loadState(LoadingState.Edited)
+                    //.loadState(LoadingState.Edited)
                     .loadUserbmManagerDto(UserBMDto.builder().build())
                     .loadUserbmSalerDto(UserBMDto.builder().build())
                     .loadDate(sdf.parse("2021-05-15").toInstant())
@@ -47,14 +47,14 @@ public class LoadingValidatorTest {
 
     @Test
     public void validateNull() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             LoadingDto loadingDtoToValidate = LoadingDto.builder()
                     .loadCode("dffdfdfd")
                     .loadComment("dfdfdfd")
                     .loadPosDto(PointofsaleDto.builder().build())
                     .loadSalereport("fdfdfdfdfd")
-                    .loadState(LoadingState.Edited)
+                    //.loadState(LoadingState.Edited)
                     .loadUserbmManagerDto(UserBMDto.builder().build())
                     .loadUserbmSalerDto(UserBMDto.builder().build())
                     .loadDate(sdf.parse("2021-05-15").toInstant())
@@ -75,14 +75,14 @@ public class LoadingValidatorTest {
 
     @Test
     public void validateNullValue() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         //try {
             LoadingDto loadingDtoToValidate = LoadingDto.builder()
                     .loadCode(null)
                     .loadComment("dfdfdfd")
                     .loadPosDto(null)
                     .loadSalereport("fdfdfdfdfd")
-                    .loadState(null)
+                    //.loadState(null)
                     .loadUserbmManagerDto(null)
                     .loadUserbmSalerDto(null)
                     .loadDate(null)
@@ -117,14 +117,14 @@ public class LoadingValidatorTest {
 
     @Test
     public void validateNullPointofsale() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             LoadingDto loadingDtoToValidate = LoadingDto.builder()
                     .loadCode("null")
                     .loadComment("dfdfdfd")
                     .loadPosDto(null)
                     .loadSalereport("fdfdfdfdfd")
-                    .loadState(LoadingState.Edited)
+                    //.loadState(LoadingState.Edited)
                     .loadUserbmManagerDto(UserBMDto.builder().build())
                     .loadUserbmSalerDto(UserBMDto.builder().build())
                     .loadDate(sdf.parse("2021-05-15").toInstant())
@@ -146,14 +146,14 @@ public class LoadingValidatorTest {
 
     @Test
     public void validateNullUserManagerAndSaler() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             LoadingDto loadingDtoToValidate = LoadingDto.builder()
                     .loadCode("null")
                     .loadComment("dfdfdfd")
                     .loadPosDto(PointofsaleDto.builder().build())
                     .loadSalereport("fdfdfdfdfd")
-                    .loadState(LoadingState.Edited)
+                    //.loadState(LoadingState.Edited)
                     .loadUserbmManagerDto(null)
                     .loadUserbmSalerDto(null)
                     .loadDate(sdf.parse("2021-05-15").toInstant())
@@ -177,14 +177,14 @@ public class LoadingValidatorTest {
 
     @Test
     public void validateNullAmountExpected() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             LoadingDto loadingDtoToValidate = LoadingDto.builder()
                     .loadCode("null")
                     .loadComment("dfdfdfd")
                     .loadPosDto(PointofsaleDto.builder().build())
                     .loadSalereport("fdfdfdfdfd")
-                    .loadState(LoadingState.Edited)
+                    //.loadState(LoadingState.Edited)
                     .loadUserbmManagerDto(UserBMDto.builder().build())
                     .loadUserbmSalerDto(UserBMDto.builder().build())
                     .loadDate(sdf.parse("2021-05-15").toInstant())
@@ -206,14 +206,14 @@ public class LoadingValidatorTest {
 
     @Test
     public void validateNegativeAmount() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             LoadingDto loadingDtoToValidate = LoadingDto.builder()
                     .loadCode("null")
                     .loadComment("dfdfdfd")
                     .loadPosDto(PointofsaleDto.builder().build())
                     .loadSalereport("fdfdfdfdfd")
-                    .loadState(LoadingState.Edited)
+                    //.loadState(LoadingState.Edited)
                     .loadUserbmManagerDto(UserBMDto.builder().build())
                     .loadUserbmSalerDto(UserBMDto.builder().build())
                     .loadDate(sdf.parse("2021-05-15").toInstant())

@@ -111,6 +111,12 @@ public class DeliveryServiceImpl implements DeliveryService {
                     ErrorCode.DELIVERY_DUPLICATED);
         }
 
+        /*****************************************************************************
+         * Lorsqu'on cree un delivery il est a l'etat Packup obligatoirement car
+         * pour changer d'etat il faut que des verification soit faite
+         */
+        deliveryDto.setDeliveryState(DeliveryState.PackedUp);
+
         ///////////////////
         log.info("After all verification, the record {} can be saved on the DB", deliveryDto);
         return DeliveryDto.fromEntity(
@@ -198,11 +204,41 @@ public class DeliveryServiceImpl implements DeliveryService {
          * On modifie simplement les autres parametre sauf la date
          */
         deliveryToUpdate.setDeliveryDate(deliveryDto.getDeliveryDate());
-        deliveryToUpdate.setDeliveryState(deliveryDto.getDeliveryState());
+        //deliveryToUpdate.setDeliveryState(deliveryDto.getDeliveryState());
         deliveryToUpdate.setDeliveryComment(deliveryDto.getDeliveryComment());
 
         log.info("After all verification, the record {} can be done on the DB", deliveryDto);
         return DeliveryDto.fromEntity(deliveryRepository.save(deliveryToUpdate));
+    }
+
+    @Override
+    public DeliveryDto switchDeliveryState(Long deliveryId, DeliveryState deliveryState) {
+        /***********************************
+         * PackedUp,
+         *     OutForDelivery,
+         *     Delivery,
+         *     Finish
+         *
+         * TRANSITION POSSIBLE
+         * PackedUp to OutForDelivery: lorsque la livraison est confirme
+         * Packup to Delivery: Pas possible
+         * PackedUp to Finish: Pas possible
+         *
+         * OutofDelivery to Packup: si on veut modifier le delivery
+         * OutForDelivery to Delivery: lorsque la livraison est effectue mais son rapport n'est pas enregistre
+         * OutForDelivery to Finish: Pas possible
+         *
+         * Delivery to Finish lorsque: le rapport de la livraison est saisi pour toutes les commandes qui sont dans le delivery
+         * Delivery to OutOfDelivery lorsque: Pas possible
+         * Delivery to PackedUp lorsque: Pas possible
+         *
+         * Finish to Delivery lorsque: le rapport de livraison veut etre modifier
+         * Finish to OutForDelivery lorsque: Pas possible
+         * Finish to PackedUp lorsque: Pas possible
+         *
+         */
+
+        return null;
     }
 
     @Override

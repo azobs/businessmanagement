@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
@@ -15,7 +16,7 @@ import javax.persistence.*;
 @Table(name="backindetails")
 public class BackInDetails extends AbstractEntity{
 
-    Double bidQuantity;
+    BigDecimal bidQuantity;
     String bidComment;
 
     /******************************

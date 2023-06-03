@@ -43,12 +43,16 @@ public class Pointofsale extends AbstractEntity{
     //Each pointofsale has a list of client
     @OneToMany(mappedBy = "clientPos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Client> clientList;
+    @OneToMany(mappedBy = "diversPos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<Divers> diversList;
     //Each pointofsale has a list of client
     @OneToMany(mappedBy = "providerPos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Provider> providerList;
     //Each pointofsale has ea list of article
     @OneToMany(mappedBy = "artPos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Article> articleList;
+    @OneToMany(mappedBy = "salePos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<Sale> saleList;
     //Each pointofsale must be related to exactly one cashaccount
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cashaccount_id", referencedColumnName = "id")

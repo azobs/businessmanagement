@@ -37,7 +37,7 @@ public class Article extends AbstractEntity {
     BigDecimal artLowLimitWholesale;
 
     /*****
-     * A negative value means there the article cannot be selling in whole
+     * A negative value means there the article cannot be selling in semi-whole
      */
     BigDecimal artLowLimitSemiWholesale;
 

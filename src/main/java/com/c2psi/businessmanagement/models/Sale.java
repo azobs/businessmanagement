@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 @Table(name="sale")
 public class Sale extends AbstractEntity {
 
-    Double saleQuantity;
+    BigDecimal saleQuantity;
     String saleComment;
     BigDecimal saleFinalprice;
 
@@ -33,4 +33,8 @@ public class Sale extends AbstractEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "art_id", nullable = false, referencedColumnName = "id")
     Article saleArticle;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "pos_id", nullable = false, referencedColumnName = "id")
+    Pointofsale salePos;
 }

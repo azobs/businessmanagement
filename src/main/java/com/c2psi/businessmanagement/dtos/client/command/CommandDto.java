@@ -4,10 +4,13 @@ import com.c2psi.businessmanagement.Enumerations.CommandState;
 import com.c2psi.businessmanagement.Enumerations.CommandStatus;
 import com.c2psi.businessmanagement.Enumerations.CommandType;
 import com.c2psi.businessmanagement.dtos.client.client.ClientDto;
+import com.c2psi.businessmanagement.dtos.client.client.DiversDto;
 import com.c2psi.businessmanagement.dtos.client.delivery.DeliveryDto;
+import com.c2psi.businessmanagement.dtos.pos.loading.LoadingDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.models.Command;
+import com.c2psi.businessmanagement.models.Divers;
 import com.c2psi.businessmanagement.models.Pointofsale;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
@@ -21,14 +24,7 @@ import java.util.stream.Collectors;
 @Data
 @Builder
 public class CommandDto {
-    /***
-     * * * cmdCode; cmdDate; cmdState; cmdComment; cmdType; cmdStatus; cmdPosDto; cmdClientDto; cmdUserbmDto
-     * ne peut etre null
-     * * * cmdCode; ne peut etre empty
-     * * * cmdCode; ne peut etre blank
-     * * * cmdCode; ne peut avoir une taille inferieur a 3 ni une taille superieur a 20
-     *
-     */
+
     Long id;
     @NotNull(message = "The command code cannot be null")
     @NotEmpty(message = "The command code cannot be empty")
@@ -50,14 +46,17 @@ public class CommandDto {
      * ****************************/
     DeliveryDto cmdDeliveryDto;
 
+    LoadingDto cmdLoadingDto;
+
     @NotNull(message = "The concerning pointofsale cannot be null")
     PointofsaleDto cmdPosDto;
 
     /*@JsonIgnore
     List<SaleDto> saleDtoList;*/
 
-    @NotNull(message = "The concerning client cannot be null")
     ClientDto cmdClientDto;
+
+    DiversDto cmdDiversDto;
 
     @NotNull(message = "The userbm who register the command cannot be null")
     UserBMDto cmdUserbmDto;
@@ -68,9 +67,9 @@ public class CommandDto {
 
     SaleInvoiceCashDto cmdSaleicashDto;
 
-    SaleInvoiceCapsuleDto cmdSicapsDto;
+    SaleInvoiceCapsuleDto cmdSaleicapsDto;
 
-    SaleInvoiceDamageDto cmdSidamDto;
+    SaleInvoiceDamageDto cmdSaleidamDto;
 
     /***********************************
      * Mapping method development:   ***
@@ -83,21 +82,21 @@ public class CommandDto {
         return CommandDto.builder()
                 .id(cmd.getId())
                 .cmdCode(cmd.getCmdCode())
+                .cmdDate(cmd.getCmdDate())
                 .cmdState(cmd.getCmdState())
                 .cmdComment(cmd.getCmdComment())
                 .cmdType(cmd.getCmdType())
                 .cmdStatus(cmd.getCmdStatus())
                 .cmdDeliveryDto(DeliveryDto.fromEntity(cmd.getCmdDelivery()))
                 .cmdClientDto(ClientDto.fromEntity(cmd.getCmdClient()))
+                .cmdDiversDto(DiversDto.fromEntity(cmd.getCmdDivers()))
+                .cmdLoadingDto(LoadingDto.fromEntity(cmd.getCmdLoading()))
                 .cmdPosDto(PointofsaleDto.fromEntity(cmd.getCommandPos()))
                 .cmdUserbmDto(UserBMDto.fromEntity(cmd.getCmdUserbm()))
                 .cmdSaleicashDto(SaleInvoiceCashDto.fromEntity(cmd.getCmdSaleicash()))
-                .cmdSicapsDto(SaleInvoiceCapsuleDto.fromEntity(cmd.getCmdSicaps()))
-                .cmdSidamDto(SaleInvoiceDamageDto.fromEntity(cmd.getCmdSidam()))
-                /*.saleDtoList(cmd.getSaleList() != null ?
-                        cmd.getSaleList().stream()
-                        .map(SaleDto::fromEntity)
-                        .collect(Collectors.toList()) : null)*/
+                .cmdSaleicapsDto(SaleInvoiceCapsuleDto.fromEntity(cmd.getCmdSaleicaps()))
+                .cmdSaleidamDto(SaleInvoiceDamageDto.fromEntity(cmd.getCmdSaleidam()))
+
                 .build();
     }
     public static Command toEntity(CommandDto cmdDto){
@@ -113,16 +112,15 @@ public class CommandDto {
         cmd.setCmdType(cmdDto.getCmdType());
         cmd.setCmdStatus(cmdDto.getCmdStatus());
         cmd.setCmdDelivery(DeliveryDto.toEntity(cmdDto.getCmdDeliveryDto()));
+        cmd.setCmdLoading(LoadingDto.toEntity(cmdDto.getCmdLoadingDto()));
         cmd.setCommandPos(PointofsaleDto.toEntity(cmdDto.getCmdPosDto()));
         cmd.setCmdClient(ClientDto.toEntity(cmdDto.getCmdClientDto()));
+        cmd.setCmdDivers(DiversDto.toEntity(cmdDto.getCmdDiversDto()));
         cmd.setCmdUserbm(UserBMDto.toEntity(cmdDto.getCmdUserbmDto()));
         cmd.setCmdSaleicash(SaleInvoiceCashDto.toEntity(cmdDto.getCmdSaleicashDto()));
-        cmd.setCmdSicaps(SaleInvoiceCapsuleDto.toEntity(cmdDto.getCmdSicapsDto()));
-        cmd.setCmdSidam(SaleInvoiceDamageDto.toEntity(cmdDto.getCmdSidamDto()));
-        /*cmd.setSaleList(cmdDto.getSaleDtoList() != null ?
-                cmdDto.getSaleDtoList().stream()
-                .map(SaleDto::toEntity)
-                .collect(Collectors.toList()) : null);*/
+        cmd.setCmdSaleicaps(SaleInvoiceCapsuleDto.toEntity(cmdDto.getCmdSaleicapsDto()));
+        cmd.setCmdSaleidam(SaleInvoiceDamageDto.toEntity(cmdDto.getCmdSaleidamDto()));
+
         return cmd;
     }
 }

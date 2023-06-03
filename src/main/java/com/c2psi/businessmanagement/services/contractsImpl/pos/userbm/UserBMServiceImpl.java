@@ -101,11 +101,13 @@ public class UserBMServiceImpl implements UserBMService {
                     "le meme login ", ErrorCode.USERBM_DUPLICATED);
         }
 
-        if(!this.isUserBMEmailUnique(userBMDto.getBmAddressDto().getEmail())){
-            log.error("An entity userbm already exist with the same email in the DB {}",
-                    userBMDto);
-            throw new DuplicateEntityException("Un UserBM existe deja dans la BD avec " +
-                    "une adresse contenant la meme adresse email ", ErrorCode.USERBM_DUPLICATED);
+        if(userBMDto.getBmAddressDto().getEmail() != null) {
+            if (!this.isUserBMEmailUnique(userBMDto.getBmAddressDto().getEmail())) {
+                log.error("An entity userbm already exist with the same email in the DB {}",
+                        userBMDto);
+                throw new DuplicateEntityException("Un UserBM existe deja dans la BD avec " +
+                        "une adresse contenant la meme adresse email ", ErrorCode.USERBM_DUPLICATED);
+            }
         }
 
         /*
@@ -191,13 +193,14 @@ public class UserBMServiceImpl implements UserBMService {
             }
         }
 
-        if(!userBMToUpdate.getBmAddress().getEmail().equals(userBMDto.getBmAddressDto().getEmail())){
-            if(!this.isUserBMExistWithEmail(userBMDto.getBmAddressDto().getEmail())){
-                userBMToUpdate.getBmAddress().setEmail(userBMDto.getBmAddressDto().getEmail());
-            }
-            else{
-                throw new DuplicateEntityException("Un UserBM existe deja dans la BD avec le meme Email "
-                        , ErrorCode.USERBM_DUPLICATED);
+        if(userBMDto.getBmAddressDto().getEmail() != null && userBMToUpdate.getBmAddress().getEmail() != null) {
+            if (!userBMToUpdate.getBmAddress().getEmail().equals(userBMDto.getBmAddressDto().getEmail())) {
+                if (!this.isUserBMExistWithEmail(userBMDto.getBmAddressDto().getEmail())) {
+                    userBMToUpdate.getBmAddress().setEmail(userBMDto.getBmAddressDto().getEmail());
+                } else {
+                    throw new DuplicateEntityException("Un UserBM existe deja dans la BD avec le meme Email "
+                            , ErrorCode.USERBM_DUPLICATED);
+                }
             }
         }
 

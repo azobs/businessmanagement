@@ -25,7 +25,7 @@ public class Command extends AbstractEntity{
 
     @Column(nullable = false)
     String cmdCode;
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(nullable = false)
     Instant cmdDate;
 
@@ -52,6 +52,10 @@ public class Command extends AbstractEntity{
     @JoinColumn(name = "delivery_id",  referencedColumnName = "id")
     Delivery cmdDelivery;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "loading_id", referencedColumnName = "id")
+    Loading cmdLoading;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "pos_id", nullable = false, referencedColumnName = "id")
     Pointofsale commandPos;
@@ -59,9 +63,13 @@ public class Command extends AbstractEntity{
     @OneToMany(mappedBy = "saleCommand", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Sale> saleList;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "client_id", nullable = false, referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_id", referencedColumnName = "id")
     Client cmdClient;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "divers_id", referencedColumnName = "id")
+    Divers cmdDivers;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "userbm_id", nullable = false, referencedColumnName = "id")
@@ -73,10 +81,10 @@ public class Command extends AbstractEntity{
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sicaps_id",  referencedColumnName = "id")
-    SaleInvoiceCapsule cmdSicaps;
+    SaleInvoiceCapsule cmdSaleicaps;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sidam_id",  referencedColumnName = "id")
-    SaleInvoiceDamage cmdSidam;
+    SaleInvoiceDamage cmdSaleidam;
 
 }

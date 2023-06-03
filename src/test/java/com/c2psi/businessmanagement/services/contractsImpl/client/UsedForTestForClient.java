@@ -1,7 +1,11 @@
 package com.c2psi.businessmanagement.services.contractsImpl.client;
 
-import com.c2psi.businessmanagement.Enumerations.DeliveryState;
+import com.c2psi.businessmanagement.Enumerations.*;
 import com.c2psi.businessmanagement.dtos.client.client.*;
+import com.c2psi.businessmanagement.dtos.client.command.BackInDetailsDto;
+import com.c2psi.businessmanagement.dtos.client.command.BackInDto;
+import com.c2psi.businessmanagement.dtos.client.command.CommandDto;
+import com.c2psi.businessmanagement.dtos.client.command.SaleDto;
 import com.c2psi.businessmanagement.dtos.client.delivery.DeliveryDetailsDto;
 import com.c2psi.businessmanagement.dtos.client.delivery.DeliveryDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
@@ -14,7 +18,12 @@ import com.c2psi.businessmanagement.dtos.stock.provider.ProviderCapsuleAccountDt
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderCashAccountDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderPackagingAccountDto;
+import com.c2psi.businessmanagement.models.BackIn;
 import com.c2psi.businessmanagement.services.contracts.client.client.*;
+import com.c2psi.businessmanagement.services.contracts.client.command.BackInDetailsService;
+import com.c2psi.businessmanagement.services.contracts.client.command.BackInService;
+import com.c2psi.businessmanagement.services.contracts.client.command.CommandService;
+import com.c2psi.businessmanagement.services.contracts.client.command.SaleService;
 import com.c2psi.businessmanagement.services.contracts.client.delivery.DeliveryDetailsService;
 import com.c2psi.businessmanagement.services.contracts.client.delivery.DeliveryService;
 import com.c2psi.businessmanagement.services.contracts.stock.provider.ProviderCapsuleAccountService;
@@ -22,6 +31,7 @@ import com.c2psi.businessmanagement.services.contracts.stock.provider.ProviderCa
 import com.c2psi.businessmanagement.services.contracts.stock.provider.ProviderPackagingAccountService;
 import com.c2psi.businessmanagement.services.contracts.stock.provider.ProviderService;
 import com.c2psi.businessmanagement.services.contractsImpl.UsedForTestForAll;
+import com.c2psi.businessmanagement.services.contractsImpl.client.command.CommandServiceImpl;
 import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,6 +54,16 @@ public class UsedForTestForClient {
         ClientCashAccountDto clientCashAccountDtoSaved = clientCashAccountService.saveClientCashAccount(
                 clientCashAccountDtoToSave);
         return clientCashAccountDtoSaved;
+    }
+
+    public DiversCashAccountDto saveDiversCashAccount(int solde, DiversCashAccountService diversCashAccountService){
+        Assert.assertNotNull(diversCashAccountService);
+        DiversCashAccountDto diversCashAccountDtoToSave = DiversCashAccountDto.builder()
+                .dcaBalance(BigDecimal.valueOf(solde))
+                .build();
+        DiversCashAccountDto diversCashAccountDtoSaved = diversCashAccountService.saveDiversCashAccount(
+                diversCashAccountDtoToSave);
+        return diversCashAccountDtoSaved;
     }
 
     public ClientCashAccountDto saveClientCashAccount_Invalid(int num, ClientCashAccountService clientCashAccountService){
@@ -260,6 +280,230 @@ public class UsedForTestForClient {
                 deliveryDetailsDtoToSave);
         return deliverydetailsDtoSaved;
     }
+
+    public DiversDto saveDivers(int num, PointofsaleDto pointofsaleDtoSaved, DiversCashAccountService diversCashAccountService,
+                                DiversService diversService){
+        assertNotNull(diversService);
+        assertNotNull(pointofsaleDtoSaved);
+        assertNotNull(diversCashAccountService);
+
+        AddressDto diversAddress = usedForTestForAll.getAddressDto(num+554);
+        DiversCashAccountDto diversCashAccountDtoSaved = diversCashAccountService.findDiversCashAccountIfExistOrCreate();
+        assertNotNull(diversCashAccountDtoSaved);
+        DiversDto diversDtoToSave = DiversDto.builder()
+                .diversAddressDto(diversAddress)
+                .diversName("divers "+num)
+                .diversPosDto(pointofsaleDtoSaved)
+                .diversCaDto(diversCashAccountDtoSaved)
+                .build();
+
+        DiversDto diversDtoSaved = diversService.saveDivers(diversDtoToSave);
+        assertNotNull(diversDtoSaved);
+        return diversDtoSaved;
+    }
+
+    public DiversDto saveDivers_Invalid(int num, PointofsaleDto pointofsaleDtoSaved, DiversCashAccountService diversCashAccountService,
+                                        DiversService diversService){
+        AddressDto diversAddress = usedForTestForAll.getAddressDto(num+554);
+        DiversCashAccountDto diversCashAccountDtoSaved = diversCashAccountService.findDiversCashAccountIfExistOrCreate();
+        DiversDto diversDtoToSave = DiversDto.builder()
+                .diversAddressDto(diversAddress)
+                .diversCaDto(null)
+                .diversName("divers "+num)
+                .diversPosDto(pointofsaleDtoSaved)
+                .build();
+
+        DiversDto diversDtoSaved = diversService.saveDivers(diversDtoToSave);
+        assertNotNull(diversDtoSaved);
+        return diversDtoSaved;
+    }
+
+
+    public CommandDto saveCommand(int num, PointofsaleDto pointofsaleDtoSaved, ClientDto clientDtoSaved,
+                                  DiversDto diversDtoSaved, UserBMDto userBMDtoSaved, CommandService commandService){
+
+        assertNotNull(pointofsaleDtoSaved);
+        //assertNotNull(clientDtoSaved);
+        //assertNotNull(diversDtoSaved);
+        assertNotNull(userBMDtoSaved);
+        assertNotNull(commandService);
+
+        CommandDto commandDtoToSave = CommandDto.builder()
+                .cmdCode("CodeCmd__"+num)
+                .cmdDate(new Date().toInstant())
+                .cmdComment("Command comment "+num)
+                .cmdState(CommandState.Edited)
+                .cmdType(CommandType.Divers)
+                .cmdStatus(CommandStatus.Cash)
+                .cmdPosDto(pointofsaleDtoSaved)
+                .cmdClientDto(clientDtoSaved)
+                .cmdDiversDto(diversDtoSaved)
+                .cmdUserbmDto(userBMDtoSaved)
+                .build();
+
+        CommandDto commandDtoSaved = commandService.saveCommand(commandDtoToSave);
+        assertNotNull(commandDtoSaved);
+        return commandDtoSaved;
+
+    }
+
+
+    public CommandDto saveCommand_Invalid(int num, PointofsaleDto pointofsaleDtoSaved, ClientDto clientDtoSaved,
+                                  DiversDto diversDtoSaved, UserBMDto userBMDtoSaved, CommandService commandService){
+
+        //assertNotNull(pointofsaleDtoSaved);
+        //assertNotNull(clientDtoSaved);
+        //assertNotNull(diversDtoSaved);
+        //assertNotNull(userBMDtoSaved);
+        assertNotNull(commandService);
+
+        CommandDto commandDtoToSave = CommandDto.builder()
+                .cmdCode("CodeCmd__"+num)
+                .cmdDate(new Date().toInstant())
+                .cmdComment("Command comment "+num)
+                .cmdState(CommandState.Edited)
+                .cmdType(CommandType.Divers)
+                .cmdStatus(CommandStatus.Cash)
+                .cmdPosDto(pointofsaleDtoSaved)
+                .cmdClientDto(clientDtoSaved)
+                .cmdDiversDto(diversDtoSaved)
+                .cmdUserbmDto(null)
+                .build();
+
+        CommandDto commandDtoSaved = commandService.saveCommand(commandDtoToSave);
+        assertNotNull(commandDtoSaved);
+        return commandDtoSaved;
+
+    }
+
+    public SaleDto saveSale(int num, CommandDto cmdDtoSaved, ArticleDto artDtoSaved,
+                            PointofsaleDto posDtoSaved, SaleService saleService){
+
+        assertNotNull(saleService);
+        assertNotNull(artDtoSaved);
+        assertNotNull(cmdDtoSaved);
+        assertNotNull(posDtoSaved);
+
+        SaleDto saleDtoToSave = SaleDto.builder()
+                .saleQuantity(BigDecimal.valueOf(12))
+                .saleComment("Comment "+num)
+                .saleFinalprice(BigDecimal.valueOf(1254))
+                .saleType(SaleType.Whole)
+                .saleCommandDto(cmdDtoSaved)
+                .saleArticleDto(artDtoSaved)
+                .salePosDto(posDtoSaved)
+                .build();
+
+        SaleDto saleDtoSaved = saleService.saveSale(saleDtoToSave);
+        assertNotNull(saleDtoSaved);
+        return saleDtoSaved;
+    }
+
+    public SaleDto saveSale_Invalid(int num, CommandDto cmdDtoSaved, ArticleDto artDtoSaved,
+                            PointofsaleDto posDtoSaved, SaleService saleService){
+
+        assertNotNull(saleService);
+        assertNotNull(artDtoSaved);
+        assertNotNull(cmdDtoSaved);
+        assertNotNull(posDtoSaved);
+
+        SaleDto saleDtoToSave = SaleDto.builder()
+                .saleQuantity(BigDecimal.valueOf(12))
+                .saleComment("Comment "+num)
+                .saleFinalprice(BigDecimal.valueOf(1254))
+                .saleType(SaleType.Whole)
+                .saleCommandDto(cmdDtoSaved)
+                .saleArticleDto(null)
+                .salePosDto(posDtoSaved)
+                .build();
+
+        SaleDto saleDtoSaved = saleService.saveSale(saleDtoToSave);
+        assertNotNull(saleDtoSaved);
+        return saleDtoSaved;
+
+    }
+
+    public BackInDto saveBackIn(int num, CommandDto cmdDtoSaved, UserBMDto userbmDtoSaved,
+                            PointofsaleDto posDtoSaved, BackInService backInService){
+
+        assertNotNull(backInService);
+        assertNotNull(userbmDtoSaved);
+        assertNotNull(cmdDtoSaved);
+        assertNotNull(posDtoSaved);
+
+
+        BackInDto backInDtoToSave = BackInDto.builder()
+                .biPosDto(posDtoSaved)
+                .biUserbmDto(userbmDtoSaved)
+                .biCommandDto(cmdDtoSaved)
+                .biComment("comment "+num)
+                .biDate(new Date().toInstant())
+                .build();
+
+        BackInDto backInDtoSaved = backInService.saveBackIn(backInDtoToSave);
+        assertNotNull(backInDtoSaved);
+        return backInDtoSaved;
+    }
+
+    public BackInDto saveBackIn_Invalid(int num, CommandDto cmdDtoSaved, UserBMDto userbmDtoSaved,
+                                PointofsaleDto posDtoSaved, BackInService backInService){
+
+        assertNotNull(backInService);
+        assertNotNull(userbmDtoSaved);
+        assertNotNull(cmdDtoSaved);
+        assertNotNull(posDtoSaved);
+
+
+        BackInDto backInDtoToSave = BackInDto.builder()
+                .biPosDto(posDtoSaved)
+                .biUserbmDto(userbmDtoSaved)
+                .biCommandDto(cmdDtoSaved)
+                .biComment("comment "+num)
+                .biDate(null)
+                .build();
+
+        BackInDto backInDtoSaved = backInService.saveBackIn(backInDtoToSave);
+        assertNotNull(backInDtoSaved);
+        return backInDtoSaved;
+    }
+
+    public BackInDetailsDto saveBackInDetails(int num, ArticleDto articleDtoSaved, BackInDto backInDtoSaved,
+                                       BackInDetailsService backInDetailsService){
+
+        assertNotNull(backInDetailsService);
+        assertNotNull(backInDtoSaved);
+        assertNotNull(articleDtoSaved);
+
+        BackInDetailsDto backInDetailsDtoToSave = BackInDetailsDto.builder()
+                .bidQuantity(BigDecimal.valueOf(5))
+                .bidComment("comment "+num)
+                .bidArticleDto(articleDtoSaved)
+                .bidbiDto(backInDtoSaved)
+                .build();
+
+        BackInDetailsDto backInDetailsDtoSaved = backInDetailsService.saveBackInDetails(backInDetailsDtoToSave);
+        assertNotNull(backInDetailsDtoSaved);
+        return backInDetailsDtoSaved;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

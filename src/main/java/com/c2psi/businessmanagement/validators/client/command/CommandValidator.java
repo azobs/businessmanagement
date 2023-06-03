@@ -52,7 +52,8 @@ public class CommandValidator {
                     errors.add("--Type de commande non reconnu par le système--");
                 }
                 if(!commandDto.getCmdStatus().equals(CommandStatus.Capsule) &&
-                        !commandDto.getCmdStatus().equals(CommandStatus.Cash)){
+                        !commandDto.getCmdStatus().equals(CommandStatus.Cash)&&
+                        !commandDto.getCmdStatus().equals(CommandStatus.Damage)){
                     errors.add("--Status de commande non reconnu par le système--");
                 }
             }

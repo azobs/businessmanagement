@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
+import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
@@ -18,9 +19,9 @@ import javax.validation.constraints.PositiveOrZero;
         columnNames = {"art_id", "loading_id"})})
 public class LoadingDetails extends AbstractEntity{
 
-    Integer ldQuantitytaken;
+    BigDecimal ldQuantitytaken;
 
-    Integer ldQuantityreturn;
+    BigDecimal ldQuantityreturn;
 
     /******************************
      * Relation between entities  *

@@ -9,7 +9,8 @@ public interface ClientService {
     ClientDto saveClient(ClientDto clientDto);
     ClientDto updateClient(ClientDto clientDto);
     ClientDto findClientByNameofPos(String clientName, String clientOthername, Long posId);
-    Boolean isClientUniqueForPos(String clientName, String clientOthername, String clientCni, String clientEmail, Long posId);
+    Boolean isClientUniqueForPos(String clientName, String clientOthername, String clientCni, Long posId);
+    public Boolean isClientUniqueWithEmail(String clientEmail);
     ClientDto findClientByCniofPos(String clientCni, Long posId);
     ClientDto findClientByEmail(String clientEmail);
     List<ClientDto> findAllClientofPos(Long posId);

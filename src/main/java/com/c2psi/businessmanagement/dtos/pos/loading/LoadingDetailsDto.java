@@ -10,6 +10,7 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
+import java.math.BigDecimal;
 
 @Data
 @Builder
@@ -17,10 +18,10 @@ public class LoadingDetailsDto {
     Long id;
     @NotNull(message = "The quantity taken cannot be null")
     @Positive(message = "The quantity taken must be positive")
-    Integer ldQuantitytaken;
+    BigDecimal ldQuantitytaken;
     @NotNull(message = "The quantity return cannot be null")
     @PositiveOrZero(message = "The quantity return must be positive or null")
-    Integer ldQuantityreturn;
+    BigDecimal ldQuantityreturn;
 
     @NotNull(message = "The article associate with the details loading cannot be null")
     ArticleDto ldArticleDto;

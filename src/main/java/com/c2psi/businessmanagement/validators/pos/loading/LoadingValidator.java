@@ -64,13 +64,13 @@ public class LoadingValidator {
                 errors.add("--Le point de vente du chargement ne peut etre null--");
             }
 
-            if(Optional.ofNullable(loadDto.getLoadState()).isPresent()){
+            /*if(Optional.ofNullable(loadDto.getLoadState()).isPresent()){
                 if(!loadDto.getLoadState().equals(LoadingState.Edited) &&
                         !loadDto.getLoadState().equals(LoadingState.InEditing) &&
                         !loadDto.getLoadState().equals(LoadingState.PackedUp)){
                     errors.add("--Etat de chargement non reconnu par le système--");
                 }
-            }
+            }*/
 
             if(!Optional.ofNullable(loadDto.getLoadTotalamountexpected()).isPresent()){
                 errors.add("--Le montant attendu ne peut etre non null--");

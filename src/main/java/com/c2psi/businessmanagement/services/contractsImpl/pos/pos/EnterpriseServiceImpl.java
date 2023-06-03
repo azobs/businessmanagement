@@ -110,12 +110,21 @@ public class EnterpriseServiceImpl implements EnterpriseService {
             throw new InvalidEntityException("L'entreprise passe en argument n'est pas valide:  "+errors,
                     ErrorCode.ENTERPRISE_NOT_VALID, errors);
         }
-        if(!this.isEnterpriseUnique(entDto.getEntName(), entDto.getEntNiu(),
-                entDto.getEntAddressDto().getEmail())){
+
+        if(!this.isEnterpriseUnique(entDto.getEntName(), entDto.getEntNiu())){
             log.error("An entity enterprise already exist with the same name or Niu in the DB {}", entDto);
             throw new DuplicateEntityException("Une entreprise existe deja dans la BD avec le meme nom ou le " +
                     "le meme Niu :", ErrorCode.ENTERPRISE_DUPLICATED);
         }
+
+        if(entDto.getEntAddressDto().getEmail() != null){
+            if(!this.isEnterpriseUnique(entDto.getEntAddressDto().getEmail())){
+                log.error("An entity enterprise already exist with the same email in the DB {}", entDto);
+                throw new DuplicateEntityException("Une entreprise existe deja dans la BD avec le meme email",
+                        ErrorCode.ENTERPRISE_DUPLICATED);
+            }
+        }
+
         if(Optional.ofNullable(entDto.getEntAdminDto()).isPresent()){
             /**
              * Si l'admin n'est pas precise alors la validation va echoue. mais s'il est precise il faut
@@ -193,17 +202,18 @@ public class EnterpriseServiceImpl implements EnterpriseService {
             entToUpdate.getEntAddress().setNumtel1(entDto.getEntAddressDto().getNumtel1());
         }
 
-        if(!entToUpdate.getEntAddress().getEmail().equalsIgnoreCase(entDto.getEntAddressDto().getEmail())){
-            /**
-             * Si les adresse email ne sont pas les meme alors on souhaite modifier les adresses email
-             * Il faut donc verifier l'unicite de l'adresse email en BD
-             */
-            if(!this.isEnterpriseExistWithEmail(entDto.getEntAddressDto().getEmail())){
-                entToUpdate.getEntAddress().setEmail(entDto.getEntAddressDto().getEmail());
-            }
-            else{
-                throw new DuplicateEntityException("Une entreprise existe en BD avec cet email",
-                        ErrorCode.ENTERPRISE_DUPLICATED);
+        if(entToUpdate.getEntAddress().getEmail() != null && entDto.getEntAddressDto().getEmail() != null) {
+            if (!entToUpdate.getEntAddress().getEmail().equalsIgnoreCase(entDto.getEntAddressDto().getEmail())) {
+                /**
+                 * Si les adresse email ne sont pas les meme alors on souhaite modifier les adresses email
+                 * Il faut donc verifier l'unicite de l'adresse email en BD
+                 */
+                if (!this.isEnterpriseExistWithEmail(entDto.getEntAddressDto().getEmail())) {
+                    entToUpdate.getEntAddress().setEmail(entDto.getEntAddressDto().getEmail());
+                } else {
+                    throw new DuplicateEntityException("Une entreprise existe en BD avec cet email",
+                            ErrorCode.ENTERPRISE_DUPLICATED);
+                }
             }
         }
 
@@ -396,7 +406,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
     }
 
     @Override
-    public Boolean isEnterpriseUnique(String entName, String entNiu, String entEmail) {
+    public Boolean isEnterpriseUnique(String entName, String entNiu) {
         if(!StringUtils.hasLength(entName)){
             log.error("Enterprise entName is null");
             throw new NullArgumentException("le entName passe en argument de la methode est null");
@@ -405,14 +415,25 @@ public class EnterpriseServiceImpl implements EnterpriseService {
             log.error("Enterprise entNiu is null");
             throw new NullArgumentException("le Niu passe en argument de la methode est null");
         }
+
+        Boolean isEntExistWithName = this.isEnterpriseExistWithName(entName);
+        Boolean isEntExistWithNiu = this.isEnterpriseExistWithNiu(entNiu);
+        if(isEntExistWithName || isEntExistWithNiu){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public Boolean isEnterpriseUnique(String entEmail) {
+
         if(!StringUtils.hasLength(entEmail)){
             log.error("Enterprise entEmail is null");
             throw new NullArgumentException("L'Email passe en argument de la methode est null");
         }
-        Boolean isEntExistWithName = this.isEnterpriseExistWithName(entName);
-        Boolean isEntExistWithNiu = this.isEnterpriseExistWithNiu(entNiu);
+
         Boolean isEntExistWithEmail = this.isEnterpriseExistWithEmail(entEmail);
-        if(isEntExistWithName || isEntExistWithNiu || isEntExistWithEmail){
+        if(isEntExistWithEmail){
             return false;
         }
         return true;

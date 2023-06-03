@@ -42,7 +42,6 @@ public class ClientCashAccountValidator {
                     errors.add(contraintes.getMessage());
                 }
             }
-
         }
         return errors;
     }

@@ -14,12 +14,9 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name="backin",
-        uniqueConstraints = {@UniqueConstraint(
-                columnNames = {"biCode"})})
+@Table(name="backin")
 public class BackIn extends AbstractEntity{
 
-    String biCode;
     Instant biDate;
     String biComment;
 
@@ -29,6 +26,10 @@ public class BackIn extends AbstractEntity{
     @OneToMany(mappedBy = "bidbi", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<BackInDetails> bidList;
 
+    /*****************************************************************************
+     * La date du BackIn doit etre ulterieure obligatoirement a la
+     * date de la commande associe(la commande pour laquelle elle est enregistre)
+     */
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "cmd_id", nullable = false, referencedColumnName = "id")
     Command biCommand;
@@ -36,5 +37,9 @@ public class BackIn extends AbstractEntity{
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "userbm_id", nullable = false, referencedColumnName = "id")
     UserBM biUserbm;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "pos_id", nullable = false, referencedColumnName = "id")
+    Pointofsale biPos;
 
 }

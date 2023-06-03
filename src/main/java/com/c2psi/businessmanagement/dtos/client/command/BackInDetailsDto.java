@@ -8,6 +8,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.math.BigDecimal;
 
 @Data
 @Builder
@@ -15,12 +16,12 @@ public class BackInDetailsDto {
     Long id;
     @NotNull(message = "The backindetails quantity cannot be null")
     @Positive(message = "The backindetails quantity must be positive")
-    Double bidQuantity;
+    BigDecimal bidQuantity;
     String bidComment;
     @NotNull(message = "The backindetails article cannot be null")
-    ArticleDto bidArticle;
+    ArticleDto bidArticleDto;
     @NotNull(message = "The backindetails backin cannot be null")
-    BackInDto bidbi;
+    BackInDto bidbiDto;
 
     public static BackInDetailsDto fromEntity(BackInDetails backInDetails){
         if(backInDetails == null){
@@ -28,8 +29,8 @@ public class BackInDetailsDto {
         }
         return BackInDetailsDto.builder()
                 .id(backInDetails.getId())
-                .bidArticle(ArticleDto.fromEntity(backInDetails.getBidArticle()))
-                .bidbi(BackInDto.fromEntity(backInDetails.getBidbi()))
+                .bidArticleDto(ArticleDto.fromEntity(backInDetails.getBidArticle()))
+                .bidbiDto(BackInDto.fromEntity(backInDetails.getBidbi()))
                 .bidComment(backInDetails.getBidComment())
                 .bidQuantity(backInDetails.getBidQuantity())
                 .build();
@@ -41,8 +42,8 @@ public class BackInDetailsDto {
         }
         BackInDetails backInDetails = new BackInDetails();
         backInDetails.setId(backInDetailsDto.getId());
-        backInDetails.setBidbi(BackInDto.toEntity(backInDetailsDto.getBidbi()));
-        backInDetails.setBidArticle(ArticleDto.toEntity(backInDetailsDto.getBidArticle()));
+        backInDetails.setBidbi(BackInDto.toEntity(backInDetailsDto.getBidbiDto()));
+        backInDetails.setBidArticle(ArticleDto.toEntity(backInDetailsDto.getBidArticleDto()));
         backInDetails.setBidComment(backInDetailsDto.getBidComment());
         backInDetails.setBidQuantity(backInDetailsDto.getBidQuantity());
         return backInDetails;

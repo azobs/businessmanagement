@@ -5,6 +5,7 @@ import com.c2psi.businessmanagement.dtos.client.command.BackInDto;
 import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -16,10 +17,10 @@ public class BackInDetailsValidatorTest {
     @Test
     public void validate() {
         BackInDetailsDto backInDetailsDto = BackInDetailsDto.builder()
-                .bidArticle(ArticleDto.builder().build())
-                .bidbi(BackInDto.builder().build())
+                .bidArticleDto(ArticleDto.builder().build())
+                .bidbiDto(BackInDto.builder().build())
                 .bidComment(null)
-                .bidQuantity(Double.valueOf(15))
+                .bidQuantity(BigDecimal.valueOf(15))
                 .build();
 
         List<String> errors = BackInDetailsValidator.validate(backInDetailsDto);
@@ -31,10 +32,10 @@ public class BackInDetailsValidatorTest {
     @Test
     public void validateNull() {
         BackInDetailsDto backInDetailsDto = BackInDetailsDto.builder()
-                .bidArticle(ArticleDto.builder().build())
-                .bidbi(BackInDto.builder().build())
+                .bidArticleDto(ArticleDto.builder().build())
+                .bidbiDto(BackInDto.builder().build())
                 .bidComment(null)
-                .bidQuantity(Double.valueOf(15))
+                .bidQuantity(BigDecimal.valueOf(15))
                 .build();
 
         List<String> errors = BackInDetailsValidator.validate(null);
@@ -47,8 +48,8 @@ public class BackInDetailsValidatorTest {
     @Test
     public void validateNullValue() {
         BackInDetailsDto backInDetailsDto = BackInDetailsDto.builder()
-                .bidArticle(null)
-                .bidbi(null)
+                .bidArticleDto(null)
+                .bidbiDto(null)
                 .bidComment(null)
                 .bidQuantity(null)
                 .build();
@@ -65,10 +66,10 @@ public class BackInDetailsValidatorTest {
     @Test
     public void validatePositiveValue() {
         BackInDetailsDto backInDetailsDto = BackInDetailsDto.builder()
-                .bidArticle(ArticleDto.builder().build())
-                .bidbi(BackInDto.builder().build())
+                .bidArticleDto(ArticleDto.builder().build())
+                .bidbiDto(BackInDto.builder().build())
                 .bidComment(null)
-                .bidQuantity(Double.valueOf(0))
+                .bidQuantity(BigDecimal.valueOf(0))
                 .build();
 
         List<String> errors = BackInDetailsValidator.validate(backInDetailsDto);
