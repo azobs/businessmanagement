@@ -5,7 +5,6 @@ import com.c2psi.businessmanagement.dtos.client.client.ClientCapsuleAccountDto;
 import com.c2psi.businessmanagement.dtos.client.client.ClientCapsuleOperationDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.OperationDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
-import com.c2psi.businessmanagement.validators.pos.pos.PosCapsuleOperationValidator;
 import org.junit.Test;
 
 import java.math.BigDecimal;

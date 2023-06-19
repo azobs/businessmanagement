@@ -2,7 +2,6 @@ package com.c2psi.businessmanagement.validators.stock.product;
 
 import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
-import com.c2psi.businessmanagement.dtos.stock.product.SupplyInvoiceCapsuleDto;
 import com.c2psi.businessmanagement.dtos.stock.product.SupplyInvoiceCashDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
 import org.junit.Test;
@@ -21,7 +20,7 @@ public class SupplyInvoiceCashValidatorTest {
     @Test
     public void validate() {
         SupplyInvoiceCashDto supplyInvoiceCashDto = SupplyInvoiceCashDto.builder()
-                .sicashPosDto(PointofsaleDto.builder().build())
+                .sicashPosId(PointofsaleDto.builder().build().getId())
                 .sicashInvoicingDate(new Date().toInstant())
                 .sicashProviderDto(ProviderDto.builder().build())
                 .sicashComment("")
@@ -44,7 +43,7 @@ public class SupplyInvoiceCashValidatorTest {
     @Test
     public void validateNull() {
         SupplyInvoiceCashDto supplyInvoiceCashDto = SupplyInvoiceCashDto.builder()
-                .sicashPosDto(PointofsaleDto.builder().build())
+                .sicashPosId(PointofsaleDto.builder().build().getId())
                 .sicashInvoicingDate(new Date().toInstant())
                 .sicashProviderDto(ProviderDto.builder().build())
                 .sicashComment("")
@@ -67,7 +66,7 @@ public class SupplyInvoiceCashValidatorTest {
     @Test
     public void validateNullValue() {
         SupplyInvoiceCashDto supplyInvoiceCashDto = SupplyInvoiceCashDto.builder()
-                .sicashPosDto(null)
+                .sicashPosId(null)
                 .sicashInvoicingDate(null)
                 .sicashProviderDto(null)
                 .sicashComment(null)
@@ -100,7 +99,7 @@ public class SupplyInvoiceCashValidatorTest {
     @Test
     public void validateEmptyValue() {
         SupplyInvoiceCashDto supplyInvoiceCashDto = SupplyInvoiceCashDto.builder()
-                .sicashPosDto(PointofsaleDto.builder().build())
+                .sicashPosId(PointofsaleDto.builder().build().getId())
                 .sicashInvoicingDate(new Date().toInstant())
                 .sicashProviderDto(ProviderDto.builder().build())
                 .sicashComment("")
@@ -126,7 +125,7 @@ public class SupplyInvoiceCashValidatorTest {
     @Test
     public void validateBlankValue() {
         SupplyInvoiceCashDto supplyInvoiceCashDto = SupplyInvoiceCashDto.builder()
-                .sicashPosDto(PointofsaleDto.builder().build())
+                .sicashPosId(PointofsaleDto.builder().build().getId())
                 .sicashInvoicingDate(new Date().toInstant())
                 .sicashProviderDto(ProviderDto.builder().build())
                 .sicashComment("")
@@ -149,7 +148,7 @@ public class SupplyInvoiceCashValidatorTest {
     @Test
     public void validatePositiveValue() {
         SupplyInvoiceCashDto supplyInvoiceCashDto = SupplyInvoiceCashDto.builder()
-                .sicashPosDto(PointofsaleDto.builder().build())
+                .sicashPosId(PointofsaleDto.builder().build().getId())
                 .sicashInvoicingDate(new Date().toInstant())
                 .sicashProviderDto(ProviderDto.builder().build())
                 .sicashComment("")
@@ -176,7 +175,7 @@ public class SupplyInvoiceCashValidatorTest {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             SupplyInvoiceCashDto supplyInvoiceCashDto = SupplyInvoiceCashDto.builder()
-                    .sicashPosDto(PointofsaleDto.builder().build())
+                    .sicashPosId(PointofsaleDto.builder().build().getId())
                     .sicashInvoicingDate(sdf.parse("2024-02-03").toInstant())
                     .sicashProviderDto(ProviderDto.builder().build())
                     .sicashComment("")
@@ -206,7 +205,7 @@ public class SupplyInvoiceCashValidatorTest {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             SupplyInvoiceCashDto supplyInvoiceCashDto = SupplyInvoiceCashDto.builder()
-                    .sicashPosDto(PointofsaleDto.builder().build())
+                    .sicashPosId(PointofsaleDto.builder().build().getId())
                     .sicashInvoicingDate(sdf.parse("2023-02-03").toInstant())
                     .sicashProviderDto(ProviderDto.builder().build())
                     .sicashComment("")

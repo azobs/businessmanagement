@@ -19,7 +19,7 @@ public class PosDamageAccountValidatorTest {
         PosDamageAccountDto posDamageAccountDtoToValidate = PosDamageAccountDto.builder()
                 .pdaArticleDto(ArticleDto.builder().build())
                 .pdaNumber(BigDecimal.valueOf(12))
-                .pdaPointofsaleDto(PointofsaleDto.builder().build())
+                .pdaPointofsaleId(PointofsaleDto.builder().build().getId())
                 .build();
 
         List<String> errors = PosDamageAccountValidator.validate(posDamageAccountDtoToValidate);
@@ -33,7 +33,7 @@ public class PosDamageAccountValidatorTest {
         PosDamageAccountDto posDamageAccountDtoToValidate = PosDamageAccountDto.builder()
                 .pdaArticleDto(ArticleDto.builder().build())
                 .pdaNumber(BigDecimal.valueOf(12))
-                .pdaPointofsaleDto(PointofsaleDto.builder().build())
+                .pdaPointofsaleId(PointofsaleDto.builder().build().getId())
                 .build();
 
         List<String> errors = PosDamageAccountValidator.validate(null);
@@ -48,7 +48,7 @@ public class PosDamageAccountValidatorTest {
         PosDamageAccountDto posDamageAccountDtoToValidate = PosDamageAccountDto.builder()
                 .pdaArticleDto(null)
                 .pdaNumber(BigDecimal.valueOf(12))
-                .pdaPointofsaleDto(PointofsaleDto.builder().build())
+                .pdaPointofsaleId(PointofsaleDto.builder().build().getId())
                 .build();
 
         List<String> errors = PosDamageAccountValidator.validate(posDamageAccountDtoToValidate);
@@ -64,7 +64,7 @@ public class PosDamageAccountValidatorTest {
         PosDamageAccountDto posDamageAccountDtoToValidate = PosDamageAccountDto.builder()
                 .pdaArticleDto(ArticleDto.builder().build())
                 .pdaNumber(BigDecimal.valueOf(12))
-                .pdaPointofsaleDto(null)
+                .pdaPointofsaleId(null)
                 .build();
 
         List<String> errors = PosDamageAccountValidator.validate(posDamageAccountDtoToValidate);
@@ -80,7 +80,7 @@ public class PosDamageAccountValidatorTest {
         PosDamageAccountDto posDamageAccountDtoToValidate = PosDamageAccountDto.builder()
                 .pdaArticleDto(ArticleDto.builder().build())
                 .pdaNumber(BigDecimal.valueOf(-12))
-                .pdaPointofsaleDto(PointofsaleDto.builder().build())
+                .pdaPointofsaleId(PointofsaleDto.builder().build().getId())
                 .build();
 
         List<String> errors = PosDamageAccountValidator.validate(posDamageAccountDtoToValidate);
@@ -96,7 +96,7 @@ public class PosDamageAccountValidatorTest {
         PosDamageAccountDto posDamageAccountDtoToValidate = PosDamageAccountDto.builder()
                 .pdaArticleDto(ArticleDto.builder().build())
                 .pdaNumber(null)
-                .pdaPointofsaleDto(PointofsaleDto.builder().build())
+                .pdaPointofsaleId(PointofsaleDto.builder().build().getId())
                 .build();
 
         List<String> errors = PosDamageAccountValidator.validate(posDamageAccountDtoToValidate);

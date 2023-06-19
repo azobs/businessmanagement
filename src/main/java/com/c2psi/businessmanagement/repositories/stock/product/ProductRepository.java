@@ -15,13 +15,13 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Optional<List<Product>> findAllProductOfCategory(Long catId);
     @Query("SELECT prod FROM Product  prod WHERE prod.prodCat.id=:catId ORDER BY prod.prodName ASC ")
     Optional<Page<Product>> findPageofProductOfCategory(Long catId, Pageable pageable);
-    @Query("SELECT prod FROM Product  prod WHERE prod.prodCode=:prodCode AND prod.prodPos.id=:posId")
+    @Query("SELECT prod FROM Product  prod WHERE prod.prodCode=:prodCode AND prod.prodPosId=:posId")
     Optional<Product> findProductInPointofsaleByCode(@Param("prodCode") String prodCode, @Param("posId") Long posId);
     Optional<Product> findProductById(Long prodId);
-    @Query("SELECT prod FROM Product prod WHERE prod.prodPos.id=:posId ORDER BY prod.prodCat.catName ASC, prod.prodName ASC")
+    @Query("SELECT prod FROM Product prod WHERE prod.prodPosId=:posId ORDER BY prod.prodCat.catName ASC, prod.prodName ASC")
     Optional<List<Product>> findAllProductInPos(@Param("posId") Long posId);
-    @Query("SELECT prod FROM Product prod WHERE prod.prodPos.id=:posId ORDER BY prod.prodCat.catName ASC, prod.prodName ASC")
+    @Query("SELECT prod FROM Product prod WHERE prod.prodPosId=:posId ORDER BY prod.prodCat.catName ASC, prod.prodName ASC")
     Optional<Page<Product>> findPageofProductInPos(@Param("posId") Long posId, Pageable pageable);
-    @Query("SELECT prod FROM Product  prod WHERE prod.prodName LIKE :sample AND prod.prodPos.id=:posId ORDER BY prod.prodName ASC")
+    @Query("SELECT prod FROM Product  prod WHERE prod.prodName LIKE :sample AND prod.prodPosId=:posId ORDER BY prod.prodName ASC")
     Optional<Page<Product>> findAllProductByProdNameInPosContaining(Long posId, String sample, Pageable pageable);
 }

@@ -2,7 +2,6 @@ package com.c2psi.businessmanagement.services.contracts.stock.price;
 
 import com.c2psi.businessmanagement.dtos.stock.price.CurrencyConversionDto;
 import com.c2psi.businessmanagement.dtos.stock.price.CurrencyDto;
-import org.springframework.data.domain.Page;
 
 import java.math.BigDecimal;
 import java.util.List;

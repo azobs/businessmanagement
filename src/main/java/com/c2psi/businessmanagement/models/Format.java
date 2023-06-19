@@ -18,7 +18,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name="format",
         uniqueConstraints = {@UniqueConstraint(
-                columnNames = {"formatName", "formatCapacity", "pos_id"})})
+                columnNames = {"formatName", "formatCapacity", "formatPosId"})})
 public class Format extends AbstractEntity {
 
     String formatName;
@@ -28,8 +28,9 @@ public class Format extends AbstractEntity {
      * Relation between entities  *
      * ****************************/
     //Each format belongs to 1 pointofsale
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    /*@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "pos_id", nullable = false, referencedColumnName = "id")
-    Pointofsale formatPos;
+    Pointofsale formatPos;*/
+    Long formatPosId;
 
 }

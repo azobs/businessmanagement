@@ -9,12 +9,8 @@ import com.c2psi.businessmanagement.dtos.client.command.SaleInvoiceDamageDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.dtos.stock.price.BasePriceDto;
-import com.c2psi.businessmanagement.dtos.stock.price.CurrencyDto;
-import com.c2psi.businessmanagement.dtos.stock.price.SpecialPriceDto;
 import com.c2psi.businessmanagement.dtos.stock.product.*;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
-import com.c2psi.businessmanagement.services.contracts.stock.price.BasePriceService;
-import com.c2psi.businessmanagement.services.contracts.stock.price.SpecialPriceService;
 import com.c2psi.businessmanagement.services.contracts.stock.product.*;
 import com.c2psi.businessmanagement.services.contractsImpl.client.command.SaleInvoiceCapsuleServiceImpl;
 import com.c2psi.businessmanagement.services.contractsImpl.client.command.SaleInvoiceCashServiceImpl;
@@ -35,7 +31,7 @@ public class UsedForTestForProduct {
         Assert.assertNotNull(pointofsaleDtoSaved);
 
         CategoryDto categoryDtoToSaved = CategoryDto.builder()
-                .catPosDto(pointofsaleDtoSaved)
+                .catPosId(pointofsaleDtoSaved.getId())
                 .categoryParentId(catParentId)
                 .catDescription("Les produits SABC biere en bouteille"+num)
                 .catCode("biere_001"+num)
@@ -53,7 +49,7 @@ public class UsedForTestForProduct {
         Assert.assertNotNull(pointofsaleDtoSaved);
 
         ProductDto productDtoToSaved = ProductDto.builder()
-                .prodPosDto(pointofsaleDtoSaved)
+                .prodPosId(pointofsaleDtoSaved.getId())
                 .prodCatDto(catProdDto)
                 .prodCode("prod_001_"+num)
                 .prodName("export"+num)
@@ -70,7 +66,7 @@ public class UsedForTestForProduct {
         Assert.assertNotNull(pointofsaleDtoSaved);
 
         ProductDto productDtoToSaved = ProductDto.builder()
-                .prodPosDto(pointofsaleDtoSaved)
+                .prodPosId(pointofsaleDtoSaved.getId())
                 .prodCatDto(catProdDto)
                 .prodCode("")
                 .prodName("prodName"+num)
@@ -87,7 +83,7 @@ public class UsedForTestForProduct {
         FormatDto formatDtoToSaved = FormatDto.builder()
                 .formatName("petit_"+num)
                 .formatCapacity(BigDecimal.valueOf(0.33))
-                .formatPosDto(pointofsaleDtoSaved)
+                .formatPosId(pointofsaleDtoSaved.getId())
                 .build();
         FormatDto formatDtoSaved = formatService.saveFormat(formatDtoToSaved);
         return formatDtoSaved;
@@ -98,7 +94,7 @@ public class UsedForTestForProduct {
         FormatDto formatDtoToSaved = FormatDto.builder()
                 .formatName("formatName"+num)
                 .formatCapacity(BigDecimal.valueOf(0.33))
-                .formatPosDto(null)
+                .formatPosId(null)
                 .build();
         FormatDto formatDtoSaved = formatService.saveFormat(formatDtoToSaved);
         return formatDtoSaved;
@@ -137,7 +133,7 @@ public class UsedForTestForProduct {
         UnitDto unitDtoToSaved = UnitDto.builder()
                 .unitAbbreviation("cs"+num)
                 .unitName("Casier"+num)
-                .unitPosDto(pointofsaleDtoSaved)
+                .unitPosId(pointofsaleDtoSaved.getId())
                 .build();
         UnitDto unitDtoSaved = unitService.saveUnit(unitDtoToSaved);
         return unitDtoSaved;
@@ -148,7 +144,7 @@ public class UsedForTestForProduct {
         UnitDto unitDtoToSaved = UnitDto.builder()
                 .unitAbbreviation("cs"+num)
                 .unitName("")
-                .unitPosDto(pointofsaleDtoSaved)
+                .unitPosId(pointofsaleDtoSaved.getId())
                 .build();
         UnitDto unitDtoSaved = unitService.saveUnit(unitDtoToSaved);
         return unitDtoSaved;
@@ -160,7 +156,7 @@ public class UsedForTestForProduct {
         Assert.assertNotNull(unitDtoSourceSaved);
         Assert.assertNotNull(unitDtoDestinationSaved);
         UnitConversionDto unitConversionDtoToSave = UnitConversionDto.builder()
-                .conversionFactor(Double.valueOf(2)+num)
+                .conversionFactor(BigDecimal.valueOf(2).add(BigDecimal.valueOf(num)))
                 .unitSourceDto(unitDtoSourceSaved)
                 .unitDestinationDto(unitDtoDestinationSaved)
                 .build();
@@ -173,7 +169,7 @@ public class UsedForTestForProduct {
         Assert.assertNotNull(unitDtoSourceSaved);
         Assert.assertNotNull(unitDtoDestinationSaved);
         UnitConversionDto unitConversionDtoToSave = UnitConversionDto.builder()
-                .conversionFactor(Double.valueOf(2)+num)
+                .conversionFactor(BigDecimal.valueOf(2).add(BigDecimal.valueOf(num)))
                 .unitSourceDto(null)
                 .unitSourceDto(unitDtoDestinationSaved)
                 .build();
@@ -205,7 +201,7 @@ public class UsedForTestForProduct {
                 .artPfDto(productFormatedDtoSaved)
                 .artUnitDto(unitDtoSaved)
                 .artBpDto(basePriceDtoSaved)
-                .artPosDto(pointofsaleDtoSaved)
+                .artPosId(pointofsaleDtoSaved.getId())
                 .build();
 
         ArticleDto articleDtoSaved = articleService.saveArticle(articleDtoToSave);
@@ -234,7 +230,7 @@ public class UsedForTestForProduct {
                 .artPfDto(productFormatedDtoSaved)
                 .artUnitDto(unitDtoSaved)
                 .artBpDto(basePriceDtoSaved)
-                .artPosDto(pointofsaleDtoSaved)
+                .artPosId(pointofsaleDtoSaved.getId())
                 .build();
 
         ArticleDto articleDtoSaved = articleService.saveArticle(articleDtoToSave);
@@ -254,7 +250,7 @@ public class UsedForTestForProduct {
                 .packDescription("Casier de 12_"+num)
                 .packPrice(BigDecimal.valueOf(3600))
                 .packProviderDto(providerDtoSaved)
-                .packPosDto(pointofsaleDtoSaved)
+                .packPosId(pointofsaleDtoSaved.getId())
                 .build();
 
         PackagingDto packagingDtoSaved = packagingService.savePackaging(packagingDtoToSaved);
@@ -274,7 +270,7 @@ public class UsedForTestForProduct {
                 .packDescription("Casier de 12_"+num)
                 .packPrice(null)
                 .packProviderDto(providerDtoSaved)
-                .packPosDto(pointofsaleDtoSaved)
+                .packPosId(pointofsaleDtoSaved.getId())
                 .build();
 
         PackagingDto packagingDtoSaved = packagingService.savePackaging(packagingDtoToSaved);
@@ -299,7 +295,7 @@ public class UsedForTestForProduct {
                 .sicashInvoicingDate(new Date().toInstant())
                 .sicashDeliveryDate(new Date().toInstant())
                 .sicashSourceofcash(CashSourceType.CASH)
-                .sicashPosDto(pointofsaleDtoSaved)
+                .sicashPosId(pointofsaleDtoSaved.getId())
                 .sicashUserbmDto(userbmDtoSaved)
                 .sicashProviderDto(providerDtoSaved)
                 .build();
@@ -327,7 +323,7 @@ public class UsedForTestForProduct {
                 .sicashInvoicingDate(new Date().toInstant())
                 .sicashDeliveryDate(null)
                 .sicashSourceofcash(CashSourceType.CASH)
-                .sicashPosDto(pointofsaleDtoSaved)
+                .sicashPosId(pointofsaleDtoSaved.getId())
                 .sicashUserbmDto(userbmDtoSaved)
                 .sicashProviderDto(providerDtoSaved)
                 .build();
@@ -354,7 +350,7 @@ public class UsedForTestForProduct {
                 .sicapsTotalcolis(BigDecimal.valueOf(9))
                 .sicapsInvoicingDate(new Date().toInstant())
                 .sicapsDeliveryDate(new Date().toInstant())
-                .sicapsPosDto(pointofsaleDtoSaved)
+                .sicapsPosId(pointofsaleDtoSaved.getId())
                 .sicapsUserbmDto(userbmDtoSaved)
                 .sicapsProviderDto(providerDtoSaved)
                 .build();
@@ -381,7 +377,7 @@ public class UsedForTestForProduct {
                 .sicapsTotalcolis(BigDecimal.valueOf(9))
                 .sicapsInvoicingDate(new Date().toInstant())
                 .sicapsDeliveryDate(new Date().toInstant())
-                .sicapsPosDto(pointofsaleDtoSaved)
+                .sicapsPosId(pointofsaleDtoSaved.getId())
                 .sicapsUserbmDto(userbmDtoSaved)
                 .sicapsProviderDto(providerDtoSaved)
                 .build();
@@ -392,8 +388,8 @@ public class UsedForTestForProduct {
     }
 
     public SupplyInvoiceDamageDto saveSupplyInvoiceDamage(int num, UserBMDto userbmDtoSaved, ProviderDto providerDtoSaved,
-                                                            PointofsaleDto pointofsaleDtoSaved,
-                                                            SupplyInvoiceDamageService supplyInvoiceDamageService){
+                                                          PointofsaleDto pointofsaleDtoSaved,
+                                                          SupplyInvoiceDamageService supplyInvoiceDamageService){
         Assert.assertNotNull(providerDtoSaved);
         Assert.assertNotNull(pointofsaleDtoSaved);
         Assert.assertNotNull(userbmDtoSaved);
@@ -408,7 +404,7 @@ public class UsedForTestForProduct {
                 .sidamTotalcolis(BigDecimal.valueOf(9))
                 .sidamInvoicingDate(new Date().toInstant())
                 .sidamDeliveryDate(new Date().toInstant())
-                .sidamPosDto(pointofsaleDtoSaved)
+                .sidamPosId(pointofsaleDtoSaved.getId())
                 .sidamUserbmDto(userbmDtoSaved)
                 .sidamProviderDto(providerDtoSaved)
                 .build();
@@ -435,7 +431,7 @@ public class UsedForTestForProduct {
                 .sidamTotalcolis(BigDecimal.valueOf(9))
                 .sidamInvoicingDate(new Date().toInstant())
                 .sidamDeliveryDate(new Date().toInstant())
-                .sidamPosDto(pointofsaleDtoSaved)
+                .sidamPosId(pointofsaleDtoSaved.getId())
                 .sidamUserbmDto(userbmDtoSaved)
                 .sidamProviderDto(providerDtoSaved)
                 .build();
@@ -628,7 +624,7 @@ public class UsedForTestForProduct {
                 .invCode("invCode"+num)
                 .invComment("invComment"+num)
                 .invDate(new Date().toInstant())
-                .invPosDto(pointofsaleDtoSaved)
+                .invPosId(pointofsaleDtoSaved.getId())
                 .build();
 
         InventoryDto inventoryDtoSaved = inventoryService.saveInventory(inventoryDtoToSave);
@@ -644,7 +640,7 @@ public class UsedForTestForProduct {
                 .invCode(null)
                 .invComment("invComment"+num)
                 .invDate(new Date().toInstant())
-                .invPosDto(pointofsaleDtoSaved)
+                .invPosId(pointofsaleDtoSaved.getId())
                 .build();
 
         InventoryDto inventoryDtoSaved = inventoryService.saveInventory(inventoryDtoToSave);
@@ -708,7 +704,7 @@ public class UsedForTestForProduct {
                 .saleicashInvoicingDate(new Date().toInstant())
                 .saleicashCode("salecashCode"+num)
                 .saleicashUserbmDto(userBMDtoSaved)
-                .saleicashPosDto(pointofsaleDtoSaved)
+                .saleicashPosId(pointofsaleDtoSaved.getId())
                 .saleicashClientDto(clientDtoSaved)
                 .saleicashSourceofcash(CashSourceType.CASH)
                 .build();
@@ -735,7 +731,7 @@ public class UsedForTestForProduct {
                 .saleicashInvoicingDate(new Date().toInstant())
                 .saleicashCode(null)
                 .saleicashUserbmDto(userBMDtoSaved)
-                .saleicashPosDto(pointofsaleDtoSaved)
+                .saleicashPosId(pointofsaleDtoSaved.getId())
                 .saleicashClientDto(clientDtoSaved)
                 .saleicashSourceofcash(CashSourceType.CASH)
                 .build();
@@ -760,7 +756,7 @@ public class UsedForTestForProduct {
                 .saleicapsInvoicingDate(new Date().toInstant())
                 .saleicapsCode("salecashCode"+num)
                 .saleicapsUserbmDto(userBMDtoSaved)
-                .saleicapsPosDto(pointofsaleDtoSaved)
+                .saleicapsPosId(pointofsaleDtoSaved.getId())
                 .saleicapsClientDto(clientDtoSaved)
                 .build();
 
@@ -785,7 +781,7 @@ public class UsedForTestForProduct {
                 .saleicapsInvoicingDate(new Date().toInstant())
                 .saleicapsCode(null)
                 .saleicapsUserbmDto(userBMDtoSaved)
-                .saleicapsPosDto(pointofsaleDtoSaved)
+                .saleicapsPosId(pointofsaleDtoSaved.getId())
                 .saleicapsClientDto(clientDtoSaved)
                 .build();
 
@@ -810,7 +806,7 @@ public class UsedForTestForProduct {
                 .saleidamInvoicingDate(new Date().toInstant())
                 .saleidamCode("saledamCode"+num)
                 .saleidamUserbmDto(userBMDtoSaved)
-                .saleidamPosDto(pointofsaleDtoSaved)
+                .saleidamPosId(pointofsaleDtoSaved.getId())
                 .saleidamClientDto(clientDtoSaved)
                 .build();
 
@@ -834,7 +830,7 @@ public class UsedForTestForProduct {
                 .saleidamInvoicingDate(new Date().toInstant())
                 .saleidamCode(null)
                 .saleidamUserbmDto(userBMDtoSaved)
-                .saleidamPosDto(pointofsaleDtoSaved)
+                .saleidamPosId(pointofsaleDtoSaved.getId())
                 .saleidamClientDto(clientDtoSaved)
                 .build();
 

@@ -63,20 +63,20 @@ public interface EnterpriseService {
 
     List<UserBMDto> findAllEmployeofEnterprise (Long entId);
 
-    List<ProviderDto> findAllProviderofEnterprise (Long entId);
+    //List<ProviderDto> findAllProviderofEnterprise (Long entId);
 
     BigDecimal getTotalCash(Long entId);
 
-    Integer getNumberofDamage(Long entId);
+    BigDecimal getNumberofDamage(Long entId);
 
-    Integer getNumberofDamage(Long entId, Long artId);
+    BigDecimal getNumberofDamage(Long entId, Long artId);
 
-    Integer getNumberofCapsule(Long entId);
+    BigDecimal getNumberofCapsule(Long entId);
 
-    Integer getNumberofCapsule(Long entId, Long artId);
+    BigDecimal getNumberofCapsule(Long entId, Long artId);
 
-    Integer getNumberofPackaging(Long entId);
+    BigDecimal getNumberofPackaging(Long entId);
 
-    Integer getNumberofPackaging(Long entId, Long providerId);
+    BigDecimal getNumberofPackaging(Long entId, Long providerId);
 
 }

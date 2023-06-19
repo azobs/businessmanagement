@@ -17,7 +17,7 @@ public interface SaleInvoiceDamageRepository extends JpaRepository<SaleInvoiceDa
     //Rechercher le SaleInvoiceDamage a partir de son Id
     Optional<SaleInvoiceDamage> findSaleInvoiceDamageById(Long saleidamId);
     //Rechercher le SaleInvoiceDamage a partir du code et du pointofsale
-    @Query("SELECT saleidam FROM SaleInvoiceDamage saleidam WHERE saleidam.saleidamCode=:saleidamCode AND saleidam.saleidamPos.id=:posId")
+    @Query("SELECT saleidam FROM SaleInvoiceDamage saleidam WHERE saleidam.saleidamCode=:saleidamCode AND saleidam.saleidamPosId=:posId")
     Optional<SaleInvoiceDamage> findSaleInvoiceDamageByCodeinPos(@Param("saleidamCode") String saleidamCode, @Param("posId") Long posId);
     //Faire la liste des SaleInvoiceDamage dans un intervalle de temps puis page par page
     @Query("SELECT saleidam FROM SaleInvoiceDamage saleidam WHERE saleidam.saleidamInvoicingDate>=:startDate AND saleidam.saleidamInvoicingDate<=:endDate ORDER BY saleidam.saleidamClient.clientName ASC")
@@ -43,30 +43,30 @@ public interface SaleInvoiceDamageRepository extends JpaRepository<SaleInvoiceDa
     Optional<Page<SaleInvoiceDamage>> findPagesaleidamofUserbmBetween(@Param("userbmId") Long userbmId, @Param("startDate") Instant startDate,
                                                                         @Param("endDate") Instant endDate, Pageable pageable);
     //Faire la liste des SaleInvoiceDamage dans un Pos dans un intervalle de temps puis page par page
-    @Query("SELECT saleidam FROM SaleInvoiceDamage saleidam WHERE saleidam.saleidamPos.id=:posId AND (saleidam.saleidamInvoicingDate>=:startDate AND saleidam.saleidamInvoicingDate<=:endDate) ORDER BY saleidam.saleidamClient.clientName ASC")
+    @Query("SELECT saleidam FROM SaleInvoiceDamage saleidam WHERE saleidam.saleidamPosId=:posId AND (saleidam.saleidamInvoicingDate>=:startDate AND saleidam.saleidamInvoicingDate<=:endDate) ORDER BY saleidam.saleidamClient.clientName ASC")
     Optional<List<SaleInvoiceDamage>> findAllsaleidaminPosBetween(@Param("posId") Long posId, @Param("startDate") Instant startDate,
                                                                     @Param("endDate") Instant endDate);
 
-    @Query("SELECT saleidam FROM SaleInvoiceDamage saleidam WHERE saleidam.saleidamPos.id=:posId AND (saleidam.saleidamInvoicingDate>=:startDate AND saleidam.saleidamInvoicingDate<=:endDate) ORDER BY saleidam.saleidamClient.clientName ASC")
+    @Query("SELECT saleidam FROM SaleInvoiceDamage saleidam WHERE saleidam.saleidamPosId=:posId AND (saleidam.saleidamInvoicingDate>=:startDate AND saleidam.saleidamInvoicingDate<=:endDate) ORDER BY saleidam.saleidamClient.clientName ASC")
     Optional<Page<SaleInvoiceDamage>> findPagesaleidaminPosBetween(@Param("posId") Long posId, @Param("startDate") Instant startDate,
                                                                      @Param("endDate") Instant endDate, Pageable pageable);
     //Faire la liste des SaleInvoiceDamage d'un userBM dans un Pos dans un intervalle de temps puis page par page
-    @Query("SELECT saleidam FROM SaleInvoiceDamage saleidam WHERE saleidam.saleidamUserbm.id=:userbmId AND saleidam.saleidamPos.id=:posId AND (saleidam.saleidamInvoicingDate>=:startDate AND saleidam.saleidamInvoicingDate<=:endDate) ORDER BY saleidam.saleidamClient.clientName ASC")
+    @Query("SELECT saleidam FROM SaleInvoiceDamage saleidam WHERE saleidam.saleidamUserbm.id=:userbmId AND saleidam.saleidamPosId=:posId AND (saleidam.saleidamInvoicingDate>=:startDate AND saleidam.saleidamInvoicingDate<=:endDate) ORDER BY saleidam.saleidamClient.clientName ASC")
     Optional<List<SaleInvoiceDamage>> findAllsaleidamofUserbminPosBetween(@Param("userbmId") Long userbmId, @Param("posId") Long posId,
                                                                             @Param("startDate") Instant startDate,
                                                                             @Param("endDate") Instant endDate);
 
-    @Query("SELECT saleidam FROM SaleInvoiceDamage saleidam WHERE saleidam.saleidamUserbm.id=:userbmId AND saleidam.saleidamPos.id=:posId AND (saleidam.saleidamInvoicingDate>=:startDate AND saleidam.saleidamInvoicingDate<=:endDate) ORDER BY saleidam.saleidamClient.clientName ASC")
+    @Query("SELECT saleidam FROM SaleInvoiceDamage saleidam WHERE saleidam.saleidamUserbm.id=:userbmId AND saleidam.saleidamPosId=:posId AND (saleidam.saleidamInvoicingDate>=:startDate AND saleidam.saleidamInvoicingDate<=:endDate) ORDER BY saleidam.saleidamClient.clientName ASC")
     Optional<Page<SaleInvoiceDamage>> findPagesaleidamofUserbminPosBetween(@Param("userbmId") Long userbmId, @Param("posId") Long posId,
                                                                              @Param("startDate") Instant startDate,
                                                                              @Param("endDate") Instant endDate, Pageable pageable);
     //Faire la liste des SaleInvoiceDamage d'un client dans un Pos dans un intervalle de temps puis page par page
-    @Query("SELECT saleidam FROM SaleInvoiceDamage saleidam WHERE saleidam.saleidamClient.id=:clientId AND saleidam.saleidamPos.id=:posId AND (saleidam.saleidamInvoicingDate>=:startDate AND saleidam.saleidamInvoicingDate<=:endDate) ORDER BY saleidam.saleidamClient.clientName ASC")
+    @Query("SELECT saleidam FROM SaleInvoiceDamage saleidam WHERE saleidam.saleidamClient.id=:clientId AND saleidam.saleidamPosId=:posId AND (saleidam.saleidamInvoicingDate>=:startDate AND saleidam.saleidamInvoicingDate<=:endDate) ORDER BY saleidam.saleidamClient.clientName ASC")
     Optional<List<SaleInvoiceDamage>> findAllsaleidamofClientinPosBetween(@Param("clientId") Long clientId, @Param("posId") Long posId,
                                                                             @Param("startDate") Instant startDate,
                                                                             @Param("endDate") Instant endDate);
 
-    @Query("SELECT saleidam FROM SaleInvoiceDamage saleidam WHERE saleidam.saleidamClient.id=:clientId AND saleidam.saleidamPos.id=:posId AND (saleidam.saleidamInvoicingDate>=:startDate AND saleidam.saleidamInvoicingDate<=:endDate) ORDER BY saleidam.saleidamClient.clientName ASC")
+    @Query("SELECT saleidam FROM SaleInvoiceDamage saleidam WHERE saleidam.saleidamClient.id=:clientId AND saleidam.saleidamPosId=:posId AND (saleidam.saleidamInvoicingDate>=:startDate AND saleidam.saleidamInvoicingDate<=:endDate) ORDER BY saleidam.saleidamClient.clientName ASC")
     Optional<Page<SaleInvoiceDamage>> findPagesaleidamofClientinPosBetween(@Param("clientId") Long clientId, @Param("posId") Long posId,
                                                                              @Param("startDate") Instant startDate,
                                                                              @Param("endDate") Instant endDate, Pageable pageable);
@@ -83,14 +83,14 @@ public interface SaleInvoiceDamageRepository extends JpaRepository<SaleInvoiceDa
                                                                                  @Param("startDate") Instant startDate,
                                                                                  @Param("endDate") Instant endDate, Pageable pageable);
     //Faire la liste des SaleInvoiceDamage d'un client enregistre par un userBM dans un Pos dans un intervalle de temps puis page par page
-    @Query("SELECT saleidam FROM SaleInvoiceDamage saleidam WHERE saleidam.saleidamClient.id=:clientId AND saleidam.saleidamUserbm.id=:userbmId AND saleidam.saleidamPos.id=:posId AND (saleidam.saleidamInvoicingDate>=:startDate AND saleidam.saleidamInvoicingDate<=:endDate) ORDER BY saleidam.saleidamClient.clientName ASC")
+    @Query("SELECT saleidam FROM SaleInvoiceDamage saleidam WHERE saleidam.saleidamClient.id=:clientId AND saleidam.saleidamUserbm.id=:userbmId AND saleidam.saleidamPosId=:posId AND (saleidam.saleidamInvoicingDate>=:startDate AND saleidam.saleidamInvoicingDate<=:endDate) ORDER BY saleidam.saleidamClient.clientName ASC")
     Optional<List<SaleInvoiceDamage>> findAllsaleidamofClientforUserbminPosBetween(@Param("clientId") Long clientId,
                                                                                      @Param("userbmId") Long userbmId,
                                                                                      @Param("posId") Long posId,
                                                                                      @Param("startDate") Instant startDate,
                                                                                      @Param("endDate") Instant endDate);
 
-    @Query("SELECT saleidam FROM SaleInvoiceDamage saleidam WHERE saleidam.saleidamClient.id=:clientId AND saleidam.saleidamUserbm.id=:userbmId AND saleidam.saleidamPos.id=:posId AND (saleidam.saleidamInvoicingDate>=:startDate AND saleidam.saleidamInvoicingDate<=:endDate) ORDER BY saleidam.saleidamClient.clientName ASC")
+    @Query("SELECT saleidam FROM SaleInvoiceDamage saleidam WHERE saleidam.saleidamClient.id=:clientId AND saleidam.saleidamUserbm.id=:userbmId AND saleidam.saleidamPosId=:posId AND (saleidam.saleidamInvoicingDate>=:startDate AND saleidam.saleidamInvoicingDate<=:endDate) ORDER BY saleidam.saleidamClient.clientName ASC")
     Optional<Page<SaleInvoiceDamage>> findPagesaleidamofClientforUserbminPosBetween(@Param("clientId") Long clientId,
                                                                                       @Param("userbmId") Long userbmId,
                                                                                       @Param("posId") Long posId,

@@ -13,9 +13,11 @@ public interface UserBMRoleService {
     UserBMRoleDto findUserBMRoleById(Long id);
     UserBMRoleDto findUserBMRoleByUserBMandRole(UserBMDto userbmDto,
                                                 RoleDto roleDto);
+    UserBMRoleDto findByUserbmroleUserbmAndUserbmroleRole(Long userbmDtoId, Long roleDtoId);
     
-    List<UserBMRoleDto> findAllUserBMRoleofEnterprise(EnterpriseDto entDto);
-    List<UserBMRoleDto> findAllUserBMRoleofPointofsale(PointofsaleDto posDto);
+    //List<UserBMRoleDto> findAllUserBMRoleofEnterprise(EnterpriseDto entDto);
+    List<UserBMRoleDto> findAllUserBMRoleofPointofsale(Long posId);
+    Boolean isUserBMRoleUnique(Long userBMId, Long roleId);
     Boolean isUserBMRoleDeleteable(Long id);
     Boolean deleteUserBMRoleById(Long id);
 

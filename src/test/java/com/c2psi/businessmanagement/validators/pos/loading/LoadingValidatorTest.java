@@ -1,6 +1,5 @@
 package com.c2psi.businessmanagement.validators.pos.loading;
 
-import com.c2psi.businessmanagement.Enumerations.LoadingState;
 import com.c2psi.businessmanagement.dtos.pos.loading.LoadingDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
@@ -24,7 +23,7 @@ public class LoadingValidatorTest {
             LoadingDto loadingDtoToValidate = LoadingDto.builder()
                     .loadCode("dffdfdfd")
                     .loadComment("dfdfdfd")
-                    .loadPosDto(PointofsaleDto.builder().build())
+                    .loadPosId(PointofsaleDto.builder().build().getId())
                     .loadSalereport("fdfdfdfdfd")
                     //.loadState(LoadingState.Edited)
                     .loadUserbmManagerDto(UserBMDto.builder().build())
@@ -52,7 +51,7 @@ public class LoadingValidatorTest {
             LoadingDto loadingDtoToValidate = LoadingDto.builder()
                     .loadCode("dffdfdfd")
                     .loadComment("dfdfdfd")
-                    .loadPosDto(PointofsaleDto.builder().build())
+                    .loadPosId(PointofsaleDto.builder().build().getId())
                     .loadSalereport("fdfdfdfdfd")
                     //.loadState(LoadingState.Edited)
                     .loadUserbmManagerDto(UserBMDto.builder().build())
@@ -80,7 +79,7 @@ public class LoadingValidatorTest {
             LoadingDto loadingDtoToValidate = LoadingDto.builder()
                     .loadCode(null)
                     .loadComment("dfdfdfd")
-                    .loadPosDto(null)
+                    .loadPosId(null)
                     .loadSalereport("fdfdfdfdfd")
                     //.loadState(null)
                     .loadUserbmManagerDto(null)
@@ -122,7 +121,7 @@ public class LoadingValidatorTest {
             LoadingDto loadingDtoToValidate = LoadingDto.builder()
                     .loadCode("null")
                     .loadComment("dfdfdfd")
-                    .loadPosDto(null)
+                    .loadPosId(null)
                     .loadSalereport("fdfdfdfdfd")
                     //.loadState(LoadingState.Edited)
                     .loadUserbmManagerDto(UserBMDto.builder().build())
@@ -151,7 +150,7 @@ public class LoadingValidatorTest {
             LoadingDto loadingDtoToValidate = LoadingDto.builder()
                     .loadCode("null")
                     .loadComment("dfdfdfd")
-                    .loadPosDto(PointofsaleDto.builder().build())
+                    .loadPosId(PointofsaleDto.builder().build().getId())
                     .loadSalereport("fdfdfdfdfd")
                     //.loadState(LoadingState.Edited)
                     .loadUserbmManagerDto(null)
@@ -182,7 +181,7 @@ public class LoadingValidatorTest {
             LoadingDto loadingDtoToValidate = LoadingDto.builder()
                     .loadCode("null")
                     .loadComment("dfdfdfd")
-                    .loadPosDto(PointofsaleDto.builder().build())
+                    .loadPosId(PointofsaleDto.builder().build().getId())
                     .loadSalereport("fdfdfdfdfd")
                     //.loadState(LoadingState.Edited)
                     .loadUserbmManagerDto(UserBMDto.builder().build())
@@ -211,7 +210,7 @@ public class LoadingValidatorTest {
             LoadingDto loadingDtoToValidate = LoadingDto.builder()
                     .loadCode("null")
                     .loadComment("dfdfdfd")
-                    .loadPosDto(PointofsaleDto.builder().build())
+                    .loadPosId(PointofsaleDto.builder().build().getId())
                     .loadSalereport("fdfdfdfdfd")
                     //.loadState(LoadingState.Edited)
                     .loadUserbmManagerDto(UserBMDto.builder().build())

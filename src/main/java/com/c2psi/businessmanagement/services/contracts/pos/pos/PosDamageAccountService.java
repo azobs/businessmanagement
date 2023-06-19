@@ -1,11 +1,8 @@
 package com.c2psi.businessmanagement.services.contracts.pos.pos;
 
 import com.c2psi.businessmanagement.Enumerations.OperationType;
-import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PosDamageAccountDto;
-import com.c2psi.businessmanagement.dtos.pos.pos.PosDamageAccountDto;
-import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
-import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
+import com.c2psi.businessmanagement.dtos.pos.pos.PosDamageOperationDto;
 import org.springframework.data.domain.Page;
 
 import java.math.BigDecimal;
@@ -28,5 +25,7 @@ public interface PosDamageAccountService {
 
     Boolean saveDamageOperation(Long posdamaccId, BigDecimal qte, OperationType operationType,
                                  Long userBMId, String opObject, String opDescription);
+    //Boolean saveCapsuleOperation(PosCapsuleAccountDto poscapaccDto, PosCapsuleOperationDto poscapopDto);
+    Boolean saveDamageOperation(PosDamageAccountDto posdamaccDto, PosDamageOperationDto posdamopDto);
     Boolean isPosDamageAccountDeleteable(Long posdamAccId);
 }

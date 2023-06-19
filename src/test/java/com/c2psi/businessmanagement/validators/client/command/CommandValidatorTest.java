@@ -7,7 +7,6 @@ import com.c2psi.businessmanagement.dtos.client.client.ClientDto;
 import com.c2psi.businessmanagement.dtos.client.command.CommandDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
-import com.c2psi.businessmanagement.validators.client.client.ClientValidator;
 import org.junit.Test;
 
 import java.util.Date;
@@ -25,7 +24,7 @@ public class CommandValidatorTest {
                 .cmdClientDto(ClientDto.builder().build())
                 .cmdCode("fdfdfd")
                 .cmdComment("fdfdfd")
-                .cmdPosDto(PointofsaleDto.builder().build())
+                .cmdPosId(PointofsaleDto.builder().build().getId())
                 .cmdState(CommandState.InEditing)
                 .cmdStatus(CommandStatus.Cash)
                 .cmdType(CommandType.Standard)
@@ -48,7 +47,7 @@ public class CommandValidatorTest {
                 .cmdClientDto(ClientDto.builder().build())
                 .cmdCode("fdfdfd")
                 .cmdComment("fdfdfd")
-                .cmdPosDto(PointofsaleDto.builder().build())
+                .cmdPosId(PointofsaleDto.builder().build().getId())
                 .cmdState(CommandState.InEditing)
                 .cmdStatus(CommandStatus.Cash)
                 .cmdType(CommandType.Standard)
@@ -72,7 +71,7 @@ public class CommandValidatorTest {
                 .cmdClientDto(null)
                 .cmdCode(null)
                 .cmdComment("fdfdfd")
-                .cmdPosDto(null)
+                .cmdPosId(null)
                 .cmdState(null)
                 .cmdStatus(null)
                 .cmdType(null)
@@ -97,7 +96,7 @@ public class CommandValidatorTest {
                 .cmdClientDto(ClientDto.builder().build())
                 .cmdCode("")
                 .cmdComment("fdfdfd")
-                .cmdPosDto(PointofsaleDto.builder().build())
+                .cmdPosId(PointofsaleDto.builder().build().getId())
                 .cmdState(CommandState.InEditing)
                 .cmdStatus(CommandStatus.Cash)
                 .cmdType(CommandType.Standard)
@@ -125,7 +124,7 @@ public class CommandValidatorTest {
                 .cmdClientDto(ClientDto.builder().build())
                 .cmdCode("      ")
                 .cmdComment("fdfdfd")
-                .cmdPosDto(PointofsaleDto.builder().build())
+                .cmdPosId(PointofsaleDto.builder().build().getId())
                 .cmdState(CommandState.InEditing)
                 .cmdStatus(CommandStatus.Cash)
                 .cmdType(CommandType.Standard)
@@ -150,7 +149,7 @@ public class CommandValidatorTest {
                 .cmdClientDto(ClientDto.builder().build())
                 .cmdCode("ss")
                 .cmdComment("fdfdfd")
-                .cmdPosDto(PointofsaleDto.builder().build())
+                .cmdPosId(PointofsaleDto.builder().build().getId())
                 .cmdState(CommandState.InEditing)
                 .cmdStatus(CommandStatus.Cash)
                 .cmdType(CommandType.Standard)
@@ -175,7 +174,7 @@ public class CommandValidatorTest {
                 .cmdClientDto(ClientDto.builder().build())
                 .cmdCode("sssdsdeweasedfrtghyuj")
                 .cmdComment("fdfdfd")
-                .cmdPosDto(PointofsaleDto.builder().build())
+                .cmdPosId(PointofsaleDto.builder().build().getId())
                 .cmdState(CommandState.InEditing)
                 .cmdStatus(CommandStatus.Cash)
                 .cmdType(CommandType.Standard)

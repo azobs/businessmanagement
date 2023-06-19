@@ -16,7 +16,7 @@ public interface SaleInvoiceCashRepository
     //Rechercher le SaleInvoiceCash a partir de son Id
     Optional<SaleInvoiceCash> findSaleInvoiceCashById(Long saleicashId);
     //Rechercher le SaleInvoiceCash a partir du code et du pointofsale
-    @Query("SELECT saleicash FROM SaleInvoiceCash saleicash WHERE saleicash.saleicashCode=:saleicashCode AND saleicash.saleicashPos.id=:posId")
+    @Query("SELECT saleicash FROM SaleInvoiceCash saleicash WHERE saleicash.saleicashCode=:saleicashCode AND saleicash.saleicashPosId=:posId")
     Optional<SaleInvoiceCash> findSaleInvoiceCashByCodeinPos(@Param("saleicashCode") String saleicashCode, @Param("posId") Long posId);
     //Faire la liste des SaleInvoiceCash dans un intervalle de temps puis page par page
     @Query("SELECT saleicash FROM SaleInvoiceCash saleicash WHERE saleicash.saleicashInvoicingDate>=:startDate AND saleicash.saleicashInvoicingDate<=:endDate ORDER BY saleicash.saleicashClient.clientName ASC")
@@ -40,28 +40,28 @@ public interface SaleInvoiceCashRepository
     Optional<Page<SaleInvoiceCash>> findPageSaleicashofUserbmBetween(@Param("userbmId") Long userbmId, @Param("startDate") Instant startDate,
                                                                     @Param("endDate") Instant endDate, Pageable pageable);
     //Faire la liste des SaleInvoiceCash dans un Pos dans un intervalle de temps puis page par page
-    @Query("SELECT saleicash FROM SaleInvoiceCash saleicash WHERE saleicash.saleicashPos.id=:posId AND (saleicash.saleicashInvoicingDate>=:startDate AND saleicash.saleicashInvoicingDate<=:endDate) ORDER BY saleicash.saleicashClient.clientName ASC")
+    @Query("SELECT saleicash FROM SaleInvoiceCash saleicash WHERE saleicash.saleicashPosId=:posId AND (saleicash.saleicashInvoicingDate>=:startDate AND saleicash.saleicashInvoicingDate<=:endDate) ORDER BY saleicash.saleicashClient.clientName ASC")
     Optional<List<SaleInvoiceCash>> findAllSaleicashinPosBetween(@Param("posId") Long posId, @Param("startDate") Instant startDate,
                                                                     @Param("endDate") Instant endDate);
-    @Query("SELECT saleicash FROM SaleInvoiceCash saleicash WHERE saleicash.saleicashPos.id=:posId AND (saleicash.saleicashInvoicingDate>=:startDate AND saleicash.saleicashInvoicingDate<=:endDate) ORDER BY saleicash.saleicashClient.clientName ASC")
+    @Query("SELECT saleicash FROM SaleInvoiceCash saleicash WHERE saleicash.saleicashPosId=:posId AND (saleicash.saleicashInvoicingDate>=:startDate AND saleicash.saleicashInvoicingDate<=:endDate) ORDER BY saleicash.saleicashClient.clientName ASC")
     Optional<Page<SaleInvoiceCash>> findPageSaleicashinPosBetween(@Param("posId") Long posId, @Param("startDate") Instant startDate,
                                                                  @Param("endDate") Instant endDate, Pageable pageable);
     //Faire la liste des SaleInvoiceCash d'un userBM dans un Pos dans un intervalle de temps puis page par page
-    @Query("SELECT saleicash FROM SaleInvoiceCash saleicash WHERE saleicash.saleicashUserbm.id=:userbmId AND saleicash.saleicashPos.id=:posId AND (saleicash.saleicashInvoicingDate>=:startDate AND saleicash.saleicashInvoicingDate<=:endDate) ORDER BY saleicash.saleicashClient.clientName ASC")
+    @Query("SELECT saleicash FROM SaleInvoiceCash saleicash WHERE saleicash.saleicashUserbm.id=:userbmId AND saleicash.saleicashPosId=:posId AND (saleicash.saleicashInvoicingDate>=:startDate AND saleicash.saleicashInvoicingDate<=:endDate) ORDER BY saleicash.saleicashClient.clientName ASC")
     Optional<List<SaleInvoiceCash>> findAllSaleicashofUserbminPosBetween(@Param("userbmId") Long userbmId, @Param("posId") Long posId,
                                                                          @Param("startDate") Instant startDate,
                                                                          @Param("endDate") Instant endDate);
-    @Query("SELECT saleicash FROM SaleInvoiceCash saleicash WHERE saleicash.saleicashUserbm.id=:userbmId AND saleicash.saleicashPos.id=:posId AND (saleicash.saleicashInvoicingDate>=:startDate AND saleicash.saleicashInvoicingDate<=:endDate) ORDER BY saleicash.saleicashClient.clientName ASC")
+    @Query("SELECT saleicash FROM SaleInvoiceCash saleicash WHERE saleicash.saleicashUserbm.id=:userbmId AND saleicash.saleicashPosId=:posId AND (saleicash.saleicashInvoicingDate>=:startDate AND saleicash.saleicashInvoicingDate<=:endDate) ORDER BY saleicash.saleicashClient.clientName ASC")
     Optional<Page<SaleInvoiceCash>> findPageSaleicashofUserbminPosBetween(@Param("userbmId") Long userbmId, @Param("posId") Long posId,
                                                                          @Param("startDate") Instant startDate,
                                                                          @Param("endDate") Instant endDate, Pageable pageable);
     //Faire la liste des SaleInvoiceCash d'un client dans un Pos dans un intervalle de temps puis page par page
-    @Query("SELECT saleicash FROM SaleInvoiceCash saleicash WHERE saleicash.saleicashClient.id=:clientId AND saleicash.saleicashPos.id=:posId AND (saleicash.saleicashInvoicingDate>=:startDate AND saleicash.saleicashInvoicingDate<=:endDate) ORDER BY saleicash.saleicashClient.clientName ASC")
+    @Query("SELECT saleicash FROM SaleInvoiceCash saleicash WHERE saleicash.saleicashClient.id=:clientId AND saleicash.saleicashPosId=:posId AND (saleicash.saleicashInvoicingDate>=:startDate AND saleicash.saleicashInvoicingDate<=:endDate) ORDER BY saleicash.saleicashClient.clientName ASC")
     Optional<List<SaleInvoiceCash>> findAllSaleicashofClientinPosBetween(@Param("clientId") Long clientId, @Param("posId") Long posId,
                                                                          @Param("startDate") Instant startDate,
                                                                          @Param("endDate") Instant endDate);
 
-    @Query("SELECT saleicash FROM SaleInvoiceCash saleicash WHERE saleicash.saleicashClient.id=:clientId AND saleicash.saleicashPos.id=:posId AND (saleicash.saleicashInvoicingDate>=:startDate AND saleicash.saleicashInvoicingDate<=:endDate) ORDER BY saleicash.saleicashClient.clientName ASC")
+    @Query("SELECT saleicash FROM SaleInvoiceCash saleicash WHERE saleicash.saleicashClient.id=:clientId AND saleicash.saleicashPosId=:posId AND (saleicash.saleicashInvoicingDate>=:startDate AND saleicash.saleicashInvoicingDate<=:endDate) ORDER BY saleicash.saleicashClient.clientName ASC")
     Optional<Page<SaleInvoiceCash>> findPageSaleicashofClientinPosBetween(@Param("clientId") Long clientId, @Param("posId") Long posId,
                                                                           @Param("startDate") Instant startDate,
                                                                           @Param("endDate") Instant endDate, Pageable pageable);
@@ -79,14 +79,14 @@ public interface SaleInvoiceCashRepository
                                                                               @Param("endDate") Instant endDate,
                                                                               Pageable pageable);
     //Faire la liste des SaleInvoiceCash d'un client enregistre par un userBM dans un Pos dans un intervalle de temps puis page par page
-    @Query("SELECT saleicash FROM SaleInvoiceCash saleicash WHERE saleicash.saleicashClient.id=:clientId AND saleicash.saleicashUserbm.id=:userbmId AND saleicash.saleicashPos.id=:posId AND (saleicash.saleicashInvoicingDate>=:startDate AND saleicash.saleicashInvoicingDate<=:endDate) ORDER BY saleicash.saleicashClient.clientName ASC")
+    @Query("SELECT saleicash FROM SaleInvoiceCash saleicash WHERE saleicash.saleicashClient.id=:clientId AND saleicash.saleicashUserbm.id=:userbmId AND saleicash.saleicashPosId=:posId AND (saleicash.saleicashInvoicingDate>=:startDate AND saleicash.saleicashInvoicingDate<=:endDate) ORDER BY saleicash.saleicashClient.clientName ASC")
     Optional<List<SaleInvoiceCash>> findAllSaleicashofClientforUserbminPosBetween(@Param("clientId") Long clientId,
                                                                                   @Param("userbmId") Long userbmId,
                                                                                   @Param("posId") Long posId,
                                                                                   @Param("startDate") Instant startDate,
                                                                                   @Param("endDate") Instant endDate);
 
-    @Query("SELECT saleicash FROM SaleInvoiceCash saleicash WHERE saleicash.saleicashClient.id=:clientId AND saleicash.saleicashUserbm.id=:userbmId AND saleicash.saleicashPos.id=:posId AND (saleicash.saleicashInvoicingDate>=:startDate AND saleicash.saleicashInvoicingDate<=:endDate) ORDER BY saleicash.saleicashClient.clientName ASC")
+    @Query("SELECT saleicash FROM SaleInvoiceCash saleicash WHERE saleicash.saleicashClient.id=:clientId AND saleicash.saleicashUserbm.id=:userbmId AND saleicash.saleicashPosId=:posId AND (saleicash.saleicashInvoicingDate>=:startDate AND saleicash.saleicashInvoicingDate<=:endDate) ORDER BY saleicash.saleicashClient.clientName ASC")
     Optional<Page<SaleInvoiceCash>> findPageSaleicashofClientforUserbminPosBetween(@Param("clientId") Long clientId,
                                                                                    @Param("userbmId") Long userbmId,
                                                                                    @Param("posId") Long posId,

@@ -1,6 +1,5 @@
 package com.c2psi.businessmanagement.services.contractsImpl.stock.product;
 
-import com.c2psi.businessmanagement.dtos.stock.product.FormatDto;
 import com.c2psi.businessmanagement.dtos.stock.product.PackagingDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
 import com.c2psi.businessmanagement.exceptions.*;
@@ -11,7 +10,6 @@ import com.c2psi.businessmanagement.repositories.pos.pos.PointofsaleRepository;
 import com.c2psi.businessmanagement.repositories.stock.product.PackagingRepository;
 import com.c2psi.businessmanagement.repositories.stock.provider.ProviderRepository;
 import com.c2psi.businessmanagement.services.contracts.stock.product.PackagingService;
-import com.c2psi.businessmanagement.validators.stock.product.FormatValidator;
 import com.c2psi.businessmanagement.validators.stock.product.PackagingValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -68,7 +67,7 @@ public class PackagingServiceImpl implements PackagingService {
         /**********************************************************
          * Il faut se rassurer que le pointofsale existe vraiment
          */
-        Optional<Pointofsale> optionalPointofsale = pointofsaleRepository.findPointofsaleById(packDto.getPackPosDto().getId());
+        Optional<Pointofsale> optionalPointofsale = pointofsaleRepository.findPointofsaleById(packDto.getPackPosId());
         if(!optionalPointofsale.isPresent()){
             log.error("The indicated pointofsale in the packDto sent does not identify a pointofsale");
             throw new InvalidEntityException("Le packDto n'est pas valide car le pointofsale envoye n'existe pas en BD ",
@@ -78,7 +77,7 @@ public class PackagingServiceImpl implements PackagingService {
         /**************************************************************************************************
          * Il faut verifier que le provider indiquer est bel et bien un provider du pointofsale indique
          */
-        if(optionalProvider.get().getProviderPos().getId() != optionalPointofsale.get().getId()){
+        if(optionalProvider.get().getProviderPosId() != optionalPointofsale.get().getId()){
             log.error("The provider indicated must be in the indicated pointofsale");
             throw new InvalidEntityException("Le pointofsale indique pour le packaging doit etre le meme que celui " +
                     "du provider indique", ErrorCode.PACKAGING_NOT_VALID);
@@ -88,7 +87,7 @@ public class PackagingServiceImpl implements PackagingService {
          * On va se rassurer que le packaging sera unique en BD pour ce pointofsale
          */
         if(!isPackagingUniqueinPos(packDto.getPackLabel(), packDto.getPackFirstcolor(),
-                packDto.getPackProviderDto().getId(), packDto.getPackPosDto().getId())){
+                packDto.getPackProviderDto().getId(), packDto.getPackPosId())){
             log.error("There exist another packaging in the same pointofsale with the same characteristics");
             throw new DuplicateEntityException("Un packaging existe deja en BD avec les memes caracteristiques ",
                     ErrorCode.PACKAGING_DUPLICATED);
@@ -130,7 +129,7 @@ public class PackagingServiceImpl implements PackagingService {
         /**********************************************************
          * Il faut se rassurer que le pointofsale existe vraiment
          */
-        Optional<Pointofsale> optionalPointofsale = pointofsaleRepository.findPointofsaleById(packDto.getPackPosDto().getId());
+        Optional<Pointofsale> optionalPointofsale = pointofsaleRepository.findPointofsaleById(packDto.getPackPosId());
         if(!optionalPointofsale.isPresent()){
             log.error("The indicated pointofsale in the packDto sent does not identify a pointofsale");
             throw new InvalidEntityException("Le packDto n'est pas valide car le pointofsale envoye n'existe pas en BD ",
@@ -140,7 +139,7 @@ public class PackagingServiceImpl implements PackagingService {
         /**************************************************************************************************
          * Il faut verifier que le provider indiquer est bel et bien un provider du pointofsale indique
          */
-        if(optionalProvider.get().getProviderPos().getId() != optionalPointofsale.get().getId()){
+        if(optionalProvider.get().getProviderPosId() != optionalPointofsale.get().getId()){
             log.error("The provider indicated must be in the indicated pointofsale");
             throw new InvalidEntityException("Le pointofsale indique pour le packaging doit etre le meme que celui " +
                     "du provider indique", ErrorCode.PACKAGING_NOT_VALID);
@@ -168,7 +167,7 @@ public class PackagingServiceImpl implements PackagingService {
         /**********************************
          * On va verifier si cest le pointofsale quon veut modifier car si cest le cas on refuse
          */
-        if(!packagingToUpdate.getPackPos().getId().equals(packDto.getPackPosDto().getId())){
+        if(!packagingToUpdate.getPackPosId().equals(packDto.getPackPosId())){
             log.error("Le pointofsale d'un packaging ne peut etre modifier");
             throw new InvalidEntityException("Le pointofsale d'un Packagaing ne peut etre modifier pendant la " +
                     "mise a jour du packaging", ErrorCode.PACKAGING_NOT_VALID);
@@ -186,7 +185,7 @@ public class PackagingServiceImpl implements PackagingService {
              */
 
             if(!isPackagingUniqueinPos(packDto.getPackLabel(), packDto.getPackFirstcolor(),
-                    packDto.getPackProviderDto().getId(), packDto.getPackPosDto().getId())){
+                    packDto.getPackProviderDto().getId(), packDto.getPackPosId())){
                 System.err.println("ici6");
                 log.error("There exist another packaging in the same pointofsale with the same characteristics");
                 throw new DuplicateEntityException("Un packaging existe deja en BD avec les memes caracteristiques ",
@@ -368,5 +367,57 @@ public class PackagingServiceImpl implements PackagingService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public BigDecimal convertPackagingToCash(Long packagingId, BigDecimal nberofPackaging) {
+        if(packagingId == null){
+            log.error("The packagingId pass as argument is null");
+            throw new NullArgumentException("L'argument packagingId passe en argument est null");
+        }
+        if(nberofPackaging == null){
+            log.error("The number of packaging to convert can't be null");
+            throw new NullArgumentException("Le nombre de packaging a convertir ne saurait etre null");
+        }
+        if(nberofPackaging.compareTo(BigDecimal.valueOf(0))<0){
+            log.error("The number of packaging to convert can't be negative");
+            throw new InvalidEntityException("Le nombre de packaging a convertir ne saurait etre negatif");
+        }
+        Optional<Packaging> optionalPackaging = packagingRepository.findPackagingById(packagingId);
+        if(!optionalPackaging.isPresent()){
+            log.error("There is no packaging in the DB with the packagingId {} precised ", packagingId);
+            throw new EntityNotFoundException("Aucun packaging n'existe avec l'id passe en argument ",
+                    ErrorCode.PACKAGING_NOT_FOUND);
+        }
+
+        BigDecimal cashValue = optionalPackaging.get().getPackPrice().multiply(nberofPackaging);
+
+        return cashValue;
+    }
+
+    @Override
+    public BigDecimal convertCashToPackaging(Long packagingId, BigDecimal amountToConvert) {
+        if(packagingId == null){
+            log.error("The packagingId pass as argument is null");
+            throw new NullArgumentException("L'argument packagingId passe en argument est null");
+        }
+        if(amountToConvert == null){
+            log.error("The cash amountToConvert to convert can't be null");
+            throw new NullArgumentException("Le cash amountToConvert a convertir ne saurait etre null");
+        }
+        if(amountToConvert.compareTo(BigDecimal.valueOf(0))<0){
+            log.error("The number of packaging to convert can't be negative");
+            throw new InvalidEntityException("Le nombre de packaging a convertir ne saurait etre negatif");
+        }
+        Optional<Packaging> optionalPackaging = packagingRepository.findPackagingById(packagingId);
+        if(!optionalPackaging.isPresent()){
+            log.error("There is no packaging in the DB with the packagingId {} precised ", packagingId);
+            throw new EntityNotFoundException("Aucun packaging n'existe avec l'id passe en argument ",
+                    ErrorCode.PACKAGING_NOT_FOUND);
+        }
+
+        BigDecimal packagingNumber = amountToConvert.divide(optionalPackaging.get().getPackPrice());
+
+        return packagingNumber;
     }
 }

@@ -1,9 +1,7 @@
 package com.c2psi.businessmanagement.services.contracts.pos.userbm;
 
 import com.c2psi.businessmanagement.Enumerations.RoleType;
-import com.c2psi.businessmanagement.dtos.pos.pos.EnterpriseDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.RoleDto;
-import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 
 import java.util.List;
 

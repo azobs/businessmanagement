@@ -196,7 +196,7 @@ public class SupplyInvoiceCashServiceImplTest {
         assertNotNull(supplyInvoiceCashDtoSavedFound);
 
         SupplyInvoiceCashDto supplyInvoiceCashDtoSavedFound1 = supplyInvoiceCashService.findSupplyInvoiceCashByCode(
-                supplyInvoiceCashDtoSaved.getSicashCode(), supplyInvoiceCashDtoSaved.getSicashPosDto().getId());
+                supplyInvoiceCashDtoSaved.getSicashCode(), supplyInvoiceCashDtoSaved.getSicashPosId());
         assertNotNull(supplyInvoiceCashDtoSavedFound1);
 
         //On fait le update du code
@@ -233,7 +233,7 @@ public class SupplyInvoiceCashServiceImplTest {
         assertNotNull(supplyInvoiceCashDtoSavedFound);
 
         SupplyInvoiceCashDto supplyInvoiceCashDtoSavedFound1 = supplyInvoiceCashService.findSupplyInvoiceCashByCode(
-                supplyInvoiceCashDtoSaved1.getSicashCode(), supplyInvoiceCashDtoSaved1.getSicashPosDto().getId());
+                supplyInvoiceCashDtoSaved1.getSicashCode(), supplyInvoiceCashDtoSaved1.getSicashPosId());
         assertNotNull(supplyInvoiceCashDtoSavedFound1);
 
         //On fait le update du code
@@ -275,7 +275,7 @@ public class SupplyInvoiceCashServiceImplTest {
         assertNotNull(supplyInvoiceCashDtoSavedFound);
 
         SupplyInvoiceCashDto supplyInvoiceCashDtoSavedFound1 = supplyInvoiceCashService.findSupplyInvoiceCashByCode(
-                supplyInvoiceCashDtoSaved.getSicashCode(), supplyInvoiceCashDtoSaved.getSicashPosDto().getId());
+                supplyInvoiceCashDtoSaved.getSicashCode(), supplyInvoiceCashDtoSaved.getSicashPosId());
         assertNotNull(supplyInvoiceCashDtoSavedFound1);
 
         //On fait le update du code
@@ -317,13 +317,13 @@ public class SupplyInvoiceCashServiceImplTest {
         assertNotNull(supplyInvoiceCashDtoSavedFound);
 
         SupplyInvoiceCashDto supplyInvoiceCashDtoSavedFound1 = supplyInvoiceCashService.findSupplyInvoiceCashByCode(
-                supplyInvoiceCashDtoSaved.getSicashCode(), supplyInvoiceCashDtoSaved.getSicashPosDto().getId());
+                supplyInvoiceCashDtoSaved.getSicashCode(), supplyInvoiceCashDtoSaved.getSicashPosId());
         assertNotNull(supplyInvoiceCashDtoSavedFound1);
 
         //On fait le update du code
         supplyInvoiceCashDtoSavedFound.setSicashCode("newCode");
         supplyInvoiceCashDtoSavedFound.setSicashProviderDto(providerDtoSaved1);
-        supplyInvoiceCashDtoSavedFound.setSicashPosDto(posDtoSaved1);
+        supplyInvoiceCashDtoSavedFound.setSicashPosId(posDtoSaved1.getId());
         SupplyInvoiceCashDto supplyInvoiceCashDtoSavedUpdated = supplyInvoiceCashService.updateSupplyInvoiceCash(
                 supplyInvoiceCashDtoSavedFound);
         assertNotNull(supplyInvoiceCashDtoSavedUpdated);

@@ -799,7 +799,7 @@ public class PosCapsuleAccountServiceImplTest {
             //List<PosCapsuleOperationDto> findAllPosCapsuleOperationBetween(Long pcapsopId, OperationType op_type,
             //                                                        Instant startDate, Instant endDate)
             List<PosCapsuleOperationDto> posCapsuleOperationDtoListBetweenoftype = posCapsuleOperationService.
-                    findAllPosCapsuleOperationBetween(posCapsuleAccountDtoSaved.getId(), OperationType.Credit,
+                    findAllPosCapsuleOperationofTypeBetween(posCapsuleAccountDtoSaved.getId(), OperationType.Credit,
                             startDate.toInstant(), endDate.toInstant());
             assertNotNull(posCapsuleOperationDtoListBetweenoftype);
             assertEquals(2, posCapsuleOperationDtoListBetweenoftype.size());
@@ -808,7 +808,7 @@ public class PosCapsuleAccountServiceImplTest {
             //                                                                 Instant startDate, Instant endDate,
             //                                                                 int pagenum, int pagesize)
             Page<PosCapsuleOperationDto> posCapsuleOperationDtoPageBetweenoftype = posCapsuleOperationService.
-                    findPagePosCapsuleOperationBetween(posCapsuleAccountDtoSaved.getId(), OperationType.Credit,
+                    findPagePosCapsuleOperationofTypeBetween(posCapsuleAccountDtoSaved.getId(), OperationType.Credit,
                             startDate.toInstant(), endDate.toInstant(), 0, 2);
             assertNotNull(posCapsuleOperationDtoPageBetweenoftype);
             assertEquals(1, posCapsuleOperationDtoPageBetweenoftype.getTotalPages());

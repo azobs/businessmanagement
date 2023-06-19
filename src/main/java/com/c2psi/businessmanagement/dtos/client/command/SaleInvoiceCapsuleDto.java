@@ -3,8 +3,8 @@ package com.c2psi.businessmanagement.dtos.client.command;
 import com.c2psi.businessmanagement.dtos.client.client.ClientDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
-import com.c2psi.businessmanagement.models.Pointofsale;
 import com.c2psi.businessmanagement.models.SaleInvoiceCapsule;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
 
@@ -31,12 +31,15 @@ public class SaleInvoiceCapsuleDto {
     @Positive(message = "The sale invoice total colis changed must be positive")
     BigDecimal saleicapsTotalcolis;
     @NotNull(message = "The sale invoice delivery date changed cannot be null")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     Instant saleicapsDeliveryDate;
     @NotNull(message = "The sale invoice invoicing date changed cannot be null")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     Instant saleicapsInvoicingDate;
 
     @NotNull(message = "The point of sale concerned by the sale invoice cannot be null")
-    PointofsaleDto saleicapsPosDto;
+    //PointofsaleDto saleicapsPosDto;
+    Long saleicapsPosId;
     @NotNull(message = "The client concerned by the sale invoice cannot be null")
     ClientDto saleicapsClientDto;
     @NotNull(message = "The Userbm concerned by the sale invoice cannot be null")
@@ -57,7 +60,8 @@ public class SaleInvoiceCapsuleDto {
                 .saleicapsTotalcolis(sics.getSaleicapsTotalcolis())
                 .saleicapsDeliveryDate(sics.getSaleicapsDeliveryDate())
                 .saleicapsInvoicingDate(sics.getSaleicapsInvoicingDate())
-                .saleicapsPosDto(PointofsaleDto.fromEntity(sics.getSaleicapsPos()))
+                //.saleicapsPosDto(PointofsaleDto.fromEntity(sics.getSaleicapsPos()))
+                .saleicapsPosId(sics.getSaleicapsPosId())
                 .saleicapsClientDto(ClientDto.fromEntity(sics.getSaleicapsClient()))
                 .saleicapsUserbmDto(UserBMDto.fromEntity(sics.getSaleicapsUserbm()))
                 .build();
@@ -74,7 +78,8 @@ public class SaleInvoiceCapsuleDto {
         sics.setSaleicapsTotalcolis(sicsDto.getSaleicapsTotalcolis());
         sics.setSaleicapsDeliveryDate(sicsDto.getSaleicapsDeliveryDate());
         sics.setSaleicapsInvoicingDate(sicsDto.getSaleicapsInvoicingDate());
-        sics.setSaleicapsPos(PointofsaleDto.toEntity(sicsDto.getSaleicapsPosDto()));
+        //sics.setSaleicapsPos(PointofsaleDto.toEntity(sicsDto.getSaleicapsPosDto()));
+        sics.setSaleicapsPosId(sicsDto.getSaleicapsPosId());
         sics.setSaleicapsClient(ClientDto.toEntity(sicsDto.getSaleicapsClientDto()));
         sics.setSaleicapsUserbm(UserBMDto.toEntity(sicsDto.getSaleicapsUserbmDto()));
         return sics;

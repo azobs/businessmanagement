@@ -6,6 +6,5 @@ public enum RoleType {
     Manager,
     Pdg,
     Saler,
-
     Storekeeper
 }

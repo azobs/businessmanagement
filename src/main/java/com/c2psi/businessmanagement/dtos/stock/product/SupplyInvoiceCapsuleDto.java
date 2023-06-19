@@ -3,18 +3,14 @@ package com.c2psi.businessmanagement.dtos.stock.product;
 import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
-import com.c2psi.businessmanagement.models.Pointofsale;
 import com.c2psi.businessmanagement.models.SupplyInvoiceCapsule;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.time.Instant;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -29,9 +25,11 @@ public class SupplyInvoiceCapsuleDto {
     String sicapsPicture;
     @NotNull(message = "The delivery date cannot be null")
     @PastOrPresent(message = "The delivery date cannot be in the future")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     Instant sicapsDeliveryDate;
     @NotNull(message = "The invoicing date cannot be null")
     @PastOrPresent(message = "The invoicing date cannot be in the future")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     Instant sicapsInvoicingDate;
     @NotNull(message = "The total colis delivery cannot be null")
     @Positive(message = "The total colis delivery must be positive")
@@ -53,7 +51,8 @@ public class SupplyInvoiceCapsuleDto {
     @NotNull(message = "The userbm associated cannot be null")
     UserBMDto sicapsUserbmDto;
     @NotNull(message = "The point of sale associated cannot be null")
-    PointofsaleDto sicapsPosDto;
+    //PointofsaleDto sicapsPosDto;
+    Long sicapsPosId;
     /***********************************
      * Mapping method development:   ***
      * method fromEntity and toEntity **
@@ -74,7 +73,8 @@ public class SupplyInvoiceCapsuleDto {
                 .sicapsTotalCapsChange(sics.getSicapsTotalCapsChange())
                 .sicapsProviderDto(ProviderDto.fromEntity(sics.getSicapsProvider()))
                 .sicapsUserbmDto(UserBMDto.fromEntity(sics.getSicapsUserbm()))
-                .sicapsPosDto(PointofsaleDto.fromEntity(sics.getSicapsPos()))
+                //.sicapsPosDto(PointofsaleDto.fromEntity(sics.getSicapsPos()))
+                .sicapsPosId(sics.getSicapsPosId())
                 .build();
     }
     public static SupplyInvoiceCapsule toEntity(SupplyInvoiceCapsuleDto sicsDto){
@@ -93,7 +93,8 @@ public class SupplyInvoiceCapsuleDto {
         sics.setSicapsTotalCapsToChange(sicsDto.getSicapsTotalCapsToChange());
         sics.setSicapsTotalCapsChange(sicsDto.getSicapsTotalCapsChange());
         sics.setSicapsUserbm(UserBMDto.toEntity(sicsDto.getSicapsUserbmDto()));
-        sics.setSicapsPos(PointofsaleDto.toEntity(sicsDto.getSicapsPosDto()));
+        //sics.setSicapsPos(PointofsaleDto.toEntity(sicsDto.getSicapsPosDto()));
+        sics.setSicapsPosId(sicsDto.getSicapsPosId());
 
         return sics;
     }

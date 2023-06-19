@@ -5,7 +5,6 @@ import com.c2psi.businessmanagement.dtos.stock.price.BasePriceDto;
 import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
 import com.c2psi.businessmanagement.dtos.stock.product.ProductFormatedDto;
 import com.c2psi.businessmanagement.dtos.stock.product.UnitDto;
-import com.c2psi.businessmanagement.validators.stock.price.BasePriceValidator;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -22,7 +21,7 @@ public class ArticleValidatorTest {
         ArticleDto articleDto = ArticleDto.builder()
                 .artBpDto(BasePriceDto.builder().build())
                 .artPfDto(ProductFormatedDto.builder().build())
-                .artPosDto(PointofsaleDto.builder().build())
+                .artPosId(PointofsaleDto.builder().build().getId())
                 .artCode("gggg")
                 .artDescription(null)
                 .artUnitDto(UnitDto.builder().build())
@@ -45,7 +44,7 @@ public class ArticleValidatorTest {
         ArticleDto articleDto = ArticleDto.builder()
                 .artBpDto(BasePriceDto.builder().build())
                 .artPfDto(ProductFormatedDto.builder().build())
-                .artPosDto(PointofsaleDto.builder().build())
+                .artPosId(PointofsaleDto.builder().build().getId())
                 .artCode("gggg")
                 .artDescription(null)
                 .artUnitDto(UnitDto.builder().build())
@@ -69,7 +68,7 @@ public class ArticleValidatorTest {
         ArticleDto articleDto = ArticleDto.builder()
                 .artBpDto(null)
                 .artPfDto(null)
-                .artPosDto(null)
+                .artPosId(null)
                 .artCode(null)
                 .artDescription(null)
                 .artUnitDto(null)
@@ -108,7 +107,7 @@ public class ArticleValidatorTest {
         ArticleDto articleDto = ArticleDto.builder()
                 .artBpDto(BasePriceDto.builder().build())
                 .artPfDto(ProductFormatedDto.builder().build())
-                .artPosDto(PointofsaleDto.builder().build())
+                .artPosId(PointofsaleDto.builder().build().getId())
                 .artCode("")
                 .artDescription("")
                 .artUnitDto(UnitDto.builder().build())
@@ -141,7 +140,7 @@ public class ArticleValidatorTest {
         ArticleDto articleDto = ArticleDto.builder()
                 .artBpDto(BasePriceDto.builder().build())
                 .artPfDto(ProductFormatedDto.builder().build())
-                .artPosDto(PointofsaleDto.builder().build())
+                .artPosId(PointofsaleDto.builder().build().getId())
                 .artCode("    ")
                 .artDescription("          ")
                 .artUnitDto(UnitDto.builder().build())
@@ -167,7 +166,7 @@ public class ArticleValidatorTest {
         ArticleDto articleDto = ArticleDto.builder()
                 .artBpDto(BasePriceDto.builder().build())
                 .artPfDto(ProductFormatedDto.builder().build())
-                .artPosDto(PointofsaleDto.builder().build())
+                .artPosId(PointofsaleDto.builder().build().getId())
                 .artCode("sdssdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsds")
                 .artDescription(null)
                 .artUnitDto(UnitDto.builder().build())
@@ -193,7 +192,7 @@ public class ArticleValidatorTest {
         ArticleDto articleDto = ArticleDto.builder()
                 .artBpDto(BasePriceDto.builder().build())
                 .artPfDto(ProductFormatedDto.builder().build())
-                .artPosDto(PointofsaleDto.builder().build())
+                .artPosId(PointofsaleDto.builder().build().getId())
                 .artCode("sdssdsds")
                 .artDescription(null)
                 .artUnitDto(UnitDto.builder().build())
@@ -218,7 +217,7 @@ public class ArticleValidatorTest {
         ArticleDto articleDto = ArticleDto.builder()
                 .artBpDto(BasePriceDto.builder().build())
                 .artPfDto(ProductFormatedDto.builder().build())
-                .artPosDto(PointofsaleDto.builder().build())
+                .artPosId(PointofsaleDto.builder().build().getId())
                 .artCode("sdssdsds")
                 .artDescription(null)
                 .artUnitDto(UnitDto.builder().build())

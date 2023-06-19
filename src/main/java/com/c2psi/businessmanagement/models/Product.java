@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="product",
         uniqueConstraints = {@UniqueConstraint(
-                columnNames = {"prodCode", "pos_id"})})
+                columnNames = {"prodCode", "prodPosId"})})
 public class Product extends AbstractEntity {
 
     @Column(nullable = false)
@@ -31,7 +31,8 @@ public class Product extends AbstractEntity {
     @JoinColumn(name = "cat_id", nullable = false, referencedColumnName = "id")
     Category prodCat;//sabc, ucb, guiness, biere, jus, eau, gaz
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    /*@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "pos_id", nullable = false, referencedColumnName = "id")
-    Pointofsale prodPos;
+    Pointofsale prodPos;*/
+    Long prodPosId;
 }

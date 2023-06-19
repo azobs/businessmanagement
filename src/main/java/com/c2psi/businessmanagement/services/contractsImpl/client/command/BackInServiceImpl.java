@@ -76,14 +76,14 @@ public class BackInServiceImpl implements BackInService {
          * On verifie que l'Id du Pointofsale existe et si c'est
          * le cas on verifie quil existe en BD
          */
-        if(backInDto.getBiPosDto().getId() == null){
+        if(backInDto.getBiPosId() == null){
             log.error("The Id precised for the Pointofsale is null");
             throw new InvalidEntityException("L'Id du Pointofsale indique dans le backin est null",
                     ErrorCode.BACKIN_NOT_VALID);
         }
         //Ici on est sur que l'id du pointofsale n'est pas null
         Optional<Pointofsale> optionalPointofsale = pointofsaleRepository.findPointofsaleById(
-                backInDto.getBiPosDto().getId());
+                backInDto.getBiPosId());
         if(!optionalPointofsale.isPresent()){
             log.error("The pointofsale precised in the backin is not in the DB");
             throw new InvalidEntityException("Le Pointofsale indique est inexistant dans la BD ",
@@ -180,7 +180,7 @@ public class BackInServiceImpl implements BackInService {
          * Il faut se rassurer que ce n'est pas le pointofsale
          * quon veut modifier
          */
-        if(!backInToUpdate.getBiPos().getId().equals(backInDto.getBiPosDto().getId())){
+        if(!backInToUpdate.getBiPosId().equals(backInDto.getBiPosId())){
             log.error("The pointofsale cannot be modified in the backin");
             throw new InvalidEntityException("Le pointofsale ne peut etre modifie dans le BackIn",
                     ErrorCode.BACKIN_NOT_VALID);

@@ -15,7 +15,7 @@ public class UnitValidatorTest {
     @Test
     public void validate() {
         UnitDto unitDto = UnitDto.builder()
-                .unitPosDto(PointofsaleDto.builder().build())
+                .unitPosId(PointofsaleDto.builder().build().getId())
                 .unitName("sdsds")
                 .unitAbbreviation("dd")
                 .build();
@@ -29,7 +29,7 @@ public class UnitValidatorTest {
     @Test
     public void validateNull() {
         UnitDto unitDto = UnitDto.builder()
-                .unitPosDto(PointofsaleDto.builder().build())
+                .unitPosId(PointofsaleDto.builder().build().getId())
                 .unitName("sdsds")
                 .unitAbbreviation("dd")
                 .build();
@@ -43,7 +43,7 @@ public class UnitValidatorTest {
     @Test
     public void validateNullValue() {
         UnitDto unitDto = UnitDto.builder()
-                .unitPosDto(null)
+                .unitPosId(null)
                 .unitName(null)
                 .unitAbbreviation(null)
                 .build();
@@ -60,7 +60,7 @@ public class UnitValidatorTest {
     @Test
     public void validateEmptyValue() {
         UnitDto unitDto = UnitDto.builder()
-                .unitPosDto(PointofsaleDto.builder().build())
+                .unitPosId(PointofsaleDto.builder().build().getId())
                 .unitName("")
                 .unitAbbreviation("")
                 .build();
@@ -76,7 +76,7 @@ public class UnitValidatorTest {
     @Test
     public void validateBlankValue() {
         UnitDto unitDto = UnitDto.builder()
-                .unitPosDto(PointofsaleDto.builder().build())
+                .unitPosId(PointofsaleDto.builder().build().getId())
                 .unitName("       ")
                 .unitAbbreviation("       ")
                 .build();
@@ -90,7 +90,7 @@ public class UnitValidatorTest {
     @Test
     public void validateSizeValue() {
         UnitDto unitDto = UnitDto.builder()
-                .unitPosDto(PointofsaleDto.builder().build())
+                .unitPosId(PointofsaleDto.builder().build().getId())
                 .unitName("sdasdsafasfsdfdfdsfsdfdsfdsfdfdsfdsfdsfdsfdsfsdfdsfdsfds")
                 .unitAbbreviation("fdgfvnvcxvcvnmhgjfgfdgsdfdfdsgdfhdghnv")
                 .build();

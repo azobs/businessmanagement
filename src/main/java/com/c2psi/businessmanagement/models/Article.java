@@ -16,7 +16,7 @@ import java.util.List;
 @Entity
 @Table(name="article",
         uniqueConstraints = {@UniqueConstraint(
-                columnNames = {"artCode", "pos_id"})})
+                columnNames = {"artCode", "artPosId"})})
 public class Article extends AbstractEntity {
 
     @Column(nullable = false)
@@ -58,9 +58,10 @@ public class Article extends AbstractEntity {
     @JoinColumn(name = "bp_id", nullable = false, referencedColumnName = "id")
     BasePrice artBp;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    /*@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "pos_id", nullable = false, referencedColumnName = "id")
-    Pointofsale artPos;
+    Pointofsale artPos;*/
+    Long artPosId;
 
     @OneToMany(mappedBy = "invlineArt", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<InventoryLine> inventoryLineList;

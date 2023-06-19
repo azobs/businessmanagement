@@ -30,29 +30,29 @@ public class Pointofsale extends AbstractEntity{
      * Relation between entities  *
      * ****************************/
     //Each pointofsale must be related to a list of packagingaccount (one per packaging)
-    @OneToMany(mappedBy = "ppaPointofsale", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<PosPackagingAccount> posPackagingAccountList;
-    @OneToMany(mappedBy = "packPos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<Packaging> packagingList;
+    /*@OneToMany(mappedBy = "ppaPointofsale", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<PosPackagingAccount> posPackagingAccountList;*/
+    /*@OneToMany(mappedBy = "packPos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<Packaging> packagingList;*/
     //Each pointofsale must be related to a list of capsuleaccount (one per article)
-    @OneToMany(mappedBy = "pcsaPointofsale", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<PosCapsuleAccount> posCapsuleAccountList;
+    /*@OneToMany(mappedBy = "pcsaPointofsale", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<PosCapsuleAccount> posCapsuleAccountList;*/
     //Each pointofsale must be related to a list of damageaccount (one per article)
-    @OneToMany(mappedBy = "pdaPointofsale", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<PosDamageAccount> posDamageAccountList;
+    /*@OneToMany(mappedBy = "pdaPointofsale", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<PosDamageAccount> posDamageAccountList;*/
     //Each pointofsale has a list of client
-    @OneToMany(mappedBy = "clientPos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    /*@OneToMany(mappedBy = "clientPos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Client> clientList;
     @OneToMany(mappedBy = "diversPos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<Divers> diversList;
+    List<Divers> diversList;*/
     //Each pointofsale has a list of client
-    @OneToMany(mappedBy = "providerPos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<Provider> providerList;
+    /*@OneToMany(mappedBy = "providerPos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<Provider> providerList;*/
     //Each pointofsale has ea list of article
-    @OneToMany(mappedBy = "artPos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<Article> articleList;
-    @OneToMany(mappedBy = "salePos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<Sale> saleList;
+    /*@OneToMany(mappedBy = "artPos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<Article> articleList;*/
+    /*@OneToMany(mappedBy = "salePos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<Sale> saleList;*/
     //Each pointofsale must be related to exactly one cashaccount
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cashaccount_id", referencedColumnName = "id")

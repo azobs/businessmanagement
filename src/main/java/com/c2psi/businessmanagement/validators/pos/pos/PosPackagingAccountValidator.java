@@ -1,9 +1,6 @@
 package com.c2psi.businessmanagement.validators.pos.pos;
 
-import com.c2psi.businessmanagement.dtos.pos.pos.PosDamageOperationDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PosPackagingAccountDto;
-import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
-import com.c2psi.businessmanagement.dtos.stock.product.PackagingDto;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -35,7 +32,7 @@ public class PosPackagingAccountValidator {
                 //isnullable=1;
             }
 
-            if(!Optional.ofNullable(pospackaccDto.getPpaPointofsaleDto()).isPresent()){
+            if(!Optional.ofNullable(pospackaccDto.getPpaPointofsaleId()).isPresent()){
                 errors.add("--Le point de vente associe au compte d'emballage ne peut etre null--");
                 //isnullable=2;
             }

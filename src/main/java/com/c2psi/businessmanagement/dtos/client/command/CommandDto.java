@@ -5,21 +5,16 @@ import com.c2psi.businessmanagement.Enumerations.CommandStatus;
 import com.c2psi.businessmanagement.Enumerations.CommandType;
 import com.c2psi.businessmanagement.dtos.client.client.ClientDto;
 import com.c2psi.businessmanagement.dtos.client.client.DiversDto;
+import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.dtos.client.delivery.DeliveryDto;
 import com.c2psi.businessmanagement.dtos.pos.loading.LoadingDto;
-import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
-import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.models.Command;
-import com.c2psi.businessmanagement.models.Divers;
-import com.c2psi.businessmanagement.models.Pointofsale;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.*;
 import java.time.Instant;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -32,6 +27,7 @@ public class CommandDto {
     @Size(min = 3, max = 20, message = "The command code size must be between 3 and 20 characters")
     String cmdCode;
     @NotNull(message = "The command date cannot be null")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     Instant cmdDate;
     @NotNull(message = "The command state cannot be null")
     CommandState cmdState;
@@ -49,7 +45,8 @@ public class CommandDto {
     LoadingDto cmdLoadingDto;
 
     @NotNull(message = "The concerning pointofsale cannot be null")
-    PointofsaleDto cmdPosDto;
+    //PointofsaleDto cmdPosDto;
+    Long cmdPosId;
 
     /*@JsonIgnore
     List<SaleDto> saleDtoList;*/
@@ -91,7 +88,8 @@ public class CommandDto {
                 .cmdClientDto(ClientDto.fromEntity(cmd.getCmdClient()))
                 .cmdDiversDto(DiversDto.fromEntity(cmd.getCmdDivers()))
                 .cmdLoadingDto(LoadingDto.fromEntity(cmd.getCmdLoading()))
-                .cmdPosDto(PointofsaleDto.fromEntity(cmd.getCommandPos()))
+                //.cmdPosDto(PointofsaleDto.fromEntity(cmd.getCommandPos()))
+                .cmdPosId(cmd.getCommandPosId())
                 .cmdUserbmDto(UserBMDto.fromEntity(cmd.getCmdUserbm()))
                 .cmdSaleicashDto(SaleInvoiceCashDto.fromEntity(cmd.getCmdSaleicash()))
                 .cmdSaleicapsDto(SaleInvoiceCapsuleDto.fromEntity(cmd.getCmdSaleicaps()))
@@ -113,7 +111,8 @@ public class CommandDto {
         cmd.setCmdStatus(cmdDto.getCmdStatus());
         cmd.setCmdDelivery(DeliveryDto.toEntity(cmdDto.getCmdDeliveryDto()));
         cmd.setCmdLoading(LoadingDto.toEntity(cmdDto.getCmdLoadingDto()));
-        cmd.setCommandPos(PointofsaleDto.toEntity(cmdDto.getCmdPosDto()));
+        //cmd.setCommandPos(PointofsaleDto.toEntity(cmdDto.getCmdPosDto()));
+        cmd.setCommandPosId(cmdDto.getCmdPosId());
         cmd.setCmdClient(ClientDto.toEntity(cmdDto.getCmdClientDto()));
         cmd.setCmdDivers(DiversDto.toEntity(cmdDto.getCmdDiversDto()));
         cmd.setCmdUserbm(UserBMDto.toEntity(cmdDto.getCmdUserbmDto()));

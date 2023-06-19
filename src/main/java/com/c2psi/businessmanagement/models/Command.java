@@ -20,7 +20,7 @@ import java.util.List;
 @Entity
 @Table(name="command",
         uniqueConstraints = {@UniqueConstraint(
-                columnNames = {"cmdCode", "pos_id"})})
+                columnNames = {"cmdCode", "commandPosId"})})
 public class Command extends AbstractEntity{
 
     @Column(nullable = false)
@@ -56,9 +56,10 @@ public class Command extends AbstractEntity{
     @JoinColumn(name = "loading_id", referencedColumnName = "id")
     Loading cmdLoading;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    /*@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "pos_id", nullable = false, referencedColumnName = "id")
-    Pointofsale commandPos;
+    Pointofsale commandPos;*/
+    Long commandPosId;
 
     @OneToMany(mappedBy = "saleCommand", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Sale> saleList;

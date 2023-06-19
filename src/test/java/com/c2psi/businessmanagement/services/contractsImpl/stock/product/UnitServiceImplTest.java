@@ -150,10 +150,10 @@ public class UnitServiceImplTest {
         UnitDto unitDtoSaved4 = usedForTestForProduct.saveUnit(0, posDtoSaved1, unitService);
         assertNotNull(unitDtoSaved4);
 
-        List<UnitDto> unitDtoList = unitService.findListofUnitInPos(posDtoSaved.getId());
+        List<UnitDto> unitDtoList = unitService.findAllUnitInPos(posDtoSaved.getId());
         assertNotNull(unitDtoList);
         assertEquals(4, unitDtoList.size());
-        List<UnitDto> unitDtoList1 = unitService.findListofUnitInPos(posDtoSaved1.getId());
+        List<UnitDto> unitDtoList1 = unitService.findAllUnitInPos(posDtoSaved1.getId());
         assertNotNull(unitDtoList1);
         assertEquals(1, unitDtoList1.size());
     }
@@ -178,10 +178,10 @@ public class UnitServiceImplTest {
         UnitDto unitDtoSaved4 = usedForTestForProduct.saveUnit(0, posDtoSaved1, unitService);
         assertNotNull(unitDtoSaved4);
 
-        Page<UnitDto> unitDtoPage = unitService.findPageofUnitInPos(posDtoSaved.getId(), 0, 3);
+        Page<UnitDto> unitDtoPage = unitService.findPageUnitInPos(posDtoSaved.getId(), 0, 3);
         assertNotNull(unitDtoPage);
         assertEquals(2, unitDtoPage.getTotalPages());
-        Page<UnitDto> unitDtoPage1 = unitService.findPageofUnitInPos(posDtoSaved1.getId(), 0, 3);
+        Page<UnitDto> unitDtoPage1 = unitService.findPageUnitInPos(posDtoSaved1.getId(), 0, 3);
         assertNotNull(unitDtoPage1);
         assertEquals(1, unitDtoPage1.getTotalPages());
     }

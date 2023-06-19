@@ -1,6 +1,5 @@
 package com.c2psi.businessmanagement.validators.pos.userbm;
 
-import com.c2psi.businessmanagement.dtos.pos.userbm.RoleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMRoleDto;
 
 import javax.validation.ConstraintViolation;

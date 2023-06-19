@@ -17,7 +17,7 @@ public class InventoryValidatorTest {
     @Test
     public void validate() {
         InventoryDto inventoryDto = InventoryDto.builder()
-                .invPosDto(PointofsaleDto.builder().build())
+                .invPosId(PointofsaleDto.builder().build().getId())
                 .invDate(new Date().toInstant())
                 .invComment("  ")
                 .invCode("dsds")
@@ -32,7 +32,7 @@ public class InventoryValidatorTest {
     @Test
     public void validateNull() {
         InventoryDto inventoryDto = InventoryDto.builder()
-                .invPosDto(PointofsaleDto.builder().build())
+                .invPosId(PointofsaleDto.builder().build().getId())
                 .invDate(new Date().toInstant())
                 .invComment("  ")
                 .invCode("dsds")
@@ -48,7 +48,7 @@ public class InventoryValidatorTest {
     @Test
     public void validateNullValue() {
         InventoryDto inventoryDto = InventoryDto.builder()
-                .invPosDto(null)
+                .invPosId(null)
                 .invDate(null)
                 .invComment(null)
                 .invCode(null)
@@ -68,7 +68,7 @@ public class InventoryValidatorTest {
     @Test
     public void validateEmptyValue() {
         InventoryDto inventoryDto = InventoryDto.builder()
-                .invPosDto(PointofsaleDto.builder().build())
+                .invPosId(PointofsaleDto.builder().build().getId())
                 .invDate(new Date().toInstant())
                 .invComment("     ")
                 .invCode("")
@@ -86,7 +86,7 @@ public class InventoryValidatorTest {
     @Test
     public void validateBlankValue() {
         InventoryDto inventoryDto = InventoryDto.builder()
-                .invPosDto(PointofsaleDto.builder().build())
+                .invPosId(PointofsaleDto.builder().build().getId())
                 .invDate(new Date().toInstant())
                 .invComment("     ")
                 .invCode("   ")
@@ -102,7 +102,7 @@ public class InventoryValidatorTest {
     @Test
     public void validateSizeValue() {
         InventoryDto inventoryDto = InventoryDto.builder()
-                .invPosDto(PointofsaleDto.builder().build())
+                .invPosId(PointofsaleDto.builder().build().getId())
                 .invDate(new Date().toInstant())
                 .invComment("sdsdsadsadsadsadsadsadsadsadsadsadsdsadsadsdsdsdsa")
                 .invCode("sdsadsadsadsadsdsadsdsadsadsadsdsadsadsadsadsadsdsadsads")
@@ -117,10 +117,10 @@ public class InventoryValidatorTest {
 
     @Test
     public void validateFutureDateValue() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             InventoryDto inventoryDto = InventoryDto.builder()
-                    .invPosDto(PointofsaleDto.builder().build())
+                    .invPosId(PointofsaleDto.builder().build().getId())
                     .invDate(sdf.parse("2023-02-04").toInstant())
                     .invComment("sdsdsadsadsadsadsadsad")
                     .invCode("sdsad")

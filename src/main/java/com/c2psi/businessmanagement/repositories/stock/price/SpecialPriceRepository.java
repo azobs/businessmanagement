@@ -1,6 +1,5 @@
 package com.c2psi.businessmanagement.repositories.stock.price;
 
-import com.c2psi.businessmanagement.dtos.stock.price.SpecialPriceDto;
 import com.c2psi.businessmanagement.models.SpecialPrice;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

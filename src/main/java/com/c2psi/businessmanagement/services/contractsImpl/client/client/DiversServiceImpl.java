@@ -58,13 +58,13 @@ public class DiversServiceImpl implements DiversService {
         /**********************************************************************
          * On se rassure de l'existence du pointofsale associe au divers
          */
-        if(diversDto.getDiversPosDto().getId() == null){
+        if(diversDto.getDiversPosId() == null){
             log.error("The pointofsale for the divers has not been precised");
             throw new InvalidEntityException("Aucun pointofsale n'est associe avec le divers"
                     , ErrorCode.POINTOFSALE_NOT_FOUND);
         }
         Optional<Pointofsale> optionalPointofsale = pointofsaleRepository.findPointofsaleById
-                (diversDto.getDiversPosDto().getId());
+                (diversDto.getDiversPosId());
         if(!optionalPointofsale.isPresent()){
             log.error("The pointofsale precised does not exist in the DB");
             throw new InvalidEntityException("Le Pointofsale associe avec le client n'existe pas en BD"
@@ -153,7 +153,7 @@ public class DiversServiceImpl implements DiversService {
         /***************************************************************
          * On verifie que ce n'est pas le pointofsale quon veut modifier
          */
-        if(!diversDto.getDiversPosDto().getId().equals(diversToUpdate.getDiversPos().getId())){
+        if(!diversDto.getDiversPosId().equals(diversToUpdate.getDiversPosId())){
             log.error("the pointofsale cannot be update");
             throw new InvalidEntityException("Le pointofsale ne peut etre modifier", ErrorCode.DIVERS_NOT_VALID);
         }

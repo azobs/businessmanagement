@@ -1,6 +1,5 @@
 package com.c2psi.businessmanagement.validators.stock.product;
 
-import com.c2psi.businessmanagement.dtos.stock.product.ProductDto;
 import com.c2psi.businessmanagement.dtos.stock.product.ProductFormatedDto;
 
 import javax.validation.ConstraintViolation;

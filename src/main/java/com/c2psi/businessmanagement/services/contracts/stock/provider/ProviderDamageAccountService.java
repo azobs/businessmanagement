@@ -2,6 +2,7 @@ package com.c2psi.businessmanagement.services.contracts.stock.provider;
 
 import com.c2psi.businessmanagement.Enumerations.OperationType;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDamageAccountDto;
+import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDamageOperationDto;
 import org.springframework.data.domain.Page;
 
 import java.math.BigDecimal;
@@ -17,4 +18,7 @@ public interface ProviderDamageAccountService {
     Boolean deleteProviderDamageAccountById(Long prodamaccId);
     Boolean saveDamageOperation(Long prodamaccId, BigDecimal qte, OperationType operationType,
                                  Long userbmId, String opObject, String opDescription );
+    //Boolean saveCapsuleOperation(PosCapsuleAccountDto poscapaccDto, PosCapsuleOperationDto poscapopDto);
+    Boolean saveDamageOperation(ProviderDamageAccountDto providerDamageAccountDto,
+                                ProviderDamageOperationDto providerDamageOperationDto);
 }

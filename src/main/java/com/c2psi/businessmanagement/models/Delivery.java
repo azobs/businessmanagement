@@ -18,7 +18,7 @@ import java.util.List;
 @Entity
 @Table(name="delivery",
         uniqueConstraints = {@UniqueConstraint(
-                columnNames = {"deliveryCode", "pos_id"})})
+                columnNames = {"deliveryCode", "deliveryPosId"})})
 public class Delivery extends AbstractEntity {
 
     @Column(nullable = false)
@@ -41,9 +41,10 @@ public class Delivery extends AbstractEntity {
     /******************************
      * Relation between entities  *
      * ****************************/
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    /*@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "pos_id", nullable = false, referencedColumnName = "id")
-    Pointofsale deliveryPos;
+    Pointofsale deliveryPos;*/
+    Long deliveryPosId;
 
     @OneToMany(mappedBy = "ddDelivery", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<DeliveryDetails> deliveryDetailsList;

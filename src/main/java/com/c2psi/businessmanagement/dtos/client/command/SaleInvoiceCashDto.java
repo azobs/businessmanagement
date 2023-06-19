@@ -4,10 +4,8 @@ import com.c2psi.businessmanagement.Enumerations.CashSourceType;
 import com.c2psi.businessmanagement.dtos.client.client.ClientDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
-import com.c2psi.businessmanagement.models.Client;
-import com.c2psi.businessmanagement.models.Pointofsale;
 import com.c2psi.businessmanagement.models.SaleInvoiceCash;
-import com.c2psi.businessmanagement.models.UserBM;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
 
@@ -42,11 +40,14 @@ public class SaleInvoiceCashDto {
     CashSourceType saleicashSourceofcash;
     @NotNull(message = "The invoicing date of a sale invoice cash cannot be null")
     @PastOrPresent(message = "The invoicing date of a sale invoice cash cannot be in the future")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     Instant saleicashInvoicingDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     Instant saleicashDeliveryDate;
 
     @NotNull(message = "The point of sale concerned by the sale invoice cash cannot be null")
-    PointofsaleDto saleicashPosDto;
+    //PointofsaleDto saleicashPosDto;
+    Long saleicashPosId;
     @NotNull(message = "The client concerned by the sale invoice cash cannot be null")
     ClientDto saleicashClientDto;
     @NotNull(message = "The userbm concerned by the sale invoice cash cannot be null")
@@ -70,7 +71,8 @@ public class SaleInvoiceCashDto {
                 .saleicashSourceofcash(sic.getSaleicashSourceofcash())
                 .saleicashInvoicingDate(sic.getSaleicashInvoicingDate())
                 .saleicashDeliveryDate(sic.getSaleicashDeliveryDate())
-                .saleicashPosDto(PointofsaleDto.fromEntity(sic.getSaleicashPos()))
+                //.saleicashPosDto(PointofsaleDto.fromEntity(sic.getSaleicashPos()))
+                .saleicashPosId(sic.getSaleicashPosId())
                 .saleicashClientDto(ClientDto.fromEntity(sic.getSaleicashClient()))
                 .saleicashUserbmDto(UserBMDto.fromEntity(sic.getSaleicashUserbm()))
                 .build();
@@ -90,7 +92,8 @@ public class SaleInvoiceCashDto {
         sic.setSaleicashSourceofcash(sicDto.getSaleicashSourceofcash());
         sic.setSaleicashDeliveryDate(sicDto.getSaleicashDeliveryDate());
         sic.setSaleicashInvoicingDate(sicDto.getSaleicashInvoicingDate());
-        sic.setSaleicashPos(PointofsaleDto.toEntity(sicDto.getSaleicashPosDto()));
+        //sic.setSaleicashPos(PointofsaleDto.toEntity(sicDto.getSaleicashPosDto()));
+        sic.setSaleicashPosId(sicDto.getSaleicashPosId());
         sic.setSaleicashClient(ClientDto.toEntity(sicDto.getSaleicashClientDto()));
         sic.setSaleicashUserbm(UserBMDto.toEntity(sicDto.getSaleicashUserbmDto()));
         return sic;

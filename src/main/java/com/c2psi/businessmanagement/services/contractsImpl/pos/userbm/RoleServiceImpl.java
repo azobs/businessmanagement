@@ -3,10 +3,8 @@ package com.c2psi.businessmanagement.services.contractsImpl.pos.userbm;
 import com.c2psi.businessmanagement.Enumerations.RoleType;
 import com.c2psi.businessmanagement.dtos.pos.pos.EnterpriseDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.RoleDto;
-import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMRoleDto;
 import com.c2psi.businessmanagement.exceptions.*;
-import com.c2psi.businessmanagement.exceptions.IllegalArgumentException;
 import com.c2psi.businessmanagement.models.Enterprise;
 import com.c2psi.businessmanagement.models.Role;
 import com.c2psi.businessmanagement.models.UserBM;
@@ -20,7 +18,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +63,7 @@ public class RoleServiceImpl  implements RoleService {
                     ErrorCode.ROLE_NOT_VALID, errors);
         }
         //Il faut d'abord verifier qu'aucun role n'existe pour l'entreprise avec le meme nom
-        System.out.println("Avant appel a isRoleExistInEnterprise ");
+        //System.out.println("Avant appel a isRoleExistInEnterprise ");
         /*String roleName = "";
         switch (role_dto.getRoleName()){
             case Deliver: roleName = RoleType.Deliver.name();
@@ -78,7 +75,7 @@ public class RoleServiceImpl  implements RoleService {
         }*/
         Boolean isRoleExistInEnterprise = this.isRoleExistInEnterpriseWithRoleName(role_dto.getRoleName(),
                 EnterpriseDto.toEntity(role_dto.getRoleEntDto()));
-        System.out.println("Apres appel a isRoleExistInEnterprise "+isRoleExistInEnterprise);
+        //System.out.println("Apres appel a isRoleExistInEnterprise "+isRoleExistInEnterprise);
         if(isRoleExistInEnterprise){
             throw new DuplicateEntityException("Un role de ce type a deja ete cree pour l'entreprise ",
                     ErrorCode.ROLE_DUPLICATED);
@@ -140,7 +137,8 @@ public class RoleServiceImpl  implements RoleService {
         Optional<Enterprise> ent = entRepository.findEnterpriseById(entId);
         if(!ent.isPresent()){
             log.error("entId does not match with any enterprise in the database");
-            throw new IllegalArgumentException("le entId precise ne match avec aucune entreprise dans la BD");
+            throw new InvalidEntityException("le entId precise ne match avec aucune entreprise dans la BD",
+                    ErrorCode.ROLE_NOT_VALID);
         }
         Optional<Role> optionalRole = roleRepository.findRoleByRoleNameAndRoleEntId(roleName, entId);
 
@@ -148,7 +146,7 @@ public class RoleServiceImpl  implements RoleService {
             return RoleDto.fromEntity(optionalRole.get());
         }
         else{
-            throw new EntityNotFoundException("Aucun role avec le nom ="+roleName
+            throw new EntityNotFoundException("Aucun role avec le nom "+roleName
                     +" n'a ete trouve dans la BDD pour l'entreprise "+
                     EnterpriseDto.toEntity(EnterpriseDto.fromEntity(ent.get())).getEntName(),
                     ErrorCode.ROLE_NOT_FOUND);
@@ -215,7 +213,8 @@ public class RoleServiceImpl  implements RoleService {
         Optional<Enterprise> ent = entRepository.findEnterpriseById(entId);
         if(!ent.isPresent()){
             log.error("entId does not match with any enterprise in the database");
-            throw new IllegalArgumentException("le entId precise ne match avec aucune entreprise dans la BD");
+            throw new InvalidEntityException("le entId precise ne match avec aucune entreprise dans la BD",
+                    ErrorCode.ROLE_NOT_VALID);
         }
         return roleRepository.findAllByRoleEnt(ent.get()).stream()
                 .map(RoleDto::fromEntity)
@@ -233,7 +232,8 @@ public class RoleServiceImpl  implements RoleService {
         Optional<UserBM> userbm = userBMRepository.findUserBMById(userbmId);
         if(!userbm.isPresent()){
             log.error("userbmId does not match with any userbm in the database");
-            throw new IllegalArgumentException("le userbmId precise ne match avec aucun userbm dans la BD");
+            throw new InvalidEntityException("le userbmId precise ne match avec aucun userbm dans la BD",
+                    ErrorCode.ROLE_NOT_VALID);
         }
 
         List<UserBMRoleDto> listofUserBMRole = userBMRoleRepository

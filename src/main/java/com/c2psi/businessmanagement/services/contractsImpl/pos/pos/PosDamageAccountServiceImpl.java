@@ -1,8 +1,8 @@
 package com.c2psi.businessmanagement.services.contractsImpl.pos.pos;
 
 import com.c2psi.businessmanagement.Enumerations.OperationType;
-import com.c2psi.businessmanagement.dtos.pos.pos.PosCapsuleAccountDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PosDamageAccountDto;
+import com.c2psi.businessmanagement.dtos.pos.pos.PosDamageOperationDto;
 import com.c2psi.businessmanagement.exceptions.*;
 import com.c2psi.businessmanagement.models.*;
 import com.c2psi.businessmanagement.repositories.pos.pos.*;
@@ -70,14 +70,14 @@ public class PosDamageAccountServiceImpl implements PosDamageAccountService {
         /***************************************************************************
          * Maintenant faut se rassurer que le pointofsale precise existe vraiment
          */
-        if(posdamaccDto.getPdaPointofsaleDto().getId() == null){
+        if(posdamaccDto.getPdaPointofsaleId() == null){
             log.error("The id of the pointofsale associated cannot be null");
             throw new InvalidEntityException("Le id du pointofsale associe au compte damage ne peut etre null",
                     ErrorCode.POSDAMAGEACCOUNT_NOT_VALID);
         }
         //A ce niveau on est sur que le id du pointofsale nest pas null
         Optional<Pointofsale> optionalPointofsale = pointofsaleRepository.findPointofsaleById(
-                posdamaccDto.getPdaPointofsaleDto().getId());
+                posdamaccDto.getPdaPointofsaleId());
         if(!optionalPointofsale.isPresent()){
             log.error("The pointofsale indicated in the posdamaccount doesn't exist in DB ");
             throw new EntityNotFoundException("Aucun pointofsale n'existe avec l'id precise ",
@@ -103,7 +103,7 @@ public class PosDamageAccountServiceImpl implements PosDamageAccountService {
         /******************************************************************************************
          * On verifie que l'article est dans le meme pointofsale que celui precise pour le compte
          */
-        if(!posdamaccDto.getPdaArticleDto().getArtPosDto().getId().equals(posdamaccDto.getPdaPointofsaleDto().getId())){
+        if(!posdamaccDto.getPdaArticleDto().getArtPosId().equals(posdamaccDto.getPdaPointofsaleId())){
             log.error("The precised article is not in the pointofsale precise for the account");
             throw new InvalidEntityException("L'article pour lequel creer le compte doit etre dans le meme pointofsale " +
                     "que celui dans lequel le compte est cree ", ErrorCode.POSDAMAGEACCOUNT_NOT_VALID);
@@ -113,7 +113,7 @@ public class PosDamageAccountServiceImpl implements PosDamageAccountService {
          * On verifie qu'aucun compte damage n'est pas deja creer pour cet article dans ce pointofsale
          */
         if(isPosDamageAccountofArticleExistinPos(posdamaccDto.getPdaArticleDto().getId(),
-                posdamaccDto.getPdaPointofsaleDto().getId())){
+                posdamaccDto.getPdaPointofsaleId())){
             log.error("An account for damage has been already created for this article in this pointofsale");
             throw new DuplicateEntityException("Un compte damage pour cet article dans ce pointofsale existe deja " +
                     "en BD ", ErrorCode.POSDAMAGEACCOUNT_DUPLICATED);
@@ -258,6 +258,106 @@ public class PosDamageAccountServiceImpl implements PosDamageAccountService {
     @Override
     public Boolean saveDamageOperation(Long posdamaccId, BigDecimal qte, OperationType operationType, Long userbmId,
                                        String opObject, String opDescription) {
+        /******************************************************************
+         * Se rassurer que les donnees dans la fonction ne sont pas null
+         */
+        if(posdamaccId == null || qte == null || userbmId == null || operationType == null){
+            log.error("posdamaccId, qte or even userbmId is null ");
+            throw new NullArgumentException("Appel de la methode saveCapsuleOperation avec des parametres null");
+        }
+
+        /**********************************************************************************
+         * Se rassurer que la quantite d'article dans l'operation est strictement positive
+         */
+        if(qte.compareTo(BigDecimal.valueOf(0)) <= 0){
+            log.error("The qte cannot be negative value");
+            throw new InvalidValueException("La quantite dans l'operation ne saurait etre negative");
+        }
+
+        /******************************************************************************************
+         * On va essayer de recuperer le userbm qui est associe a cette operation
+         */
+        Optional<UserBM> optionalUserBM = userBMRepository.findUserBMById(userbmId);
+        if(!optionalUserBM.isPresent()){
+            log.error("There is no userbm associated with the id {} precised in argument ", userbmId);
+            throw new EntityNotFoundException("Aucun userbm n'existe avec le id precise ", ErrorCode.USERBM_NOT_FOUND);
+        }
+
+        /***************************************************************************************
+         * Se rassurer que le type d'operation souhaite est soit un credit soit un debit
+         */
+        if(!operationType.equals(OperationType.Credit) && !operationType.equals(OperationType.Withdrawal)){
+            log.error("The operationType is not recognized for this operation");
+            throw new InvalidValueException("Le type d'operation precise n'est pas valide dans cette fonction ");
+        }
+
+        /*************************************************************************************
+         * On essaye donc de recuperer d'abord le compte dans lequel l'operation sera realise
+         */
+        if(!this.isPosDamageAccountExistWithId(posdamaccId)){
+            log.error("The posdamaccId {} does not identify any account ", posdamaccId);
+            throw  new EntityNotFoundException("Aucun PosDamageAccount n'existe avec le ID precise "+posdamaccId,
+                    ErrorCode.POSCAPSULEACCOUNT_NOT_FOUND);
+        }
+        Optional<PosDamageAccount> optionalPosDamageAccount = posDamAccountRepository.
+                findPosDamageAccountById(posdamaccId);
+        //A ce niveau on na pas besoin de regarder si isPresent est true car on est sur que ca existe
+        PosDamageAccount posDamageAccountToUpdate = optionalPosDamageAccount.get();
+
+        BigDecimal solde = posDamageAccountToUpdate.getPdaNumber();
+        BigDecimal updatedSolde = BigDecimal.valueOf(0.0);
+
+        /***
+         * On doit ici enregistrer un depot dans un compte capsule d'un point de vente. Pour cela il
+         * faut ajouter la qte de la transaction au solde du compte et ensuite enregistrer l'operation ainsi
+         * réalise
+         */
+        if(operationType.equals(OperationType.Credit)){
+            updatedSolde = solde.add(qte);//Car BigDecimal est immutable on peut pas directement modifier sa valeur
+        }
+        else if(operationType.equals(OperationType.Withdrawal)){
+            if(solde.compareTo(qte) < 0){
+                log.error("Insufficient balance");
+                throw new InvalidValueException("Solde insuffisant "+solde);
+            }
+            updatedSolde = solde.subtract(qte);
+        }
+        posDamageAccountToUpdate.setPdaNumber(updatedSolde);
+
+        posDamAccountRepository.save(posDamageAccountToUpdate);
+
+        PosDamageOperation posdamo = new PosDamageOperation();
+        posdamo.setPosdoNumberinmvt(qte);
+        posdamo.setPosdoUserbm(optionalUserBM.get());
+        posdamo.setPosdoPosDamageAccount(posDamageAccountToUpdate);
+
+        Operation op = new Operation();
+        op.setOpDate(new Date().toInstant());
+        op.setOpDescription(opDescription);
+        op.setOpObject(opObject);
+        op.setOpType(operationType);
+        posdamo.setPosdoOperation(op);
+        //Il faut save le PosCapsuleOperation
+        posDamOperationRepository.save(posdamo);
+
+        return true;
+    }
+
+    @Override
+    public Boolean saveDamageOperation(PosDamageAccountDto posdamaccDto, PosDamageOperationDto posdamopDto) {
+
+        if(posdamaccDto == null || posdamopDto == null){
+            log.error("The posdamaccDto or posdamopDto is null");
+            throw new NullArgumentException("Appel de la methode saveDamageOperation avec des parametres null");
+        }
+
+        Long posdamaccId = posdamaccDto.getId();
+        BigDecimal qte = posdamopDto.getPosdoNumberinmvt();
+        Long userbmId = posdamopDto.getPosdoUserbmDto().getId();
+        OperationType operationType = posdamopDto.getPosdoOperationDto().getOpType();
+        String opDescription = posdamopDto.getPosdoOperationDto().getOpDescription();
+        String opObject = posdamopDto.getPosdoOperationDto().getOpObject();
+
         /******************************************************************
          * Se rassurer que les donnees dans la fonction ne sont pas null
          */

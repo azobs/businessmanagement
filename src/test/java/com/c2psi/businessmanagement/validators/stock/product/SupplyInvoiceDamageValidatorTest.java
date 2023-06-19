@@ -20,7 +20,7 @@ public class SupplyInvoiceDamageValidatorTest {
     @Test
     public void validate() {
         SupplyInvoiceDamageDto supplyInvoiceDamageDto = SupplyInvoiceDamageDto.builder()
-                .sidamPosDto(PointofsaleDto.builder().build())
+                .sidamPosId(PointofsaleDto.builder().build().getId())
                 .sidamProviderDto(ProviderDto.builder().build())
                 .sidamUserbmDto(UserBMDto.builder().build())
                 .sidamInvoicingDate(new Date().toInstant())
@@ -43,7 +43,7 @@ public class SupplyInvoiceDamageValidatorTest {
     @Test
     public void validateNull() {
         SupplyInvoiceDamageDto supplyInvoiceDamageDto = SupplyInvoiceDamageDto.builder()
-                .sidamPosDto(PointofsaleDto.builder().build())
+                .sidamPosId(PointofsaleDto.builder().build().getId())
                 .sidamProviderDto(ProviderDto.builder().build())
                 .sidamUserbmDto(UserBMDto.builder().build())
                 .sidamInvoicingDate(new Date().toInstant())
@@ -66,7 +66,7 @@ public class SupplyInvoiceDamageValidatorTest {
     @Test
     public void validateNullValue() {
         SupplyInvoiceDamageDto supplyInvoiceDamageDto = SupplyInvoiceDamageDto.builder()
-                .sidamPosDto(null)
+                .sidamPosId(null)
                 .sidamProviderDto(null)
                 .sidamUserbmDto(null)
                 .sidamInvoicingDate(null)
@@ -99,7 +99,7 @@ public class SupplyInvoiceDamageValidatorTest {
     @Test
     public void validateEmptyValue() {
         SupplyInvoiceDamageDto supplyInvoiceDamageDto = SupplyInvoiceDamageDto.builder()
-                .sidamPosDto(PointofsaleDto.builder().build())
+                .sidamPosId(PointofsaleDto.builder().build().getId())
                 .sidamProviderDto(ProviderDto.builder().build())
                 .sidamUserbmDto(UserBMDto.builder().build())
                 .sidamInvoicingDate(new Date().toInstant())
@@ -124,7 +124,7 @@ public class SupplyInvoiceDamageValidatorTest {
     @Test
     public void validateBlankValue() {
         SupplyInvoiceDamageDto supplyInvoiceDamageDto = SupplyInvoiceDamageDto.builder()
-                .sidamPosDto(PointofsaleDto.builder().build())
+                .sidamPosId(PointofsaleDto.builder().build().getId())
                 .sidamProviderDto(ProviderDto.builder().build())
                 .sidamUserbmDto(UserBMDto.builder().build())
                 .sidamInvoicingDate(new Date().toInstant())
@@ -147,7 +147,7 @@ public class SupplyInvoiceDamageValidatorTest {
     @Test
     public void validateSizeValue() {
         SupplyInvoiceDamageDto supplyInvoiceDamageDto = SupplyInvoiceDamageDto.builder()
-                .sidamPosDto(PointofsaleDto.builder().build())
+                .sidamPosId(PointofsaleDto.builder().build().getId())
                 .sidamProviderDto(ProviderDto.builder().build())
                 .sidamUserbmDto(UserBMDto.builder().build())
                 .sidamInvoicingDate(new Date().toInstant())
@@ -170,7 +170,7 @@ public class SupplyInvoiceDamageValidatorTest {
     @Test
     public void validatePositiveValue() {
         SupplyInvoiceDamageDto supplyInvoiceDamageDto = SupplyInvoiceDamageDto.builder()
-                .sidamPosDto(PointofsaleDto.builder().build())
+                .sidamPosId(PointofsaleDto.builder().build().getId())
                 .sidamProviderDto(ProviderDto.builder().build())
                 .sidamUserbmDto(UserBMDto.builder().build())
                 .sidamInvoicingDate(new Date().toInstant())
@@ -197,7 +197,7 @@ public class SupplyInvoiceDamageValidatorTest {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             SupplyInvoiceDamageDto supplyInvoiceDamageDto = SupplyInvoiceDamageDto.builder()
-                    .sidamPosDto(PointofsaleDto.builder().build())
+                    .sidamPosId(PointofsaleDto.builder().build().getId())
                     .sidamProviderDto(ProviderDto.builder().build())
                     .sidamUserbmDto(UserBMDto.builder().build())
                     .sidamInvoicingDate(sdf.parse("2024-02-04").toInstant())
@@ -227,7 +227,7 @@ public class SupplyInvoiceDamageValidatorTest {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             SupplyInvoiceDamageDto supplyInvoiceDamageDto = SupplyInvoiceDamageDto.builder()
-                    .sidamPosDto(PointofsaleDto.builder().build())
+                    .sidamPosId(PointofsaleDto.builder().build().getId())
                     .sidamProviderDto(ProviderDto.builder().build())
                     .sidamUserbmDto(UserBMDto.builder().build())
                     .sidamInvoicingDate(sdf.parse("2023-02-03").toInstant())

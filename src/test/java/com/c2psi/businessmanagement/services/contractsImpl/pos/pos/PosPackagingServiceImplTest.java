@@ -2,9 +2,11 @@ package com.c2psi.businessmanagement.services.contractsImpl.pos.pos;
 
 import com.c2psi.businessmanagement.BusinessmanagementApplication;
 import com.c2psi.businessmanagement.Enumerations.OperationType;
-import com.c2psi.businessmanagement.dtos.pos.pos.*;
+import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
+import com.c2psi.businessmanagement.dtos.pos.pos.PosPackagingAccountDto;
+import com.c2psi.businessmanagement.dtos.pos.pos.PosPackagingOperationDto;
+import com.c2psi.businessmanagement.dtos.stock.product.PackagingDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
-import com.c2psi.businessmanagement.dtos.stock.product.*;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
 import com.c2psi.businessmanagement.exceptions.DuplicateEntityException;
 import com.c2psi.businessmanagement.exceptions.InvalidEntityException;

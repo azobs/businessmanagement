@@ -1,15 +1,11 @@
 package com.c2psi.businessmanagement.validators.pos.pos;
 
-import com.c2psi.businessmanagement.Enumerations.OperationType;
-import com.c2psi.businessmanagement.dtos.pos.pos.EnterpriseDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.OperationDto;
-import org.springframework.util.StringUtils;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-import java.time.Instant;
 import java.util.*;
 
 public class OperationValidator {

@@ -15,9 +15,9 @@ public interface ProductFormatedRepository
     Optional<ProductFormated> findProductFormatedById(Long pfId);
     @Query("SELECT pf FROM ProductFormated  pf WHERE pf.pfFormat.id=:formatId AND pf.pfProduct.id=:prodId")
     Optional<ProductFormated> findProductFormatedInPosWith(@Param("prodId") Long prodId, @Param("formatId") Long formatId);
-    @Query("SELECT pf FROM ProductFormated pf WHERE pf.pfProduct.prodPos.id=:posId")
+    @Query("SELECT pf FROM ProductFormated pf WHERE pf.pfProduct.prodPosId=:posId")
     Optional<List<ProductFormated>> findAllProductFormatedInPos(@Param("posId") Long posId);
 
-    @Query("SELECT pf FROM ProductFormated pf WHERE pf.pfProduct.prodPos.id=:posId ORDER BY pf.pfProduct.prodName ASC")
+    @Query("SELECT pf FROM ProductFormated pf WHERE pf.pfProduct.prodPosId=:posId ORDER BY pf.pfProduct.prodName ASC")
     Optional<Page<ProductFormated>> findPageofProductFormatedInPos(@Param("posId") Long posId, Pageable pageable);
 }

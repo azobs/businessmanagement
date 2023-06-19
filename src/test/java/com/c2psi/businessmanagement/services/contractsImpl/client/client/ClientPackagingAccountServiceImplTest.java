@@ -9,8 +9,6 @@ import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.dtos.stock.product.PackagingDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
-import com.c2psi.businessmanagement.dtos.stock.provider.ProviderPackagingAccountDto;
-import com.c2psi.businessmanagement.dtos.stock.provider.ProviderPackagingOperationDto;
 import com.c2psi.businessmanagement.exceptions.DuplicateEntityException;
 import com.c2psi.businessmanagement.exceptions.InvalidEntityException;
 import com.c2psi.businessmanagement.services.contractsImpl.UsedForTestForAll;
@@ -22,8 +20,6 @@ import com.c2psi.businessmanagement.services.contractsImpl.stock.price.CurrencyC
 import com.c2psi.businessmanagement.services.contractsImpl.stock.price.CurrencyServiceImpl;
 import com.c2psi.businessmanagement.services.contractsImpl.stock.product.PackagingServiceImpl;
 import com.c2psi.businessmanagement.services.contractsImpl.stock.product.UsedForTestForProduct;
-import com.c2psi.businessmanagement.services.contractsImpl.stock.provider.ProviderPackagingAccountServiceImpl;
-import com.c2psi.businessmanagement.services.contractsImpl.stock.provider.ProviderPackagingOperationServiceImpl;
 import com.c2psi.businessmanagement.services.contractsImpl.stock.provider.ProviderServiceImpl;
 import com.c2psi.businessmanagement.services.contractsImpl.stock.provider.UsedForTestForProvider;
 import org.junit.Test;

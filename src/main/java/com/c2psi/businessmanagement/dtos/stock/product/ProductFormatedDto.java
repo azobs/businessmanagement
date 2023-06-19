@@ -1,6 +1,7 @@
 package com.c2psi.businessmanagement.dtos.stock.product;
 
 import com.c2psi.businessmanagement.models.ProductFormated;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
 
@@ -10,16 +11,21 @@ import javax.validation.constraints.NotNull;
 @Data
 @Builder
 public class ProductFormatedDto {
+    @ApiModelProperty(value = "The id of the product Formated", name = "id", dataType = "Long")
     Long id;
+    @ApiModelProperty(value = "The fullname of a picture that describe the product in the corresponding format",
+            name = "pfPicture", dataType = "String")
     String pfPicture;
     /******************************
      * Relation between entities  *
      * ****************************/
     //Each productformated is associated to 1 Product
     @NotNull(message = "The product associated cannot be null")
+    @ApiModelProperty(value = "The associated product", name = "pfProductDto", dataType = "ProductDto")
     ProductDto pfProductDto;
     //Each productformated is associated to 1 format
     @NotNull(message = "The format associated cannot be null")
+    @ApiModelProperty(value = "The associated format", name = "pfFormatDto", dataType = "FormatDto")
     FormatDto pfFormatDto;
     /***********************************
      * Mapping method development:   ***

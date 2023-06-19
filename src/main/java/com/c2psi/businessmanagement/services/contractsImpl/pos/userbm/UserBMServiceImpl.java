@@ -1,9 +1,10 @@
 package com.c2psi.businessmanagement.services.contractsImpl.pos.userbm;
 
+import com.c2psi.businessmanagement.Enumerations.UserBMState;
 import com.c2psi.businessmanagement.Enumerations.UserBMType;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.exceptions.*;
-import com.c2psi.businessmanagement.exceptions.IllegalArgumentException;
+import com.c2psi.businessmanagement.exceptions.NullArgumentException;
 import com.c2psi.businessmanagement.models.Enterprise;
 import com.c2psi.businessmanagement.models.Pointofsale;
 import com.c2psi.businessmanagement.models.UserBM;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -50,36 +52,14 @@ public class UserBMServiceImpl implements UserBMService {
 
     @Override
     public UserBMDto saveUserBM(UserBMDto userBMDto) {
-        /******
-         * A tester:
-         *  -Si le parametre userBMDto n'est pas valide la methode lance l'exception InvalidEntityException.
-         *      Ce parametre n'est pas valide si:
-         *      -Il est null
-         *      -L'objet Address est null
-         *      -Le numtel1 n'a pas ete precise dans l'objet Address ou est vide (mais l'espace vide est une valeur
-         *      qui marche)
-         *      -Le numtel2 n'a pas ete precise dans l'objet Address ou est vide (mais l'espace vide est une valeur
-         *       qui marche)
-         *      -L'email precise ne respecte pas un format d'adresse email dans l'objet Address
-         *  -Si le fullname (name+surname +dob) designe deja un UserBM dans la BD la methode doit lancer un DuplicateEntityException
-         *  -Si le login designe deja un UserBM dans la BD la methode doit lancer un DuplicateEntityException
-         *  -Si le cniNumber designe deja un UserBM dans la BD la methode doit lancer un DuplicateEntityException
-         *  -Si le userBMType n'est pas AdminBM ou AdminEnterprise alors
-         *      -Si l'objet bmPos est null la methode doit lancer un InvalidEntityException
-         *      -Si l'objet bmPos n'est pas null mais ne designe aucun pointofsale en BD alors la methode doit
-         *      lancer un InvalidEntityException
-         */
+
         List<String> errors = UserBMValidator.validate(userBMDto);
         if(!errors.isEmpty()){
             log.error("Entity userBM not valid {}", userBMDto);
-            System.out.println("errors == "+errors);
             throw new InvalidEntityException("Le userBM passé en argument n'est pas valide: "+errors,
                     ErrorCode.USERBM_NOT_VALID, errors);
         }
 
-        /*System.out.println("retour de isUnique "+this.isUserBMUnique(userBMDto.getBmName(), userBMDto.getBmSurname(),
-                userBMDto.getBmDob(), userBMDto.getBmLogin(), userBMDto.getBmCni(),
-                userBMDto.getBmAddressDto().getEmail()));*/
         if(!this.isUserBMFullnameUnique(userBMDto.getBmName(), userBMDto.getBmSurname(), userBMDto.getBmDob())){
             log.error("An entity userbm already exist with the same name, surname and dob in the DB {}",
                     userBMDto);
@@ -125,7 +105,7 @@ public class UserBMServiceImpl implements UserBMService {
             * Ceci signifie que le userbm qu'on veut enregistrer est un Employe et par conséquent il faut
             * que son point de vente soit précise.
              */
-            if(!Optional.ofNullable(userBMDto.getBmPosDto()).isPresent()){
+            if(!Optional.ofNullable(userBMDto.getBmPosId()).isPresent()){
                 log.error("A userbm which is not AdminBM nor AdminEnterprise must be link to a point of sale. " +
                         " he cannot be registered if he is not link with its pointofsale");
                 throw new InvalidEntityException("Le USERBM n'est pas valide. Il devrait etre " +
@@ -138,7 +118,7 @@ public class UserBMServiceImpl implements UserBMService {
                 * cas il faudra signaler une erreur
                  */
                 Optional<Pointofsale> optionalPos = posRepository.findPointofsaleById(
-                        userBMDto.getBmPosDto().getId());
+                        userBMDto.getBmPosId());
                 if(!optionalPos.isPresent()){
                     log.error("The pointofsale proposed for the userbm must exist in the DB. ");
                     throw new InvalidEntityException("Le Point de vente précisé pour le UserBM n'existe " +
@@ -147,6 +127,19 @@ public class UserBMServiceImpl implements UserBMService {
                 
             }
         }
+        /***********************************************************************************
+         * Il faut chiffrer le mot de pass avant de le save dans la base de donnee
+         */
+        Pbkdf2PasswordEncoder p = Pbkdf2PasswordEncoder.defaultsForSpringSecurity_v5_8();
+        String passToEncoded = "myPassword";
+        String passEncoded = p.encode(passToEncoded);
+        Boolean matches = p.matches("myPassword", passEncoded);
+        log.info("passToEncoded = {} passEncoded = {} and the matches = {}", passToEncoded, passEncoded, matches);
+
+        userBMDto.setBmPassword(p.encode(userBMDto.getBmPassword()));
+        userBMDto.setBmRepassword(p.encode(userBMDto.getBmRepassword()));
+
+
         log.info("After all verification on the UserBMDto sent in the request, the record can be done: " +
                 "{} ", userBMDto);
         return UserBMDto.fromEntity(
@@ -223,8 +216,14 @@ public class UserBMServiceImpl implements UserBMService {
             }
         }
 
-        userBMToUpdate.setBmState(userBMDto.getBmState());
-        userBMToUpdate.setBmUsertype(userBMDto.getBmUsertype());
+        /****
+         * La mise a jour de l'etat doit etre faites dans une methode speciale
+         * et on ne met pas a jour le type d'un utilisateur faut le supprimer et
+         * le recreer dans avec un autre type
+         */
+        /*userBMToUpdate.setBmState(userBMDto.getBmState());
+        userBMToUpdate.setBmUsertype(userBMDto.getBmUsertype());*/
+
         if(userBMDto.getBmAddressDto() != null){
             userBMToUpdate.getBmAddress().setNumtel1(userBMDto.getBmAddressDto().getNumtel1());
             userBMToUpdate.getBmAddress().setNumtel2(userBMDto.getBmAddressDto().getNumtel2());
@@ -235,8 +234,149 @@ public class UserBMServiceImpl implements UserBMService {
             userBMToUpdate.getBmAddress().setLocalisation(userBMDto.getBmAddressDto().getLocalisation());
         }
 
+        /*
+        Tout est deja verifie donc on doit normalement effectue les modification du reste des parametre
+         */
+        //Le mot de passe doit etre mis a jour dans une methode speciale qui ne s'occupera que de ca
+        //userBMToUpdate.setBmPassword(userBMDto.getBmPassword());
 
+        return UserBMDto.fromEntity(userBMRepository.save(userBMToUpdate));
+    }
 
+    @Override
+    public UserBMDto switchUserBMState(UserBMDto userBMDto) {
+
+        List<String> errors = UserBMValidator.validate(userBMDto);
+        if(!errors.isEmpty()){
+            log.error("Entity userBM not valid {}", userBMDto);
+            throw new InvalidEntityException("Le userBM passé en argument n'est pas valide: "+errors,
+                    ErrorCode.USERBM_NOT_VALID, errors);
+        }
+
+        /*********************************************************************
+         * POSSIBLE CHANGEMENT OF USERSTATE
+         * From Activated to Deactivated: possible
+         * From Activated to Connected: possible
+         * From Activated to Disconnected: Not possible
+         *
+         * From Deactivated to Activated: Possible
+         * From Deactivated to Connected: Not Possible
+         * From Deactivated to Disconnected: Not Possible
+         *
+         * From Connected to Activated: Not Possible
+         * From Connected to Deactivated: Not Possible
+         * From Connected to Disconnected: Possible
+         *
+         * From Disconnected to Activated: Not Possible
+         * From Disconnected to Deactivated: Possible
+         * From Disconnected to Connected: Possible
+         */
+        if(userBMDto.getId() == null){
+            log.error("L'Id du UserBMDto ne saurait etre null sinon on ne peut retrouver l'entity a update");
+            throw new InvalidEntityException("L'Id du UserBMDto ne saurait etre null sinon on ne peut retrouver " +
+                    "l'entity a update ", ErrorCode.USERBM_NOT_VALID);
+        }
+        Optional<UserBM> optionalUserBMToUpate = userBMRepository.findUserBMById(userBMDto.getId());
+        if(!optionalUserBMToUpate.isPresent()){
+            log.error("There is no UserBM with the precise id in the DB");
+            throw new InvalidEntityException("Aucun UserBM n'existe avec l'Id precise dans la requete ",
+                    ErrorCode.USERBM_NOT_VALID);
+        }
+        UserBM userBMToUpdate = optionalUserBMToUpate.get();
+
+        if(userBMToUpdate.getBmState().equals(UserBMState.Activated)){
+            if(userBMDto.getBmState().equals(UserBMState.Deactivated)){
+                userBMToUpdate.setBmState(UserBMState.Deactivated);
+            }
+            else if(userBMDto.getBmState().equals(UserBMState.Connected)){
+                userBMToUpdate.setBmState(UserBMState.Connected);
+            }
+            else if(userBMDto.getBmState().equals(UserBMState.Disconnected)){
+                log.error("It is not possible to move from Activated state to Disconnected state");
+                throw new InvalidEntityException("On peut pas passer de l'etat Active a l'etat Deconnecte",
+                        ErrorCode.USERBM_NOT_VALID);
+            }
+        }
+        else if(userBMToUpdate.getBmState().equals(UserBMState.Deactivated)){
+            if(userBMDto.getBmState().equals(UserBMState.Activated)){
+                userBMToUpdate.setBmState(UserBMState.Activated);
+            }
+            else if(userBMDto.getBmState().equals(UserBMState.Connected)){
+                log.error("It is not possible to move from Deactivated state to Connected state");
+                throw new InvalidEntityException("On peut pas passer de l'etat Deactivated a l'etat Connected",
+                        ErrorCode.USERBM_NOT_VALID);
+            }
+            else if(userBMDto.getBmState().equals(UserBMState.Disconnected)){
+                log.error("It is not possible to move from Deactivated state to Disconnected state");
+                throw new InvalidEntityException("On peut pas passer de l'etat Deactivated a l'etat Deconnecte",
+                        ErrorCode.USERBM_NOT_VALID);
+            }
+        } else if(userBMToUpdate.getBmState().equals(UserBMState.Connected)){
+            if(userBMDto.getBmState().equals(UserBMState.Activated)){
+                log.error("It is not possible to move from Connected state to Activated state");
+                throw new InvalidEntityException("On peut pas passe de l'etat Connected a l'etat Activated",
+                        ErrorCode.USERBM_NOT_VALID);
+            }
+            else if(userBMDto.getBmState().equals(UserBMState.Deactivated)){
+                log.error("It is not possible to move from Connected state to Deactivated state");
+                throw new InvalidEntityException("On peut pas passe de l'etat Connected a l'etat Deactivated",
+                        ErrorCode.USERBM_NOT_VALID);
+            }
+            else if(userBMDto.getBmState().equals(UserBMState.Disconnected)){
+                userBMToUpdate.setBmState(UserBMState.Disconnected);
+            }
+        } else if(userBMToUpdate.getBmState().equals(UserBMState.Disconnected)){
+            if(userBMDto.getBmState().equals(UserBMState.Activated)){
+                log.error("It is not possible to move from Disconnected state to Activated state");
+                throw new InvalidEntityException("On peut pas passe de l'etat Disconnected a l'etat Activated",
+                        ErrorCode.USERBM_NOT_VALID);
+            }
+            else if(userBMDto.getBmState().equals(UserBMState.Deactivated)){
+                userBMToUpdate.setBmState(UserBMState.Deactivated);
+            }
+            else if (userBMDto.getBmState().equals(UserBMState.Connected)) {
+                userBMToUpdate.setBmState(UserBMState.Connected);
+            }
+        }
+
+        log.info("All verification is done and the object can now be registered in the DB");
+        return UserBMDto.fromEntity(userBMRepository.save(userBMToUpdate));
+    }
+
+    @Override
+    public UserBMDto resetPassword(UserBMDto userBMDto) {
+        List<String> errors = UserBMValidator.validate(userBMDto);
+        if(!errors.isEmpty()){
+            log.error("Entity userBM not valid {}", userBMDto);
+            throw new InvalidEntityException("Le userBM passé en argument n'est pas valide",
+                    ErrorCode.USERBM_NOT_VALID, errors);
+        }
+
+        /****************************************************************
+         * Il faut recuperer le UserBM dont le Password va etre reset
+         */
+        if(userBMDto.getId() == null){
+            log.error("The Id of the userBM precised is null");
+            throw new InvalidEntityException("L'Id du UserBM precise en argument est null ",
+                    ErrorCode.USERBM_NOT_VALID);
+        }
+
+        Optional<UserBM> optionalUserBM = userBMRepository.findUserBMById(userBMDto.getId());
+        if(!optionalUserBM.isPresent()){
+            log.error("There is no UserBM with the Id precised in the DB");
+            throw new InvalidEntityException("Aucun UserBM n'existe avec l'Id precise donc on ne peut identifier " +
+                    "le UserBM a update ", ErrorCode.USERBM_NOT_VALID);
+        }
+        UserBM userBMToUpdate = optionalUserBM.get();
+        /*****************************************************************
+         * Il faut encoder le new Password avant de le passer en argument
+         */
+        Pbkdf2PasswordEncoder p = Pbkdf2PasswordEncoder.defaultsForSpringSecurity_v5_8();
+        String newPasswordEncoded = p.encode(userBMDto.getBmPassword());
+
+        userBMToUpdate.setBmPassword(newPasswordEncoded);
+
+        log.info("All verification is done and the object can now be registered in the DB");
         return UserBMDto.fromEntity(userBMRepository.save(userBMToUpdate));
     }
 
@@ -362,12 +502,22 @@ public class UserBMServiceImpl implements UserBMService {
 
     @Override
     public UserBMDto findUserBMByFullNameAndDob(String bmName, String bmSurname, Date bmDob) {
-        Optional<UserBM> optionalUserBM = userBMRepository.findUserBMByBmNameAndBmSurnameAndBmDob(bmName,
+        if(!StringUtils.hasLength(bmName)){
+            log.error("UserBM name is null");
+            throw new NullArgumentException("le bmName passe en argument de la methode est null");
+        }
+
+        /*Optional<UserBM> optionalUserBM = userBMRepository.findUserBMByBmNameAndBmSurnameAndBmDob(bmName,
+                bmSurname, bmDob);*/
+        Optional<UserBM> optionalUserBM = userBMRepository.findUserBMByFullname(bmName,
                 bmSurname, bmDob);
-        return Optional.of(UserBMDto.fromEntity(optionalUserBM.get())).orElseThrow(()->
-                new EntityNotFoundException("Aucun UserBM avec le nom "+bmName+" le prenom "+bmSurname+" et " +
-                        "la dob "+bmDob
-                        +" n'a été trouve dans la BDD", ErrorCode.USERBM_NOT_FOUND));
+
+        if(!optionalUserBM.isPresent()){
+            log.error("UserBM inexistant");
+            throw new EntityNotFoundException("UserBM inexistant ", ErrorCode.USERBM_NOT_FOUND);
+        }
+
+        return UserBMDto.fromEntity(optionalUserBM.get());
     }
 
     public Boolean isUserBMExistWithNameAndDob(String bmName, String bmSurname, Date bmDob){
@@ -378,6 +528,7 @@ public class UserBMServiceImpl implements UserBMService {
 
         Optional<UserBM> optionalUserBM = userBMRepository.findUserBMByBmNameAndBmSurnameAndBmDob(bmName,
                 bmSurname, bmDob);
+
         return optionalUserBM.isPresent()?true:false;
     }
 
@@ -389,9 +540,12 @@ public class UserBMServiceImpl implements UserBMService {
         }
         Optional<UserBM> optionalUserBM = userBMRepository.findUserBMById(bmId);
 
-        return Optional.of(UserBMDto.fromEntity(optionalUserBM.get())).orElseThrow(()->
-                new EntityNotFoundException("Aucun UserBM avec l'id "+bmId
-                        +" n'a été trouve dans la BDD", ErrorCode.USERBM_NOT_FOUND));
+        if(!optionalUserBM.isPresent()){
+            throw new EntityNotFoundException("Aucun UserBM avec l'id "+bmId
+                    +" n'a été trouve dans la BDD", ErrorCode.USERBM_NOT_FOUND);
+        }
+
+        return UserBMDto.fromEntity(optionalUserBM.get());
     }
 
     public Boolean isUserBMExistWithId(Long bmId){
@@ -399,6 +553,7 @@ public class UserBMServiceImpl implements UserBMService {
             log.error("bmId is null");
             throw new NullArgumentException("le bmId passe en argument de la methode est null");
         }
+        //log.error("bmId found === "+bmId);
         Optional<UserBM> optionalUserBM = userBMRepository.findUserBMById(bmId);
         return optionalUserBM.isPresent()?true:false;
     }
@@ -443,7 +598,7 @@ public class UserBMServiceImpl implements UserBMService {
     public Boolean deleteUserBMByLogin(String bmLogin) {
         if(!StringUtils.hasLength(bmLogin)){
             log.error("bmLogin is null");
-            throw new IllegalArgumentException("Le bmLogin specifie n'a pas de valeur");
+            throw new NullArgumentException("Le bmLogin specifie n'a pas de valeur");
         }
         Optional<UserBM> optionalUserBM = Optional.of(UserBMDto.toEntity(this.findUserBMByLogin(bmLogin)));
         if(optionalUserBM.isPresent()){
@@ -466,7 +621,7 @@ public class UserBMServiceImpl implements UserBMService {
     public Boolean deleteUserBMByCni(String bmCni) {
         if(!StringUtils.hasLength(bmCni)){
             log.error("bmCni is null");
-            throw new IllegalArgumentException("Le bmCni specifie n'a pas de valeur");
+            throw new NullArgumentException("Le bmCni specifie n'a pas de valeur");
         }
         Optional<UserBM> optionalUserBM = Optional.of(UserBMDto.toEntity(this.findUserBMByCni(bmCni)));
         if(optionalUserBM.isPresent()){
@@ -489,7 +644,7 @@ public class UserBMServiceImpl implements UserBMService {
     public Boolean deleteUserBMByFullNameAndDob(String bmName, String bmSurname, Date bmDob) {
         if(!StringUtils.hasLength(bmName) && !StringUtils.hasLength(bmSurname)){
             log.error("bmName or bmSurname is null");
-            throw new IllegalArgumentException("Le bmName ou le bmSurname specifie n'a pas de valeur");
+            throw new NullArgumentException("Le bmName ou le bmSurname specifie n'a pas de valeur");
         }
 
         Optional<UserBM> optionalUserBM = Optional.of(UserBMDto.toEntity(

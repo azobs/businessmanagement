@@ -37,6 +37,6 @@ public class Enterprise extends AbstractEntity {
     @JoinColumn(name = "userbm_id", nullable = false, referencedColumnName = "id")
     UserBM entAdmin;
 
-    @OneToMany(mappedBy = "packPos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<Packaging> packagingList;
+    /*@OneToMany(mappedBy = "packPos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<Packaging> packagingList;*/
 }

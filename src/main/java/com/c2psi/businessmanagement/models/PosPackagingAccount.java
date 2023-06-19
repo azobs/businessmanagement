@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name="pos_packaging_account", uniqueConstraints = {@UniqueConstraint(
-        columnNames = {"pointofsale_id", "packaging_id"})})
+        columnNames = {"ppaPointofsaleId", "packaging_id"})})
 public class PosPackagingAccount extends AbstractEntity {
 
     BigDecimal ppaNumber;
@@ -26,9 +26,10 @@ public class PosPackagingAccount extends AbstractEntity {
      * Relation between entities  *
      * ****************************/
     //Each packagingaccount must belonging to one pointofsale
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    /*@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "pointofsale_id", nullable = false, referencedColumnName = "id")
-    Pointofsale ppaPointofsale;
+    Pointofsale ppaPointofsale;*/
+    Long ppaPointofsaleId;
 
     //Each packagingaccount must be related to exactly one packaging
     @OneToOne

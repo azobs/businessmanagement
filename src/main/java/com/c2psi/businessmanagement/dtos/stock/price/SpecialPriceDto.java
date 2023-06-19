@@ -1,6 +1,7 @@
 package com.c2psi.businessmanagement.dtos.stock.price;
 
 import com.c2psi.businessmanagement.models.SpecialPrice;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
 
@@ -12,21 +13,27 @@ import java.math.BigDecimal;
 @Data
 @Builder
 public class SpecialPriceDto {
+    @ApiModelProperty(value = "The Id of the specialprice in the DB", name = "id", dataType = "Long")
     Long id;
     @NotNull(message = "The special whole price cannot be null")
     @Positive(message = "The special whole price must be positive")
+    @ApiModelProperty(value = "The special whole sale price", name = "spWholesaleprice", dataType = "BigDecimal")
     BigDecimal spWholesaleprice;
     @NotNull(message = "The special detail price cannot be null")
     @Positive(message = "The special detail price must be positive")
+    @ApiModelProperty(value = "The special details price", name = "spDetailprice", dataType = "BigDecimal")
     BigDecimal spDetailprice;
     @NotNull(message = "The special semi whole price cannot be null")
     @Positive(message = "The special semi whole price must be positive")
+    @ApiModelProperty(value = "The special semi whole sale price", name = "spSemiwholesaleprice", dataType = "BigDecimal")
     BigDecimal spSemiwholesaleprice;
     @NotNull(message = "The special precompte cannot be null")
     @PositiveOrZero(message = "The special precompte must be positive or zero")
+    @ApiModelProperty(value = "The special precompte kept due the price", name = "spPrecompte", dataType = "BigDecimal")
     BigDecimal spPrecompte;
     @NotNull(message = "The special ristourne cannot be null")
     @PositiveOrZero(message = "The special ristourne must be positive or zero")
+    @ApiModelProperty(value = "The special ristourne kept due the price", name = "spRistourne", dataType = "BigDecimal")
     BigDecimal spRistourne;
     /******************************
      * Relation between entities  *

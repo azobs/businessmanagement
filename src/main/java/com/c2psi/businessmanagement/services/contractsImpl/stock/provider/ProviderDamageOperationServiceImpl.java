@@ -4,7 +4,6 @@ import com.c2psi.businessmanagement.Enumerations.OperationType;
 import com.c2psi.businessmanagement.dtos.pos.pos.OperationDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDamageOperationDto;
 import com.c2psi.businessmanagement.exceptions.*;
-import com.c2psi.businessmanagement.models.ProviderCapsuleOperation;
 import com.c2psi.businessmanagement.models.ProviderDamageOperation;
 import com.c2psi.businessmanagement.models.UserBM;
 import com.c2psi.businessmanagement.repositories.pos.userbm.UserBMRepository;

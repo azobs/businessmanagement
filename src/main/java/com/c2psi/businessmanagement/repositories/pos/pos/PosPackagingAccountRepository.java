@@ -13,11 +13,11 @@ import java.util.Optional;
 
 public interface PosPackagingAccountRepository extends JpaRepository<PosPackagingAccount, Long> {
     Optional<PosPackagingAccount> findPosPackagingAccountById(Long ppackaccId);
-    @Query("SELECT ppacksacc FROM PosPackagingAccount ppacksacc WHERE ppacksacc.ppaPackaging.id=:packagingId AND ppacksacc.ppaPointofsale.id=:posId")
+    @Query("SELECT ppacksacc FROM PosPackagingAccount ppacksacc WHERE ppacksacc.ppaPackaging.id=:packagingId AND ppacksacc.ppaPointofsaleId=:posId")
     Optional<PosPackagingAccount> findPosPackagingAccountInPos(@Param("packagingId") Long packagingId, @Param("posId") Long posId);
-    @Query("SELECT ppacksacc FROM PosPackagingAccount ppacksacc WHERE ppacksacc.ppaPointofsale.id=:posId ORDER BY ppacksacc.ppaPackaging.packLabel ASC")
+    @Query("SELECT ppacksacc FROM PosPackagingAccount ppacksacc WHERE ppacksacc.ppaPointofsaleId=:posId ORDER BY ppacksacc.ppaPackaging.packLabel ASC")
     Optional<List<PosPackagingAccount>> findAllPackagingAccountInPos(@Param("posId") Long posId);
-    @Query("SELECT ppacksacc FROM PosPackagingAccount ppacksacc WHERE ppacksacc.ppaPointofsale.id=:posId ORDER BY ppacksacc.ppaPackaging.packLabel ASC")
+    @Query("SELECT ppacksacc FROM PosPackagingAccount ppacksacc WHERE ppacksacc.ppaPointofsaleId=:posId ORDER BY ppacksacc.ppaPackaging.packLabel ASC")
     Optional<Page<PosPackagingAccount>> findPagePackagingAccountInPos(@Param("posId") Long posId, Pageable pageable);
     @Query("SELECT ppacksacc FROM PosPackagingAccount ppacksacc WHERE ppacksacc.ppaPackaging.id=:packagingId ORDER BY ppacksacc.ppaPackaging.packLabel ASC")
     Optional<List<PosPackagingAccount>> findAllPackagingAccount(@Param("packagingId") Long packagingId);

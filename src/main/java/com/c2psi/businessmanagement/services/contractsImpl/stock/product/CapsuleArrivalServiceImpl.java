@@ -86,7 +86,7 @@ public class CapsuleArrivalServiceImpl implements CapsuleArrivalService {
             /********************************************************************************************
              * Il faut se rassurer que le pointofsale dans le sicaps est le meme que celui de l'article
              */
-            if(!capsaDto.getCapsaArtDto().getArtPosDto().getId().equals(capsaDto.getCapsaSicapsDto().getSicapsPosDto().getId())){
+            if(!capsaDto.getCapsaArtDto().getArtPosId().equals(capsaDto.getCapsaSicapsDto().getSicapsPosId())){
                 log.error("The article and the supplyinvoicecapsule must belong to the same pointofsale");
                 throw new InvalidEntityException("L'article dans le capsArrival et la facture cash doivent appartenir " +
                         "au meme point de vente");

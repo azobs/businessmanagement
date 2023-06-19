@@ -1,10 +1,7 @@
 package com.c2psi.businessmanagement.validators.pos.pos;
 
-import com.c2psi.businessmanagement.dtos.pos.pos.EnterpriseDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PosCapsuleAccountDto;
-import com.c2psi.businessmanagement.dtos.pos.userbm.AddressDto;
-import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
 import org.junit.Test;
 
@@ -22,7 +19,7 @@ public class PosCapsuleAccountValidatorTest {
         PosCapsuleAccountDto pcashToValidate = PosCapsuleAccountDto.builder()
                 .pcsaArticleDto(ArticleDto.builder().build())
                 .pcsaNumber(BigDecimal.valueOf(12))
-                .pcsaPointofsaleDto(PointofsaleDto.builder().build())
+                .pcsaPointofsaleId(PointofsaleDto.builder().build().getId())
                 .build();
         List<String> errors = PosCapsuleAccountValidator.validate(pcashToValidate);
         System.out.println("errors are : "+errors);
@@ -35,7 +32,7 @@ public class PosCapsuleAccountValidatorTest {
         PosCapsuleAccountDto pcashToValidate = PosCapsuleAccountDto.builder()
                 .pcsaArticleDto(ArticleDto.builder().build())
                 .pcsaNumber(BigDecimal.valueOf(12))
-                .pcsaPointofsaleDto(PointofsaleDto.builder().build())
+                .pcsaPointofsaleId(PointofsaleDto.builder().build().getId())
                 .build();
         List<String> errors = PosCapsuleAccountValidator.validate(null);
         System.out.println("errors are : "+errors);
@@ -49,7 +46,7 @@ public class PosCapsuleAccountValidatorTest {
         PosCapsuleAccountDto pcashToValidate = PosCapsuleAccountDto.builder()
                 .pcsaArticleDto(null)
                 .pcsaNumber(BigDecimal.valueOf(12))
-                .pcsaPointofsaleDto(PointofsaleDto.builder().build())
+                .pcsaPointofsaleId(PointofsaleDto.builder().build().getId())
                 .build();
         List<String> errors = PosCapsuleAccountValidator.validate(pcashToValidate);
         System.out.println("errors are : "+errors);
@@ -64,7 +61,7 @@ public class PosCapsuleAccountValidatorTest {
         PosCapsuleAccountDto pcashToValidate = PosCapsuleAccountDto.builder()
                 .pcsaArticleDto(ArticleDto.builder().build())
                 .pcsaNumber(BigDecimal.valueOf(12))
-                .pcsaPointofsaleDto(null)
+                .pcsaPointofsaleId(null)
                 .build();
         List<String> errors = PosCapsuleAccountValidator.validate(pcashToValidate);
         System.out.println("errors are : "+errors);

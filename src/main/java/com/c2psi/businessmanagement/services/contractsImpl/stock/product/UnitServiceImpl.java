@@ -50,7 +50,7 @@ public class UnitServiceImpl implements UnitService {
         /*****************
          * Verify the existence of the pointofsale
          ********************************************/
-        Optional<Pointofsale> optionalPointofsale = posRepository.findPointofsaleById(unitDto.getUnitPosDto().getId());
+        Optional<Pointofsale> optionalPointofsale = posRepository.findPointofsaleById(unitDto.getUnitPosId());
         if(!optionalPointofsale.isPresent()){
             log.error("Entity unitDto not valid because the pointofsale does not exist{}", unitDto);
             throw new InvalidEntityException("Le unitDto passe en argument n'est pas valide puisque son pointofsale " +
@@ -60,7 +60,7 @@ public class UnitServiceImpl implements UnitService {
         /***************************************************
          * Verify the unicity of the unit in the pos
          */
-        if(!isUnitUniqueInPos(unitDto.getUnitName(), unitDto.getUnitPosDto().getId())){
+        if(!isUnitUniqueInPos(unitDto.getUnitName(), unitDto.getUnitPosId())){
             log.error("Another unit already exist with the same name {}", unitDto);
             throw new DuplicateEntityException("There is another unit in the same pointofsale with the same name ",
                     ErrorCode.UNIT_DUPLICATED);
@@ -105,7 +105,7 @@ public class UnitServiceImpl implements UnitService {
         /*****************
          * Verify the existence of the pointofsale
          ********************************************/
-        Optional<Pointofsale> optionalPointofsale = posRepository.findPointofsaleById(unitDto.getUnitPosDto().getId());
+        Optional<Pointofsale> optionalPointofsale = posRepository.findPointofsaleById(unitDto.getUnitPosId());
         if(!optionalPointofsale.isPresent()){
             log.error("Entity unitDto not valid because the pointofsale does not exist{}", unitDto);
             throw new InvalidEntityException("Le unitDto passe en argument n'est pas valide puisque son pointofsale " +
@@ -139,7 +139,7 @@ public class UnitServiceImpl implements UnitService {
              * Alors on va aussi modifier le unitName. Il faut donc verifier que le nouveau ne vas
              * pas creer des duplicata
              */
-            if(!isUnitUniqueInPos(unitDto.getUnitName(), unitDto.getUnitPosDto().getId())){
+            if(!isUnitUniqueInPos(unitDto.getUnitName(), unitDto.getUnitPosId())){
                 log.error("Another unit already exist with the same name {}", unitDto);
                 throw new DuplicateEntityException("There is another unit in the same pointofsale with the same name ",
                         ErrorCode.UNIT_DUPLICATED);
@@ -199,7 +199,7 @@ public class UnitServiceImpl implements UnitService {
     }
 
     @Override
-    public List<UnitDto> findListofUnitInPos(Long posId) {
+    public List<UnitDto> findAllUnitInPos(Long posId) {
         if(posId == null){
             log.error("posId is null");
             throw new NullArgumentException("Le posId passe en argument de la methode est null");
@@ -213,7 +213,7 @@ public class UnitServiceImpl implements UnitService {
     }
 
     @Override
-    public Page<UnitDto> findPageofUnitInPos(Long posId, int pagenum, int pagesize) {
+    public Page<UnitDto> findPageUnitInPos(Long posId, int pagenum, int pagesize) {
         if(posId == null){
             log.error("posId is null");
             throw new NullArgumentException("Le posId passe en argument de la methode est null");

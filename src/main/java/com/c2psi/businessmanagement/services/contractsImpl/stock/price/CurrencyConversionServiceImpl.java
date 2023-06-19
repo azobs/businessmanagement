@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -116,16 +117,6 @@ public class CurrencyConversionServiceImpl implements CurrencyConversionService 
                     ErrorCode.CURRENCYCONVERSION_NOT_FOUND);
         }
         CurrencyConversion currencyConversionToUpdate = optionalCurconvToUpdate.get();
-        /**********************
-         * On verifie que les currency source et destination existe bel et bien
-         */
-        /*Optional<Currency> optionalCurrencySource = currencyRepository.findCurrencyById(ccDto.getCurrencySourceDto().getId());
-        Optional<Currency> optionalCurrencyDestination = currencyRepository.findCurrencyById(ccDto.getCurrencyDestinationDto().getId());
-        if(!optionalCurrencySource.isPresent() || !optionalCurrencyDestination.isPresent()){
-            log.error("Entity CurrencyConversionDto {} not valid one or all the currency to link does not exist un DB", ccDto);
-            throw new InvalidEntityException("Le currencyConversionDto passé en argument n'est pas valide car l'un ou les " +
-                    "2 currency a lie n'existe pas dans la BD", ErrorCode.CURRENCYCONVERSION_NOT_VALID);
-        }*/
 
         /*****************
          * On se rassure que c'est ni le currency source ni le destination quon essaye de modifier
@@ -182,11 +173,13 @@ public class CurrencyConversionServiceImpl implements CurrencyConversionService 
          * On l'utilise pour effectuer la conversion
          */
         BigDecimal amountConverted = amountToConvert.multiply(curconvDto.getConversionFactor());
+        BigDecimal newamountConverted = amountConverted.setScale(1, RoundingMode.UP);
+        //log.info("amountConverted is {} and newamountConverted is {}", amountConverted, newamountConverted);
 
         /*********************
          * On retourne le resultat de la conversion
          */
-        return amountConverted;
+        return newamountConverted;
     }
 
     @Override

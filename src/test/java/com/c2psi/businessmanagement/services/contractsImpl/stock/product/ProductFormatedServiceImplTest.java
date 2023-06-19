@@ -317,7 +317,7 @@ public class ProductFormatedServiceImplTest {
                 formatDtoSaved2, productFormatedService);
         assertNotNull(productFormatedDtoSaved2);
 
-        List<ProductFormatedDto> productFormatedDtoList = productFormatedService.findListofProductFormatedInPos(posDtoSaved.getId());
+        List<ProductFormatedDto> productFormatedDtoList = productFormatedService.findAllProductFormatedInPos(posDtoSaved.getId());
         assertNotNull(productFormatedDtoList);
         assertEquals(3, productFormatedDtoList.size());
     }
@@ -361,7 +361,7 @@ public class ProductFormatedServiceImplTest {
                 formatDtoSaved2, productFormatedService);
         assertNotNull(productFormatedDtoSaved2);
 
-        Page<ProductFormatedDto> productFormatedDtoPage = productFormatedService.findPageofProductFormatedInPos(
+        Page<ProductFormatedDto> productFormatedDtoPage = productFormatedService.findPageProductFormatedInPos(
                 posDtoSaved.getId(), 0, 2);
         assertNotNull(productFormatedDtoPage);
         assertEquals(2, productFormatedDtoPage.getTotalPages());

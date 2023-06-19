@@ -1,9 +1,7 @@
 package com.c2psi.businessmanagement.validators.stock.provider;
 
-import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDamageOperationDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
 import com.c2psi.businessmanagement.validators.pos.userbm.AddressValidator;
-import org.springframework.util.StringUtils;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;

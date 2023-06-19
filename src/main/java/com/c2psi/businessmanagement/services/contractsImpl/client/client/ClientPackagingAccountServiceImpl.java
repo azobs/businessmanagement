@@ -106,7 +106,7 @@ public class ClientPackagingAccountServiceImpl implements ClientPackagingAccount
         /****************************************************************************************************
          * On verifie que le packaging est dans le meme pointofsale que le client indique dans le compte
          */
-        if(!cltpackaccDto.getCpaPackagingDto().getPackPosDto().getId().equals(cltpackaccDto.getCpaClientDto().getClientPosDto().getId())){
+        if(!cltpackaccDto.getCpaPackagingDto().getPackPosId().equals(cltpackaccDto.getCpaClientDto().getClientPosId())){
             log.error("The precised packaging and client are not in the same pointofsale precise in the account");
             throw new InvalidEntityException("Le packaging et le client precise pour le compte ne sont pas dans le meme  " +
                     "pointofsale ", ErrorCode.CLIENTPACKAGINGACCOUNT_NOT_VALID);

@@ -70,14 +70,14 @@ public class PosPackagingAccountServiceImpl implements PosPackagingAccountServic
         /***************************************************************************
          * Maintenant faut se rassurer que le pointofsale precise existe vraiment
          */
-        if(ppackaccDto.getPpaPointofsaleDto().getId() == null){
+        if(ppackaccDto.getPpaPointofsaleId() == null){
             log.error("The id of the pointofsale associated cannot be null");
             throw new InvalidEntityException("Le id du pointofsale associe au compte capsule ne peut etre null",
                     ErrorCode.POSPACKAGINGACCOUNT_NOT_VALID);
         }
         //A ce niveau on est sur que le id du pointofsale nest pas null
         Optional<Pointofsale> optionalPointofsale = pointofsaleRepository.findPointofsaleById(
-                ppackaccDto.getPpaPointofsaleDto().getId());
+                ppackaccDto.getPpaPointofsaleId());
         if(!optionalPointofsale.isPresent()){
             log.error("The pointofsale indicated in the pospackaccount doesn't exist in DB ");
             throw new EntityNotFoundException("Aucun pointofsale n'existe avec l'id precise ",
@@ -103,7 +103,7 @@ public class PosPackagingAccountServiceImpl implements PosPackagingAccountServic
         /********************************************************************************************
          * On verifie que le packaging est dans le meme pointofsale que celui precise pour le compte
          */
-        if(!ppackaccDto.getPpaPackagingDto().getPackPosDto().getId().equals(ppackaccDto.getPpaPointofsaleDto().getId())){
+        if(!ppackaccDto.getPpaPackagingDto().getPackPosId().equals(ppackaccDto.getPpaPointofsaleId())){
             log.error("The precised packaging is not in the pointofsale precise for the account");
             throw new InvalidEntityException("Le packaging pour du compte doit etre dans le meme pointofsale " +
                     "que celui dans lequel le compte est cree ", ErrorCode.POSPACKAGINGACCOUNT_NOT_VALID);
@@ -113,7 +113,7 @@ public class PosPackagingAccountServiceImpl implements PosPackagingAccountServic
          * On verifie qu'aucun compte packaging n'est pas deja creer pour ce packaging dans ce pointofsale
          */
         if(isPosPackagingAccountExistinPos(ppackaccDto.getPpaPackagingDto().getId(),
-                ppackaccDto.getPpaPointofsaleDto().getId())){
+                ppackaccDto.getPpaPointofsaleId())){
             log.error("An account for packaging has been already created for this packaging in this pointofsale");
             throw new DuplicateEntityException("Un compte packaging pour ce packaging dans ce pointofsale existe deja " +
                     "en BD ", ErrorCode.POSPACKAGINGACCOUNT_DUPLICATED);

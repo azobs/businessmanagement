@@ -5,7 +5,6 @@ import com.c2psi.businessmanagement.dtos.pos.pos.OperationDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PosCapsuleOperationDto;
 import com.c2psi.businessmanagement.exceptions.*;
 import com.c2psi.businessmanagement.models.PosCapsuleOperation;
-import com.c2psi.businessmanagement.models.ProviderCapsuleOperation;
 import com.c2psi.businessmanagement.models.UserBM;
 import com.c2psi.businessmanagement.repositories.pos.pos.PosCapsuleOperationRepository;
 import com.c2psi.businessmanagement.repositories.pos.userbm.UserBMRepository;
@@ -186,7 +185,7 @@ public class PosCapsuleOperationServiceImpl implements PosCapsuleOperationServic
     }
 
     @Override
-    public List<PosCapsuleOperationDto> findAllPosCapsuleOperationBetween(Long pcapsaccId, OperationType op_type,
+    public List<PosCapsuleOperationDto> findAllPosCapsuleOperationofTypeBetween(Long pcapsaccId, OperationType op_type,
                                                                           Instant startDate, Instant endDate) {
 
         List<PosCapsuleOperation> posCapsuleOperationListoftypeBetween = posCapsuleOperationRepository.
@@ -195,7 +194,7 @@ public class PosCapsuleOperationServiceImpl implements PosCapsuleOperationServic
     }
 
     @Override
-    public Page<PosCapsuleOperationDto> findPagePosCapsuleOperationBetween(Long pcapsaccId, OperationType op_type,
+    public Page<PosCapsuleOperationDto> findPagePosCapsuleOperationofTypeBetween(Long pcapsaccId, OperationType op_type,
                                                                            Instant startDate, Instant endDate,
                                                                            int pagenum, int pagesize) {
         Page<PosCapsuleOperation> posCapsuleOperationPageoftypeBetween = posCapsuleOperationRepository.

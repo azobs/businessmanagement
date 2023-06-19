@@ -22,7 +22,7 @@ import java.time.Instant;
 @Entity
 @Table(name="sale_invoice_cash",
         uniqueConstraints = {@UniqueConstraint(
-                columnNames = {"saleicashCode", "pos_id"})})
+                columnNames = {"saleicashCode", "saleicashPosId"})})
 public class SaleInvoiceCash extends AbstractEntity {
 
     @Column(nullable = false)
@@ -50,9 +50,10 @@ public class SaleInvoiceCash extends AbstractEntity {
     /******************************
      * Relation between entities  *
      * ****************************/
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    /*@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "pos_id", nullable = false, referencedColumnName = "id")
-    Pointofsale saleicashPos;
+    Pointofsale saleicashPos;*/
+    Long saleicashPosId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "client_id", nullable = false, referencedColumnName = "id")

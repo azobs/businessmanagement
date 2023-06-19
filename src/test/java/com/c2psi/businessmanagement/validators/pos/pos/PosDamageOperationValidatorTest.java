@@ -1,7 +1,9 @@
 package com.c2psi.businessmanagement.validators.pos.pos;
 
 import com.c2psi.businessmanagement.Enumerations.OperationType;
-import com.c2psi.businessmanagement.dtos.pos.pos.*;
+import com.c2psi.businessmanagement.dtos.pos.pos.OperationDto;
+import com.c2psi.businessmanagement.dtos.pos.pos.PosDamageAccountDto;
+import com.c2psi.businessmanagement.dtos.pos.pos.PosDamageOperationDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import org.junit.Test;
 

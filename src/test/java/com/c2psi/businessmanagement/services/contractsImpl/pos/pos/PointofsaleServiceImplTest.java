@@ -493,10 +493,10 @@ public class PointofsaleServiceImplTest {
         assertNotNull(pointofsaleSaved.getId());
 
         Boolean b = pointofsaleService.deletePosInEnterpriseByName("depot foret bar",
-                pointofsaleSaved.getPosEnterpriseDto());
+                pointofsaleSaved.getPosEnterpriseDto().getId());
         assertTrue(b);
         assertFalse(pointofsaleService.deletePosInEnterpriseByName("depot foret bar",
-                pointofsaleSaved.getPosEnterpriseDto()));
+                pointofsaleSaved.getPosEnterpriseDto().getId()));
 
     }
 
@@ -515,7 +515,7 @@ public class PointofsaleServiceImplTest {
         assertNotNull(pointofsaleSaved.getId());
 
         Boolean b = pointofsaleService.deletePosInEnterpriseByName("depot foret barrrerre",
-                pointofsaleSaved.getPosEnterpriseDto());
+                pointofsaleSaved.getPosEnterpriseDto().getId());
         assertFalse(b);
 
     }
@@ -535,7 +535,7 @@ public class PointofsaleServiceImplTest {
         assertNotNull(pointofsaleSaved.getId());
 
         Boolean b = pointofsaleService.deletePosInEnterpriseByName(null,
-                pointofsaleSaved.getPosEnterpriseDto());
+                pointofsaleSaved.getPosEnterpriseDto().getId());
         //The above line is supposed to launch the exception
 
     }
@@ -598,7 +598,7 @@ public class PointofsaleServiceImplTest {
                 "depot de boisson", "d2d@gmail.com", "676170067", 0.0,
                 currencyDto1);
 
-        List<CurrencyDto> currencyDtoList = pointofsaleService.listofConvertibleCurrency(pointofsaleDto);
+        List<CurrencyDto> currencyDtoList = pointofsaleService.listofConvertibleCurrency(pointofsaleDto.getId());
         //System.out.println("currencyDtoList ==> "+currencyDtoList.toString());
         assertNotNull(currencyDtoList);
         assertEquals(4,currencyDtoList.size());

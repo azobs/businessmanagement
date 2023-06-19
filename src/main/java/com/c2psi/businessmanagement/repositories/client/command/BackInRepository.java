@@ -18,19 +18,19 @@ public interface BackInRepository extends JpaRepository<BackIn, Long> {
     @Query("SELECT backin FROM BackIn backin WHERE backin.biCommand.id=:cmdId")
     Optional<BackIn> findBackInByofCommand(@Param("cmdId") Long cmdId);
     //Rechercher la liste de BackIn dans un pos entre 2 dates et puis page par page
-    @Query("SELECT backin FROM BackIn backin WHERE backin.biPos.id=:posId AND (backin.biDate>=:startDate AND backin.biDate<=:endDate) ORDER BY backin.biDate ASC")
+    @Query("SELECT backin FROM BackIn backin WHERE backin.biPosId=:posId AND (backin.biDate>=:startDate AND backin.biDate<=:endDate) ORDER BY backin.biDate ASC")
     Optional<List<BackIn>> findAllBackIninPosBetween(@Param("posId") Long posId, @Param("startDate") Instant startDate,
                                                      @Param("endDate") Instant endDate);
-    @Query("SELECT backin FROM BackIn backin WHERE backin.biPos.id=:posId AND (backin.biDate>=:startDate AND backin.biDate<=:endDate) ORDER BY backin.biDate ASC")
+    @Query("SELECT backin FROM BackIn backin WHERE backin.biPosId=:posId AND (backin.biDate>=:startDate AND backin.biDate<=:endDate) ORDER BY backin.biDate ASC")
     Optional<Page<BackIn>> findPageBackIninPosBetween(@Param("posId") Long posId, @Param("startDate") Instant startDate,
                                                       @Param("endDate") Instant endDate, Pageable pageable);
     //Rechercher la liste des BackIn dans un pos d'un User entre 2 date puis page par page
-    @Query("SELECT backin FROM BackIn backin WHERE backin.biPos.id=:posId AND backin.biUserbm.id=:userbmId AND (backin.biDate>=:startDate AND backin.biDate<=:endDate) ORDER BY backin.biDate ASC")
+    @Query("SELECT backin FROM BackIn backin WHERE backin.biPosId=:posId AND backin.biUserbm.id=:userbmId AND (backin.biDate>=:startDate AND backin.biDate<=:endDate) ORDER BY backin.biDate ASC")
     Optional<List<BackIn>> findAllBackIninPosforUserbmBetween(@Param("posId") Long posId,
                                                               @Param("userbmId") Long userbmId,
                                                               @Param("startDate") Instant startDate,
                                                               @Param("endDate") Instant endDate);
-    @Query("SELECT backin FROM BackIn backin WHERE backin.biPos.id=:posId AND backin.biUserbm.id=:userbmId AND (backin.biDate>=:startDate AND backin.biDate<=:endDate) ORDER BY backin.biDate ASC")
+    @Query("SELECT backin FROM BackIn backin WHERE backin.biPosId=:posId AND backin.biUserbm.id=:userbmId AND (backin.biDate>=:startDate AND backin.biDate<=:endDate) ORDER BY backin.biDate ASC")
     Optional<Page<BackIn>> findPageBackIninPosforUserbmBetween(@Param("posId") Long posId,
                                                                @Param("userbmId") Long userbmId,
                                                                @Param("startDate") Instant startDate,

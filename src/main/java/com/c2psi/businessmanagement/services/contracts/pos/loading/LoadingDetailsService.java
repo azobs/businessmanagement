@@ -1,18 +1,18 @@
 package com.c2psi.businessmanagement.services.contracts.pos.loading;
 
 import com.c2psi.businessmanagement.dtos.pos.loading.LoadingDetailsDto;
-import com.c2psi.businessmanagement.dtos.pos.loading.LoadingDto;
-import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 public interface LoadingDetailsService {
     LoadingDetailsDto saveLoadingDetails(LoadingDetailsDto ldDto);
-    LoadingDetailsDto findLoadingDetailsById(Long ld_id);
-    List<LoadingDetailsDto> findAllLoadingDetails(LoadingDto loadingDto);
-    LoadingDetailsDto findLoadingDetailsForArticle(LoadingDto loadingDto,
-                                                  ArticleDto artDto);
-    Boolean isLoadingDetailsUniqueForArticle(LoadingDto loadingDto,
-                                            ArticleDto artDto);
-    Boolean deleteLoadingDetailsById(Long id);
+    LoadingDetailsDto updateLoadingDetails(LoadingDetailsDto ldDto);
+    LoadingDetailsDto findLoadingDetailsById(Long ldId);
+    LoadingDetailsDto findLoadingDetailsofArticleinLoading(Long artId, Long loadingId);
+    List<LoadingDetailsDto> findAllLoadingDetailsinLoading(Long loadingId);
+    Page<LoadingDetailsDto> findPageLoadingDetailsinLoading(Long loadingId, int pagenum, int pagesize);
+    Boolean isLoadingDetailsUniqueinLoading(Long artId, Long loadingId);
+    Boolean isLoadingDetailsDeleatable(Long ldId);
+    Boolean deleteLoadingDetailsById(Long ldId);
 }

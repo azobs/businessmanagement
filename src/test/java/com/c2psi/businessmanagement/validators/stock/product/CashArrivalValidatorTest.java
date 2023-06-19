@@ -4,7 +4,6 @@ import com.c2psi.businessmanagement.Enumerations.CashArrivalType;
 import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
 import com.c2psi.businessmanagement.dtos.stock.product.CashArrivalDto;
 import com.c2psi.businessmanagement.dtos.stock.product.SupplyInvoiceCashDto;
-import com.c2psi.businessmanagement.dtos.stock.product.UnitDto;
 import org.junit.Test;
 
 import java.math.BigDecimal;

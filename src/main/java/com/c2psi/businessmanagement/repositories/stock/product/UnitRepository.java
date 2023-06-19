@@ -12,10 +12,10 @@ import java.util.Optional;
 
 public interface UnitRepository extends JpaRepository<Unit, Long> {
     Optional<Unit> findUnitById(Long unitId);
-    @Query("SELECT unit FROM Unit unit WHERE unit.unitName=:unitName AND unit.unitPos.id=:posId")
+    @Query("SELECT unit FROM Unit unit WHERE unit.unitName=:unitName AND unit.unitPosId=:posId")
     Optional<Unit> findUnitByUnitnameAndPos(@Param("unitName") String unitName, @Param("posId") Long posId);
-    @Query("SELECT unit FROM Unit unit WHERE unit.unitPos.id=:posId")
+    @Query("SELECT unit FROM Unit unit WHERE unit.unitPosId=:posId")
     Optional<List<Unit>> findAllUnitInPos(@Param("posId") Long posId);
-    @Query("SELECT unit FROM Unit unit WHERE unit.unitPos.id=:posId")
+    @Query("SELECT unit FROM Unit unit WHERE unit.unitPosId=:posId")
     Optional<Page<Unit>> findPageofUnitInPos(@Param("posId") Long posId, Pageable pageable);
 }

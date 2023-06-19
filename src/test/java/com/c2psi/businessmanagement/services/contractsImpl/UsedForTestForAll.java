@@ -3,18 +3,18 @@ package com.c2psi.businessmanagement.services.contractsImpl;
 import com.c2psi.businessmanagement.Enumerations.UserBMState;
 import com.c2psi.businessmanagement.Enumerations.UserBMType;
 import com.c2psi.businessmanagement.dtos.pos.pos.*;
+import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
+import com.c2psi.businessmanagement.dtos.stock.product.PackagingDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.AddressDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.dtos.stock.price.BasePriceDto;
 import com.c2psi.businessmanagement.dtos.stock.price.CurrencyDto;
 import com.c2psi.businessmanagement.dtos.stock.price.SpecialPriceDto;
-import com.c2psi.businessmanagement.dtos.stock.product.*;
 import com.c2psi.businessmanagement.services.contracts.pos.pos.*;
 import com.c2psi.businessmanagement.services.contracts.pos.userbm.UserBMService;
 import com.c2psi.businessmanagement.services.contracts.stock.price.BasePriceService;
 import com.c2psi.businessmanagement.services.contracts.stock.price.CurrencyService;
 import com.c2psi.businessmanagement.services.contracts.stock.price.SpecialPriceService;
-import com.c2psi.businessmanagement.services.contracts.stock.product.*;
 import org.junit.Assert;
 import org.springframework.stereotype.Service;
 
@@ -92,7 +92,7 @@ public class UsedForTestForAll {
                     .bmState(UserBMState.Activated)
                     .bmUsertype(UserBMType.Employe)
                     .bmSurname("user"+num)
-                    .bmPosDto(posDtoSaved)
+                    .bmPosId(posDtoSaved.getId())
                     .build();
             UserBMDto userBMSaved = userBMService.saveUserBM(userBMToSave);
             return userBMSaved;
@@ -219,7 +219,7 @@ public class UsedForTestForAll {
 
         PosCapsuleAccountDto posCapsuleAccountDtoToSave = PosCapsuleAccountDto.builder()
                 .pcsaArticleDto(articleDtoSaved)
-                .pcsaPointofsaleDto(pointofsaleDtoSaved)
+                .pcsaPointofsaleId(pointofsaleDtoSaved.getId())
                 .pcsaNumber(BigDecimal.valueOf(0))
                 .build();
         PosCapsuleAccountDto posCapsuleAccountDtoSaved = posCapsuleAccountService.savePosCapsuleAccount(posCapsuleAccountDtoToSave);
@@ -234,7 +234,7 @@ public class UsedForTestForAll {
 
         PosCapsuleAccountDto posCapsuleAccountDtoToSave = PosCapsuleAccountDto.builder()
                 .pcsaArticleDto(articleDtoSaved)
-                .pcsaPointofsaleDto(pointofsaleDtoSaved)
+                .pcsaPointofsaleId(pointofsaleDtoSaved.getId())
                 .pcsaNumber(null)
                 .build();
         PosCapsuleAccountDto posCapsuleAccountDtoSaved = posCapsuleAccountService.savePosCapsuleAccount(posCapsuleAccountDtoToSave);
@@ -249,7 +249,7 @@ public class UsedForTestForAll {
 
         PosDamageAccountDto posDamageAccountDtoToSave = PosDamageAccountDto.builder()
                 .pdaArticleDto(articleDtoSaved)
-                .pdaPointofsaleDto(pointofsaleDtoSaved)
+                .pdaPointofsaleId(pointofsaleDtoSaved.getId())
                 .pdaNumber(BigDecimal.valueOf(0))
                 .build();
         PosDamageAccountDto posDamageAccountDtoSaved = posDamageAccountService.savePosDamageAccount(posDamageAccountDtoToSave);
@@ -264,7 +264,7 @@ public class UsedForTestForAll {
 
         PosDamageAccountDto posDamageAccountDtoToSave = PosDamageAccountDto.builder()
                 .pdaArticleDto(articleDtoSaved)
-                .pdaPointofsaleDto(pointofsaleDtoSaved)
+                .pdaPointofsaleId(pointofsaleDtoSaved.getId())
                 .pdaNumber(null)
                 .build();
         PosDamageAccountDto posDamageAccountDtoSaved = posDamageAccountService.savePosDamageAccount(posDamageAccountDtoToSave);
@@ -272,14 +272,14 @@ public class UsedForTestForAll {
     }
 
     public PosPackagingAccountDto savePosPackagingAccount(int num, PackagingDto packagingDtoSaved, PointofsaleDto pointofsaleDtoSaved,
-                                                    PosPackagingAccountService posPackagingAccountService){
+                                                          PosPackagingAccountService posPackagingAccountService){
         Assert.assertNotNull(packagingDtoSaved);
         Assert.assertNotNull(pointofsaleDtoSaved);
         Assert.assertNotNull(posPackagingAccountService);
 
         PosPackagingAccountDto posPackagingAccountDtoToSave = PosPackagingAccountDto.builder()
                 .ppaPackagingDto(packagingDtoSaved)
-                .ppaPointofsaleDto(pointofsaleDtoSaved)
+                .ppaPointofsaleId(pointofsaleDtoSaved.getId())
                 .ppaNumber(BigDecimal.valueOf(0))
                 .build();
         PosPackagingAccountDto posPackagingAccountDtoSaved = posPackagingAccountService.savePosPackagingAccount(posPackagingAccountDtoToSave);
@@ -294,7 +294,7 @@ public class UsedForTestForAll {
 
         PosPackagingAccountDto posPackagingAccountDtoToSave = PosPackagingAccountDto.builder()
                 .ppaPackagingDto(packagingDtoSaved)
-                .ppaPointofsaleDto(pointofsaleDtoSaved)
+                .ppaPointofsaleId(pointofsaleDtoSaved.getId())
                 .ppaNumber(null)
                 .build();
         PosPackagingAccountDto posPackagingAccountDtoSaved = posPackagingAccountService.savePosPackagingAccount(posPackagingAccountDtoToSave);

@@ -1,8 +1,6 @@
 package com.c2psi.businessmanagement.validators.pos.pos;
 
-import com.c2psi.businessmanagement.dtos.pos.pos.PosCashOperationDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PosDamageAccountDto;
-import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -33,7 +31,7 @@ public class PosDamageAccountValidator {
                 errors.add("--L'article associe au compte avarie ne peut etre null--");
                 //isnullable=1;
             }
-            if(!Optional.ofNullable(posdamaccDto.getPdaPointofsaleDto()).isPresent()){
+            if(!Optional.ofNullable(posdamaccDto.getPdaPointofsaleId()).isPresent()){
                 errors.add("--Le point de vente associe au compte ne peut etre null--");
                 //isnullable=2;
             }

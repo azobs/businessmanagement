@@ -2,6 +2,7 @@ package com.c2psi.businessmanagement.models;
 
 import com.c2psi.businessmanagement.Enumerations.UserBMState;
 import com.c2psi.businessmanagement.Enumerations.UserBMType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -39,8 +40,9 @@ public class UserBM extends AbstractEntity {
 
     String bmSurname;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     @Column(nullable = false)
+    //@Temporal(TemporalType.DATE)
     Date bmDob;
 
     @Column(unique = true)
@@ -61,7 +63,8 @@ public class UserBM extends AbstractEntity {
     List<UserBMRole> userBMRoleList;
     //Some UserBM must work for one Pointofsale but that Pointofsale must belong to the Enterprise
     //An user can be added without precised the pointofsale and that user user must be an admin
-    @ManyToOne(fetch = FetchType.LAZY)
+    /*@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pos_id", referencedColumnName = "id")
-    Pointofsale bmPos;
+    Pointofsale bmPos;*/
+    Long bmPosId;
 }

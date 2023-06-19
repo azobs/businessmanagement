@@ -1,10 +1,8 @@
 package com.c2psi.businessmanagement.services.contractsImpl.stock.product;
 
-import com.c2psi.businessmanagement.dtos.stock.price.CurrencyConversionDto;
 import com.c2psi.businessmanagement.dtos.stock.product.UnitConversionDto;
 import com.c2psi.businessmanagement.dtos.stock.product.UnitDto;
 import com.c2psi.businessmanagement.exceptions.*;
-import com.c2psi.businessmanagement.models.CurrencyConversion;
 import com.c2psi.businessmanagement.models.Unit;
 import com.c2psi.businessmanagement.models.UnitConversion;
 import com.c2psi.businessmanagement.repositories.stock.product.UnitConversionRepository;
@@ -16,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -60,8 +60,8 @@ public class UnitConversionServiceImpl implements UnitConversionService {
         /******************************************************************
          * Il faut verifier que les 02 Unit sont dans le meme pointofsale
          */
-        if(optionalUnitSource.get().getUnitPos().getId().longValue() !=
-                optionalUnitDestination.get().getUnitPos().getId().longValue()){
+        if(optionalUnitSource.get().getUnitPosId().longValue() !=
+                optionalUnitDestination.get().getUnitPosId().longValue()){
             log.error("Entity UnitConversionDto {} not valid because the unit source and destination does not belong " +
                     "to the same pointofsale", unitconvDto);
             throw new InvalidEntityException("Le unitConversionDto passé en argument n'est pas valide car les 02 units " +
@@ -155,7 +155,7 @@ public class UnitConversionServiceImpl implements UnitConversionService {
     }
 
     @Override
-    public Double convertTo(Double nbToConvert, Long unitSourceId, Long unitDestinationId) {
+    public BigDecimal convertTo(BigDecimal nbToConvert, Long unitSourceId, Long unitDestinationId) {
         /************************************************
          * On se rassure qu'aucun parametre n'est null
          */
@@ -181,7 +181,8 @@ public class UnitConversionServiceImpl implements UnitConversionService {
         /******************************************
          * On l'utilise pour faire la conversion
          */
-        Double valueConverted = nbToConvert * unitconvDto.getConversionFactor();
+        BigDecimal valueConverted = nbToConvert.multiply(unitconvDto.getConversionFactor())
+                .setScale(0, RoundingMode.UP);
         /************************
          * On retourne la valeur obtenu apres conversion
          */

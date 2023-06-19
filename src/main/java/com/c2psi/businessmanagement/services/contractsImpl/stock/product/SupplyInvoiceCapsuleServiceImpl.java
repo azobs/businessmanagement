@@ -59,16 +59,16 @@ public class SupplyInvoiceCapsuleServiceImpl implements SupplyInvoiceCapsuleServ
          * Verifier que l'id du pointofsale n'est pas null et quil identifie
          * vraiment un pointofsale
          */
-        if(sicapsDto.getSicapsPosDto().getId() == null){
+        if(sicapsDto.getSicapsPosId() == null){
             log.error("The id of the pointofsale in the request is null");
             throw new InvalidEntityException("L'Id du pointofsale dans le sicapsDto est null ",
                     ErrorCode.SUPPLYINVOICECAPSULE_NOT_VALID);
         }
         //L'id du pointofsale n'est pas null on verifie si c'est vraiment un pos dans la BD
         Optional<Pointofsale> optionalPointofsale = pointofsaleRepository.findPointofsaleById(
-                sicapsDto.getSicapsPosDto().getId());
+                sicapsDto.getSicapsPosId());
         if(!optionalPointofsale.isPresent()){
-            log.error("There is no pointofsale in the DB with the precised id {}", sicapsDto.getSicapsPosDto().getId());
+            log.error("There is no pointofsale in the DB with the precised id {}", sicapsDto.getSicapsPosId());
             throw new InvalidEntityException("Aucun Pointofsale n'existe avec l'id precise dans la requete ",
                     ErrorCode.SUPPLYINVOICECAPSULE_NOT_VALID);
         }
@@ -112,19 +112,19 @@ public class SupplyInvoiceCapsuleServiceImpl implements SupplyInvoiceCapsuleServ
         /********************************************************************************************
          * On verifie que le pointofsale dans la requete est le meme que celui du userbm et provider
          */
-        if(!optionalPointofsale.get().getId().equals(optionalUserBM.get().getBmPos().getId())){
+        if(!optionalPointofsale.get().getId().equals(optionalUserBM.get().getBmPosId())){
             log.error("The pointofsale in the sicapsDto must be the same with the one of the userBM");
             throw new InvalidEntityException("Le pointofsale dans la requete doit etre le meme que celui du UserBM " +
                     "precise precise dans le sicapsDto ", ErrorCode.SUPPLYINVOICECAPSULE_NOT_VALID);
         }
 
-        if(!optionalPointofsale.get().getId().equals(optionalProvider.get().getProviderPos().getId())){
+        if(!optionalPointofsale.get().getId().equals(optionalProvider.get().getProviderPosId())){
             log.error("The pointofsale in the sicapsDto must be the same with the one of the provider");
             throw new InvalidEntityException("Le pointofsale dans la requete doit etre le meme que celui du provider " +
                     "precise precise dans le sicapsDto ", ErrorCode.SUPPLYINVOICECAPSULE_NOT_VALID);
         }
 
-        if(!optionalProvider.get().getProviderPos().getId().equals(optionalUserBM.get().getBmPos().getId())){
+        if(!optionalProvider.get().getProviderPosId().equals(optionalUserBM.get().getBmPosId())){
             log.error("The Provider in the sicapsDto must be the same with the one of the UserBM");
             throw new InvalidEntityException("Le Provider dans la requete doit etre le meme que celui du UserBM " +
                     "precise precise dans le sicapsDto ", ErrorCode.SUPPLYINVOICECAPSULE_NOT_VALID);
@@ -134,7 +134,7 @@ public class SupplyInvoiceCapsuleServiceImpl implements SupplyInvoiceCapsuleServ
          * On verifie quil y a pas un autre SupplyInvoiceCapsule avec le meme code deja enregistre en BD
          * pour le meme pointofsale
          */
-        if(!isSupplyInvoiceCapsuleUnique(sicapsDto.getSicapsCode(), sicapsDto.getSicapsPosDto().getId())){
+        if(!isSupplyInvoiceCapsuleUnique(sicapsDto.getSicapsCode(), sicapsDto.getSicapsPosId())){
             log.error("There is a supplyinvoicecapsule already register in the DB with the same code in the same pointofsale");
             throw new DuplicateEntityException("Une facture supplyinvoicecapsule est deja existante dans la BD avec ce code",
                     ErrorCode.SUPPLYINVOICECAPSULE_DUPLICATED);
@@ -190,7 +190,7 @@ public class SupplyInvoiceCapsuleServiceImpl implements SupplyInvoiceCapsuleServ
         /**************************************************************************
          * On va se rassurer que ce n'est pas le pointofsale qu'on veut modifier
          */
-        if(!supplyInvoiceCapsuleToUpdate.getSicapsPos().getId().equals(sicapsDto.getSicapsPosDto().getId())){
+        if(!supplyInvoiceCapsuleToUpdate.getSicapsPosId().equals(sicapsDto.getSicapsPosId())){
             log.error("It is not possible to update the pointofsale of that sicapsuleDto");
             throw new InvalidEntityException("Il n'est pas possible de modifier le Pointofsale du sicapsuleDto ",
                     ErrorCode.SUPPLYINVOICECAPSULE_NOT_VALID);
@@ -219,7 +219,7 @@ public class SupplyInvoiceCapsuleServiceImpl implements SupplyInvoiceCapsuleServ
             /********************
              * On se rassure donc que le nouveau provider est dans le meme pointofsale
              */
-            if(!newProvider.getProviderPos().getId().equals(sicapsDto.getSicapsPosDto().getId())){
+            if(!newProvider.getProviderPosId().equals(sicapsDto.getSicapsPosId())){
                 log.error("The new provider don't belong to the same pointofsale");
                 throw new InvalidEntityException("Le nouveau provider n'est pas dans le meme pointofsale que le " +
                         "sicapsuleDto et cette mise a jour ne peut donc etre effectue", ErrorCode.SUPPLYINVOICECAPSULE_NOT_VALID);
@@ -237,7 +237,7 @@ public class SupplyInvoiceCapsuleServiceImpl implements SupplyInvoiceCapsuleServ
              *  Alors cest le sicapsuleCode quon veut modifier
              *  on se rassure donc quil ny aura pas de duplicata
              */
-            if(!isSupplyInvoiceCapsuleUnique(sicapsDto.getSicapsCode(), sicapsDto.getSicapsPosDto().getId())){
+            if(!isSupplyInvoiceCapsuleUnique(sicapsDto.getSicapsCode(), sicapsDto.getSicapsPosId())){
                 log.error("There is a supplyinvoicecapsule already register in the DB with the same code in the same pointofsale");
                 throw new DuplicateEntityException("Une facture supplyinvoicecapsule est deja existante dans la BD avec ce code",
                         ErrorCode.SUPPLYINVOICECAPSULE_DUPLICATED);

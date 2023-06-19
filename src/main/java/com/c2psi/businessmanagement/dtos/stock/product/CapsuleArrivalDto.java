@@ -1,13 +1,13 @@
 package com.c2psi.businessmanagement.dtos.stock.product;
 
 import com.c2psi.businessmanagement.models.CapsuleArrival;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 import java.time.Instant;
 
@@ -23,6 +23,7 @@ public class CapsuleArrivalDto {
     BigDecimal capsaQuantitycapschanged;
     @NotNull(message = "The entry date cannot be null")
     @PastOrPresent(message = "The entry date cannot be in the future")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     Instant capsaArrivalEntryDate;
 
 

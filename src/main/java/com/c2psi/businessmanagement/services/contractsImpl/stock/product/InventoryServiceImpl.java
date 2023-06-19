@@ -52,12 +52,12 @@ public class InventoryServiceImpl implements InventoryService {
          * Se rassurer que l'id du pointofsale n'est pas null et enfin
          * quil existe vraiment en BD
          ****************************************************************/
-        if(invDto.getInvPosDto().getId() == null){
+        if(invDto.getInvPosId() == null){
             log.error("The posId associate is null");
             throw new InvalidEntityException("Le id du pointofsale associe a l'inventaire est null",
                     ErrorCode.INVENTORY_NOT_VALID);
         }
-        Optional<Pointofsale> optionalPointofsale = pointofsaleRepository.findPointofsaleById(invDto.getInvPosDto().getId());
+        Optional<Pointofsale> optionalPointofsale = pointofsaleRepository.findPointofsaleById(invDto.getInvPosId());
         if(!optionalPointofsale.isPresent()){
             log.error("The pointofsale is not in the DB and an inventory cannot be saved without pointofsale");
             throw new InvalidEntityException("Le pointofsale associe a l'inventaire est inexistant en BD ",
@@ -66,7 +66,7 @@ public class InventoryServiceImpl implements InventoryService {
         /***********************************************************************
          * On se rassure de l'unicite de linventaire (du code) dans le Pos en BD
          */
-        if(!isInventoryUniqueinPos(invDto.getInvCode(), invDto.getInvPosDto().getId())){
+        if(!isInventoryUniqueinPos(invDto.getInvCode(), invDto.getInvPosId())){
             log.error("There is another inventory for the pointofsale with the same code");
             throw new DuplicateEntityException("Un inventaire est deja enregistre avec le meme code pour le meme pointofsale ",
                     ErrorCode.INVENTORY_DUPLICATED);
@@ -117,7 +117,7 @@ public class InventoryServiceImpl implements InventoryService {
         /****************************************************************
          * Verifier que ce n'est pas le pointofsale quon veut modifier
          */
-        if(!inventoryToUpdate.getInvPos().getId().equals(invDto.getInvPosDto().getId())){
+        if(!inventoryToUpdate.getInvPosId().equals(invDto.getInvPosId())){
             log.error("There is not possible to modify the pointofsale of an Inventory");
             throw new InvalidEntityException("Il n'est pas possible de modifier un Pointofsale d'un Inventory ",
                     ErrorCode.INVENTORY_NOT_VALID);
@@ -132,7 +132,7 @@ public class InventoryServiceImpl implements InventoryService {
             /**
              * On doit se rassurer que le code sera unique
              */
-            if(!isInventoryUniqueinPos(invDto.getInvCode(), inventoryToUpdate.getInvPos().getId())){
+            if(!isInventoryUniqueinPos(invDto.getInvCode(), inventoryToUpdate.getInvPosId())){
                 log.error("There is another inventory for the pointofsale with the same code");
                 throw new DuplicateEntityException("Un inventaire est deja enregistre avec le meme code pour le meme pointofsale ",
                         ErrorCode.INVENTORY_DUPLICATED);

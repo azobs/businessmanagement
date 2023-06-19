@@ -1,7 +1,6 @@
 package com.c2psi.businessmanagement.validators.client.client;
 
 import com.c2psi.businessmanagement.dtos.client.client.ClientCashAccountDto;
-import com.c2psi.businessmanagement.validators.pos.pos.EnterpriseValidator;
 import org.junit.Test;
 
 import java.math.BigDecimal;

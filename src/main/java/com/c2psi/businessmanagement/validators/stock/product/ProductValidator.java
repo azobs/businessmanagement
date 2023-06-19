@@ -1,8 +1,6 @@
 package com.c2psi.businessmanagement.validators.stock.product;
 
-import com.c2psi.businessmanagement.dtos.stock.product.PackagingDto;
 import com.c2psi.businessmanagement.dtos.stock.product.ProductDto;
-import org.springframework.util.StringUtils;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;

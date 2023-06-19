@@ -2,7 +2,6 @@ package com.c2psi.businessmanagement.services.contractsImpl.stock.provider;
 
 import com.c2psi.businessmanagement.BusinessmanagementApplication;
 import com.c2psi.businessmanagement.Enumerations.OperationType;
-import com.c2psi.businessmanagement.dtos.pos.pos.PosCashOperationDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderCashAccountDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderCashOperationDto;

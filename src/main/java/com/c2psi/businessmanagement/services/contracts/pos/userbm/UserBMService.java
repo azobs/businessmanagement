@@ -1,9 +1,8 @@
 package com.c2psi.businessmanagement.services.contracts.pos.userbm;
 
+import com.c2psi.businessmanagement.Enumerations.UserBMState;
 import com.c2psi.businessmanagement.Enumerations.UserBMType;
-import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
-import com.c2psi.businessmanagement.models.Pointofsale;
 import org.springframework.data.domain.Page;
 
 import java.util.Date;
@@ -19,6 +18,8 @@ public interface UserBMService {
      */
     UserBMDto saveUserBM(UserBMDto userBMDto);
     UserBMDto updateUserBM(UserBMDto userBMDto);
+    UserBMDto switchUserBMState(UserBMDto userBMDto);
+    UserBMDto resetPassword(UserBMDto userBMDto);
     Boolean isUserBMUnique(String bmName, String bmSurname, Date bmDob, String bmLogin,
                            String bmCni, String bmEmail);
     Boolean isUserBMFullnameUnique(String bmName, String bmSurname, Date bmDob);

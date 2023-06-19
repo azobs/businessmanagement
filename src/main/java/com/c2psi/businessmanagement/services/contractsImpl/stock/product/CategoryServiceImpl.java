@@ -49,13 +49,13 @@ public class CategoryServiceImpl implements CategoryService {
         /***
          * Verify the existence of the pointofsale
          */
-        Optional<Pointofsale> optionalPointofsale = posRepository.findPointofsaleById(categoryDto.getCatPosDto().getId());
+        Optional<Pointofsale> optionalPointofsale = posRepository.findPointofsaleById(categoryDto.getCatPosId());
         if(!optionalPointofsale.isPresent()){
             throw new InvalidEntityException("Le pointofsale de la categoryDto passe en argument n'existe pas: ",
                     ErrorCode.POINTOFSALE_NOT_VALID);
         }
 
-        if(!this.isCategoryUniqueInPos(categoryDto.getCatCode(), categoryDto.getCatPosDto().getId())){
+        if(!this.isCategoryUniqueInPos(categoryDto.getCatCode(), categoryDto.getCatPosId())){
             log.error("An entity category already exist the same code in the DB {}", categoryDto);
             throw new DuplicateEntityException("Une category existe deja dans la BD avec les mêmes name ",
                     ErrorCode.CATEGORY_DUPLICATED);
@@ -119,14 +119,14 @@ public class CategoryServiceImpl implements CategoryService {
         System.out.println("catToUpdate.getId == "+catToUpdate.getId());
         System.out.println("categoryDto.getId == "+categoryDto.getId());
 
-        if (categoryDto.getCatPosDto().getId() != catToUpdate.getCatPos().getId()) {
+        if (categoryDto.getCatPosId() != catToUpdate.getCatPosId()) {
             log.error("Entity categoryDto to update not valid because pointofsale cannot change {}", categoryDto);
             throw new InvalidEntityException("Le categoryDto a update passe en argument n'est pas valide car " +
                     "le pointofsale ne peut etre modifie: " + errors, ErrorCode.CATEGORY_NOT_VALID, errors);
         }
 
         if (!categoryDto.getCatCode().equals(catToUpdate.getCatCode())) {
-            if (!this.isCategoryUniqueInPos(categoryDto.getCatCode(), categoryDto.getCatPosDto().getId())) {
+            if (!this.isCategoryUniqueInPos(categoryDto.getCatCode(), categoryDto.getCatPosId())) {
                 log.error("Entity categoryDto will be duplicated in the database{}", categoryDto);
                 throw new DuplicateEntityException("Le categoryDto a update passe en argument n'est pas valide car " +
                         "le pointofsale ne peut etre modifie: " + errors, ErrorCode.CATEGORY_DUPLICATED, errors);
@@ -146,7 +146,7 @@ public class CategoryServiceImpl implements CategoryService {
 
                 CategoryDto newcatDtoParent = this.findCategoryById(categoryDto.getCategoryParentId());
 
-                if (newcatDtoParent.getCatPosDto().getId().longValue() != catToUpdate.getCatPos().getId().longValue()) {
+                if (newcatDtoParent.getCatPosId().longValue() != catToUpdate.getCatPosId().longValue()) {
                     log.error("The pointofsale of the new catParent to modify is different than " +
                             "the pointofsale of category modify {}", categoryDto);
                     throw new InvalidEntityException("Le categoryDto a update parente passe en argument n'est pas dans " +
@@ -202,6 +202,45 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public CategoryDto findCategoryParentof(Long catId) {
+        if(catId == null){
+            log.error("The catId sent is null");
+            throw new NullArgumentException("L'argument catId passe en argument est null");
+        }
+        Optional<Category> optionalCategory = categoryRepository.findCategoryById(catId);
+        if(!optionalCategory.isPresent()){
+            log.error("There is not category in the system with the id sent");
+            throw new EntityNotFoundException("Aucune category n'existe avec l'Id envoye", ErrorCode.CATEGORY_NOT_FOUND);
+        }
+        if(optionalCategory.get().getCategoryParentId() == null){
+            log.info("The category identify by {} does not have a category parent", catId);
+            /****
+             * On doit retourner une category vide car la category parente est null
+             */
+
+            CategoryDto categoryDto = CategoryDto.builder()
+                    .catName("Empty")
+                    .catShortname(null)
+                    .catCode("00000")
+                    .catDescription(null)
+                    .catPosId(optionalCategory.get().getCatPosId())
+                    .categoryParentId(null)
+                    .build();
+            return categoryDto;
+        }
+        //A ce niveau on est sur que la category a une category parente
+        Optional<Category> optionalCategoryParente = categoryRepository.findCategoryById(
+                optionalCategory.get().getCategoryParentId());
+        if(!optionalCategoryParente.isPresent()){
+            log.error("The id save for category parent does not identify any category in the system");
+            throw new EntityNotFoundException("L'id precise comme category parent n'identifie aucune " +
+                    "category dans le systeme", ErrorCode.CATEGORY_NOT_FOUND);
+        }
+
+        return CategoryDto.fromEntity(optionalCategoryParente.get());
+    }
+
+    @Override
     public List<CategoryDto> findAscandantCategoryof(Long catId) {
         /**************  Comment faire la liste des ascendants dune category ***********************
          *          while le parent dune category nest pas null
@@ -238,7 +277,7 @@ public class CategoryServiceImpl implements CategoryService {
         if(optionalCategoryList.isPresent()){
             return optionalCategoryList.get().stream().map(CategoryDto::fromEntity).collect(Collectors.toList());
         }
-        return null;
+        return new ArrayList<>();//on retourne une liste vide
     }
 
     @Override
@@ -259,11 +298,11 @@ public class CategoryServiceImpl implements CategoryService {
         if(optionalCategoryList.isPresent()){
             return optionalCategoryList.get().stream().map(CategoryDto::fromEntity).collect(Collectors.toList());
         }
-        return null;
+        return new ArrayList<>();//On retourne une liste vide
     }
 
     @Override
-    public Page<CategoryDto> findCategoryInPointofsale(Long posId, int pagenum, int pagesize) {
+    public Page<CategoryDto> findPageCategoryInPointofsale(Long posId, int pagenum, int pagesize) {
         if(posId == null){
             log.error("The posId precised in argument is null");
             throw new NullArgumentException("le posId passe en argument de la methode est null");
@@ -281,11 +320,11 @@ public class CategoryServiceImpl implements CategoryService {
         if(optionalCategoryPage.isPresent()){
             return optionalCategoryPage.get().map(CategoryDto::fromEntity);
         }
-        return null;
+        return Page.empty();//On retourne une page vide
     }
 
     @Override
-    public Page<CategoryDto> findAllByCatNameInPosContaining(Long posId, String sample, int pagenum, int pagesize) {
+    public Page<CategoryDto> findPageByCatNameInPosContaining(Long posId, String sample, int pagenum, int pagesize) {
         /*****************************************************************************************
          *Page<UserBM> pageofUserBM = userBMRepository.findAllByBmNameOrBmSurnameContaining(sample,
          *                 PageRequest.of(pagenum, pagesize, Sort.by(Sort.Direction.ASC, "bmName")));
@@ -305,7 +344,7 @@ public class CategoryServiceImpl implements CategoryService {
         if(optionalCategoryPage.isPresent()){
             return optionalCategoryPage.get().map(CategoryDto::fromEntity);
         }
-        throw new EntityNotFoundException("Aucun pointofsale nexiste avec ce posId dans la BD "+posId);
+        return Page.empty();//On retourne une page vide
     }
 
     @Override
@@ -315,7 +354,7 @@ public class CategoryServiceImpl implements CategoryService {
          * si aucun produit ne depend de lui alors on peut la supprimer. sinon on doit signaler la pre-
          * sence des produits et inviter l'admin a deplacer les dits produits vers une autre category
          ***********************************************************************************************/
-        return null;
+        return true;
     }
 
     @Override

@@ -17,7 +17,7 @@ import java.time.Instant;
 @Entity
 @Table(name="sale_invoice_capsule",
         uniqueConstraints = {@UniqueConstraint(
-                columnNames = {"saleicapsCode", "pos_id"})})
+                columnNames = {"saleicapsCode", "saleicapsPosId"})})
 public class SaleInvoiceCapsule extends AbstractEntity {
 
     @Column(nullable = false)
@@ -39,9 +39,10 @@ public class SaleInvoiceCapsule extends AbstractEntity {
     /******************************
      * Relation between entities  *
      * ****************************/
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    /*@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "pos_id", nullable = false, referencedColumnName = "id")
-    Pointofsale saleicapsPos;
+    Pointofsale saleicapsPos;*/
+    Long saleicapsPosId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "client_id", nullable = false, referencedColumnName = "id")

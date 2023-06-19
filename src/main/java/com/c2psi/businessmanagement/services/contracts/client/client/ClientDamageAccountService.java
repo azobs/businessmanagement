@@ -2,11 +2,8 @@ package com.c2psi.businessmanagement.services.contracts.client.client;
 
 import com.c2psi.businessmanagement.Enumerations.OperationType;
 import com.c2psi.businessmanagement.dtos.client.client.ClientDamageAccountDto;
-import com.c2psi.businessmanagement.dtos.client.client.ClientDamageAccountDto;
-import com.c2psi.businessmanagement.dtos.client.client.ClientDto;
-import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
-import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
-import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
+import com.c2psi.businessmanagement.dtos.pos.pos.PosDamageAccountDto;
+import com.c2psi.businessmanagement.dtos.pos.pos.PosDamageOperationDto;
 import org.springframework.data.domain.Page;
 
 import java.math.BigDecimal;
@@ -23,4 +20,6 @@ public interface ClientDamageAccountService {
 
     Boolean saveDamageOperation(Long cdaccId, BigDecimal qte, OperationType operationType,
                                  Long userbmId, String opObject, String opDescription );
+    Boolean saveDamageOperation(PosDamageAccountDto poscapaccDto, PosDamageOperationDto poscapopDto);
+
 }

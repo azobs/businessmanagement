@@ -63,14 +63,14 @@ public class SaleInvoiceCapsuleServiceImpl implements SaleInvoiceCapsuleService 
          * c'est le cas il faut se rassurer que le pointofsale existe
          * vraiment en BD
          */
-        if(saleiCapsuleDto.getSaleicapsPosDto().getId() == null){
+        if(saleiCapsuleDto.getSaleicapsPosId() == null){
             log.error("The id of the pointofsale associeted with the saleinvoiceCapsule can't be null");
             throw new InvalidEntityException("L'id du pointofsale associe au saleinvoiceCapsule ne peut etre null",
                     ErrorCode.SALEINVOICECAPSULE_NOT_VALID);
         }
         //L'id netant pas null on va se rassurer que ca existe vraiment en BD
         Optional<Pointofsale> optionalPointofsale = pointofsaleRepository.findPointofsaleById(
-                saleiCapsuleDto.getSaleicapsPosDto().getId());
+                saleiCapsuleDto.getSaleicapsPosId());
         if(!optionalPointofsale.isPresent()){
             log.error("The pointofsale precised in the request is not in the DB");
             throw new InvalidEntityException("Le pointofsale precise dans la requete n'est pas existant dans la BD ",
@@ -115,9 +115,9 @@ public class SaleInvoiceCapsuleServiceImpl implements SaleInvoiceCapsuleService 
          * Se rassurer que si le pointofsale du userbm existe alors il est
          * le meme que celui du saleinvoiceCapsule
          */
-        if(saleiCapsuleDto.getSaleicapsUserbmDto().getBmPosDto() != null){
+        if(saleiCapsuleDto.getSaleicapsUserbmDto().getBmPosId() != null){
             //Alors il faut que ce soit un Userbm du meme pointofsale de saleinvoiceCapsule
-            if(!saleiCapsuleDto.getSaleicapsUserbmDto().getBmPosDto().getId().equals(optionalPointofsale.get().getId())){
+            if(!saleiCapsuleDto.getSaleicapsUserbmDto().getBmPosId().equals(optionalPointofsale.get().getId())){
                 log.error("The userbm and the saleinvoiceCapsule must belong to the same pointofsale ");
                 throw new InvalidEntityException("Le userbm et le saleinvoiceCapsule doivent appartenir au meme pointofsale ",
                         ErrorCode.SALEINVOICECAPSULE_NOT_VALID);
@@ -128,7 +128,7 @@ public class SaleInvoiceCapsuleServiceImpl implements SaleInvoiceCapsuleService 
          * Se rassurer que le pointofsale du client est le meme que celui
          * du saleinvoiceCapsule
          */
-        if(!optionalPointofsale.get().getId().equals(saleiCapsuleDto.getSaleicapsClientDto().getClientPosDto().getId())){
+        if(!optionalPointofsale.get().getId().equals(saleiCapsuleDto.getSaleicapsClientDto().getClientPosId())){
             log.error("The client and the saleinvoiceCapsule must belong to the same pointofsale ");
             throw new InvalidEntityException("Le client et le saleinvoiceCapsule doivent appartenir au meme pointofsale ",
                     ErrorCode.SALEINVOICECAPSULE_NOT_VALID);
@@ -137,7 +137,7 @@ public class SaleInvoiceCapsuleServiceImpl implements SaleInvoiceCapsuleService 
         /*********************************************************************
          * Se rassurer que le saleinvoiceCapsule sera unique dans le pos indique
          */
-        if(!isSaleInvoiceCapsuleUniqueinPos(saleiCapsuleDto.getSaleicapsCode(), saleiCapsuleDto.getSaleicapsPosDto().getId())){
+        if(!isSaleInvoiceCapsuleUniqueinPos(saleiCapsuleDto.getSaleicapsCode(), saleiCapsuleDto.getSaleicapsPosId())){
             log.error("There is another SaleinvoiceCapsule in the DB with the same code in the pointofsale indicated ");
             throw new DuplicateEntityException("Une saleinvoiceCapsule existe deja dans la BD avec le meme code dans " +
                     "pour le pointofsale indique", ErrorCode.SALEINVOICECAPSULE_DUPLICATED);
@@ -186,8 +186,8 @@ public class SaleInvoiceCapsuleServiceImpl implements SaleInvoiceCapsuleService 
         /********************************************************************
          * On se rassure que ce n'est pas le pointofsale quon veut modifier
          */
-        if(saleiCapsuleDto.getSaleicapsPosDto().getId() != null) {
-            if (!saleInvoiceCapsuleToUpdate.getSaleicapsPos().getId().equals(saleiCapsuleDto.getSaleicapsPosDto().getId())) {
+        if(saleiCapsuleDto.getSaleicapsPosId() != null) {
+            if (!saleInvoiceCapsuleToUpdate.getSaleicapsPosId().equals(saleiCapsuleDto.getSaleicapsPosId())) {
                 log.error("It is not possible to update the pointofsale of a saleinvoiceCapsule");
                 throw new InvalidEntityException("Il n'est pas possible de update le pointofsale du saleinvoiceCapsule ",
                         ErrorCode.SALEINVOICECAPSULE_NOT_VALID);
@@ -227,7 +227,7 @@ public class SaleInvoiceCapsuleServiceImpl implements SaleInvoiceCapsuleService 
          */
         if(!saleInvoiceCapsuleToUpdate.getSaleicapsCode().equals(saleiCapsuleDto.getSaleicapsCode())){
             if(!isSaleInvoiceCapsuleUniqueinPos(saleiCapsuleDto.getSaleicapsCode(),
-                    saleInvoiceCapsuleToUpdate.getSaleicapsPos().getId())){
+                    saleInvoiceCapsuleToUpdate.getSaleicapsPosId())){
                 log.error("There is another SaleinvoiceCapsule in the DB with the same code in the pointofsale indicated ");
                 throw new DuplicateEntityException("Une saleinvoiceCapsule existe deja dans la BD avec le meme code dans " +
                         "pour le pointofsale indique", ErrorCode.SALEINVOICECAPSULE_DUPLICATED);

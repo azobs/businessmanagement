@@ -89,7 +89,7 @@ public class CashArrivalServiceImpl implements CashArrivalService {
             /********************************************************************************************
              * Il faut se rassurer que le pointofsale dans le sicash est le meme que celui de l'article
              */
-            if(!cashaDto.getCashaArtDto().getArtPosDto().getId().equals(cashaDto.getCashaSicashDto().getSicashPosDto().getId())){
+            if(!cashaDto.getCashaArtDto().getArtPosId().equals(cashaDto.getCashaSicashDto().getSicashPosId())){
                 log.error("The article and the supplyinvoicecash must belong to the same pointofsale");
                 throw new InvalidEntityException("L'article dans le cashArrival et la facture cash doivent appartenir " +
                         "au meme point de vente");

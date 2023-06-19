@@ -2,7 +2,8 @@ package com.c2psi.businessmanagement.services.contractsImpl.pos.pos;
 
 import com.c2psi.businessmanagement.BusinessmanagementApplication;
 import com.c2psi.businessmanagement.Enumerations.OperationType;
-import com.c2psi.businessmanagement.dtos.pos.pos.*;
+import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
+import com.c2psi.businessmanagement.dtos.pos.pos.PosDamageOperationDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PosDamageAccountDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.dtos.stock.price.BasePriceDto;
@@ -787,7 +788,7 @@ public class PosDamageAccountServiceImplTest {
             //List<PosDamageOperationDto> findAllPosDamageOperationBetween(Long pcapsopId, OperationType op_type,
             //                                                        Instant startDate, Instant endDate)
             List<PosDamageOperationDto> posDamageOperationDtoListBetweenoftype = posDamageOperationService.
-                    findAllPosDamageOperationBetween(posDamageAccountDtoSaved.getId(), OperationType.Credit,
+                    findAllPosDamageOperationofTypeBetween(posDamageAccountDtoSaved.getId(), OperationType.Credit,
                             startDate.toInstant(), endDate.toInstant());
             assertNotNull(posDamageOperationDtoListBetweenoftype);
             assertEquals(1, posDamageOperationDtoListBetweenoftype.size());
@@ -796,7 +797,7 @@ public class PosDamageAccountServiceImplTest {
             //                                                                 Instant startDate, Instant endDate,
             //                                                                 int pagenum, int pagesize)
             Page<PosDamageOperationDto> posDamageOperationDtoPageBetweenoftype = posDamageOperationService.
-                    findPagePosDamageOperationBetween(posDamageAccountDtoSaved.getId(), OperationType.Credit,
+                    findPagePosDamageOperationofTypeBetween(posDamageAccountDtoSaved.getId(), OperationType.Credit,
                             startDate.toInstant(), endDate.toInstant(), 0, 2);
             assertNotNull(posDamageOperationDtoPageBetweenoftype);
             assertEquals(1, posDamageOperationDtoPageBetweenoftype.getTotalPages());

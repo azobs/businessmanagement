@@ -1,8 +1,6 @@
 package com.c2psi.businessmanagement.dtos.client.client;
 
-import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.models.ClientCashAccount;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 

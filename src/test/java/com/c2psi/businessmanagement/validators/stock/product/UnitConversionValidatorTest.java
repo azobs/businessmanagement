@@ -4,6 +4,7 @@ import com.c2psi.businessmanagement.dtos.stock.product.UnitConversionDto;
 import com.c2psi.businessmanagement.dtos.stock.product.UnitDto;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -17,7 +18,7 @@ public class UnitConversionValidatorTest {
         UnitConversionDto unitConversionDto = UnitConversionDto.builder()
                 .unitDestinationDto(UnitDto.builder().build())
                 .unitSourceDto(UnitDto.builder().build())
-                .conversionFactor(Double.valueOf(2))
+                .conversionFactor(BigDecimal.valueOf(2))
                 .build();
 
         List<String> errors = UnitConversionValidator.validate(unitConversionDto);
@@ -32,7 +33,7 @@ public class UnitConversionValidatorTest {
         UnitConversionDto unitConversionDto = UnitConversionDto.builder()
                 .unitDestinationDto(UnitDto.builder().build())
                 .unitSourceDto(UnitDto.builder().build())
-                .conversionFactor(Double.valueOf(2))
+                .conversionFactor(BigDecimal.valueOf(2))
                 .build();
 
         List<String> errors = UnitConversionValidator.validate(null);
@@ -64,7 +65,7 @@ public class UnitConversionValidatorTest {
         UnitConversionDto unitConversionDto = UnitConversionDto.builder()
                 .unitDestinationDto(UnitDto.builder().build())
                 .unitSourceDto(UnitDto.builder().build())
-                .conversionFactor(Double.valueOf(0))
+                .conversionFactor(BigDecimal.valueOf(0))
                 .build();
 
         List<String> errors = UnitConversionValidator.validate(unitConversionDto);

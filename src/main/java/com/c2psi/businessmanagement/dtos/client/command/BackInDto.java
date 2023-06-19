@@ -3,13 +3,11 @@ package com.c2psi.businessmanagement.dtos.client.command;
 import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.models.BackIn;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.time.Instant;
 
 @Data
@@ -18,6 +16,7 @@ public class BackInDto {
     Long id;
 
     @NotNull(message = "The backin date cannot be null")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     Instant biDate;
     String biComment;
 
@@ -26,7 +25,8 @@ public class BackInDto {
     @NotNull(message = "The backin userbm cannot be null")
     UserBMDto biUserbmDto;
     @NotNull(message = "The backin Pointofsale cannot be null")
-    PointofsaleDto biPosDto;
+    //PointofsaleDto biPosDto;
+    Long biPosId;
 
     public static BackInDto fromEntity(BackIn backIn){
         if(backIn == null) {
@@ -38,7 +38,8 @@ public class BackInDto {
                 .biComment(backIn.getBiComment())
                 .biDate(backIn.getBiDate())
                 .biUserbmDto(UserBMDto.fromEntity(backIn.getBiUserbm()))
-                .biPosDto(PointofsaleDto.fromEntity(backIn.getBiPos()))
+                //.biPosDto(PointofsaleDto.fromEntity(backIn.getBiPos()))
+                .biPosId(backIn.getBiPosId())
                 .build();
     }
 
@@ -52,7 +53,8 @@ public class BackInDto {
         backIn.setBiDate(backInDto.getBiDate());
         backIn.setBiCommand(CommandDto.toEntity(backInDto.getBiCommandDto()));
         backIn.setBiUserbm(UserBMDto.toEntity(backInDto.getBiUserbmDto()));
-        backIn.setBiPos(PointofsaleDto.toEntity(backInDto.getBiPosDto()));
+        //backIn.setBiPos(PointofsaleDto.toEntity(backInDto.getBiPosDto()));
+        backIn.setBiPosId(backInDto.getBiPosId());
         return backIn;
     }
 }

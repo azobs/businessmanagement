@@ -184,7 +184,7 @@ public class SpecialPriceServiceImplTest {
         SpecialPriceDto specialPriceDtoSaved1 = usedForTestForAll.saveSpecialPrice(1, basePriceDtoSaved, specialPriceService);
         assertNotNull(specialPriceDtoSaved1);
 
-        List<SpecialPriceDto> specialPriceDtoList = specialPriceService.findAllofSpecialpriceofBaseprice(basePriceDtoSaved.getId());
+        List<SpecialPriceDto> specialPriceDtoList = specialPriceService.findAllSpecialpriceofBaseprice(basePriceDtoSaved.getId());
         assertNotNull(specialPriceDtoList);
         assertEquals(2, specialPriceDtoList.size());
     }

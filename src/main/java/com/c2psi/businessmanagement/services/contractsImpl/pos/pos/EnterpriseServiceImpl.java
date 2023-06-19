@@ -1,7 +1,8 @@
 package com.c2psi.businessmanagement.services.contractsImpl.pos.pos;
 
 import com.c2psi.businessmanagement.Enumerations.UserBMType;
-import com.c2psi.businessmanagement.dtos.pos.pos.*;
+import com.c2psi.businessmanagement.dtos.pos.pos.EnterpriseDto;
+import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
 import com.c2psi.businessmanagement.exceptions.*;
@@ -169,6 +170,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
      */
     @Override
     public EnterpriseDto updateEnterprise(EnterpriseDto entDto) {
+        log.error("Service: Avant le test de validation");
         List<String> errors = EnterpriseValidator.validate(entDto);
         if(!errors.isEmpty()){
             log.error("Entity enterprise not valid {}", entDto);
@@ -244,7 +246,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
                         ErrorCode.ENTERPRISE_DUPLICATED);
             }
         }
-
+        log.error("Service: A la fin de la methode de mise a jour");
         return EnterpriseDto.fromEntity(entRepository.save(entToUpdate));
     }
 
@@ -485,7 +487,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
 
     @Override
     public Boolean isEnterpriseDeleteable(Long entId) {
-        return null;
+        return true;
     }
 
     public Boolean deleteEnterprise(Enterprise ent){
@@ -599,7 +601,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
         return listofEmployeofEnt;
     }
 
-    @Override
+    /*@Override
     public List<ProviderDto> findAllProviderofEnterprise(Long entId) {
         List<PointofsaleDto> listofPosofEnt = this.findAllPosofEnterprise(entId);
         List<ProviderDto> listofProviderEnt = new ArrayList<>();
@@ -610,7 +612,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
             listofProviderEnt.addAll(listofProviderofPos);
         }
         return listofProviderEnt;
-    }
+    }*/
 
     @Override
     public BigDecimal getTotalCash(Long entId) {
@@ -623,49 +625,49 @@ public class EnterpriseServiceImpl implements EnterpriseService {
     }
 
     @Override
-    public Integer getNumberofDamage(Long entId) {
+    public BigDecimal getNumberofDamage(Long entId) {
         List<PointofsaleDto> listofPosofEnt = this.findAllPosofEnterprise(entId);
-        Integer totalDamageofEnt = Integer.valueOf(0);
+        BigDecimal totalDamageofEnt = BigDecimal.valueOf(0);
 
         return totalDamageofEnt;
     }
 
     @Override
-    public Integer getNumberofDamage(Long entId, Long artId) {
+    public BigDecimal getNumberofDamage(Long entId, Long artId) {
         List<PointofsaleDto> listofPosofEnt = this.findAllPosofEnterprise(entId);
-        Integer totalDamageofEnt = Integer.valueOf(0);
+        BigDecimal totalDamageofEnt = BigDecimal.valueOf(0);
 
         return totalDamageofEnt;
     }
 
     @Override
-    public Integer getNumberofCapsule(Long entId) {
+    public BigDecimal getNumberofCapsule(Long entId) {
         List<PointofsaleDto> listofPosofEnt = this.findAllPosofEnterprise(entId);
-        Integer totalCapsuleofEnt = Integer.valueOf(0);
+        BigDecimal totalCapsuleofEnt = BigDecimal.valueOf(0);
 
         return totalCapsuleofEnt;
     }
 
     @Override
-    public Integer getNumberofCapsule(Long entId, Long artId) {
+    public BigDecimal getNumberofCapsule(Long entId, Long artId) {
         List<PointofsaleDto> listofPosofEnt = this.findAllPosofEnterprise(entId);
-        Integer totalCapsuleofEnt = Integer.valueOf(0);
+        BigDecimal totalCapsuleofEnt = BigDecimal.valueOf(0);
 
         return totalCapsuleofEnt;
     }
 
     @Override
-    public Integer getNumberofPackaging(Long entId) {
+    public BigDecimal getNumberofPackaging(Long entId) {
         List<PointofsaleDto> listofPosofEnt = this.findAllPosofEnterprise(entId);
-        Integer totalPackagingofEnt = Integer.valueOf(0);
+        BigDecimal totalPackagingofEnt = BigDecimal.valueOf(0);
 
         return totalPackagingofEnt;
     }
 
     @Override
-    public Integer getNumberofPackaging(Long entId, Long providerId) {
+    public BigDecimal getNumberofPackaging(Long entId, Long providerId) {
         List<PointofsaleDto> listofPosofEnt = this.findAllPosofEnterprise(entId);
-        Integer totalPackagingofEnt = Integer.valueOf(0);
+        BigDecimal totalPackagingofEnt = BigDecimal.valueOf(0);
 
         return totalPackagingofEnt;
     }

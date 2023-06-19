@@ -1,9 +1,7 @@
 package com.c2psi.businessmanagement.dtos.pos.loading;
 
 import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
-import com.c2psi.businessmanagement.dtos.stock.product.PackagingDto;
 import com.c2psi.businessmanagement.models.LoadingDetails;
-import com.c2psi.businessmanagement.models.PackingDetails;
 import lombok.Builder;
 import lombok.Data;
 
@@ -25,6 +23,8 @@ public class LoadingDetailsDto {
 
     @NotNull(message = "The article associate with the details loading cannot be null")
     ArticleDto ldArticleDto;
+    @NotNull(message = "The loading associate with the details loading cannot be null")
+    LoadingDto ldLoadingDto;
 
     /***********************************
      * Mapping method development:   ***
@@ -39,6 +39,7 @@ public class LoadingDetailsDto {
                 .ldQuantitytaken(ld.getLdQuantitytaken())
                 .ldQuantityreturn(ld.getLdQuantityreturn())
                 .ldArticleDto(ArticleDto.fromEntity(ld.getLdArticle()))
+                .ldLoadingDto(LoadingDto.fromEntity(ld.getLdLoading()))
                 .build();
     }
 
@@ -51,6 +52,7 @@ public class LoadingDetailsDto {
         ld.setLdQuantityreturn(ld_dto.getLdQuantityreturn());
         ld.setLdQuantitytaken(ld_dto.getLdQuantitytaken());
         ld.setLdArticle(ArticleDto.toEntity(ld_dto.getLdArticleDto()));
+        ld.setLdLoading(LoadingDto.toEntity(ld_dto.getLdLoadingDto()));
 
         return ld;
     }

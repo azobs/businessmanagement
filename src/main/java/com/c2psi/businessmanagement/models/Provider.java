@@ -18,7 +18,7 @@ import java.util.List;
 @Entity
 @Table(name="provider",
         uniqueConstraints = {@UniqueConstraint(
-                columnNames = {"providerName", "pos_id"})})
+                columnNames = {"providerName", "providerPosId"})})
 public class Provider extends AbstractEntity {
 
     @Column(nullable = false)
@@ -50,7 +50,8 @@ public class Provider extends AbstractEntity {
     @JoinColumn(name = "pca_id", nullable = false, referencedColumnName = "id")
     ProviderCashAccount providerCa;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    /*@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "pos_id", nullable = false, referencedColumnName = "id")
-    Pointofsale providerPos;
+    Pointofsale providerPos;*/
+    Long providerPosId;
 }

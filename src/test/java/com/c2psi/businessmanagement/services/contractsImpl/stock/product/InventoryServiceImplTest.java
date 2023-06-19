@@ -3,7 +3,6 @@ package com.c2psi.businessmanagement.services.contractsImpl.stock.product;
 import com.c2psi.businessmanagement.BusinessmanagementApplication;
 import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.stock.product.InventoryDto;
-import com.c2psi.businessmanagement.dtos.stock.product.SupplyInvoiceDamageDto;
 import com.c2psi.businessmanagement.exceptions.DuplicateEntityException;
 import com.c2psi.businessmanagement.exceptions.EntityNotFoundException;
 import com.c2psi.businessmanagement.exceptions.InvalidEntityException;
@@ -53,7 +52,7 @@ public class InventoryServiceImplTest {
 
         InventoryDto inventoryDtoSaved = usedForTestForProduct.saveInventory(0, posDtoSaved, inventoryService);
         assertNotNull(inventoryDtoSaved);
-        assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosDto().getId());
+        assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosId());
     }
 
     @Test(expected = InvalidEntityException.class)
@@ -64,7 +63,7 @@ public class InventoryServiceImplTest {
 
         InventoryDto inventoryDtoSaved = usedForTestForProduct.saveInventory_Invalid(0, posDtoSaved, inventoryService);
         assertNotNull(inventoryDtoSaved);
-        assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosDto().getId());
+        assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosId());
     }
 
     @Test(expected = InvalidEntityException.class)
@@ -76,7 +75,7 @@ public class InventoryServiceImplTest {
 
         InventoryDto inventoryDtoSaved = usedForTestForProduct.saveInventory(0, posDtoSaved, inventoryService);
         assertNotNull(inventoryDtoSaved);
-        assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosDto().getId());
+        assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosId());
     }
 
     @Test(expected = InvalidEntityException.class)
@@ -88,7 +87,7 @@ public class InventoryServiceImplTest {
 
         InventoryDto inventoryDtoSaved = usedForTestForProduct.saveInventory(0, posDtoSaved, inventoryService);
         assertNotNull(inventoryDtoSaved);
-        assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosDto().getId());
+        assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosId());
     }
 
     @Test(expected = DuplicateEntityException.class)
@@ -99,7 +98,7 @@ public class InventoryServiceImplTest {
 
         InventoryDto inventoryDtoSaved = usedForTestForProduct.saveInventory(5, posDtoSaved, inventoryService);
         assertNotNull(inventoryDtoSaved);
-        assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosDto().getId());
+        assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosId());
         InventoryDto inventoryDtoSaved1 = usedForTestForProduct.saveInventory(5, posDtoSaved, inventoryService);
     }
 
@@ -111,7 +110,7 @@ public class InventoryServiceImplTest {
 
         InventoryDto inventoryDtoSaved = usedForTestForProduct.saveInventory(0, posDtoSaved, inventoryService);
         assertNotNull(inventoryDtoSaved);
-        assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosDto().getId());
+        assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosId());
         inventoryDtoSaved.setInvComment("newCode");
         inventoryDtoSaved.setInvCode("newComment");
         InventoryDto inventoryDtoUpdated = inventoryService.updateInventory(inventoryDtoSaved);
@@ -128,7 +127,7 @@ public class InventoryServiceImplTest {
 
         InventoryDto inventoryDtoSaved = usedForTestForProduct.saveInventory(0, posDtoSaved, inventoryService);
         assertNotNull(inventoryDtoSaved);
-        assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosDto().getId());
+        assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosId());
         inventoryDtoSaved.setId(null);
         inventoryDtoSaved.setInvComment("newCode");
         inventoryDtoSaved.setInvCode("newComment");
@@ -146,7 +145,7 @@ public class InventoryServiceImplTest {
 
         InventoryDto inventoryDtoSaved = usedForTestForProduct.saveInventory(0, posDtoSaved, inventoryService);
         assertNotNull(inventoryDtoSaved);
-        assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosDto().getId());
+        assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosId());
         inventoryDtoSaved.setId(Long.valueOf(124587));
         inventoryDtoSaved.setInvComment("newCode");
         inventoryDtoSaved.setInvCode("newComment");
@@ -167,10 +166,10 @@ public class InventoryServiceImplTest {
 
         InventoryDto inventoryDtoSaved = usedForTestForProduct.saveInventory(0, posDtoSaved, inventoryService);
         assertNotNull(inventoryDtoSaved);
-        assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosDto().getId());
+        assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosId());
         inventoryDtoSaved.setInvComment("newCode");
         inventoryDtoSaved.setInvCode("newComment");
-        inventoryDtoSaved.setInvPosDto(posDtoSaved1);
+        inventoryDtoSaved.setInvPosId(posDtoSaved1.getId());
         InventoryDto inventoryDtoUpdated = inventoryService.updateInventory(inventoryDtoSaved);
         assertNotNull(inventoryDtoUpdated);
         assertEquals("newCode", inventoryDtoUpdated.getInvComment());
@@ -185,7 +184,7 @@ public class InventoryServiceImplTest {
 
         InventoryDto inventoryDtoSaved = usedForTestForProduct.saveInventory(0, posDtoSaved, inventoryService);
         assertNotNull(inventoryDtoSaved);
-        assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosDto().getId());
+        assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosId());
         inventoryDtoSaved.setInvComment("newCode");
         inventoryDtoSaved.setInvCode("newComment");
         InventoryDto inventoryDtoUpdated = inventoryService.updateInventory(inventoryDtoSaved);
@@ -206,7 +205,7 @@ public class InventoryServiceImplTest {
 
         InventoryDto inventoryDtoSaved = usedForTestForProduct.saveInventory(0, posDtoSaved, inventoryService);
         assertNotNull(inventoryDtoSaved);
-        assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosDto().getId());
+        assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosId());
 
         InventoryDto inventoryDtoFound = inventoryService.findInventoryByCodeinPos(inventoryDtoSaved.getInvCode(),
                 posDtoSaved.getId());
@@ -224,7 +223,7 @@ public class InventoryServiceImplTest {
 
         InventoryDto inventoryDtoSaved = usedForTestForProduct.saveInventory(0, posDtoSaved, inventoryService);
         assertNotNull(inventoryDtoSaved);
-        assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosDto().getId());
+        assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosId());
         InventoryDto inventoryDtoSaved1 = usedForTestForProduct.saveInventory(1, posDtoSaved, inventoryService);
         assertNotNull(inventoryDtoSaved1);
         InventoryDto inventoryDtoSaved2 = usedForTestForProduct.saveInventory(2, posDtoSaved, inventoryService);
@@ -269,7 +268,7 @@ public class InventoryServiceImplTest {
 
         InventoryDto inventoryDtoSaved = usedForTestForProduct.saveInventory(0, posDtoSaved, inventoryService);
         assertNotNull(inventoryDtoSaved);
-        assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosDto().getId());
+        assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosId());
 
         assertTrue(inventoryService.deleteInventoryById(inventoryDtoSaved.getId()));
     }

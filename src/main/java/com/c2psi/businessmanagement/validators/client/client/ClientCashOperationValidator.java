@@ -1,17 +1,12 @@
 package com.c2psi.businessmanagement.validators.client.client;
 
-import com.c2psi.businessmanagement.Enumerations.OperationType;
-import com.c2psi.businessmanagement.dtos.client.client.ClientCashAccountDto;
 import com.c2psi.businessmanagement.dtos.client.client.ClientCashOperationDto;
 import com.c2psi.businessmanagement.validators.pos.pos.OperationValidator;
-import org.springframework.util.StringUtils;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-import java.math.BigDecimal;
-import java.time.Instant;
 import java.util.*;
 
 public class ClientCashOperationValidator {

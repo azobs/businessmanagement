@@ -19,7 +19,7 @@ import java.util.List;
 @Entity
 @Table(name="loading",
         uniqueConstraints = {@UniqueConstraint(
-                columnNames = {"loadCode", "pos_id"})})
+                columnNames = {"loadCode", "loadPosId"})})
 public class Loading extends AbstractEntity{
 
     @Column(nullable = false)
@@ -40,9 +40,10 @@ public class Loading extends AbstractEntity{
     /******************************
      * Relation between entities  *
      * ****************************/
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    /*@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "pos_id", nullable = false, referencedColumnName = "id")
-    Pointofsale loadPos;
+    Pointofsale loadPos;*/
+    Long loadPosId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "userbm_manager_id", nullable = false, referencedColumnName = "id")

@@ -2,9 +2,9 @@ package com.c2psi.businessmanagement.validators.pos.loading;
 
 import com.c2psi.businessmanagement.dtos.pos.loading.LoadingDetailsDto;
 import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
-import com.c2psi.businessmanagement.validators.pos.pos.EnterpriseValidator;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -17,8 +17,8 @@ public class LoadingDetailsValidatorTest {
     public void validate() {
         LoadingDetailsDto loadingDetailsDtoToValidate = LoadingDetailsDto.builder()
                 .ldArticleDto(ArticleDto.builder().build())
-                .ldQuantityreturn(12)
-                .ldQuantitytaken(14)
+                .ldQuantityreturn(BigDecimal.valueOf(12))
+                .ldQuantitytaken(BigDecimal.valueOf(14))
                 .build();
         List<String> errors = LoadingDetailsValidator.validate(loadingDetailsDtoToValidate);
         System.out.println("errors are : "+errors);
@@ -31,8 +31,8 @@ public class LoadingDetailsValidatorTest {
     public void validateNull() {
         LoadingDetailsDto loadingDetailsDtoToValidate = LoadingDetailsDto.builder()
                 .ldArticleDto(ArticleDto.builder().build())
-                .ldQuantityreturn(12)
-                .ldQuantitytaken(14)
+                .ldQuantityreturn(BigDecimal.valueOf(12))
+                .ldQuantitytaken(BigDecimal.valueOf(14))
                 .build();
         List<String> errors = LoadingDetailsValidator.validate(null);
         System.out.println("errors are : "+errors);
@@ -45,8 +45,8 @@ public class LoadingDetailsValidatorTest {
     public void validateNullArticle() {
         LoadingDetailsDto loadingDetailsDtoToValidate = LoadingDetailsDto.builder()
                 .ldArticleDto(null)
-                .ldQuantityreturn(12)
-                .ldQuantitytaken(14)
+                .ldQuantityreturn(BigDecimal.valueOf(12))
+                .ldQuantitytaken(BigDecimal.valueOf(14))
                 .build();
         List<String> errors = LoadingDetailsValidator.validate(loadingDetailsDtoToValidate);
         System.out.println("errors are : "+errors);
@@ -76,8 +76,8 @@ public class LoadingDetailsValidatorTest {
     public void validateNegativeorzeroQuantityTaken() {
         LoadingDetailsDto loadingDetailsDtoToValidate = LoadingDetailsDto.builder()
                 .ldArticleDto(ArticleDto.builder().build())
-                .ldQuantityreturn(12)
-                .ldQuantitytaken(0)
+                .ldQuantityreturn(BigDecimal.valueOf(12))
+                .ldQuantitytaken(BigDecimal.valueOf(0))
                 .build();
         List<String> errors = LoadingDetailsValidator.validate(loadingDetailsDtoToValidate);
         System.out.println("errors are : "+errors);
@@ -91,8 +91,8 @@ public class LoadingDetailsValidatorTest {
     public void validateNegativeQuantityReturn() {
         LoadingDetailsDto loadingDetailsDtoToValidate = LoadingDetailsDto.builder()
                 .ldArticleDto(ArticleDto.builder().build())
-                .ldQuantityreturn(-12)
-                .ldQuantitytaken(14)
+                .ldQuantityreturn(BigDecimal.valueOf(-12))
+                .ldQuantitytaken(BigDecimal.valueOf(14))
                 .build();
         List<String> errors = LoadingDetailsValidator.validate(loadingDetailsDtoToValidate);
         System.out.println("errors are : "+errors);

@@ -22,7 +22,8 @@ public class PosPackagingAccountDto {
     //Each packagingaccount must belonging to one pointofsale
 
     @NotNull(message = "The pointofsale associate with the account cannot be null")
-    PointofsaleDto ppaPointofsaleDto;
+    //PointofsaleDto ppaPointofsaleDto;
+    Long ppaPointofsaleId;
 
     //Each packagingaccount must be related to exactly one packaging
 
@@ -40,7 +41,8 @@ public class PosPackagingAccountDto {
         return PosPackagingAccountDto.builder()
                 .id(ppa.getId())
                 .ppaNumber(ppa.getPpaNumber())
-                .ppaPointofsaleDto(PointofsaleDto.fromEntity(ppa.getPpaPointofsale()))
+                //.ppaPointofsaleDto(PointofsaleDto.fromEntity(ppa.getPpaPointofsale()))
+                .ppaPointofsaleId(ppa.getPpaPointofsaleId())
                 .ppaPackagingDto(PackagingDto.fromEntity(ppa.getPpaPackaging()))
                 .build();
     }
@@ -52,7 +54,8 @@ public class PosPackagingAccountDto {
         ppa.setId(ppaDto.getId());
         ppa.setPpaNumber(ppaDto.getPpaNumber());
         ppa.setPpaPackaging(PackagingDto.toEntity(ppaDto.getPpaPackagingDto()));
-        ppa.setPpaPointofsale(PointofsaleDto.toEntity(ppaDto.getPpaPointofsaleDto()));
+        //ppa.setPpaPointofsale(PointofsaleDto.toEntity(ppaDto.getPpaPointofsaleDto()));
+        ppa.setPpaPointofsaleId(ppaDto.getPpaPointofsaleId());
         return ppa;
     }
 }

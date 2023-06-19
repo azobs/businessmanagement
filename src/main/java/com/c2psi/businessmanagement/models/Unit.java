@@ -18,7 +18,7 @@ import java.util.List;
 @Entity
 @Table(name="unit",
         uniqueConstraints = {@UniqueConstraint(
-                columnNames = {"unitName", "pos_id"})})
+                columnNames = {"unitName", "unitPosId"})})
 public class Unit extends AbstractEntity {
 
     /****
@@ -32,8 +32,9 @@ public class Unit extends AbstractEntity {
      * Relation between entities  *
      * ****************************/
     //Many unit for 1 Pointofsale
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    /*@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "pos_id", nullable = false, referencedColumnName = "id")
-    Pointofsale unitPos;
+    Pointofsale unitPos;*/
+    Long unitPosId;
 
 }

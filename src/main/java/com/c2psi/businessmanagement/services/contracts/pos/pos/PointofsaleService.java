@@ -1,46 +1,49 @@
 package com.c2psi.businessmanagement.services.contracts.pos.pos;
 
-import com.c2psi.businessmanagement.dtos.pos.pos.*;
+import com.c2psi.businessmanagement.dtos.pos.pos.EnterpriseDto;
+import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.dtos.stock.price.CurrencyDto;
 import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
 
+import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
 public interface PointofsaleService {
     /*****************************************************************************
      * Compute the turnover (chiffre d'affaire) of a Pointofsale between 02 dates
-     * @param posDto
+     * @param posId
      * @param startDate
      * @param endDate
      * @return
      */
-    Double getTurnover(PointofsaleDto posDto, Date startDate, Date endDate);
+    BigDecimal getTurnover(Long posId, Instant startDate, Instant endDate);
 
     /*****************************************************************************
      * Make the employee list of Pointofsale
-     * @param posDto
+     * @param posId
      * @return
      */
-    List<UserBMDto> findAllEmployeofPos (PointofsaleDto posDto);
+    List<UserBMDto> findAllEmployeofPos (Long posId);
 
-    List<ProviderDto> findAllProviderofPos (PointofsaleDto posDto);
+    List<ProviderDto> findAllProviderofPos (Long posId);
 
-    Double getTotalCash(Long entId);
+    BigDecimal getTotalCashofPos(Long posId);
 
-    Integer getNumberofDamage(PointofsaleDto posDto);
+    BigDecimal getNumberofDamageofPos(Long posId);
 
-    Integer getNumberofDamage(PointofsaleDto posDto, ArticleDto artDto);
+    BigDecimal getNumberofDamageofPos(Long posId, Long artId);
 
-    Integer getNumberofCapsule(PointofsaleDto posDto);
+    BigDecimal getNumberofCapsuleofPos(Long posId);
 
-    Integer getNumberofCapsule(PointofsaleDto posDto, ArticleDto artDto);
+    BigDecimal getNumberofCapsuleofPos(Long posId, Long artId);
 
-    Integer getNumberofPackaging(PointofsaleDto posDto);
+    BigDecimal getNumberofPackagingofPos(Long posId);
 
-    Integer getNumberofPackaging(PointofsaleDto posDto, ProviderDto providerDto);
+    BigDecimal getNumberofPackagingofPos(Long posId, Long providerId);
 
     /*******************************************************************************
      * Save method does both first saving and modification. If the id of the dto is
@@ -63,22 +66,22 @@ public interface PointofsaleService {
     Boolean isPointofsaleDeleteable(Long posId);
     Boolean deletePosById(Long posId);
 
-    Boolean deletePosInEnterpriseByName (String posName, EnterpriseDto entDto);
+    Boolean deletePosInEnterpriseByName (String posName, Long entId);
 
     /********************************************************************************
      * Return the list of currency that a conversion rules exist with the default
      * currency of the pointofsale. In such a way that for every operation in the
      * pointofsale, if the user don't want to use the default currency he can uses
      * a currency that is in relation with the default one.
-     * @param posDto
+     * @param posId
      * @return
      */
-    List<CurrencyDto> listofConvertibleCurrency(PointofsaleDto posDto);
+    List<CurrencyDto> listofConvertibleCurrency(Long posId);
 
     /******************************************************
      * Return the default currency of a pointofsale
-     * @param posDto
+     * @param posId
      * @return
      ******************************************************/
-    CurrencyDto findDefaultCurrency(PointofsaleDto posDto);
+    CurrencyDto getDefaultCurrency(Long posId);
 }

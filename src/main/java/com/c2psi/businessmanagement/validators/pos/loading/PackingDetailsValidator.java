@@ -1,6 +1,5 @@
 package com.c2psi.businessmanagement.validators.pos.loading;
 
-import com.c2psi.businessmanagement.dtos.pos.loading.LoadingDto;
 import com.c2psi.businessmanagement.dtos.pos.loading.PackingDetailsDto;
 
 import javax.validation.ConstraintViolation;

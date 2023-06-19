@@ -3,7 +3,6 @@ package com.c2psi.businessmanagement.validators.stock.provider;
 import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderCapsuleAccountDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
-import com.c2psi.businessmanagement.validators.stock.product.UnitValidator;
 import org.junit.Test;
 
 import java.math.BigDecimal;

@@ -2,7 +2,7 @@ package com.c2psi.businessmanagement.services.contractsImpl.client.client;
 
 import com.c2psi.businessmanagement.Enumerations.OperationType;
 import com.c2psi.businessmanagement.dtos.client.client.ClientCapsuleAccountDto;
-import com.c2psi.businessmanagement.dtos.stock.provider.ProviderCapsuleAccountDto;
+import com.c2psi.businessmanagement.dtos.client.client.ClientCapsuleOperationDto;
 import com.c2psi.businessmanagement.exceptions.*;
 import com.c2psi.businessmanagement.models.*;
 import com.c2psi.businessmanagement.repositories.client.client.ClientCapsuleAccountRepository;
@@ -11,12 +11,8 @@ import com.c2psi.businessmanagement.repositories.client.client.ClientRepository;
 import com.c2psi.businessmanagement.repositories.pos.pos.PointofsaleRepository;
 import com.c2psi.businessmanagement.repositories.pos.userbm.UserBMRepository;
 import com.c2psi.businessmanagement.repositories.stock.product.ArticleRepository;
-import com.c2psi.businessmanagement.repositories.stock.provider.ProviderCapsuleAccountRepository;
-import com.c2psi.businessmanagement.repositories.stock.provider.ProviderCapsuleOperationRepository;
-import com.c2psi.businessmanagement.repositories.stock.provider.ProviderRepository;
 import com.c2psi.businessmanagement.services.contracts.client.client.ClientCapsuleAccountService;
 import com.c2psi.businessmanagement.validators.client.client.ClientCapsuleAccountValidator;
-import com.c2psi.businessmanagement.validators.stock.provider.ProviderCapsuleAccountValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -237,6 +233,100 @@ public class ClientCapsuleAccountServiceImpl implements ClientCapsuleAccountServ
     public Boolean saveCapsuleOperation(Long ccaccId, BigDecimal qte, OperationType operationType,
                                         Long userbmId, String opObject, String opDescription) {
 
+        /******************************************************************
+         * Se rassurer que les donnees dans la fonction ne sont pas null
+         */
+        if(ccaccId == null || qte == null || userbmId == null || operationType == null){
+            log.error("ccaccId, qte or even userbmId is null ");
+            throw new NullArgumentException("Appel de la methode saveCapsuleOperation avec des parametres null");
+        }
+
+        /**********************************************************************************
+         * Se rassurer que la quantite d'article dans l'operation est strictement positive
+         */
+        if(qte.compareTo(BigDecimal.valueOf(0)) <= 0){
+            log.error("The qte cannot be negative value");
+            throw new InvalidValueException("La quantite dans l'operation ne saurait etre negative");
+        }
+
+        /******************************************************************************************
+         * On va essayer de recuperer le userbm qui est associe a cette operation
+         */
+        Optional<UserBM> optionalUserBM = userBMRepository.findUserBMById(userbmId);
+        if(!optionalUserBM.isPresent()){
+            log.error("There is no userbm associated with the id {} precised in argument ", userbmId);
+            throw new EntityNotFoundException("Aucun userbm n'existe avec le id precise ", ErrorCode.USERBM_NOT_FOUND);
+        }
+
+        /***************************************************************************************
+         * Se rassurer que le type d'operation souhaite est soit un credit soit un debit
+         */
+        if(!operationType.equals(OperationType.Credit) && !operationType.equals(OperationType.Withdrawal)){
+            log.error("The operationType is not recognized for this operation");
+            throw new InvalidValueException("Le type d'operation precise n'est pas valide dans cette fonction ");
+        }
+
+        /*************************************************************************************
+         * On essaye donc de recuperer d'abord le compte dans lequel l'operation sera realise
+         */
+        if(!this.isClientCapsuleAccountExistWithId(ccaccId)){
+            log.error("The ccaccId {} does not identify any account ", ccaccId);
+            throw  new EntityNotFoundException("Aucun ClientCapsuleAccount n'existe avec le ID precise "+ccaccId,
+                    ErrorCode.CLIENTCAPSULEACCOUNT_NOT_FOUND);
+        }
+        Optional<ClientCapsuleAccount> optionalClientCapsuleAccount = clientCapsAccountRepository.
+                findClientCapsuleAccountById(ccaccId);
+        //A ce niveau on na pas besoin de regarder si isPresent est true car on est sur que ca existe
+        ClientCapsuleAccount clientCapsuleAccountToUpdate = optionalClientCapsuleAccount.get();
+
+        BigDecimal solde = clientCapsuleAccountToUpdate.getCcsaNumber();
+        BigDecimal updatedSolde = BigDecimal.valueOf(0.0);
+
+        /***
+         * On doit ici enregistrer un depot dans un compte capsule d'un client pour un article. Pour cela il
+         * faut ajouter la qte de la transaction au solde du compte et ensuite enregistrer l'operation ainsi
+         * réalise
+         */
+        if(operationType.equals(OperationType.Credit)){
+            updatedSolde = solde.add(qte);//Car BigDecimal est immutable on peut pas directement modifier sa valeur
+        }
+        else if(operationType.equals(OperationType.Withdrawal)){
+            if(solde.compareTo(qte) < 0){
+                log.error("Insufficient balance");
+                throw new InvalidValueException("Solde insuffisant "+solde);
+            }
+            updatedSolde = solde.subtract(qte);
+        }
+        clientCapsuleAccountToUpdate.setCcsaNumber(updatedSolde);
+
+        clientCapsAccountRepository.save(clientCapsuleAccountToUpdate);
+
+        ClientCapsuleOperation ccapso = new ClientCapsuleOperation();
+        ccapso.setCltcsoNumberinmvt(qte);
+        ccapso.setCltcsoUserbm(optionalUserBM.get());
+        ccapso.setCltcsoCltCapsuleAccount(clientCapsuleAccountToUpdate);
+
+        Operation op = new Operation();
+        op.setOpDate(new Date().toInstant());
+        op.setOpDescription(opDescription);
+        op.setOpObject(opObject);
+        op.setOpType(operationType);
+        ccapso.setCltcsoOperation(op);
+        //Il faut save le ClientCapsuleOperation
+        clientCapsOperationRepository.save(ccapso);
+
+        return true;
+    }
+
+    @Override
+    public Boolean saveCapsuleOperation(ClientCapsuleAccountDto clientCapsuleAccountDto,
+                                        ClientCapsuleOperationDto clientCapsuleOperationDto) {
+        Long ccaccId = clientCapsuleAccountDto.getId();
+        BigDecimal qte = clientCapsuleOperationDto.getCltcsoNumberinmvt();
+        Long userbmId = clientCapsuleOperationDto.getCltcsoUserbmDto().getId();
+        OperationType operationType = clientCapsuleOperationDto.getCltcsoOperationDto().getOpType();
+        String opObject = clientCapsuleOperationDto.getCltcsoOperationDto().getOpObject();
+        String opDescription = clientCapsuleOperationDto.getCltcsoOperationDto().getOpDescription();
         /******************************************************************
          * Se rassurer que les donnees dans la fonction ne sont pas null
          */

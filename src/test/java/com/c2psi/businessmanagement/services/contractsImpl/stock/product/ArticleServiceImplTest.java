@@ -597,7 +597,7 @@ public class ArticleServiceImplTest {
         articleDtoSaved1.setArtThreshold(BigDecimal.valueOf(5));
         articleDtoSaved1.setArtLowLimitSemiWholesale(BigDecimal.valueOf(7));
         articleDtoSaved1.setArtLowLimitWholesale(BigDecimal.valueOf(10));
-        articleDtoSaved1.setArtPosDto(posDtoSaved1);
+        articleDtoSaved1.setArtPosId(posDtoSaved1.getId());
 
         ArticleDto articleDtoUpdated = articleService.updateArticle(articleDtoSaved1);
         assertNotNull(articleDtoUpdated);
@@ -899,8 +899,9 @@ public class ArticleServiceImplTest {
                 basePriceDtoSaved, posDtoSaved, articleService);
         assertNotNull(articleDtoSaved1);
 
-        ArticleDto articleDtoUpdated = articleService.fixQuantityofArticle(articleDtoSaved1.getId(),
-                BigDecimal.valueOf(100));
+        articleDtoSaved1.setArtQuantityinstock(BigDecimal.valueOf(100));
+
+        ArticleDto articleDtoUpdated = articleService.fixQuantityofArticle(articleDtoSaved1);
         assertNotNull(articleDtoUpdated);
         assertEquals(BigDecimal.valueOf(100), articleDtoUpdated.getArtQuantityinstock());
     }
@@ -940,8 +941,9 @@ public class ArticleServiceImplTest {
                 basePriceDtoSaved, posDtoSaved, articleService);
         assertNotNull(articleDtoSaved1);
 
-        ArticleDto articleDtoUpdated = articleService.fixQuantityofArticle(articleDtoSaved1.getId(),
-                null);
+        articleDtoSaved1.setArtQuantityinstock(null);
+
+        ArticleDto articleDtoUpdated = articleService.fixQuantityofArticle(articleDtoSaved1);
         //The above line is supposed to launch the expected exception
     }
 
@@ -980,8 +982,9 @@ public class ArticleServiceImplTest {
                 basePriceDtoSaved, posDtoSaved, articleService);
         assertNotNull(articleDtoSaved1);
 
-        ArticleDto articleDtoUpdated = articleService.fixQuantityofArticle(articleDtoSaved1.getId(),
-                BigDecimal.valueOf(-100));
+        articleDtoSaved1.setArtQuantityinstock(BigDecimal.valueOf(-100));
+
+        ArticleDto articleDtoUpdated = articleService.fixQuantityofArticle(articleDtoSaved1);
         //The above line is supposed to launch the expected exception
     }
 
@@ -1021,9 +1024,8 @@ public class ArticleServiceImplTest {
         assertNotNull(articleDtoSaved1);
 
         articleDtoSaved1.setId(Long.valueOf(569874));
-
-        ArticleDto articleDtoUpdated = articleService.fixQuantityofArticle(articleDtoSaved1.getId(),
-                BigDecimal.valueOf(100));
+        articleDtoSaved1.setArtQuantityinstock(BigDecimal.valueOf(100));
+        ArticleDto articleDtoUpdated = articleService.fixQuantityofArticle(articleDtoSaved1);
         //The above line is supposed to launch the expected exception
     }
 
@@ -1065,8 +1067,9 @@ public class ArticleServiceImplTest {
                 basePriceDtoSaved, posDtoSaved, articleService);
         assertNotNull(articleDtoSaved1);
 
-        ArticleDto articleDtoUpdated = articleService.updateUnitofArticle(articleDtoSaved1.getId(),
-                unitDtoSaved1.getId());
+        articleDtoSaved1.setArtUnitDto(unitDtoSaved1);
+
+        ArticleDto articleDtoUpdated = articleService.updateUnitofArticle(articleDtoSaved1);
         assertNotNull(articleDtoUpdated);
         assertEquals(unitDtoSaved1.getId().longValue(), articleDtoUpdated.getArtUnitDto().getId().longValue());
     }
@@ -1112,8 +1115,9 @@ public class ArticleServiceImplTest {
                 basePriceDtoSaved, posDtoSaved, articleService);
         assertNotNull(articleDtoSaved1);
 
-        ArticleDto articleDtoUpdated = articleService.updateUnitofArticle(articleDtoSaved1.getId(),
-                unitDtoSaved1.getId());
+        articleDtoSaved1.setArtUnitDto(unitDtoSaved1);
+
+        ArticleDto articleDtoUpdated = articleService.updateUnitofArticle(articleDtoSaved1);
         assertNotNull(articleDtoUpdated);
         assertEquals(unitDtoSaved1.getId().longValue(), articleDtoUpdated.getArtUnitDto().getId().longValue());
     }
@@ -1156,8 +1160,9 @@ public class ArticleServiceImplTest {
                 basePriceDtoSaved, posDtoSaved, articleService);
         assertNotNull(articleDtoSaved1);
 
-        ArticleDto articleDtoUpdated = articleService.updateBasePriceofArticle(articleDtoSaved1.getId(),
-                basePriceDtoSaved1.getId());
+        articleDtoSaved1.setArtBpDto(basePriceDtoSaved1);
+
+        ArticleDto articleDtoUpdated = articleService.updateBasePriceofArticle(articleDtoSaved1);
         assertNotNull(articleDtoUpdated);
         assertEquals(basePriceDtoSaved1.getId().longValue(), articleDtoUpdated.getArtBpDto().getId().longValue());
     }
@@ -1369,13 +1374,13 @@ public class ArticleServiceImplTest {
                 basePriceDtoSaved, posDtoSaved, articleService);
         assertNotNull(articleDtoSaved2);
 
-        Page<ArticleDto> articleDtoPage = articleService.findPageofArticleofPos(posDtoSaved.getId(),0, 3);
+        Page<ArticleDto> articleDtoPage = articleService.findPageArticleofPos(posDtoSaved.getId(),0, 3);
         assertNotNull(articleDtoPage);
         assertEquals(1, articleDtoPage.getTotalPages());
-        Page<ArticleDto> articleDtoPage1 = articleService.findPageofArticleofPos(posDtoSaved1.getId(), 0, 3);
+        Page<ArticleDto> articleDtoPage1 = articleService.findPageArticleofPos(posDtoSaved1.getId(), 0, 3);
         assertNotNull(articleDtoPage1);
         assertEquals(0, articleDtoPage1.getTotalPages());
-        Page<ArticleDto> articleDtoPage2 = articleService.findPageofArticleofEnterprise(
+        /*Page<ArticleDto> articleDtoPage2 = articleService.findPageofArticleofEnterprise(
                 posDtoSaved.getPosEnterpriseDto().getId(),0, 1);
         assertNotNull(articleDtoPage2);
         assertEquals(3, articleDtoPage2.getTotalPages());
@@ -1383,7 +1388,7 @@ public class ArticleServiceImplTest {
         List<ArticleDto> articleDtoList2 = articleService.findAllArticleofEnterprise(
                 posDtoSaved.getPosEnterpriseDto().getId());
         assertNotNull(articleDtoList2);
-        assertEquals(3, articleDtoList2.size());
+        assertEquals(3, articleDtoList2.size());*/
     }
 
     @Test
@@ -1421,8 +1426,9 @@ public class ArticleServiceImplTest {
                 basePriceDtoSaved, posDtoSaved, articleService);
         assertNotNull(articleDtoSaved1);
 
-        ArticleDto articleDtoUpdated = articleService.fixQuantityofArticle(articleDtoSaved1.getId(),
-                BigDecimal.valueOf(100));
+        articleDtoSaved1.setArtQuantityinstock(BigDecimal.valueOf(100));
+
+        ArticleDto articleDtoUpdated = articleService.fixQuantityofArticle(articleDtoSaved1);
         assertNotNull(articleDtoUpdated);
         assertEquals(BigDecimal.valueOf(100), articleDtoUpdated.getArtQuantityinstock());
 
@@ -1470,8 +1476,9 @@ public class ArticleServiceImplTest {
                 basePriceDtoSaved, posDtoSaved, articleService);
         assertNotNull(articleDtoSaved1);
 
-        ArticleDto articleDtoUpdated = articleService.fixQuantityofArticle(articleDtoSaved1.getId(),
-                BigDecimal.valueOf(100));
+        articleDtoSaved1.setArtQuantityinstock(BigDecimal.valueOf(100));
+
+        ArticleDto articleDtoUpdated = articleService.fixQuantityofArticle(articleDtoSaved1);
         assertNotNull(articleDtoUpdated);
         assertEquals(BigDecimal.valueOf(100), articleDtoUpdated.getArtQuantityinstock());
 

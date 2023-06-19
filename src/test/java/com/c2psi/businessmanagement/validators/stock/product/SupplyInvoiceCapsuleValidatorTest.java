@@ -20,7 +20,7 @@ public class SupplyInvoiceCapsuleValidatorTest {
     @Test
     public void validate() {
         SupplyInvoiceCapsuleDto supplyInvoiceCapsuleDto = SupplyInvoiceCapsuleDto.builder()
-                .sicapsPosDto(PointofsaleDto.builder().build())
+                .sicapsPosId(PointofsaleDto.builder().build().getId())
                 .sicapsInvoicingDate(new Date().toInstant())
                 .sicapsProviderDto(ProviderDto.builder().build())
                 .sicapsComment("")
@@ -43,7 +43,7 @@ public class SupplyInvoiceCapsuleValidatorTest {
     @Test
     public void validateNull() {
         SupplyInvoiceCapsuleDto supplyInvoiceCapsuleDto = SupplyInvoiceCapsuleDto.builder()
-                .sicapsPosDto(PointofsaleDto.builder().build())
+                .sicapsPosId(PointofsaleDto.builder().build().getId())
                 .sicapsInvoicingDate(new Date().toInstant())
                 .sicapsProviderDto(ProviderDto.builder().build())
                 .sicapsComment("")
@@ -66,7 +66,7 @@ public class SupplyInvoiceCapsuleValidatorTest {
     @Test
     public void validateNullValue() {
         SupplyInvoiceCapsuleDto supplyInvoiceCapsuleDto = SupplyInvoiceCapsuleDto.builder()
-                .sicapsPosDto(null)
+                .sicapsPosId(null)
                 .sicapsInvoicingDate(null)
                 .sicapsProviderDto(null)
                 .sicapsComment(null)
@@ -99,7 +99,7 @@ public class SupplyInvoiceCapsuleValidatorTest {
     @Test
     public void validateEmptyValue() {
         SupplyInvoiceCapsuleDto supplyInvoiceCapsuleDto = SupplyInvoiceCapsuleDto.builder()
-                .sicapsPosDto(PointofsaleDto.builder().build())
+                .sicapsPosId(PointofsaleDto.builder().build().getId())
                 .sicapsInvoicingDate(new Date().toInstant())
                 .sicapsProviderDto(ProviderDto.builder().build())
                 .sicapsComment("")
@@ -124,7 +124,7 @@ public class SupplyInvoiceCapsuleValidatorTest {
     @Test
     public void validateBlankValue() {
         SupplyInvoiceCapsuleDto supplyInvoiceCapsuleDto = SupplyInvoiceCapsuleDto.builder()
-                .sicapsPosDto(PointofsaleDto.builder().build())
+                .sicapsPosId(PointofsaleDto.builder().build().getId())
                 .sicapsInvoicingDate(new Date().toInstant())
                 .sicapsProviderDto(ProviderDto.builder().build())
                 .sicapsComment("    ")
@@ -147,7 +147,7 @@ public class SupplyInvoiceCapsuleValidatorTest {
     @Test
     public void validateSizeValue() {
         SupplyInvoiceCapsuleDto supplyInvoiceCapsuleDto = SupplyInvoiceCapsuleDto.builder()
-                .sicapsPosDto(PointofsaleDto.builder().build())
+                .sicapsPosId(PointofsaleDto.builder().build().getId())
                 .sicapsInvoicingDate(new Date().toInstant())
                 .sicapsProviderDto(ProviderDto.builder().build())
                 .sicapsComment("    ")
@@ -172,7 +172,7 @@ public class SupplyInvoiceCapsuleValidatorTest {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             SupplyInvoiceCapsuleDto supplyInvoiceCapsuleDto = SupplyInvoiceCapsuleDto.builder()
-                    .sicapsPosDto(PointofsaleDto.builder().build())
+                    .sicapsPosId(PointofsaleDto.builder().build().getId())
                     .sicapsInvoicingDate(sdf.parse("2024-02-01").toInstant())
                     .sicapsProviderDto(ProviderDto.builder().build())
                     .sicapsComment("    ")
@@ -202,7 +202,7 @@ public class SupplyInvoiceCapsuleValidatorTest {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             SupplyInvoiceCapsuleDto supplyInvoiceCapsuleDto = SupplyInvoiceCapsuleDto.builder()
-                    .sicapsPosDto(PointofsaleDto.builder().build())
+                    .sicapsPosId(PointofsaleDto.builder().build().getId())
                     .sicapsInvoicingDate(sdf.parse("2023-02-01").toInstant())
                     .sicapsProviderDto(ProviderDto.builder().build())
                     .sicapsComment("    ")

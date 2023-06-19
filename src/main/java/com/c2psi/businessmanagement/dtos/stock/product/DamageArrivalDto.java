@@ -1,16 +1,12 @@
 package com.c2psi.businessmanagement.dtos.stock.product;
 
-import com.c2psi.businessmanagement.models.Article;
-import com.c2psi.businessmanagement.models.CashArrival;
 import com.c2psi.businessmanagement.models.DamageArrival;
-import com.c2psi.businessmanagement.models.SupplyInvoiceDamage;
 import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 import java.time.Instant;
 

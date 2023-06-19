@@ -1,7 +1,5 @@
 package com.c2psi.businessmanagement.validators.stock.price;
 
-import com.c2psi.businessmanagement.dtos.client.delivery.DeliveryDto;
-import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.stock.price.BasePriceDto;
 
 import javax.validation.ConstraintViolation;

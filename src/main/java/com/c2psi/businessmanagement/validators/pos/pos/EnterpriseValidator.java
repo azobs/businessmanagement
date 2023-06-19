@@ -1,11 +1,9 @@
 package com.c2psi.businessmanagement.validators.pos.pos;
 
+import com.c2psi.businessmanagement.Enumerations.UserBMType;
 import com.c2psi.businessmanagement.dtos.pos.pos.EnterpriseDto;
-import com.c2psi.businessmanagement.dtos.pos.userbm.AddressDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.validators.pos.userbm.AddressValidator;
-import com.c2psi.businessmanagement.validators.pos.userbm.UserBMValidator;
-import org.springframework.util.StringUtils;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -54,6 +52,20 @@ public class EnterpriseValidator {
             if (constraintViolations.size() > 0 ) {
                 for (ConstraintViolation<EnterpriseDto> contraintes : constraintViolations) {
                     errors.add(contraintes.getMessage());
+                }
+            }
+            /**********************
+             * Si jusque la il y a pas derreur alors on se rassure que le type du
+             * UserBM envoye est bel et bien un AdminEnterprise sinon on retourne
+             * une erreur
+             */
+            if(errors.isEmpty()){
+                UserBMDto userBMDtoAdmin = entDto.getEntAdminDto();
+                if(userBMDtoAdmin.getBmUsertype() == null){
+                    errors.add("The UserType admin of the enterprise can't be null");
+                }
+                else if(!userBMDtoAdmin.getBmUsertype().equals(UserBMType.AdminEnterprise)){
+                    errors.add("The UserType admin of the enterprise must be AdminEnterprise");
                 }
             }
         }

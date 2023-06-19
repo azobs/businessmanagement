@@ -1,7 +1,6 @@
 package com.c2psi.businessmanagement.dtos.client.command;
 
 import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
-import com.c2psi.businessmanagement.models.BackIn;
 import com.c2psi.businessmanagement.models.BackInDetails;
 import lombok.Builder;
 import lombok.Data;

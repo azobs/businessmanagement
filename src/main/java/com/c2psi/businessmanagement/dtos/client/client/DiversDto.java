@@ -21,7 +21,8 @@ public class DiversDto {
     AddressDto diversAddressDto;
 
     @NotNull(message = "The pointofsale cannot be null")
-    PointofsaleDto diversPosDto;
+    //PointofsaleDto diversPosDto;
+    Long diversPosId;
 
     @NotNull(message = "The Cash account of Divers cannot be null")
     DiversCashAccountDto diversCaDto;
@@ -38,7 +39,8 @@ public class DiversDto {
                 .id(divers.getId())
                 .diversName(divers.getDiversName())
                 .diversAddressDto(AddressDto.fromEntity(divers.getDiversAddress()))
-                .diversPosDto(PointofsaleDto.fromEntity(divers.getDiversPos()))
+                //.diversPosDto(PointofsaleDto.fromEntity(divers.getDiversPos()))
+                .diversPosId(divers.getDiversPosId())
                 .diversCaDto(DiversCashAccountDto.fromEntity(divers.getDiversCa()))
                 .build();
     }
@@ -52,7 +54,8 @@ public class DiversDto {
         divers.setDiversName(diversDto.getDiversName());
         divers.setDiversAddress(AddressDto.toEntity(diversDto.getDiversAddressDto()));
         divers.setDiversCa(DiversCashAccountDto.toEntity(diversDto.diversCaDto));
-        divers.setDiversPos(PointofsaleDto.toEntity(diversDto.getDiversPosDto()));
+        //divers.setDiversPos(PointofsaleDto.toEntity(diversDto.getDiversPosDto()));
+        divers.setDiversPosId(diversDto.getDiversPosId());
 
         return divers;
     }

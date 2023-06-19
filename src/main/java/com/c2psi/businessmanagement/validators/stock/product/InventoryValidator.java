@@ -1,14 +1,11 @@
 package com.c2psi.businessmanagement.validators.stock.product;
 
-import com.c2psi.businessmanagement.dtos.stock.product.FormatDto;
 import com.c2psi.businessmanagement.dtos.stock.product.InventoryDto;
-import org.springframework.util.StringUtils;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-import java.time.Instant;
 import java.util.*;
 
 public class InventoryValidator {

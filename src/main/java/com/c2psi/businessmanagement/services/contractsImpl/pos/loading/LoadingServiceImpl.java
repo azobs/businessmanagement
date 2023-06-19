@@ -56,13 +56,13 @@ public class LoadingServiceImpl implements LoadingService {
          * On verifie que l'id du pointofsale est non null et que ce
          * pointofsale est bel et bien existant
          */
-        if(loadingDto.getLoadPosDto().getId() == null){
+        if(loadingDto.getLoadPosId() == null){
             log.error("The Id of the Pointofsale indicated is null");
             throw new InvalidEntityException("L'Id du pointofsale associe au loading ne peut etre null ",
                     ErrorCode.LOADING_NOT_VALID);
         }
         Optional<Pointofsale> optionalPointofsale = pointofsaleRepository.findPointofsaleById(
-                loadingDto.getLoadPosDto().getId());
+                loadingDto.getLoadPosId());
         if(!optionalPointofsale.isPresent()){
             log.error("The pointofsale indicated is not in the DB");
             throw new InvalidEntityException("Le pointofsale indique n'est pas existant en base de donnee",
@@ -105,7 +105,7 @@ public class LoadingServiceImpl implements LoadingService {
         /*****************************************************************
          * On se rassure de l'unicite du code du Loading dans le Pos
          */
-        if(!isLoadingUniqueinPos(loadingDto.getLoadCode(), loadingDto.getLoadPosDto().getId())){
+        if(!isLoadingUniqueinPos(loadingDto.getLoadCode(), loadingDto.getLoadPosId())){
             log.error("The loadingCode indicated is already used by another loading in the pointofsale indicated");
             throw new DuplicateEntityException("Le code de loading indique est deja utilise par un autre loqding dans " +
                     "la base de donnee", ErrorCode.LOADING_DUPLICATED);
@@ -152,12 +152,12 @@ public class LoadingServiceImpl implements LoadingService {
          * On se rassure que ce n'est pas le Pointofsale qu'on
          * veut modifier car cela n'est pas possible
          */
-        if(loadingDto.getLoadPosDto().getId() == null){
+        if(loadingDto.getLoadPosId() == null){
             log.error("The id of the pointofsale indicated in the loading is null");
             throw new InvalidEntityException("L'Id du pointofsale indique dans le loading est null ",
                     ErrorCode.LOADING_NOT_VALID);
         }
-        if(!loadingDto.getLoadPosDto().getId().equals(loadingToUpdate.getLoadPos().getId())){
+        if(!loadingDto.getLoadPosId().equals(loadingToUpdate.getLoadPosId())){
             log.error("It is not possible to modify the pointofsale associated with the Loading");
             throw new InvalidEntityException("Il n'est pas possible de modifier le pointofsale associe au Loading ",
                     ErrorCode.LOADING_NOT_VALID);
@@ -209,7 +209,7 @@ public class LoadingServiceImpl implements LoadingService {
          */
         if(!loadingDto.getLoadCode().equals(loadingToUpdate.getLoadCode())){
             //c'est le code qu'on veut modifier et on va donc verifier si l'unicite reste verifie
-            if(!isLoadingUniqueinPos(loadingDto.getLoadCode(), loadingDto.getLoadPosDto().getId())){
+            if(!isLoadingUniqueinPos(loadingDto.getLoadCode(), loadingDto.getLoadPosId())){
                 log.error("The new code indicated identify already another pointofsale in the DB");
                 throw new DuplicateEntityException("Le nouveau code indique identifie deja un autre Loading dans le " +
                         "pointofsale indique ", ErrorCode.LOADING_DUPLICATED);

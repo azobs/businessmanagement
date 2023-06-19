@@ -1,7 +1,6 @@
 package com.c2psi.businessmanagement.validators.pos.userbm;
 
 import com.c2psi.businessmanagement.Enumerations.RoleType;
-import com.c2psi.businessmanagement.dtos.pos.userbm.AddressDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.RoleDto;
 import org.springframework.util.StringUtils;
 

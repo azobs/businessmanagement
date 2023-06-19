@@ -1,20 +1,14 @@
 package com.c2psi.businessmanagement.services.contractsImpl.stock.price;
 
-import com.c2psi.businessmanagement.dtos.stock.price.BasePriceDto;
-import com.c2psi.businessmanagement.dtos.stock.price.CurrencyDto;
 import com.c2psi.businessmanagement.dtos.stock.price.SpecialPriceDto;
-import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
 import com.c2psi.businessmanagement.exceptions.*;
 import com.c2psi.businessmanagement.models.Article;
 import com.c2psi.businessmanagement.models.BasePrice;
-import com.c2psi.businessmanagement.models.Currency;
 import com.c2psi.businessmanagement.models.SpecialPrice;
 import com.c2psi.businessmanagement.repositories.stock.price.BasePriceRepository;
-import com.c2psi.businessmanagement.repositories.stock.price.CurrencyRepository;
 import com.c2psi.businessmanagement.repositories.stock.price.SpecialPriceRepository;
 import com.c2psi.businessmanagement.repositories.stock.product.ArticleRepository;
 import com.c2psi.businessmanagement.services.contracts.stock.price.SpecialPriceService;
-import com.c2psi.businessmanagement.validators.stock.price.BasePriceValidator;
 import com.c2psi.businessmanagement.validators.stock.price.SpecialPriceValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -152,7 +146,7 @@ public class SpecialPriceServiceImpl implements SpecialPriceService {
     }
 
     @Override
-    public List<SpecialPriceDto> findAllofSpecialpriceofBaseprice(Long basePriceId) {
+    public List<SpecialPriceDto> findAllSpecialpriceofBaseprice(Long basePriceId) {
         if(basePriceId == null){
             log.error("The basePriceid precise is null");
             throw new NullArgumentException("L'argument de la methode findAllofSpecialpriceofBaseprice is null");
@@ -168,7 +162,7 @@ public class SpecialPriceServiceImpl implements SpecialPriceService {
     }
 
     @Override
-    public Page<SpecialPriceDto> findPageofSpecialpriceofBaseprice(Long basePriceId, int pagenum, int pagesize) {
+    public Page<SpecialPriceDto> findPageSpecialpriceofBaseprice(Long basePriceId, int pagenum, int pagesize) {
         if(basePriceId == null){
             log.error("The basePriceid precise is null");
             throw new NullArgumentException("L'argument de la methode findPageofSpecialpriceofBaseprice is null");
@@ -219,7 +213,7 @@ public class SpecialPriceServiceImpl implements SpecialPriceService {
         /*********************************************************************************************
          * Recuperer la liste des specialprice associe au baseprice de l'article recupere ci-dessus
          */
-        List<SpecialPriceDto> specialPriceDtoList = this.findAllofSpecialpriceofBaseprice(optionalBasePrice.get().getId());
+        List<SpecialPriceDto> specialPriceDtoList = this.findAllSpecialpriceofBaseprice(optionalBasePrice.get().getId());
 
         /*********************************
          * Retourner la liste ci-dessus
@@ -261,7 +255,7 @@ public class SpecialPriceServiceImpl implements SpecialPriceService {
         /*********************************************************************************************
          * Recuperer la liste des specialprice associe au baseprice de l'article recupere ci-dessus
          */
-        Page<SpecialPriceDto> specialPriceDtoPage = this.findPageofSpecialpriceofBaseprice(optionalBasePrice.get().getId(),
+        Page<SpecialPriceDto> specialPriceDtoPage = this.findPageSpecialpriceofBaseprice(optionalBasePrice.get().getId(),
                 pagenum, pagesize);
 
         /*********************************

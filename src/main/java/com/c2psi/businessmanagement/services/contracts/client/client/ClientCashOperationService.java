@@ -1,13 +1,10 @@
 package com.c2psi.businessmanagement.services.contracts.client.client;
 
 import com.c2psi.businessmanagement.Enumerations.OperationType;
-import com.c2psi.businessmanagement.dtos.client.client.ClientCashAccountDto;
 import com.c2psi.businessmanagement.dtos.client.client.ClientCashOperationDto;
-import com.c2psi.businessmanagement.dtos.stock.provider.ProviderCashOperationDto;
 import org.springframework.data.domain.Page;
 
 import java.time.Instant;
-import java.util.Date;
 import java.util.List;
 
 public interface ClientCashOperationService {

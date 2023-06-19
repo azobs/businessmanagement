@@ -22,7 +22,7 @@ public class SaleInvoiceCapsuleValidatorTest {
     public void validate() {
         SaleInvoiceCapsuleDto sicapsDto = SaleInvoiceCapsuleDto.builder()
                 .saleicapsClientDto(ClientDto.builder().build())
-                .saleicapsPosDto(PointofsaleDto.builder().build())
+                .saleicapsPosId(PointofsaleDto.builder().build().getId())
                 .saleicapsCode("dsdsdsdsd")
                 .saleicapsInvoicingDate(new Date().toInstant())
                 .saleicapsUserbmDto(UserBMDto.builder().build())
@@ -42,7 +42,7 @@ public class SaleInvoiceCapsuleValidatorTest {
     public void validateNull() {
         SaleInvoiceCapsuleDto sicapsDto = SaleInvoiceCapsuleDto.builder()
                 .saleicapsClientDto(ClientDto.builder().build())
-                .saleicapsPosDto(PointofsaleDto.builder().build())
+                .saleicapsPosId(PointofsaleDto.builder().build().getId())
                 .saleicapsCode("dsdsdsdsd")
                 .saleicapsInvoicingDate(new Date().toInstant())
                 .saleicapsUserbmDto(UserBMDto.builder().build())
@@ -63,7 +63,7 @@ public class SaleInvoiceCapsuleValidatorTest {
     public void validateNullValue() {
         SaleInvoiceCapsuleDto sicapsDto = SaleInvoiceCapsuleDto.builder()
                 .saleicapsClientDto(null)
-                .saleicapsPosDto(null)
+                .saleicapsPosId(null)
                 .saleicapsCode(null)
                 .saleicapsInvoicingDate(null)
                 .saleicapsUserbmDto(null)
@@ -94,7 +94,7 @@ public class SaleInvoiceCapsuleValidatorTest {
     public void validateEmptyValue() {
         SaleInvoiceCapsuleDto sicapsDto = SaleInvoiceCapsuleDto.builder()
                 .saleicapsClientDto(ClientDto.builder().build())
-                .saleicapsPosDto(PointofsaleDto.builder().build())
+                .saleicapsPosId(PointofsaleDto.builder().build().getId())
                 .saleicapsCode("")
                 .saleicapsInvoicingDate(new Date().toInstant())
                 .saleicapsUserbmDto(UserBMDto.builder().build())
@@ -117,7 +117,7 @@ public class SaleInvoiceCapsuleValidatorTest {
     public void validateBlankValue() {
         SaleInvoiceCapsuleDto sicapsDto = SaleInvoiceCapsuleDto.builder()
                 .saleicapsClientDto(ClientDto.builder().build())
-                .saleicapsPosDto(PointofsaleDto.builder().build())
+                .saleicapsPosId(PointofsaleDto.builder().build().getId())
                 .saleicapsCode("                  ")
                 .saleicapsInvoicingDate(new Date().toInstant())
                 .saleicapsUserbmDto(UserBMDto.builder().build())
@@ -138,7 +138,7 @@ public class SaleInvoiceCapsuleValidatorTest {
     public void validateSizeValueLowerThan3() {
         SaleInvoiceCapsuleDto sicapsDto = SaleInvoiceCapsuleDto.builder()
                 .saleicapsClientDto(ClientDto.builder().build())
-                .saleicapsPosDto(PointofsaleDto.builder().build())
+                .saleicapsPosId(PointofsaleDto.builder().build().getId())
                 .saleicapsCode("ab")
                 .saleicapsInvoicingDate(new Date().toInstant())
                 .saleicapsUserbmDto(UserBMDto.builder().build())
@@ -159,7 +159,7 @@ public class SaleInvoiceCapsuleValidatorTest {
     public void validateSizeValueGreaterThan20() {
         SaleInvoiceCapsuleDto sicapsDto = SaleInvoiceCapsuleDto.builder()
                 .saleicapsClientDto(ClientDto.builder().build())
-                .saleicapsPosDto(PointofsaleDto.builder().build())
+                .saleicapsPosId(PointofsaleDto.builder().build().getId())
                 .saleicapsCode("abbgtrefdsedfcvxsadert")
                 .saleicapsInvoicingDate(new Date().toInstant())
                 .saleicapsUserbmDto(UserBMDto.builder().build())
@@ -180,7 +180,7 @@ public class SaleInvoiceCapsuleValidatorTest {
     public void validatePositiveValue() {
         SaleInvoiceCapsuleDto sicapsDto = SaleInvoiceCapsuleDto.builder()
                 .saleicapsClientDto(ClientDto.builder().build())
-                .saleicapsPosDto(PointofsaleDto.builder().build())
+                .saleicapsPosId(PointofsaleDto.builder().build().getId())
                 .saleicapsCode("abbgtrefd")
                 .saleicapsInvoicingDate(new Date().toInstant())
                 .saleicapsUserbmDto(UserBMDto.builder().build())
@@ -203,7 +203,7 @@ public class SaleInvoiceCapsuleValidatorTest {
     public void validateZeroValue() {
         SaleInvoiceCapsuleDto sicapsDto = SaleInvoiceCapsuleDto.builder()
                 .saleicapsClientDto(ClientDto.builder().build())
-                .saleicapsPosDto(PointofsaleDto.builder().build())
+                .saleicapsPosId(PointofsaleDto.builder().build().getId())
                 .saleicapsCode("abbgtrefd")
                 .saleicapsInvoicingDate(new Date().toInstant())
                 .saleicapsUserbmDto(UserBMDto.builder().build())
@@ -228,7 +228,7 @@ public class SaleInvoiceCapsuleValidatorTest {
         try {
             SaleInvoiceCapsuleDto sicapsDto = SaleInvoiceCapsuleDto.builder()
                     .saleicapsClientDto(ClientDto.builder().build())
-                    .saleicapsPosDto(PointofsaleDto.builder().build())
+                    .saleicapsPosId(PointofsaleDto.builder().build().getId())
                     .saleicapsCode("abbgtrefd")
                     .saleicapsInvoicingDate(sdf.parse("2023-01-23").toInstant())
                     .saleicapsUserbmDto(UserBMDto.builder().build())

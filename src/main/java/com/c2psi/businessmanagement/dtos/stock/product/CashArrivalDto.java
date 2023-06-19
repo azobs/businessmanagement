@@ -2,6 +2,7 @@ package com.c2psi.businessmanagement.dtos.stock.product;
 
 import com.c2psi.businessmanagement.Enumerations.CashArrivalType;
 import com.c2psi.businessmanagement.models.CashArrival;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
 
@@ -26,6 +27,7 @@ public class CashArrivalDto {
 
     @NotNull(message = "The entry date cannot be null")
     @PastOrPresent(message = "The entry date cannot be in the future")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     Instant cashaArrivalEntryDate;
 
     /******************************

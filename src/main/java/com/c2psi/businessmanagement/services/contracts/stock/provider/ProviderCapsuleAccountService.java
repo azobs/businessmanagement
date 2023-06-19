@@ -1,11 +1,8 @@
 package com.c2psi.businessmanagement.services.contracts.stock.provider;
 
 import com.c2psi.businessmanagement.Enumerations.OperationType;
-import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
-import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
-import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderCapsuleAccountDto;
-import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
+import com.c2psi.businessmanagement.dtos.stock.provider.ProviderCapsuleOperationDto;
 import org.springframework.data.domain.Page;
 
 import java.math.BigDecimal;
@@ -22,4 +19,7 @@ public interface ProviderCapsuleAccountService {
 
     Boolean saveCapsuleOperation(Long procapaccId, BigDecimal qte, OperationType operationType,
                                  Long userbmId, String opObject, String opDescription );
+    //Boolean saveCapsuleOperation(PosCapsuleAccountDto poscapaccDto, PosCapsuleOperationDto poscapopDto);
+    Boolean saveCapsuleOperation(ProviderCapsuleAccountDto providerCapsuleAccountDto,
+                                 ProviderCapsuleOperationDto providerCapsuleOperationDto);
 }

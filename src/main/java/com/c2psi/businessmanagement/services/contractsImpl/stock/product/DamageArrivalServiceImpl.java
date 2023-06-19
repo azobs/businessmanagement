@@ -1,12 +1,10 @@
 package com.c2psi.businessmanagement.services.contractsImpl.stock.product;
 
-import com.c2psi.businessmanagement.dtos.stock.product.CapsuleArrivalDto;
 import com.c2psi.businessmanagement.dtos.stock.product.DamageArrivalDto;
 import com.c2psi.businessmanagement.exceptions.*;
 import com.c2psi.businessmanagement.models.*;
 import com.c2psi.businessmanagement.repositories.stock.product.*;
 import com.c2psi.businessmanagement.services.contracts.stock.product.DamageArrivalService;
-import com.c2psi.businessmanagement.validators.stock.product.CapsuleArrivalValidator;
 import com.c2psi.businessmanagement.validators.stock.product.DamageArrivalValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,7 +86,7 @@ public class DamageArrivalServiceImpl implements DamageArrivalService {
             /********************************************************************************************
              * Il faut se rassurer que le pointofsale dans le sicaps est le meme que celui de l'article
              */
-            if(!damaDto.getDamaArtDto().getArtPosDto().getId().equals(damaDto.getDamaSidamDto().getSidamPosDto().getId())){
+            if(!damaDto.getDamaArtDto().getArtPosId().equals(damaDto.getDamaSidamDto().getSidamPosId())){
                 log.error("The article and the supplyinvoicedamage must belong to the same pointofsale");
                 throw new InvalidEntityException("L'article dans le damageArrival et la facture cash doivent appartenir " +
                         "au meme point de vente");

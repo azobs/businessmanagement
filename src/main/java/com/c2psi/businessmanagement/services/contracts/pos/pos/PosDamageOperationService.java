@@ -2,12 +2,9 @@ package com.c2psi.businessmanagement.services.contracts.pos.pos;
 
 import com.c2psi.businessmanagement.Enumerations.OperationType;
 import com.c2psi.businessmanagement.dtos.pos.pos.PosDamageOperationDto;
-import com.c2psi.businessmanagement.dtos.pos.pos.PosDamageAccountDto;
-import com.c2psi.businessmanagement.dtos.pos.pos.PosDamageOperationDto;
 import org.springframework.data.domain.Page;
 
 import java.time.Instant;
-import java.util.Date;
 import java.util.List;
 
 public interface PosDamageOperationService {
@@ -31,10 +28,10 @@ public interface PosDamageOperationService {
     Page<PosDamageOperationDto> findPagePosDamageOperationBetween(Long posdamopId, Instant startDate, Instant endDate,
                                                                     int pagenum, int pagesize);
 
-    List<PosDamageOperationDto> findAllPosDamageOperationBetween(
+    List<PosDamageOperationDto> findAllPosDamageOperationofTypeBetween(
             Long posdamopId, OperationType op_type, Instant startDate, Instant endDate);
 
-    Page<PosDamageOperationDto> findPagePosDamageOperationBetween(Long posdamopId, OperationType op_type,
+    Page<PosDamageOperationDto> findPagePosDamageOperationofTypeBetween(Long posdamopId, OperationType op_type,
                                                                     Instant startDate, Instant endDate,
                                                                     int pagenum, int pagesize);
 }

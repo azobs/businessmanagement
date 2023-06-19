@@ -57,14 +57,14 @@ public class DeliveryServiceImpl implements DeliveryService {
          * Sachant que d'apres le validateur le pos ne peut etre null
          * il faut se rassurer que son id n'est pas null et qu'il existe en BD
          */
-        if(deliveryDto.getDeliveryPosDto().getId() == null){
+        if(deliveryDto.getDeliveryPosId() == null){
             log.error("The id of the pointofsale associate with the delivery is null");
             throw new InvalidEntityException("L'Id du pointofsale associe a un delivery ne peut etre null ",
                     ErrorCode.DELIVERY_NOT_VALID);
         }
         //ici on est sur que cet id n'est pas null
         Optional<Pointofsale> optionalPointofsale = pointofsaleRepository.
-                findPointofsaleById(deliveryDto.getDeliveryPosDto().getId());
+                findPointofsaleById(deliveryDto.getDeliveryPosId());
         if(!optionalPointofsale.isPresent()){
             log.error("The precised posId does not match any pointofsale in the DB");
             throw new InvalidEntityException("L'id du pointofsale precise ne correspond a aucun pointofsale dans le systeme ",
@@ -94,8 +94,8 @@ public class DeliveryServiceImpl implements DeliveryService {
          * Il faut se rassurer que le pos du Userbm s'il existe est le meme que
          * le pos precise pour le delivery
          */
-        if(deliveryDto.getDeliveryUserbmDto().getBmPosDto() != null) {
-            if (!deliveryDto.getDeliveryPosDto().getId().equals(deliveryDto.getDeliveryUserbmDto().getBmPosDto().getId())) {
+        if(deliveryDto.getDeliveryUserbmDto().getBmPosId() != null) {
+            if (!deliveryDto.getDeliveryPosId().equals(deliveryDto.getDeliveryUserbmDto().getBmPosId())) {
                 log.error("The userbm precise must belong to the same pointofsale concerned by the delivery");
                 throw new InvalidEntityException("le pointofsale du userbm doit etre le meme que celui concerne par le delivery ",
                         ErrorCode.DELIVERY_NOT_VALID);
@@ -105,7 +105,7 @@ public class DeliveryServiceImpl implements DeliveryService {
         /*****************************************************************************
          * Il faut se rassurer que le delivery sera unique dans le Pos sur son code
          */
-        if(!isDeliveryUniqueinPos(deliveryDto.getDeliveryCode(), deliveryDto.getDeliveryPosDto().getId())){
+        if(!isDeliveryUniqueinPos(deliveryDto.getDeliveryCode(), deliveryDto.getDeliveryPosId())){
             log.error("There is another delivery register in the DB with the same code for the same pointofsale");
             throw new DuplicateEntityException("Un autre delivery existe deja pour le pointofsale avec le meme code ",
                     ErrorCode.DELIVERY_DUPLICATED);
@@ -160,12 +160,12 @@ public class DeliveryServiceImpl implements DeliveryService {
         /*****************************************************************
          * On se rassure que ce n'est pas le pos quon veut changer
          */
-        if(deliveryDto.getDeliveryPosDto().getId() == null){
+        if(deliveryDto.getDeliveryPosId() == null){
             log.error("The deliveryPos id can't be null");
             throw new InvalidEntityException("L'id du deliveryPos ne saurait etre null ",
                     ErrorCode.DELIVERY_NOT_VALID);
         }
-        if(!deliveryToUpdate.getDeliveryPos().getId().equals(deliveryDto.getDeliveryPosDto().getId())){
+        if(!deliveryToUpdate.getDeliveryPosId().equals(deliveryDto.getDeliveryPosId())){
             log.error("It is not possible to update the Pointofsale of a delivery");
             throw new InvalidEntityException("Il n'est pas possible de mettre a jour le Pointofsale d'un Delivery ",
                     ErrorCode.DELIVERY_NOT_VALID);
@@ -191,7 +191,7 @@ public class DeliveryServiceImpl implements DeliveryService {
          * va assurer l'unicite
          */
         if(!deliveryToUpdate.getDeliveryCode().equals(deliveryDto.getDeliveryCode())){
-            if(!isDeliveryUniqueinPos(deliveryDto.getDeliveryCode(), deliveryToUpdate.getDeliveryPos().getId())){
+            if(!isDeliveryUniqueinPos(deliveryDto.getDeliveryCode(), deliveryToUpdate.getDeliveryPosId())){
                 log.error("The new precised code is already user by another delivery");
                 throw new DuplicateEntityException("Le nouveau code precise est deja utilise par un autre delivery ",
                         ErrorCode.DELIVERY_DUPLICATED);

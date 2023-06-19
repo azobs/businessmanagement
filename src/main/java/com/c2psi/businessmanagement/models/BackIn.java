@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -17,6 +18,8 @@ import java.util.List;
 @Table(name="backin")
 public class BackIn extends AbstractEntity{
 
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @Column(nullable = false)
     Instant biDate;
     String biComment;
 
@@ -38,8 +41,9 @@ public class BackIn extends AbstractEntity{
     @JoinColumn(name = "userbm_id", nullable = false, referencedColumnName = "id")
     UserBM biUserbm;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    /*@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "pos_id", nullable = false, referencedColumnName = "id")
-    Pointofsale biPos;
+    Pointofsale biPos;*/
+    Long biPosId;
 
 }

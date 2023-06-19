@@ -1,10 +1,9 @@
 package com.c2psi.businessmanagement.services.contracts.stock.product;
 
-import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.stock.product.PackagingDto;
-import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
 import org.springframework.data.domain.Page;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface PackagingService {
@@ -19,4 +18,18 @@ public interface PackagingService {
     Page<PackagingDto> findPagePackagingofProviderinPos(Long providerId, Long posId, int pagenum, int pagesize);
     Boolean isPackagingDeleteable(Long packId);
     Boolean deletePackagingById(Long packId);
+
+    /**************************************************************
+     * Deconsignation de Packaging: il s'agit ici de convertir un
+     * certains nombre d'emballage en argent. cette deconsignation
+     * peut aller direct dans le compte cash d'un client ou alors
+     * directement etre considerer comme de l'argent verse
+     ***************************************************************/
+    BigDecimal convertPackagingToCash(Long packagingId, BigDecimal nberofPackaging);
+
+    /**************************************************************
+     *Consignation de Packaging: Il s'agit ici de convertir un
+     * montant d'argent en nombre d'emballage.
+     */
+    BigDecimal convertCashToPackaging(Long packagingId, BigDecimal amount);
 }

@@ -3,7 +3,6 @@ package com.c2psi.businessmanagement.validators.client.delivery;
 import com.c2psi.businessmanagement.dtos.client.delivery.DeliveryDetailsDto;
 import com.c2psi.businessmanagement.dtos.client.delivery.DeliveryDto;
 import com.c2psi.businessmanagement.dtos.stock.product.PackagingDto;
-import com.c2psi.businessmanagement.validators.client.command.BackInDetailsValidator;
 import org.junit.Test;
 
 import java.math.BigDecimal;

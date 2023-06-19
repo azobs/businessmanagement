@@ -15,9 +15,9 @@ import java.util.List;
 @Entity
 @Table(name="client",
         uniqueConstraints = {@UniqueConstraint(
-                columnNames = {"clientName", "clientOthername", "pos_id"}),
+                columnNames = {"clientName", "clientOthername", "clientPosId"}),
                 @UniqueConstraint(
-                        columnNames = {"clientCni", "pos_id"})})
+                        columnNames = {"clientCni", "clientPosId"})})
 public class Client extends AbstractEntity {
 
     @Column(nullable = false)
@@ -50,7 +50,8 @@ public class Client extends AbstractEntity {
     List<Command> commandList;
 
     //Each client belongs to 1 pointofsale
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    /*@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "pos_id", nullable = false, referencedColumnName = "id")
-    Pointofsale clientPos;
+    Pointofsale clientPos;*/
+    Long clientPosId;
 }

@@ -5,6 +5,7 @@ import com.c2psi.businessmanagement.dtos.pos.loading.PackingDetailsDto;
 import com.c2psi.businessmanagement.dtos.stock.product.PackagingDto;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -17,8 +18,8 @@ public class PackingDetailsValidatorTest {
     public void validate() {
         PackingDetailsDto packingDetailsDtoToValidate = PackingDetailsDto.builder()
                 .pdLoadingDto(LoadingDto.builder().build())
-                .pdNumberofpackageused(55)
-                .pdNumberofpackagereturn(50)
+                .pdNumberofpackageused(BigDecimal.valueOf(55))
+                .pdNumberofpackagereturn(BigDecimal.valueOf(50))
                 .pdPackagingDto(PackagingDto.builder().build())
                 .build();
         List<String> errors = PackingDetailsValidator.validate(packingDetailsDtoToValidate);
@@ -33,8 +34,8 @@ public class PackingDetailsValidatorTest {
     public void validateNull() {
         PackingDetailsDto packingDetailsDtoToValidate = PackingDetailsDto.builder()
                 .pdLoadingDto(LoadingDto.builder().build())
-                .pdNumberofpackageused(55)
-                .pdNumberofpackagereturn(50)
+                .pdNumberofpackageused(BigDecimal.valueOf(55))
+                .pdNumberofpackagereturn(BigDecimal.valueOf(50))
                 .pdPackagingDto(PackagingDto.builder().build())
                 .build();
         List<String> errors = PackingDetailsValidator.validate(null);
@@ -68,8 +69,8 @@ public class PackingDetailsValidatorTest {
     public void validateNegativeValue() {
         PackingDetailsDto packingDetailsDtoToValidate = PackingDetailsDto.builder()
                 .pdLoadingDto(LoadingDto.builder().build())
-                .pdNumberofpackageused(-10)
-                .pdNumberofpackagereturn(-12)
+                .pdNumberofpackageused(BigDecimal.valueOf(-10))
+                .pdNumberofpackagereturn(BigDecimal.valueOf(-12))
                 .pdPackagingDto(PackagingDto.builder().build())
                 .build();
         List<String> errors = PackingDetailsValidator.validate(packingDetailsDtoToValidate);

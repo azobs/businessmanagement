@@ -54,7 +54,7 @@ public class DeliveryServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         DeliveryDto deliveryDtoSaved = usedForTestForClient.saveDelivery(0, posDtoSaved, userBMDtoSaved,
                 deliveryService);
@@ -69,7 +69,7 @@ public class DeliveryServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         DeliveryDto deliveryDtoSaved = usedForTestForClient.saveDelivery_Invalid(0, posDtoSaved, userBMDtoSaved,
                 deliveryService);
@@ -85,7 +85,7 @@ public class DeliveryServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         DeliveryDto deliveryDtoSaved = usedForTestForClient.saveDelivery_Invalid(0, posDtoSaved, userBMDtoSaved,
                 deliveryService);
@@ -101,7 +101,7 @@ public class DeliveryServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         DeliveryDto deliveryDtoSaved = usedForTestForClient.saveDelivery_Invalid(0, posDtoSaved, userBMDtoSaved,
                 deliveryService);
@@ -116,7 +116,7 @@ public class DeliveryServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
         userBMDtoSaved.setId(null);
 
         DeliveryDto deliveryDtoSaved = usedForTestForClient.saveDelivery_Invalid(0, posDtoSaved, userBMDtoSaved,
@@ -132,7 +132,7 @@ public class DeliveryServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
         userBMDtoSaved.setId(Long.valueOf(457812));
 
         DeliveryDto deliveryDtoSaved = usedForTestForClient.saveDelivery_Invalid(0, posDtoSaved, userBMDtoSaved,
@@ -152,7 +152,7 @@ public class DeliveryServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         DeliveryDto deliveryDtoSaved = usedForTestForClient.saveDelivery_Invalid(0, posDtoSaved1, userBMDtoSaved,
                 deliveryService);
@@ -167,7 +167,7 @@ public class DeliveryServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         DeliveryDto deliveryDtoSaved = usedForTestForClient.saveDelivery(0, posDtoSaved, userBMDtoSaved,
                 deliveryService);
@@ -186,7 +186,7 @@ public class DeliveryServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         DeliveryDto deliveryDtoSaved = usedForTestForClient.saveDelivery(0, posDtoSaved, userBMDtoSaved,
                 deliveryService);
@@ -209,7 +209,7 @@ public class DeliveryServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         DeliveryDto deliveryDtoSaved = usedForTestForClient.saveDelivery(0, posDtoSaved, userBMDtoSaved,
                 deliveryService);
@@ -230,7 +230,7 @@ public class DeliveryServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         DeliveryDto deliveryDtoSaved = usedForTestForClient.saveDelivery(0, posDtoSaved, userBMDtoSaved,
                 deliveryService);
@@ -325,7 +325,7 @@ public class DeliveryServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         DeliveryDto deliveryDtoSaved = usedForTestForClient.saveDelivery(0, posDtoSaved, userBMDtoSaved,
                 deliveryService);

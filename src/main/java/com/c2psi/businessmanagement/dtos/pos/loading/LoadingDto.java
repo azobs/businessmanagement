@@ -1,25 +1,15 @@
 package com.c2psi.businessmanagement.dtos.pos.loading;
 
-import com.c2psi.businessmanagement.Enumerations.LoadingState;
-import com.c2psi.businessmanagement.dtos.client.client.ClientDto;
-import com.c2psi.businessmanagement.dtos.client.command.CommandDto;
-import com.c2psi.businessmanagement.dtos.client.command.SaleDto;
-import com.c2psi.businessmanagement.dtos.client.command.SaleInvoiceCapsuleDto;
-import com.c2psi.businessmanagement.dtos.client.command.SaleInvoiceCashDto;
-import com.c2psi.businessmanagement.dtos.client.delivery.DeliveryDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
-import com.c2psi.businessmanagement.models.Command;
 import com.c2psi.businessmanagement.models.Loading;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -32,6 +22,7 @@ public class LoadingDto {
     String loadCode;
     @NotNull(message = "The loading date cannot be null")
     @PastOrPresent(message = "The loading date cannot be in the future")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     Instant loadDate;
     /*@NotNull(message = "The loading state cannot be null")
     LoadingState loadState;*/
@@ -44,7 +35,8 @@ public class LoadingDto {
     String loadComment;
 
     @NotNull(message = "The pointofsale in which the loading has been done cannot be null")
-    PointofsaleDto loadPosDto;
+    //PointofsaleDto loadPosDto;
+    Long loadPosId;
 
     @NotNull(message = "The user who fill the loading cannot be null")
     UserBMDto loadUserbmManagerDto;
@@ -69,7 +61,8 @@ public class LoadingDto {
                 .loadTotalamountpaid(load.getLoadTotalamountpaid())
                 .loadComment(load.getLoadComment())
                 .loadSalereport(load.getLoadSalereport())
-                .loadPosDto(PointofsaleDto.fromEntity(load.getLoadPos()))
+                //.loadPosDto(PointofsaleDto.fromEntity(load.getLoadPos()))
+                .loadPosId(load.getLoadPosId())
                 .loadUserbmManagerDto(UserBMDto.fromEntity(load.getLoadUserbmManager()))
                 .loadUserbmSalerDto(UserBMDto.fromEntity(load.getLoadUserbmSaler()))
 
@@ -92,7 +85,8 @@ public class LoadingDto {
 
         load.setLoadUserbmManager(UserBMDto.toEntity(loadDto.getLoadUserbmManagerDto()));
         load.setLoadUserbmSaler(UserBMDto.toEntity(loadDto.getLoadUserbmSalerDto()));
-        load.setLoadPos(PointofsaleDto.toEntity(loadDto.getLoadPosDto()));
+        //load.setLoadPos(PointofsaleDto.toEntity(loadDto.getLoadPosDto()));
+        load.setLoadPosId(loadDto.getLoadPosId());
 
         return load;
     }

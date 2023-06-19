@@ -63,14 +63,14 @@ public class SaleInvoiceDamageServiceImpl implements SaleInvoiceDamageService {
          * c'est le cas il faut se rassurer que le pointofsale existe
          * vraiment en BD
          */
-        if(saleiDamageDto.getSaleidamPosDto().getId() == null){
+        if(saleiDamageDto.getSaleidamPosId() == null){
             log.error("The id of the pointofsale associeted with the saleinvoiceDamage can't be null");
             throw new InvalidEntityException("L'id du pointofsale associe au saleinvoiceDamage ne peut etre null",
                     ErrorCode.SALEINVOICEDAMAGE_NOT_VALID);
         }
         //L'id netant pas null on va se rassurer que ca existe vraiment en BD
         Optional<Pointofsale> optionalPointofsale = pointofsaleRepository.findPointofsaleById(
-                saleiDamageDto.getSaleidamPosDto().getId());
+                saleiDamageDto.getSaleidamPosId());
         if(!optionalPointofsale.isPresent()){
             log.error("The pointofsale precised in the request is not in the DB");
             throw new InvalidEntityException("Le pointofsale precise dans la requete n'est pas existant dans la BD ",
@@ -115,9 +115,9 @@ public class SaleInvoiceDamageServiceImpl implements SaleInvoiceDamageService {
          * Se rassurer que si le pointofsale du userbm existe alors il est
          * le meme que celui du saleinvoiceDamage
          */
-        if(saleiDamageDto.getSaleidamUserbmDto().getBmPosDto() != null){
+        if(saleiDamageDto.getSaleidamUserbmDto().getBmPosId() != null){
             //Alors il faut que ce soit un Userbm du meme pointofsale de saleinvoiceDamage
-            if(!saleiDamageDto.getSaleidamUserbmDto().getBmPosDto().getId().equals(optionalPointofsale.get().getId())){
+            if(!saleiDamageDto.getSaleidamUserbmDto().getBmPosId().equals(optionalPointofsale.get().getId())){
                 log.error("The userbm and the saleinvoiceDamage must belong to the same pointofsale ");
                 throw new InvalidEntityException("Le userbm et le saleinvoiceDamage doivent appartenir au meme pointofsale ",
                         ErrorCode.SALEINVOICEDAMAGE_NOT_VALID);
@@ -128,7 +128,7 @@ public class SaleInvoiceDamageServiceImpl implements SaleInvoiceDamageService {
          * Se rassurer que le pointofsale du client est le meme que celui
          * du saleinvoiceDamage
          */
-        if(!optionalPointofsale.get().getId().equals(saleiDamageDto.getSaleidamClientDto().getClientPosDto().getId())){
+        if(!optionalPointofsale.get().getId().equals(saleiDamageDto.getSaleidamClientDto().getClientPosId())){
             log.error("The client and the saleinvoiceDamage must belong to the same pointofsale ");
             throw new InvalidEntityException("Le client et le saleinvoiceDamage doivent appartenir au meme pointofsale ",
                     ErrorCode.SALEINVOICEDAMAGE_NOT_VALID);
@@ -137,7 +137,7 @@ public class SaleInvoiceDamageServiceImpl implements SaleInvoiceDamageService {
         /*********************************************************************
          * Se rassurer que le saleinvoiceDamage sera unique dans le pos indique
          */
-        if(!isSaleInvoiceDamageUniqueinPos(saleiDamageDto.getSaleidamCode(), saleiDamageDto.getSaleidamPosDto().getId())){
+        if(!isSaleInvoiceDamageUniqueinPos(saleiDamageDto.getSaleidamCode(), saleiDamageDto.getSaleidamPosId())){
             log.error("There is another SaleinvoiceDamage in the DB with the same code in the pointofsale indicated ");
             throw new DuplicateEntityException("Une saleinvoiceDamage existe deja dans la BD avec le meme code dans " +
                     "pour le pointofsale indique", ErrorCode.SALEINVOICEDAMAGE_DUPLICATED);
@@ -186,8 +186,8 @@ public class SaleInvoiceDamageServiceImpl implements SaleInvoiceDamageService {
         /********************************************************************
          * On se rassure que ce n'est pas le pointofsale quon veut modifier
          */
-        if(saleiDamageDto.getSaleidamPosDto().getId() != null) {
-            if (!saleInvoiceDamageToUpdate.getSaleidamPos().getId().equals(saleiDamageDto.getSaleidamPosDto().getId())) {
+        if(saleiDamageDto.getSaleidamPosId() != null) {
+            if (!saleInvoiceDamageToUpdate.getSaleidamPosId().equals(saleiDamageDto.getSaleidamPosId())) {
                 log.error("It is not possible to update the pointofsale of a saleinvoiceDamage");
                 throw new InvalidEntityException("Il n'est pas possible de update le pointofsale du saleinvoiceDamage ",
                         ErrorCode.SALEINVOICEDAMAGE_NOT_VALID);
@@ -227,7 +227,7 @@ public class SaleInvoiceDamageServiceImpl implements SaleInvoiceDamageService {
          */
         if(!saleInvoiceDamageToUpdate.getSaleidamCode().equals(saleiDamageDto.getSaleidamCode())){
             if(!isSaleInvoiceDamageUniqueinPos(saleiDamageDto.getSaleidamCode(),
-                    saleInvoiceDamageToUpdate.getSaleidamPos().getId())){
+                    saleInvoiceDamageToUpdate.getSaleidamPosId())){
                 log.error("There is another SaleinvoiceDamage in the DB with the same code in the pointofsale indicated ");
                 throw new DuplicateEntityException("Une saleinvoiceDamage existe deja dans la BD avec le meme code dans " +
                         "pour le pointofsale indique", ErrorCode.SALEINVOICEDAMAGE_DUPLICATED);

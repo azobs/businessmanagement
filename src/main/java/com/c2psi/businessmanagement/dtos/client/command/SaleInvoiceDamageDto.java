@@ -4,6 +4,7 @@ import com.c2psi.businessmanagement.dtos.client.client.ClientDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.models.SaleInvoiceDamage;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
 
@@ -30,11 +31,14 @@ public class SaleInvoiceDamageDto {
     @Positive(message = "The sale invoice number of colis must be positive")
     BigDecimal saleidamTotalcolis;
     @NotNull(message = "The sale invoice delivery date changed cannot be null")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     Instant saleidamDeliveryDate;
     @NotNull(message = "The sale invoice delivery date changed cannot be null")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     Instant saleidamInvoicingDate;
     @NotNull(message = "The point of sale concerned by the sale invoice cannot be null")
-    PointofsaleDto saleidamPosDto;
+    //PointofsaleDto saleidamPosDto;
+    Long saleidamPosId;
     @NotNull(message = "The client concerned by the sale invoice cannot be null")
     ClientDto saleidamClientDto;
     @NotNull(message = "The Userbm concerned by the sale invoice cannot be null")
@@ -56,7 +60,8 @@ public class SaleInvoiceDamageDto {
                 .saleidamNumberchanged(saleidam.getSaleidamNumberchanged())
                 .saleidamNumbertochange(saleidam.getSaleidamNumbertochange())
                 .saleidamTotalcolis(saleidam.getSaleidamTotalcolis())
-                .saleidamPosDto(PointofsaleDto.fromEntity(saleidam.getSaleidamPos()))
+                //.saleidamPosDto(PointofsaleDto.fromEntity(saleidam.getSaleidamPos()))
+                .saleidamPosId(saleidam.getSaleidamPosId())
                 .saleidamClientDto(ClientDto.fromEntity(saleidam.getSaleidamClient()))
                 .saleidamUserbmDto(UserBMDto.fromEntity(saleidam.getSaleidamUserbm()))
                 .build();
@@ -74,7 +79,8 @@ public class SaleInvoiceDamageDto {
         saleidam.setSaleidamInvoicingDate(saleidamDto.getSaleidamInvoicingDate());
         saleidam.setSaleidamNumberchanged(saleidamDto.getSaleidamNumberchanged());
         saleidam.setSaleidamNumbertochange(saleidamDto.getSaleidamNumbertochange());
-        saleidam.setSaleidamPos(PointofsaleDto.toEntity(saleidamDto.getSaleidamPosDto()));
+        //saleidam.setSaleidamPos(PointofsaleDto.toEntity(saleidamDto.getSaleidamPosDto()));
+        saleidam.setSaleidamPosId(saleidamDto.getSaleidamPosId());
         saleidam.setSaleidamTotalcolis(saleidamDto.saleidamTotalcolis);
         saleidam.setSaleidamUserbm(UserBMDto.toEntity(saleidamDto.getSaleidamUserbmDto()));
         return saleidam;

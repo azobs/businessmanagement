@@ -9,8 +9,6 @@ import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.services.contractsImpl.UsedForTestForAll;
 import com.c2psi.businessmanagement.services.contractsImpl.client.UsedForTestForClient;
 import com.c2psi.businessmanagement.services.contractsImpl.client.client.ClientServiceImpl;
-import com.c2psi.businessmanagement.services.contractsImpl.client.client.DiversCashAccountServiceImpl;
-import com.c2psi.businessmanagement.services.contractsImpl.client.client.DiversServiceImpl;
 import com.c2psi.businessmanagement.services.contractsImpl.pos.pos.EnterpriseServiceImpl;
 import com.c2psi.businessmanagement.services.contractsImpl.pos.pos.PointofsaleServiceImpl;
 import com.c2psi.businessmanagement.services.contractsImpl.pos.userbm.UserBMServiceImpl;
@@ -57,7 +55,7 @@ public class BackInServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         ClientDto clientDtoSaved = usedForTestForClient.saveClient(5, posDtoSaved, clientService);
         assertNotNull(clientDtoSaved);
@@ -80,7 +78,7 @@ public class BackInServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         ClientDto clientDtoSaved = usedForTestForClient.saveClient(5, posDtoSaved, clientService);
         assertNotNull(clientDtoSaved);

@@ -1,10 +1,8 @@
 package com.c2psi.businessmanagement.validators.pos.pos;
 
-import com.c2psi.businessmanagement.Enumerations.OperationType;
-import com.c2psi.businessmanagement.dtos.pos.pos.*;
-import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
+import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
+import com.c2psi.businessmanagement.dtos.pos.pos.PosPackagingAccountDto;
 import com.c2psi.businessmanagement.dtos.stock.product.PackagingDto;
-import com.c2psi.businessmanagement.models.PosPackagingAccount;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -21,7 +19,7 @@ public class PosPackagingAccountValidatorTest {
         PosPackagingAccountDto pospackaccToValidate = PosPackagingAccountDto.builder()
                 .ppaNumber(BigDecimal.valueOf(10))
                 .ppaPackagingDto(PackagingDto.builder().build())
-                .ppaPointofsaleDto(PointofsaleDto.builder().build())
+                .ppaPointofsaleId(PointofsaleDto.builder().build().getId())
                 .build();
         List<String> errors = PosPackagingAccountValidator.validate(pospackaccToValidate);
         System.out.println("errors == " + errors);
@@ -36,7 +34,7 @@ public class PosPackagingAccountValidatorTest {
         PosPackagingAccountDto pospackaccToValidate = PosPackagingAccountDto.builder()
                 .ppaNumber(BigDecimal.valueOf(10))
                 .ppaPackagingDto(PackagingDto.builder().build())
-                .ppaPointofsaleDto(PointofsaleDto.builder().build())
+                .ppaPointofsaleId(PointofsaleDto.builder().build().getId())
                 .build();
         List<String> errors = PosPackagingAccountValidator.validate(null);
         System.out.println("errors == " + errors);
@@ -51,7 +49,7 @@ public class PosPackagingAccountValidatorTest {
         PosPackagingAccountDto pospackaccToValidate = PosPackagingAccountDto.builder()
                 .ppaNumber(BigDecimal.valueOf(10))
                 .ppaPackagingDto(null)
-                .ppaPointofsaleDto(PointofsaleDto.builder().build())
+                .ppaPointofsaleId(PointofsaleDto.builder().build().getId())
                 .build();
         List<String> errors = PosPackagingAccountValidator.validate(pospackaccToValidate);
         System.out.println("errors == " + errors);
@@ -66,7 +64,7 @@ public class PosPackagingAccountValidatorTest {
         PosPackagingAccountDto pospackaccToValidate = PosPackagingAccountDto.builder()
                 .ppaNumber(BigDecimal.valueOf(10))
                 .ppaPackagingDto(PackagingDto.builder().build())
-                .ppaPointofsaleDto(null)
+                .ppaPointofsaleId(null)
                 .build();
         List<String> errors = PosPackagingAccountValidator.validate(pospackaccToValidate);
         System.out.println("errors == " + errors);
@@ -81,7 +79,7 @@ public class PosPackagingAccountValidatorTest {
         PosPackagingAccountDto pospackaccToValidate = PosPackagingAccountDto.builder()
                 .ppaNumber(null)
                 .ppaPackagingDto(PackagingDto.builder().build())
-                .ppaPointofsaleDto(PointofsaleDto.builder().build())
+                .ppaPointofsaleId(PointofsaleDto.builder().build().getId())
                 .build();
         List<String> errors = PosPackagingAccountValidator.validate(pospackaccToValidate);
         System.out.println("errors == " + errors);

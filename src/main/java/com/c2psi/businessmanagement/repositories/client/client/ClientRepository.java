@@ -13,16 +13,16 @@ import java.util.Optional;
 
 public interface ClientRepository extends JpaRepository<Client, Long> {
     Optional<Client> findClientById(Long clientId);
-    @Query("SELECT client FROM Client client WHERE client.clientName=:clientName AND client.clientOthername=:clientOthername AND client.clientPos.id=:posId")
+    @Query("SELECT client FROM Client client WHERE client.clientName=:clientName AND client.clientOthername=:clientOthername AND client.clientPosId=:posId")
     Optional<Client> findClientByNameAndPos(@Param("clientName") String clientName,
                                             @Param("clientOthername") String clientOthername,
                                             @Param("posId") Long posId);
-    @Query("SELECT client FROM Client client WHERE client.clientCni=:clientCni AND client.clientPos.id=:posId")
+    @Query("SELECT client FROM Client client WHERE client.clientCni=:clientCni AND client.clientPosId=:posId")
     Optional<Client> findClientByCniAndPos(@Param("clientCni") String clientCni, @Param("posId") Long posId);
     @Query("SELECT client FROM Client client WHERE client.clientAddress.email=:clientEmail")
     Optional<Client> findClientByClientEmail(@Param("clientEmail") String clientEmail);
-    @Query("SELECT client FROM Client client WHERE client.clientPos.id=:posId")
+    @Query("SELECT client FROM Client client WHERE client.clientPosId=:posId")
     Optional<List<Client>> findAllClientofPos(Long posId);
-    @Query("SELECT client FROM Client client WHERE client.clientPos.id=:posId")
+    @Query("SELECT client FROM Client client WHERE client.clientPosId=:posId")
     Optional<Page<Client>> findPageClientofPos(Long posId, Pageable pageable);
 }

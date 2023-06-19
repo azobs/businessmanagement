@@ -23,9 +23,10 @@ public class Divers extends AbstractEntity{
     @OneToMany(mappedBy = "cmdDivers", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Command> commandList;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    /*@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "pos_id", nullable = false, referencedColumnName = "id")
-    Pointofsale diversPos;
+    Pointofsale diversPos;*/
+    Long diversPosId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "dcashacc_id", nullable = false, referencedColumnName = "id")

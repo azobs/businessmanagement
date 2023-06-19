@@ -2,12 +2,9 @@ package com.c2psi.businessmanagement.services.contracts.client.client;
 
 import com.c2psi.businessmanagement.Enumerations.OperationType;
 import com.c2psi.businessmanagement.dtos.client.client.ClientDamageOperationDto;
-import com.c2psi.businessmanagement.dtos.client.client.ClientDamageAccountDto;
-import com.c2psi.businessmanagement.dtos.client.client.ClientDamageOperationDto;
 import org.springframework.data.domain.Page;
 
 import java.time.Instant;
-import java.util.Date;
 import java.util.List;
 
 public interface ClientDamageOperationService {

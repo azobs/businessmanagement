@@ -1,6 +1,6 @@
 package com.c2psi.businessmanagement.services.contracts.client.client;
 
-import com.c2psi.businessmanagement.dtos.client.client.*;
+import com.c2psi.businessmanagement.dtos.client.client.ClientDto;
 import org.springframework.data.domain.Page;
 
 import java.util.List;

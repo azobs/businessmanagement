@@ -1,16 +1,11 @@
 package com.c2psi.businessmanagement.validators.client.client;
 
-import com.c2psi.businessmanagement.dtos.client.client.ClientDto;
-import com.c2psi.businessmanagement.dtos.client.client.ClientPackagingOperationDto;
 import com.c2psi.businessmanagement.dtos.client.client.ClientSpecialpriceDto;
-import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
-import com.c2psi.businessmanagement.dtos.stock.price.SpecialPriceDto;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-import java.time.Instant;
 import java.util.*;
 
 public class ClientSpecialpriceValidator {

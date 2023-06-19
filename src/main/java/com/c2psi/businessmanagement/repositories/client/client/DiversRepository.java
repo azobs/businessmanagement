@@ -14,13 +14,13 @@ public interface DiversRepository extends JpaRepository<Divers, Long> {
     Optional<Divers> findDiversById(Long diversId);
     @Query("SELECT divers FROM Divers divers WHERE divers.diversAddress.email=:diversEmail")
     Optional<Divers> findDiversByEmail(@Param("diversEmail") String diversEmail);
-    @Query("SELECT divers FROM Divers divers WHERE divers.diversName=:diversName AND divers.diversPos.id=:posId")
+    @Query("SELECT divers FROM Divers divers WHERE divers.diversName=:diversName AND divers.diversPosId=:posId")
     Optional<List<Divers>> findAllDiversByNameinPos(@Param("diversName") String diversName, @Param("posId") Long posId);
-    @Query("SELECT divers FROM Divers divers WHERE divers.diversName=:diversName AND divers.diversPos.id=:posId")
+    @Query("SELECT divers FROM Divers divers WHERE divers.diversName=:diversName AND divers.diversPosId=:posId")
     Optional<Page<Divers>> findPageDiversByNameinPos(@Param("diversName") String diversName, @Param("posId") Long posId,
                                                      Pageable pageable);
-    @Query("SELECT divers FROM Divers divers WHERE divers.diversPos.id=:diversId")
+    @Query("SELECT divers FROM Divers divers WHERE divers.diversPosId=:diversId")
     Optional<List<Divers>> findAllDiversofPos(@Param("diversId") Long diversId);
-    @Query("SELECT divers FROM Divers divers WHERE divers.diversPos.id=:diversId")
+    @Query("SELECT divers FROM Divers divers WHERE divers.diversPosId=:diversId")
     Optional<Page<Divers>> findPageDiversofPos(@Param("diversId") Long diversId, Pageable pageable);
 }

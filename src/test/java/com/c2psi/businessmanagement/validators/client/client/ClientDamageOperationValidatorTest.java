@@ -5,7 +5,6 @@ import com.c2psi.businessmanagement.dtos.client.client.ClientDamageAccountDto;
 import com.c2psi.businessmanagement.dtos.client.client.ClientDamageOperationDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.OperationDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
-import com.c2psi.businessmanagement.validators.pos.pos.PosCashOperationValidator;
 import org.junit.Test;
 
 import java.math.BigDecimal;

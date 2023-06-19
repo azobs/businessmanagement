@@ -23,7 +23,7 @@ import java.util.List;
 @Entity
 @Table(name="supply_invoice_capsule",
         uniqueConstraints = {@UniqueConstraint(
-                columnNames = {"sicapsCode", "pos_id"})})
+                columnNames = {"sicapsCode", "sicapsPosId"})})
 public class SupplyInvoiceCapsule extends AbstractEntity {
 
     @Column(nullable = false)
@@ -55,7 +55,8 @@ public class SupplyInvoiceCapsule extends AbstractEntity {
     @JoinColumn(name = "userbm_id", nullable = false, referencedColumnName = "id")
     UserBM sicapsUserbm;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    /*@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "pos_id", nullable = false, referencedColumnName = "id")
-    Pointofsale sicapsPos;
+    Pointofsale sicapsPos;*/
+    Long sicapsPosId;
 }

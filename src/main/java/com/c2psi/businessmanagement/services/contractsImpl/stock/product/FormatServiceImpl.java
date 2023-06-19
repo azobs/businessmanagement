@@ -55,7 +55,7 @@ public class FormatServiceImpl implements FormatService {
         /*****************
          * Verify the existence of the pointofsale
          ********************************************/
-        Optional<Pointofsale> optionalPointofsale = posRepository.findPointofsaleById(formatDto.getFormatPosDto().getId());
+        Optional<Pointofsale> optionalPointofsale = posRepository.findPointofsaleById(formatDto.getFormatPosId());
         if(!optionalPointofsale.isPresent()){
             log.error("Entity formatDto not valid because the pointofsale does not exist{}", formatDto);
             throw new InvalidEntityException("Le formatDto passe en argument n'est pas valide puisque son pointofsale " +
@@ -66,7 +66,7 @@ public class FormatServiceImpl implements FormatService {
          * Verify the unicity of the format
          */
         if(isFormatExistInPosWith(formatDto.getFormatName(), formatDto.getFormatCapacity(),
-                formatDto.getFormatPosDto().getId())){
+                formatDto.getFormatPosId())){
             log.error("An entity format already exist with the same characteristic in the DB {}", formatDto);
             throw new DuplicateEntityException("Un format existe deja en BD avec les memes caracteristiques ",
                     ErrorCode.FORMAT_DUPLICATED);
@@ -121,7 +121,7 @@ public class FormatServiceImpl implements FormatService {
         if(!formatDto.getFormatName().equals(formatToUpdate.getFormatName()) ||
                 formatDto.getFormatCapacity().doubleValue() == formatToUpdate.getFormatCapacity().doubleValue()){
             if(isFormatExistInPosWith(formatDto.getFormatName(), formatDto.getFormatCapacity(),
-                    formatDto.getFormatPosDto().getId())){
+                    formatDto.getFormatPosId())){
                 log.error("An entity format already exist with the same characteristic in the DB {}", formatDto);
                 throw new DuplicateEntityException("Un format existe deja en BD avec les memes caracteristiques ",
                         ErrorCode.FORMAT_DUPLICATED);

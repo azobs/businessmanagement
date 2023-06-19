@@ -2,7 +2,6 @@ package com.c2psi.businessmanagement.validators.stock.price;
 
 import com.c2psi.businessmanagement.dtos.stock.price.BasePriceDto;
 import com.c2psi.businessmanagement.dtos.stock.price.CurrencyDto;
-import com.c2psi.businessmanagement.validators.client.delivery.DeliveryValidator;
 import org.junit.Test;
 
 import java.math.BigDecimal;

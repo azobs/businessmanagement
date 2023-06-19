@@ -1,8 +1,5 @@
 package com.c2psi.businessmanagement.services.contractsImpl.stock.product;
 
-import com.c2psi.businessmanagement.dtos.stock.product.SupplyInvoiceCapsuleDto;
-import com.c2psi.businessmanagement.dtos.stock.product.SupplyInvoiceDamageDto;
-import com.c2psi.businessmanagement.dtos.stock.product.SupplyInvoiceDamageDto;
 import com.c2psi.businessmanagement.dtos.stock.product.SupplyInvoiceDamageDto;
 import com.c2psi.businessmanagement.exceptions.*;
 import com.c2psi.businessmanagement.models.*;
@@ -11,7 +8,6 @@ import com.c2psi.businessmanagement.repositories.pos.userbm.UserBMRepository;
 import com.c2psi.businessmanagement.repositories.stock.product.SupplyInvoiceDamageRepository;
 import com.c2psi.businessmanagement.repositories.stock.provider.ProviderRepository;
 import com.c2psi.businessmanagement.services.contracts.stock.product.SupplyInvoiceDamageService;
-import com.c2psi.businessmanagement.validators.stock.product.SupplyInvoiceDamageValidator;
 import com.c2psi.businessmanagement.validators.stock.product.SupplyInvoiceDamageValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,16 +58,16 @@ public class SupplyInvoiceDamageServiceImpl implements SupplyInvoiceDamageServic
          * Verifier que l'id du pointofsale n'est pas null et quil identifie
          * vraiment un pointofsale
          */
-        if(sidamDto.getSidamPosDto().getId() == null){
+        if(sidamDto.getSidamPosId() == null){
             log.error("The id of the pointofsale in the request is null");
             throw new InvalidEntityException("L'Id du pointofsale dans le sidamDto est null ",
                     ErrorCode.SUPPLYINVOICEDAMAGE_NOT_VALID);
         }
         //L'id du pointofsale n'est pas null on verifie si c'est vraiment un pos dans la BD
         Optional<Pointofsale> optionalPointofsale = pointofsaleRepository.findPointofsaleById(
-                sidamDto.getSidamPosDto().getId());
+                sidamDto.getSidamPosId());
         if(!optionalPointofsale.isPresent()){
-            log.error("There is no pointofsale in the DB with the precised id {}", sidamDto.getSidamPosDto().getId());
+            log.error("There is no pointofsale in the DB with the precised id {}", sidamDto.getSidamPosId());
             throw new InvalidEntityException("Aucun Pointofsale n'existe avec l'id precise dans la requete ",
                     ErrorCode.SUPPLYINVOICEDAMAGE_NOT_VALID);
         }
@@ -115,19 +111,19 @@ public class SupplyInvoiceDamageServiceImpl implements SupplyInvoiceDamageServic
         /********************************************************************************************
          * On verifie que le pointofsale dans la requete est le meme que celui du userbm et provider
          */
-        if(!optionalPointofsale.get().getId().equals(optionalUserBM.get().getBmPos().getId())){
+        if(!optionalPointofsale.get().getId().equals(optionalUserBM.get().getBmPosId())){
             log.error("The pointofsale in the sidamDto must be the same with the one of the userBM");
             throw new InvalidEntityException("Le pointofsale dans la requete doit etre le meme que celui du UserBM " +
                     "precise precise dans le sidamDto ", ErrorCode.SUPPLYINVOICEDAMAGE_NOT_VALID);
         }
 
-        if(!optionalPointofsale.get().getId().equals(optionalProvider.get().getProviderPos().getId())){
+        if(!optionalPointofsale.get().getId().equals(optionalProvider.get().getProviderPosId())){
             log.error("The pointofsale in the sidamDto must be the same with the one of the provider");
             throw new InvalidEntityException("Le pointofsale dans la requete doit etre le meme que celui du provider " +
                     "precise precise dans le sidamDto ", ErrorCode.SUPPLYINVOICEDAMAGE_NOT_VALID);
         }
 
-        if(!optionalProvider.get().getProviderPos().getId().equals(optionalUserBM.get().getBmPos().getId())){
+        if(!optionalProvider.get().getProviderPosId().equals(optionalUserBM.get().getBmPosId())){
             log.error("The Provider in the sidamDto must be the same with the one of the UserBM");
             throw new InvalidEntityException("Le Provider dans la requete doit etre le meme que celui du UserBM " +
                     "precise precise dans le sidamDto ", ErrorCode.SUPPLYINVOICEDAMAGE_NOT_VALID);
@@ -137,7 +133,7 @@ public class SupplyInvoiceDamageServiceImpl implements SupplyInvoiceDamageServic
          * On verifie quil y a pas un autre SupplyInvoiceDamage avec le meme code deja enregistre en BD
          * pour le meme pointofsale
          */
-        if(!isSupplyInvoiceDamageUnique(sidamDto.getSidamCode(), sidamDto.getSidamPosDto().getId())){
+        if(!isSupplyInvoiceDamageUnique(sidamDto.getSidamCode(), sidamDto.getSidamPosId())){
             log.error("There is a supplyinvoiceDamage already register in the DB with the same code in the same pointofsale");
             throw new DuplicateEntityException("Une facture supplyinvoiceDamage est deja existante dans la BD avec ce code",
                     ErrorCode.SUPPLYINVOICEDAMAGE_DUPLICATED);
@@ -193,7 +189,7 @@ public class SupplyInvoiceDamageServiceImpl implements SupplyInvoiceDamageServic
         /**************************************************************************
          * On va se rassurer que ce n'est pas le pointofsale qu'on veut modifier
          */
-        if(!supplyInvoiceDamageToUpdate.getSidamPos().getId().equals(sidamDto.getSidamPosDto().getId())){
+        if(!supplyInvoiceDamageToUpdate.getSidamPosId().equals(sidamDto.getSidamPosId())){
             log.error("It is not possible to update the pointofsale of that siDamageDto");
             throw new InvalidEntityException("Il n'est pas possible de modifier le Pointofsale du siDamageDto ",
                     ErrorCode.SUPPLYINVOICEDAMAGE_NOT_VALID);
@@ -222,7 +218,7 @@ public class SupplyInvoiceDamageServiceImpl implements SupplyInvoiceDamageServic
             /********************
              * On se rassure donc que le nouveau provider est dans le meme pointofsale
              */
-            if(!newProvider.getProviderPos().getId().equals(sidamDto.getSidamPosDto().getId())){
+            if(!newProvider.getProviderPosId().equals(sidamDto.getSidamPosId())){
                 log.error("The new provider don't belong to the same pointofsale");
                 throw new InvalidEntityException("Le nouveau provider n'est pas dans le meme pointofsale que le " +
                         "siDamageDto et cette mise a jour ne peut donc etre effectue", ErrorCode.SUPPLYINVOICEDAMAGE_NOT_VALID);
@@ -240,7 +236,7 @@ public class SupplyInvoiceDamageServiceImpl implements SupplyInvoiceDamageServic
              *  Alors cest le siDamageCode quon veut modifier
              *  on se rassure donc quil ny aura pas de duplicata
              */
-            if(!isSupplyInvoiceDamageUnique(sidamDto.getSidamCode(), sidamDto.getSidamPosDto().getId())){
+            if(!isSupplyInvoiceDamageUnique(sidamDto.getSidamCode(), sidamDto.getSidamPosId())){
                 log.error("There is a supplyinvoiceDamage already register in the DB with the same code in the same pointofsale");
                 throw new DuplicateEntityException("Une facture supplyinvoiceDamage est deja existante dans la BD avec ce code",
                         ErrorCode.SUPPLYINVOICEDAMAGE_DUPLICATED);

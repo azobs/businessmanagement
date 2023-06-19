@@ -1,7 +1,6 @@
 package com.c2psi.businessmanagement.services.contractsImpl.stock.provider;
 
 import com.c2psi.businessmanagement.BusinessmanagementApplication;
-import com.c2psi.businessmanagement.dtos.client.client.ClientDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
 import com.c2psi.businessmanagement.exceptions.DuplicateEntityException;
@@ -192,7 +191,8 @@ public class ProviderServiceImplTest {
         assertNotNull(providerDtoSaved);
         assertNotNull(providerDtoSaved.getProviderCaDto().getId());
 
-        providerDtoSaved.getProviderPosDto().setId(Long.valueOf(4587));
+        //providerDtoSaved.getProviderPosDto().setId(Long.valueOf(4587));
+        providerDtoSaved.setProviderPosId(Long.valueOf(4587));
 
         ProviderDto providerDtoUpdated = providerService.updateProvider(providerDtoSaved);
         assertNotNull(providerDtoUpdated);

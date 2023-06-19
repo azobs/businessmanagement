@@ -118,8 +118,8 @@ public class ClientSpecialpriceServiceImpl implements ClientSpecialpriceService 
         /*************************************************************************************
          * Il faut verifier que l'article et le client sont bel et bien du meme pointofsale
          */
-        Long idPosArticle = optionalArticle.get().getArtPos().getId();
-        Long idPosClient = optionalClient.get().getClientPos().getId();
+        Long idPosArticle = optionalArticle.get().getArtPosId();
+        Long idPosClient = optionalClient.get().getClientPosId();
         if(!idPosClient.equals(idPosArticle)){
             log.error("The article and the Client that will be associated by the specialprice must belong to the same " +
                     " pointofsale ");
@@ -283,6 +283,23 @@ public class ClientSpecialpriceServiceImpl implements ClientSpecialpriceService 
                 findClientSpecialpriceofArticleforClient(clientId, articleId);
 
         return optionalClientSpecialprice.isEmpty();
+    }
+
+    @Override
+    public Boolean isClientSpecialpriceofArticleforClientExist(Long articleId, Long clientId) {
+        if(clientId == null){
+            log.error("The clientId precised as argument is null");
+            throw new NullArgumentException("Le clientId passe en argument est null");
+        }
+
+        if(articleId == null){
+            log.error("The articleId precised as argument is null");
+            throw new NullArgumentException("Le articleId passe en argument est null");
+        }
+
+        Optional<ClientSpecialprice> optionalClientSpecialprice = clientSpecialpriceRepository.
+                findClientSpecialpriceofArticleforClient(clientId, articleId);
+        return optionalClientSpecialprice.isPresent();
     }
 
     @Override
@@ -468,7 +485,7 @@ public class ClientSpecialpriceServiceImpl implements ClientSpecialpriceService 
     }
 
     @Override
-    public BigDecimal getEffectivePriceToApplied(BigDecimal qteCommand, Long articleId, Long clientId) {
+    public BigDecimal getEffectiveSpecialPriceToApplied(BigDecimal qteCommand, Long articleId, Long clientId) {
         /*************************************************************
          * Verifier que les parametres envoye ne sont pas null
          */
@@ -507,13 +524,14 @@ public class ClientSpecialpriceServiceImpl implements ClientSpecialpriceService 
         if(!optionalClient.isPresent()){
             /****
              * Si le client n'existe pas on retourne le prix commun de l'article
+             * ca cela signifie que c'est un divers
              */
             return this.getCommonEffectivePriceToApplied(qteCommand, articleId);
         }
         //On a le client
 
         /******************************************************
-         * On recupere le prix special associe a cel client pour cet article si il existe
+         * On recupere le prix special associe a ce client pour cet article si il existe
          * car s'il nexiste pas alors on va simplement retourner le prix normal de l'article
          * comme un client divers
          */

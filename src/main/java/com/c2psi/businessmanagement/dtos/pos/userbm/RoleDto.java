@@ -2,14 +2,10 @@ package com.c2psi.businessmanagement.dtos.pos.userbm;
 
 import com.c2psi.businessmanagement.Enumerations.RoleType;
 import com.c2psi.businessmanagement.dtos.pos.pos.EnterpriseDto;
-import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
-import com.c2psi.businessmanagement.models.Pointofsale;
 import com.c2psi.businessmanagement.models.Role;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 

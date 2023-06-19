@@ -29,7 +29,8 @@ public class ClientDto {
     @NotNull(message = "The cash account of the client cannot be null")
     ClientCashAccountDto clientCaDto;
     @NotNull(message = "The client must be associated with a Pointofsale")
-    PointofsaleDto clientPosDto;
+    //PointofsaleDto clientPosDto;
+    Long clientPosId;
     @Valid
     AddressDto clientAddressDto;
     //List of specialprice applied to a client
@@ -65,7 +66,8 @@ public class ClientDto {
                 .clientOthername(client.getClientOthername())
                 .clientCni(client.getClientCni())
                 .clientCaDto(ClientCashAccountDto.fromEntity(client.getClientCa()))
-                .clientPosDto(PointofsaleDto.fromEntity(client.getClientPos()))
+                //.clientPosDto(PointofsaleDto.fromEntity(client.getClientPos()))
+                .clientPosId(client.getClientPosId())
                 .clientAddressDto(AddressDto.fromEntity(client.getClientAddress()))
                 .build();
     }
@@ -80,7 +82,8 @@ public class ClientDto {
         client.setClientOthername(client_dto.getClientOthername());
         client.setClientCni(client_dto.getClientCni());
         client.setClientCa(ClientCashAccountDto.toEntity(client_dto.getClientCaDto()));
-        client.setClientPos(PointofsaleDto.toEntity(client_dto.getClientPosDto()));
+        //client.setClientPos(PointofsaleDto.toEntity(client_dto.getClientPosDto()));
+        client.setClientPosId(client_dto.getClientPosId());
         client.setClientAddress(AddressDto.toEntity(client_dto.getClientAddressDto()));
 
         return client;

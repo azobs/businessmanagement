@@ -1,6 +1,5 @@
 package com.c2psi.businessmanagement.validators.client.client;
 
-import com.c2psi.businessmanagement.dtos.client.client.ClientCashOperationDto;
 import com.c2psi.businessmanagement.dtos.client.client.DiversCashOperationDto;
 import com.c2psi.businessmanagement.validators.pos.pos.OperationValidator;
 

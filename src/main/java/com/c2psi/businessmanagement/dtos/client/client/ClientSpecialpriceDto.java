@@ -9,7 +9,6 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import java.time.Instant;
-import java.util.Date;
 
 @Data
 @Builder

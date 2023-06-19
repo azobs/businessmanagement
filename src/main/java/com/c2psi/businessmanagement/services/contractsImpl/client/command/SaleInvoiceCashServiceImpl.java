@@ -64,14 +64,14 @@ public class SaleInvoiceCashServiceImpl implements SaleInvoiceCashService {
          * c'est le cas il faut se rassurer que le pointofsale existe
          * vraiment en BD
          */
-        if(saleicashDto.getSaleicashPosDto().getId() == null){
+        if(saleicashDto.getSaleicashPosId() == null){
             log.error("The id of the pointofsale associeted with the saleinvoicecash can't be null");
             throw new InvalidEntityException("L'id du pointofsale associe au saleinvoicecash ne peut etre null",
                     ErrorCode.SALEINVOICECASH_NOT_VALID);
         }
         //L'id netant pas null on va se rassurer que ca existe vraiment en BD
         Optional<Pointofsale> optionalPointofsale = pointofsaleRepository.findPointofsaleById(
-                saleicashDto.getSaleicashPosDto().getId());
+                saleicashDto.getSaleicashPosId());
         if(!optionalPointofsale.isPresent()){
             log.error("The pointofsale precised in the request is not in the DB");
             throw new InvalidEntityException("Le pointofsale precise dans la requete n'est pas existant dans la BD ",
@@ -116,9 +116,9 @@ public class SaleInvoiceCashServiceImpl implements SaleInvoiceCashService {
          * Se rassurer que si le pointofsale du userbm existe alors il est
          * le meme que celui du saleinvoicecash
          */
-        if(saleicashDto.getSaleicashUserbmDto().getBmPosDto() != null){
+        if(saleicashDto.getSaleicashUserbmDto().getBmPosId() != null){
             //Alors il faut que ce soit un Userbm du meme pointofsale de saleinvoicecash
-            if(!saleicashDto.getSaleicashUserbmDto().getBmPosDto().getId().equals(optionalPointofsale.get().getId())){
+            if(!saleicashDto.getSaleicashUserbmDto().getBmPosId().equals(optionalPointofsale.get().getId())){
                 log.error("The userbm and the saleinvoicecash must belong to the same pointofsale ");
                 throw new InvalidEntityException("Le userbm et le saleinvoicecash doivent appartenir au meme pointofsale ",
                         ErrorCode.SALEINVOICECASH_NOT_VALID);
@@ -129,7 +129,7 @@ public class SaleInvoiceCashServiceImpl implements SaleInvoiceCashService {
          * Se rassurer que le pointofsale du client est le meme que celui
          * du saleinvoicecash
          */
-        if(!optionalPointofsale.get().getId().equals(saleicashDto.getSaleicashClientDto().getClientPosDto().getId())){
+        if(!optionalPointofsale.get().getId().equals(saleicashDto.getSaleicashClientDto().getClientPosId())){
             log.error("The client and the saleinvoicecash must belong to the same pointofsale ");
             throw new InvalidEntityException("Le client et le saleinvoicecash doivent appartenir au meme pointofsale ",
                     ErrorCode.SALEINVOICECASH_NOT_VALID);
@@ -138,7 +138,7 @@ public class SaleInvoiceCashServiceImpl implements SaleInvoiceCashService {
         /*********************************************************************
          * Se rassurer que le saleinvoicecash sera unique dans le pos indique
          */
-        if(!isSaleInvoiceCashUniqueinPos(saleicashDto.getSaleicashCode(), saleicashDto.getSaleicashPosDto().getId())){
+        if(!isSaleInvoiceCashUniqueinPos(saleicashDto.getSaleicashCode(), saleicashDto.getSaleicashPosId())){
             log.error("There is another Saleinvoicecash in the DB with the same code in the pointofsale indicated ");
             throw new DuplicateEntityException("Une saleinvoicecash existe deja dans la BD avec le meme code dans " +
                     "pour le pointofsale indique", ErrorCode.SALEINVOICECASH_DUPLICATED);
@@ -187,8 +187,8 @@ public class SaleInvoiceCashServiceImpl implements SaleInvoiceCashService {
         /********************************************************************
          * On se rassure que ce n'est pas le pointofsale quon veut modifier
          */
-        if(saleicashDto.getSaleicashPosDto().getId() != null) {
-            if (!saleInvoiceCashToUpdate.getSaleicashPos().getId().equals(saleicashDto.getSaleicashPosDto().getId())) {
+        if(saleicashDto.getSaleicashPosId() != null) {
+            if (!saleInvoiceCashToUpdate.getSaleicashPosId().equals(saleicashDto.getSaleicashPosId())) {
                 log.error("It is not possible to update the pointofsale of a saleinvoicecash");
                 throw new InvalidEntityException("Il n'est pas possible de update le pointofsale du saleinvoicecash ",
                         ErrorCode.SALEINVOICECASH_NOT_VALID);
@@ -228,7 +228,7 @@ public class SaleInvoiceCashServiceImpl implements SaleInvoiceCashService {
          */
         if(!saleInvoiceCashToUpdate.getSaleicashCode().equals(saleicashDto.getSaleicashCode())){
             if(!isSaleInvoiceCashUniqueinPos(saleicashDto.getSaleicashCode(),
-                    saleInvoiceCashToUpdate.getSaleicashPos().getId())){
+                    saleInvoiceCashToUpdate.getSaleicashPosId())){
                 log.error("There is another Saleinvoicecash in the DB with the same code in the pointofsale indicated ");
                 throw new DuplicateEntityException("Une saleinvoicecash existe deja dans la BD avec le meme code dans " +
                         "pour le pointofsale indique", ErrorCode.SALEINVOICECASH_DUPLICATED);

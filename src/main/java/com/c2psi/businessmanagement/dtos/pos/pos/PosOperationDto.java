@@ -2,6 +2,7 @@ package com.c2psi.businessmanagement.dtos.pos.pos;
 
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.models.PosOperation;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
 
@@ -11,10 +12,13 @@ import javax.validation.constraints.NotNull;
 @Data
 @Builder
 public class PosOperationDto {
+    @ApiModelProperty(value = "The id of PosOperationDto", name = "id", dataType = "Long")
     Long id;
     @Valid
+    @ApiModelProperty(value = "The embedded operation", name = "posopOperationDto", dataType = "OperationDto")
     OperationDto posopOperationDto;
     @NotNull(message = "The user that execute the operation cannot be null")
+    @ApiModelProperty(value = "The userBM associated", name = "posopUserbmDto", dataType = "UserBMDto")
     UserBMDto posopUserbmDto;
     /***********************************
      * Mapping method development:   ***

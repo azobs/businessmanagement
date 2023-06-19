@@ -14,15 +14,17 @@ public interface CategoryService {
 
     CategoryDto findCategoryById(Long catId);
 
+    CategoryDto findCategoryParentof(Long catId);
+
     List<CategoryDto> findAscandantCategoryof(Long catId);
 
     List<CategoryDto> findChildCategoryOf(Long catId);
 
     List<CategoryDto> findAllCategoryInPointofsale(Long posId);
 
-    Page<CategoryDto> findCategoryInPointofsale(Long posId, int pagenum, int pagesize);
+    Page<CategoryDto> findPageCategoryInPointofsale(Long posId, int pagenum, int pagesize);
 
-    Page<CategoryDto> findAllByCatNameInPosContaining(Long posId, String sample, int pagenum, int pagesize);
+    Page<CategoryDto> findPageByCatNameInPosContaining(Long posId, String sample, int pagenum, int pagesize);
 
     Boolean isCategoryDeleteable(Long catId);
 

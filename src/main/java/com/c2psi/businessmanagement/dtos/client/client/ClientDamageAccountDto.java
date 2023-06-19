@@ -1,12 +1,10 @@
 package com.c2psi.businessmanagement.dtos.client.client;
 
-import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
 import com.c2psi.businessmanagement.models.ClientDamageAccount;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 

@@ -1,15 +1,11 @@
 package com.c2psi.businessmanagement.validators.client.command;
 
-import com.c2psi.businessmanagement.Enumerations.SaleType;
-import com.c2psi.businessmanagement.dtos.client.command.BackInDto;
 import com.c2psi.businessmanagement.dtos.client.command.SaleDto;
-import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

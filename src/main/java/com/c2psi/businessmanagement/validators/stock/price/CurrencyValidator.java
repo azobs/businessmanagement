@@ -1,8 +1,6 @@
 package com.c2psi.businessmanagement.validators.stock.price;
 
-import com.c2psi.businessmanagement.dtos.stock.price.CurrencyConversionDto;
 import com.c2psi.businessmanagement.dtos.stock.price.CurrencyDto;
-import org.springframework.util.StringUtils;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;

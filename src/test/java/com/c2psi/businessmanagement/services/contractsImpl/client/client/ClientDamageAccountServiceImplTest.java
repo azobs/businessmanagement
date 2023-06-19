@@ -2,7 +2,9 @@ package com.c2psi.businessmanagement.services.contractsImpl.client.client;
 
 import com.c2psi.businessmanagement.BusinessmanagementApplication;
 import com.c2psi.businessmanagement.Enumerations.OperationType;
-import com.c2psi.businessmanagement.dtos.client.client.*;
+import com.c2psi.businessmanagement.dtos.client.client.ClientDamageAccountDto;
+import com.c2psi.businessmanagement.dtos.client.client.ClientDamageOperationDto;
+import com.c2psi.businessmanagement.dtos.client.client.ClientDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.dtos.stock.price.BasePriceDto;

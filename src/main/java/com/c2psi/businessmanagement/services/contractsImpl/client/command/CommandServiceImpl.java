@@ -84,12 +84,12 @@ public class CommandServiceImpl implements CommandService {
          *On verifie que l'id du Pointofsale associe n'est pas null et si
          * c'est le cas on se rassure qu'il existe vraiment en BD
          */
-        if(cmdDto.getCmdPosDto().getId() == null){
+        if(cmdDto.getCmdPosId() == null){
             log.error("The associate pointofsale id cannot be null");
             throw new InvalidEntityException("L'id du pointofsale associe ne peut etre null ",
                     ErrorCode.COMMAND_NOT_VALID);
         }
-        Optional<Pointofsale> optionalPointofsale =  pointofsaleRepository.findPointofsaleById(cmdDto.getCmdPosDto().getId());
+        Optional<Pointofsale> optionalPointofsale =  pointofsaleRepository.findPointofsaleById(cmdDto.getCmdPosId());
         if(!optionalPointofsale.isPresent()){
             log.error("The associate pointofsale indicated is not in the DB");
             throw new InvalidEntityException("Le pointofsale associe a la commande est inexistant de la BD",
@@ -186,13 +186,13 @@ public class CommandServiceImpl implements CommandService {
          * On doit se rassurer que le userbm est bel et bien un userbm du meme pointofsale
          * que celui de la command
          */
-        if(cmdDto.getCmdUserbmDto().getBmPosDto() == null){
+        if(cmdDto.getCmdUserbmDto().getBmPosId() == null){
             log.error("The pointofsale of the userbm can't be null");
             throw new InvalidEntityException("Le pointofsale du userbm ne saurait etre null ",
                     ErrorCode.COMMAND_NOT_VALID);
         }
 
-        if(!cmdDto.getCmdPosDto().getId().equals(cmdDto.getCmdUserbmDto().getBmPosDto().getId())){
+        if(!cmdDto.getCmdPosId().equals(cmdDto.getCmdUserbmDto().getBmPosId())){
             log.error("The pointofsale of the command must be the same with the one of the command associated");
             throw new InvalidEntityException("Le pointofsale de la commande doit etre le meme que celui de la commande " +
                     "associe", ErrorCode.COMMAND_NOT_VALID);
@@ -212,7 +212,7 @@ public class CommandServiceImpl implements CommandService {
         /*****************************************************************
          * On se rassure de l'unicite du code de la Command dans le Pos
          */
-        if(!isCommandUniqueinPos(cmdDto.getCmdCode(), cmdDto.getCmdPosDto().getId())){
+        if(!isCommandUniqueinPos(cmdDto.getCmdCode(), cmdDto.getCmdPosId())){
             log.error("There is another command with the same code in the same pos register in the DB");
             throw new DuplicateEntityException("Une autre commande existe deja dans le systeme avec le meme code et " +
                     "appartenant au meme pointofsale", ErrorCode.COMMAND_DUPLICATED);
@@ -286,7 +286,7 @@ public class CommandServiceImpl implements CommandService {
          * On se rassure que ce n'est pas le pointofsale quon veut modifier
          * car si c'est le cas on refuse
          */
-        if(!cmdDto.getCmdPosDto().getId().equals(cmdToUpdate.getCommandPos().getId())){
+        if(!cmdDto.getCmdPosId().equals(cmdToUpdate.getCommandPosId())){
             log.error("The pointofsale of the command can't be updated");
             throw new InvalidEntityException("Il n'est pas possible de modifier le pointofsale d'une command",
                     ErrorCode.COMMAND_NOT_VALID);
@@ -380,7 +380,7 @@ public class CommandServiceImpl implements CommandService {
          */
         if(!cmdDto.getCmdCode().equals(cmdToUpdate.getCmdCode())){
             //System.err.println("isUnique "+isCommandUniqueinPos(cmdToUpdate.getCmdCode(), cmdToUpdate.getCommandPos().getId()));
-            if(!isCommandUniqueinPos(cmdDto.getCmdCode(), cmdToUpdate.getCommandPos().getId())){
+            if(!isCommandUniqueinPos(cmdDto.getCmdCode(), cmdToUpdate.getCommandPosId())){
                 log.error("The new command code enter is already used by another command in DB");
                 throw new DuplicateEntityException("le nouveau code est deja utilise par une autre commande en BD ",
                         ErrorCode.COMMAND_DUPLICATED);
@@ -595,7 +595,7 @@ public class CommandServiceImpl implements CommandService {
          * Il faut se rassurer que le pointofsale du deliveryToSet est le meme
          * que celui de la command a update
          */
-        if(!deliveryToSet.getDeliveryPos().getId().equals(cmdToUpdate.getCommandPos().getId())){
+        if(!deliveryToSet.getDeliveryPosId().equals(cmdToUpdate.getCommandPosId())){
             log.error("The precise delivery must belong to the same pointofsale as the command");
             throw new InvalidEntityException("Le delivery precise doit appartenir au meme pointofsale que la command",
                     ErrorCode.COMMAND_NOT_VALID);

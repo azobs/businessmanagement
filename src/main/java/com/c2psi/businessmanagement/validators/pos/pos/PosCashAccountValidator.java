@@ -1,6 +1,5 @@
 package com.c2psi.businessmanagement.validators.pos.pos;
 
-import com.c2psi.businessmanagement.dtos.pos.pos.PosCapsuleOperationDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PosCashAccountDto;
 
 import javax.validation.ConstraintViolation;

@@ -1,11 +1,8 @@
 package com.c2psi.businessmanagement.services.contractsImpl.stock.provider;
 
-import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.AddressDto;
-import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
 import com.c2psi.businessmanagement.exceptions.*;
-import com.c2psi.businessmanagement.models.Enterprise;
 import com.c2psi.businessmanagement.models.Pointofsale;
 import com.c2psi.businessmanagement.models.Provider;
 import com.c2psi.businessmanagement.repositories.pos.pos.PointofsaleRepository;
@@ -14,7 +11,6 @@ import com.c2psi.businessmanagement.repositories.stock.provider.ProviderCashAcco
 import com.c2psi.businessmanagement.repositories.stock.provider.ProviderCashOperationRepository;
 import com.c2psi.businessmanagement.repositories.stock.provider.ProviderRepository;
 import com.c2psi.businessmanagement.services.contracts.stock.provider.ProviderService;
-import com.c2psi.businessmanagement.validators.pos.pos.PointofsaleValidator;
 import com.c2psi.businessmanagement.validators.stock.provider.ProviderValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,13 +62,13 @@ public class ProviderServiceImpl implements ProviderService {
         /**********************************************************************
          * On se rassure de l'existence du pointofsale associe au provider
          */
-        if(providerDto.getProviderPosDto().getId() == null){
+        if(providerDto.getProviderPosId() == null){
             log.error("The pointofsale for the provider has not been precised");
             throw new InvalidEntityException("Aucun pointofsale n'est associe avec le provider"
                     , ErrorCode.POINTOFSALE_NOT_FOUND);
         }
         Optional<Pointofsale> optionalPointofsale = pointofsaleRepository.findPointofsaleById
-                (providerDto.getProviderPosDto().getId());
+                (providerDto.getProviderPosId());
         if(!optionalPointofsale.isPresent()){
             log.error("The pointofsale precised does not exist in the DB");
             throw new EntityNotFoundException("Le Pointofsale associe avec le provider n'existe pas en BD"
@@ -89,7 +85,7 @@ public class ProviderServiceImpl implements ProviderService {
          * Il faut se rassurer qu'il n'y aurait pas de duplicata de provider dans la base de donnee
          */
         if(!isProviderUniqueForPos(providerDto.getProviderName(), providerDto.getProviderAddressDto().getEmail(),
-                providerDto.getProviderPosDto().getId())){
+                providerDto.getProviderPosId())){
             log.error("A provider already exist in the DB for the same pointofsale with the same name");
             throw new DuplicateEntityException("Un provider existe deja dans le pointofsale precise avec le " +
                     "meme providerName ", ErrorCode.PROVIDER_DUPLICATED);
@@ -139,7 +135,7 @@ public class ProviderServiceImpl implements ProviderService {
          * On verifie que ce n'est pas le pointofsale quon veut modifier car si cest le cas
          * la requete doit etre rejete
          */
-        if(!providerToUpdate.getProviderPos().getId().equals(providerDto.getProviderPosDto().getId())){
+        if(!providerToUpdate.getProviderPosId().equals(providerDto.getProviderPosId())){
             log.error("The pointofsale of a provider cannot be modified");
             throw new InvalidEntityException("Le pointofsale d'un provider ne peut etre modifier lors d'une " +
                     "requete de modification du provider ", ErrorCode.PROVIDER_NOT_VALID);
@@ -171,7 +167,7 @@ public class ProviderServiceImpl implements ProviderService {
             /***************
              * On se rassure quil y aura pas de duplicata de provider
              */
-            if(isProviderExistWithNameinPos(providerDto.getProviderName(), providerDto.getProviderPosDto().getId())){
+            if(isProviderExistWithNameinPos(providerDto.getProviderName(), providerDto.getProviderPosId())){
                 log.error("The new email precised for the provider already used by another entity");
                 throw new DuplicateEntityException("Une autre entite en BD utilise deja cet email ",
                         ErrorCode.PROVIDER_DUPLICATED);
@@ -187,6 +183,21 @@ public class ProviderServiceImpl implements ProviderService {
 
         log.info("After all verification, the record {} can be done on the DB", providerDto);
         return ProviderDto.fromEntity(providerRepository.save(providerToUpdate));
+    }
+
+    @Override
+    public ProviderDto findProviderById(Long providerId) {
+        if(providerId == null){
+            log.info("The argument providerId sent is null");
+            throw new NullArgumentException("L'argument envoye est null");
+        }
+        Optional<Provider> optionalProvider = providerRepository.findProviderById(providerId);
+        if(!optionalProvider.isPresent()){
+            log.info("There is no provider in the DB with the id precise {}", providerId);
+            throw new EntityNotFoundException("Aucun provider n'existe avec le id passe en argument",
+                    ErrorCode.PROVIDER_NOT_FOUND);
+        }
+        return ProviderDto.fromEntity(optionalProvider.get());
     }
 
     public Boolean isProviderExistWithEmail(String providerEmail) {

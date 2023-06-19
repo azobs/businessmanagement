@@ -18,7 +18,7 @@ public class ProviderValidatorTest {
     public void validate() {
         ProviderDto providerDto = ProviderDto.builder()
                 .providerCaDto(ProviderCashAccountDto.builder().build())
-                .providerPosDto(PointofsaleDto.builder().build())
+                .providerPosId(PointofsaleDto.builder().build().getId())
                 .providerAddressDto(AddressDto.builder().build())
                 .providerName("dsdfds")
                 .providerDescription("")
@@ -36,7 +36,7 @@ public class ProviderValidatorTest {
     public void validateNull() {
         ProviderDto providerDto = ProviderDto.builder()
                 .providerCaDto(ProviderCashAccountDto.builder().build())
-                .providerPosDto(PointofsaleDto.builder().build())
+                .providerPosId(PointofsaleDto.builder().build().getId())
                 .providerAddressDto(AddressDto.builder().build())
                 .providerName("dsdfds")
                 .providerDescription("")
@@ -54,7 +54,7 @@ public class ProviderValidatorTest {
     public void validateNullValue() {
         ProviderDto providerDto = ProviderDto.builder()
                 .providerCaDto(null)
-                .providerPosDto(null)
+                .providerPosId(null)
                 .providerAddressDto(null)
                 .providerName(null)
                 .providerDescription(null)
@@ -80,7 +80,7 @@ public class ProviderValidatorTest {
     public void validateEmptyValue() {
         ProviderDto providerDto = ProviderDto.builder()
                 .providerCaDto(ProviderCashAccountDto.builder().build())
-                .providerPosDto(PointofsaleDto.builder().build())
+                .providerPosId(PointofsaleDto.builder().build().getId())
                 .providerAddressDto(AddressDto.builder().build())
                 .providerName("")
                 .providerDescription("")
@@ -103,7 +103,7 @@ public class ProviderValidatorTest {
     public void validateBlankValue() {
         ProviderDto providerDto = ProviderDto.builder()
                 .providerCaDto(ProviderCashAccountDto.builder().build())
-                .providerPosDto(PointofsaleDto.builder().build())
+                .providerPosId(PointofsaleDto.builder().build().getId())
                 .providerAddressDto(AddressDto.builder().build())
                 .providerName("     ")
                 .providerDescription("       ")

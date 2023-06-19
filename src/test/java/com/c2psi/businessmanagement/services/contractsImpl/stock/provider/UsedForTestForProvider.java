@@ -45,7 +45,7 @@ public class UsedForTestForProvider {
     }
 
     public ProviderDamageAccountDto saveProviderDamageAccount(int solde, ProviderDto providerDtoSaved, ArticleDto articleDtoSaved,
-                                                               ProviderDamageAccountService providerDamageAccountService){
+                                                              ProviderDamageAccountService providerDamageAccountService){
         Assert.assertNotNull(providerDamageAccountService);
         ProviderDamageAccountDto providerDamageAccountDtoToSave = ProviderDamageAccountDto.builder()
                 .pdaProviderDto(providerDtoSaved)
@@ -87,7 +87,7 @@ public class UsedForTestForProvider {
                 .providerAddressDto(providerAddress)
                 .providerDescription("Description of FSD "+num)
                 .providerName("First Step"+num)
-                .providerPosDto(pointofsaleDtoSaved)
+                .providerPosId(pointofsaleDtoSaved.getId())
                 .build();
 
         ProviderDto providerDtoSaved = providerService.saveProvider(providerDtoToSave);
@@ -106,7 +106,7 @@ public class UsedForTestForProvider {
                 .providerAddressDto(providerAddress)
                 .providerDescription("Description of FSD "+num)
                 .providerName("First Step"+num)
-                .providerPosDto(pointofsaleDtoSaved)
+                .providerPosId(pointofsaleDtoSaved.getId())
                 .build();
 
         ProviderDto providerDtoSaved = providerService.saveProvider(providerDtoToSave);
@@ -114,7 +114,7 @@ public class UsedForTestForProvider {
     }
 
     public ProviderPackagingAccountDto saveProviderPackagingAccount(int solde, ProviderDto providerDtoSaved, PackagingDto packagingDtoSaved,
-                                                                 ProviderPackagingAccountService providerPackagingAccountService){
+                                                                    ProviderPackagingAccountService providerPackagingAccountService){
         Assert.assertNotNull(providerPackagingAccountService);
         ProviderPackagingAccountDto providerPackagingAccountDtoToSave = ProviderPackagingAccountDto.builder()
                 .ppaProviderDto(providerDtoSaved)

@@ -1,7 +1,6 @@
 package com.c2psi.businessmanagement.validators.client.delivery;
 
 import com.c2psi.businessmanagement.dtos.client.delivery.DeliveryDetailsDto;
-import com.c2psi.businessmanagement.dtos.client.delivery.DeliveryDto;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;

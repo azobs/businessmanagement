@@ -3,14 +3,12 @@ package com.c2psi.businessmanagement.dtos.client.client;
 import com.c2psi.businessmanagement.dtos.pos.pos.OperationDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.models.ClientDamageOperation;
-import com.c2psi.businessmanagement.models.UserBM;
 import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 
 @Data

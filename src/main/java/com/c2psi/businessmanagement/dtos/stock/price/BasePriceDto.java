@@ -1,9 +1,7 @@
 package com.c2psi.businessmanagement.dtos.stock.price;
 
-import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
-import com.c2psi.businessmanagement.models.Article;
 import com.c2psi.businessmanagement.models.BasePrice;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
 
@@ -15,30 +13,38 @@ import java.math.BigDecimal;
 @Data
 @Builder
 public class BasePriceDto {
+    @ApiModelProperty(value = "The Id of the baseprice in the DB", name = "id", dataType = "Long")
     Long id;
     @NotNull(message = "The purchase price cannot be null")
     @Positive(message = "The purchase price cannot be null")
+    @ApiModelProperty(value = "The purchase price", name = "bpPurchaseprice", dataType = "BigDecimal")
     BigDecimal bpPurchaseprice;
     @NotNull(message = "The sale whole price cannot be null")
     @Positive(message = "The sale whole price must be positive")
+    @ApiModelProperty(value = "The whole sale price", name = "bpWholesaleprice", dataType = "BigDecimal")
     BigDecimal bpWholesaleprice;
     @NotNull(message = "The sale details price cannot be null")
     @Positive(message = "The sale details price must be positive")
+    @ApiModelProperty(value = "The details sale price", name = "bpDetailprice", dataType = "BigDecimal")
     BigDecimal bpDetailprice;
     @NotNull(message = "The sale semi whole price cannot be null")
     @Positive(message = "The sale semi whole price must be positive")
+    @ApiModelProperty(value = "The semi whole sale price", name = "bpSemiwholesaleprice", dataType = "BigDecimal")
     BigDecimal bpSemiwholesaleprice;
-    @NotNull(message = "The procompte value cannot be null")
-    @PositiveOrZero(message = "The procompte value must be positive or null")
+    @NotNull(message = "The precompte value cannot be null")
+    @PositiveOrZero(message = "The precompte value must be positive or null")
+    @ApiModelProperty(value = "The precompte kept due the price", name = "bpPrecompte", dataType = "BigDecimal")
     BigDecimal bpPrecompte;
     @NotNull(message = "The ristourne value cannot be null")
     @PositiveOrZero(message = "The ristourne value must be positive or null")
+    @ApiModelProperty(value = "The ristourne kept due the price", name = "bpRistourne", dataType = "BigDecimal")
     BigDecimal bpRistourne;
     /******************************
      * Relation between entities  *
      * ****************************/
     //Many baseprice is associated to 1 currency
     @NotNull(message = "The currency associated to the price cannot be null")
+    @ApiModelProperty(value = "The currency of the price", name = "bpCurrencyDto", dataType = "CurrencyDto")
     CurrencyDto bpCurrencyDto;
 
     /***********************************

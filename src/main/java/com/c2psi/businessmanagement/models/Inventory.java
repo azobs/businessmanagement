@@ -19,7 +19,7 @@ import java.util.List;
 @Entity
 @Table(name="inventory",
         uniqueConstraints = {@UniqueConstraint(
-                columnNames = {"invCode", "pos_id"})})
+                columnNames = {"invCode", "invPosId"})})
 public class Inventory extends AbstractEntity {
     String invComment;
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
@@ -32,9 +32,10 @@ public class Inventory extends AbstractEntity {
     /******************************
      * Relation between entities  *
      ******************************/
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    /*@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "pos_id", nullable = false, referencedColumnName = "id")
-    Pointofsale invPos;
+    Pointofsale invPos;*/
+    Long invPosId;
 
     @OneToMany(mappedBy = "invlineInv", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<InventoryLine> inventoryLineList;

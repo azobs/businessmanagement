@@ -1,7 +1,6 @@
 package com.c2psi.businessmanagement.validators.client.command;
 
 import com.c2psi.businessmanagement.dtos.client.command.BackInDetailsDto;
-import com.c2psi.businessmanagement.dtos.client.command.CommandDto;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;

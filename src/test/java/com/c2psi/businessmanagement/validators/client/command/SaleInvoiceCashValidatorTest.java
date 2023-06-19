@@ -20,7 +20,7 @@ public class SaleInvoiceCashValidatorTest {
     public void validate() {
         SaleInvoiceCashDto sicDto = SaleInvoiceCashDto.builder()
                 .saleicashClientDto(ClientDto.builder().build())
-                .saleicashPosDto(PointofsaleDto.builder().build())
+                .saleicashPosId(PointofsaleDto.builder().build().getId())
                 .saleicashAmountpaid(BigDecimal.valueOf(1000))
                 .saleicashInvoicingDate(new Date().toInstant())
                 .saleicashUserbmDto(UserBMDto.builder().build())
@@ -41,7 +41,7 @@ public class SaleInvoiceCashValidatorTest {
     public void validateNull() {
         SaleInvoiceCashDto sicDto = SaleInvoiceCashDto.builder()
                 .saleicashClientDto(ClientDto.builder().build())
-                .saleicashPosDto(PointofsaleDto.builder().build())
+                .saleicashPosId(PointofsaleDto.builder().build().getId())
                 .saleicashAmountpaid(BigDecimal.valueOf(1000))
                 .saleicashInvoicingDate(new Date().toInstant())
                 .saleicashUserbmDto(UserBMDto.builder().build())
@@ -63,7 +63,7 @@ public class SaleInvoiceCashValidatorTest {
     public void validateNullValue() {
         SaleInvoiceCashDto sicDto = SaleInvoiceCashDto.builder()
                 .saleicashClientDto(null)
-                .saleicashPosDto(null)
+                .saleicashPosId(null)
                 .saleicashAmountpaid(null)
                 .saleicashInvoicingDate(null)
                 .saleicashUserbmDto(null)
@@ -95,7 +95,7 @@ public class SaleInvoiceCashValidatorTest {
     public void validateEmptyValue() {
         SaleInvoiceCashDto sicDto = SaleInvoiceCashDto.builder()
                 .saleicashClientDto(ClientDto.builder().build())
-                .saleicashPosDto(PointofsaleDto.builder().build())
+                .saleicashPosId(PointofsaleDto.builder().build().getId())
                 .saleicashAmountpaid(BigDecimal.valueOf(1000))
                 .saleicashInvoicingDate(new Date().toInstant())
                 .saleicashUserbmDto(UserBMDto.builder().build())
@@ -119,7 +119,7 @@ public class SaleInvoiceCashValidatorTest {
     public void validateBlankValue() {
         SaleInvoiceCashDto sicDto = SaleInvoiceCashDto.builder()
                 .saleicashClientDto(ClientDto.builder().build())
-                .saleicashPosDto(PointofsaleDto.builder().build())
+                .saleicashPosId(PointofsaleDto.builder().build().getId())
                 .saleicashAmountpaid(BigDecimal.valueOf(1000))
                 .saleicashInvoicingDate(new Date().toInstant())
                 .saleicashUserbmDto(UserBMDto.builder().build())
@@ -142,7 +142,7 @@ public class SaleInvoiceCashValidatorTest {
     public void validateSizeLowerThan3Value() {
         SaleInvoiceCashDto sicDto = SaleInvoiceCashDto.builder()
                 .saleicashClientDto(ClientDto.builder().build())
-                .saleicashPosDto(PointofsaleDto.builder().build())
+                .saleicashPosId(PointofsaleDto.builder().build().getId())
                 .saleicashAmountpaid(BigDecimal.valueOf(1000))
                 .saleicashInvoicingDate(new Date().toInstant())
                 .saleicashUserbmDto(UserBMDto.builder().build())
@@ -164,7 +164,7 @@ public class SaleInvoiceCashValidatorTest {
     public void validateSizeGreaterThan20Value() {
         SaleInvoiceCashDto sicDto = SaleInvoiceCashDto.builder()
                 .saleicashClientDto(ClientDto.builder().build())
-                .saleicashPosDto(PointofsaleDto.builder().build())
+                .saleicashPosId(PointofsaleDto.builder().build().getId())
                 .saleicashAmountpaid(BigDecimal.valueOf(1000))
                 .saleicashInvoicingDate(new Date().toInstant())
                 .saleicashUserbmDto(UserBMDto.builder().build())
@@ -186,7 +186,7 @@ public class SaleInvoiceCashValidatorTest {
     public void validateSizePositiveOrZeroValue() {
         SaleInvoiceCashDto sicDto = SaleInvoiceCashDto.builder()
                 .saleicashClientDto(ClientDto.builder().build())
-                .saleicashPosDto(PointofsaleDto.builder().build())
+                .saleicashPosId(PointofsaleDto.builder().build().getId())
                 .saleicashAmountpaid(BigDecimal.valueOf(-1))
                 .saleicashInvoicingDate(new Date().toInstant())
                 .saleicashUserbmDto(UserBMDto.builder().build())

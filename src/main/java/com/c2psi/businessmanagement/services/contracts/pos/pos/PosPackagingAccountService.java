@@ -1,11 +1,7 @@
 package com.c2psi.businessmanagement.services.contracts.pos.pos;
 
 import com.c2psi.businessmanagement.Enumerations.OperationType;
-import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
-import com.c2psi.businessmanagement.dtos.pos.pos.PosCapsuleAccountDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PosPackagingAccountDto;
-import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
-import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
 import org.springframework.data.domain.Page;
 
 import java.math.BigDecimal;

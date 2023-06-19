@@ -14,11 +14,6 @@ import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.dtos.stock.price.SpecialPriceDto;
 import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
 import com.c2psi.businessmanagement.dtos.stock.product.PackagingDto;
-import com.c2psi.businessmanagement.dtos.stock.provider.ProviderCapsuleAccountDto;
-import com.c2psi.businessmanagement.dtos.stock.provider.ProviderCashAccountDto;
-import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
-import com.c2psi.businessmanagement.dtos.stock.provider.ProviderPackagingAccountDto;
-import com.c2psi.businessmanagement.models.BackIn;
 import com.c2psi.businessmanagement.services.contracts.client.client.*;
 import com.c2psi.businessmanagement.services.contracts.client.command.BackInDetailsService;
 import com.c2psi.businessmanagement.services.contracts.client.command.BackInService;
@@ -26,12 +21,7 @@ import com.c2psi.businessmanagement.services.contracts.client.command.CommandSer
 import com.c2psi.businessmanagement.services.contracts.client.command.SaleService;
 import com.c2psi.businessmanagement.services.contracts.client.delivery.DeliveryDetailsService;
 import com.c2psi.businessmanagement.services.contracts.client.delivery.DeliveryService;
-import com.c2psi.businessmanagement.services.contracts.stock.provider.ProviderCapsuleAccountService;
-import com.c2psi.businessmanagement.services.contracts.stock.provider.ProviderCashAccountService;
-import com.c2psi.businessmanagement.services.contracts.stock.provider.ProviderPackagingAccountService;
-import com.c2psi.businessmanagement.services.contracts.stock.provider.ProviderService;
 import com.c2psi.businessmanagement.services.contractsImpl.UsedForTestForAll;
-import com.c2psi.businessmanagement.services.contractsImpl.client.command.CommandServiceImpl;
 import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -95,7 +85,7 @@ public class UsedForTestForClient {
                 .clientOthername("Amour_"+num)
                 .clientCaDto(ccaDto)
                 .clientAddressDto(clientAddress)
-                .clientPosDto(pointofsaleDtoSaved)
+                .clientPosId(pointofsaleDtoSaved.getId())
                 .build();
 
        ClientDto clientDtoSaved = clientService.saveClient(clientDtoToSave);
@@ -115,7 +105,7 @@ public class UsedForTestForClient {
                 .clientOthername("Amour_"+num)
                 .clientCaDto(ccaDto)
                 .clientAddressDto(null)
-                .clientPosDto(pointofsaleDtoSaved)
+                .clientPosId(pointofsaleDtoSaved.getId())
                 .build();
 
         ClientDto clientDtoSaved = clientService.saveClient(clientDtoToSave);
@@ -214,7 +204,7 @@ public class UsedForTestForClient {
                 .deliveryState(DeliveryState.Delivery)
                 .deliveryDate(new Date().toInstant())
                 .deliveryUserbmDto(userBMDtoSaved)
-                .deliveryPosDto(pointofsaleDtoSaved)
+                .deliveryPosId(pointofsaleDtoSaved.getId())
                 .deliveryComment("delivery comment")
                 .deliveryCode("deliveryCode"+num)
                 .build();
@@ -233,7 +223,7 @@ public class UsedForTestForClient {
                 .deliveryState(DeliveryState.Delivery)
                 .deliveryDate(new Date().toInstant())
                 .deliveryUserbmDto(null)
-                .deliveryPosDto(pointofsaleDtoSaved)
+                .deliveryPosId(pointofsaleDtoSaved.getId())
                 .deliveryComment("delivery comment")
                 .deliveryCode("deliveryCode"+num)
                 .build();
@@ -293,7 +283,7 @@ public class UsedForTestForClient {
         DiversDto diversDtoToSave = DiversDto.builder()
                 .diversAddressDto(diversAddress)
                 .diversName("divers "+num)
-                .diversPosDto(pointofsaleDtoSaved)
+                .diversPosId(pointofsaleDtoSaved.getId())
                 .diversCaDto(diversCashAccountDtoSaved)
                 .build();
 
@@ -310,7 +300,7 @@ public class UsedForTestForClient {
                 .diversAddressDto(diversAddress)
                 .diversCaDto(null)
                 .diversName("divers "+num)
-                .diversPosDto(pointofsaleDtoSaved)
+                .diversPosId(pointofsaleDtoSaved.getId())
                 .build();
 
         DiversDto diversDtoSaved = diversService.saveDivers(diversDtoToSave);
@@ -335,7 +325,7 @@ public class UsedForTestForClient {
                 .cmdState(CommandState.Edited)
                 .cmdType(CommandType.Divers)
                 .cmdStatus(CommandStatus.Cash)
-                .cmdPosDto(pointofsaleDtoSaved)
+                .cmdPosId(pointofsaleDtoSaved.getId())
                 .cmdClientDto(clientDtoSaved)
                 .cmdDiversDto(diversDtoSaved)
                 .cmdUserbmDto(userBMDtoSaved)
@@ -364,7 +354,7 @@ public class UsedForTestForClient {
                 .cmdState(CommandState.Edited)
                 .cmdType(CommandType.Divers)
                 .cmdStatus(CommandStatus.Cash)
-                .cmdPosDto(pointofsaleDtoSaved)
+                .cmdPosId(pointofsaleDtoSaved.getId())
                 .cmdClientDto(clientDtoSaved)
                 .cmdDiversDto(diversDtoSaved)
                 .cmdUserbmDto(null)
@@ -391,7 +381,7 @@ public class UsedForTestForClient {
                 .saleType(SaleType.Whole)
                 .saleCommandDto(cmdDtoSaved)
                 .saleArticleDto(artDtoSaved)
-                .salePosDto(posDtoSaved)
+                .salePosId(posDtoSaved.getId())
                 .build();
 
         SaleDto saleDtoSaved = saleService.saveSale(saleDtoToSave);
@@ -414,7 +404,7 @@ public class UsedForTestForClient {
                 .saleType(SaleType.Whole)
                 .saleCommandDto(cmdDtoSaved)
                 .saleArticleDto(null)
-                .salePosDto(posDtoSaved)
+                .salePosId(posDtoSaved.getId())
                 .build();
 
         SaleDto saleDtoSaved = saleService.saveSale(saleDtoToSave);
@@ -433,7 +423,7 @@ public class UsedForTestForClient {
 
 
         BackInDto backInDtoToSave = BackInDto.builder()
-                .biPosDto(posDtoSaved)
+                .biPosId(posDtoSaved.getId())
                 .biUserbmDto(userbmDtoSaved)
                 .biCommandDto(cmdDtoSaved)
                 .biComment("comment "+num)
@@ -455,7 +445,7 @@ public class UsedForTestForClient {
 
 
         BackInDto backInDtoToSave = BackInDto.builder()
-                .biPosDto(posDtoSaved)
+                .biPosId(posDtoSaved.getId())
                 .biUserbmDto(userbmDtoSaved)
                 .biCommandDto(cmdDtoSaved)
                 .biComment("comment "+num)

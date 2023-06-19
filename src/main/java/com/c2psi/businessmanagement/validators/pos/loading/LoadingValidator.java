@@ -1,7 +1,5 @@
 package com.c2psi.businessmanagement.validators.pos.loading;
 
-import com.c2psi.businessmanagement.Enumerations.LoadingState;
-import com.c2psi.businessmanagement.dtos.pos.loading.LoadingDetailsDto;
 import com.c2psi.businessmanagement.dtos.pos.loading.LoadingDto;
 import org.springframework.util.StringUtils;
 
@@ -60,7 +58,7 @@ public class LoadingValidator {
                 errors.add("--L'utilisateur qui va vendre le chargement ne peut etre null--");
             }
 
-            if(!Optional.ofNullable(loadDto.getLoadPosDto()).isPresent()){
+            if(!Optional.ofNullable(loadDto.getLoadPosId()).isPresent()){
                 errors.add("--Le point de vente du chargement ne peut etre null--");
             }
 

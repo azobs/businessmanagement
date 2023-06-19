@@ -5,11 +5,8 @@ import com.c2psi.businessmanagement.dtos.pos.userbm.AddressDto;
 import com.c2psi.businessmanagement.exceptions.*;
 import com.c2psi.businessmanagement.models.Client;
 import com.c2psi.businessmanagement.models.Pointofsale;
-import com.c2psi.businessmanagement.repositories.client.client.ClientCashAccountRepository;
-import com.c2psi.businessmanagement.repositories.client.client.ClientCashOperationRepository;
 import com.c2psi.businessmanagement.repositories.client.client.ClientRepository;
 import com.c2psi.businessmanagement.repositories.pos.pos.PointofsaleRepository;
-import com.c2psi.businessmanagement.repositories.pos.userbm.UserBMRepository;
 import com.c2psi.businessmanagement.services.contracts.client.client.ClientService;
 import com.c2psi.businessmanagement.validators.client.client.ClientValidator;
 import lombok.extern.slf4j.Slf4j;
@@ -55,13 +52,13 @@ public class ClientServiceImpl implements ClientService {
         /**********************************************************************
          * On se rassure de l'existence du pointofsale associe au client
          */
-        if(clientDto.getClientPosDto().getId() == null){
+        if(clientDto.getClientPosId() == null){
             log.error("The pointofsale for the client has not been precised");
             throw new InvalidEntityException("Aucun pointofsale n'est associe avec le client"
                     , ErrorCode.POINTOFSALE_NOT_FOUND);
         }
         Optional<Pointofsale> optionalPointofsale = pointofsaleRepository.findPointofsaleById
-                (clientDto.getClientPosDto().getId());
+                (clientDto.getClientPosId());
         if(!optionalPointofsale.isPresent()){
             log.error("The pointofsale precised does not exist in the DB");
             throw new InvalidEntityException("Le Pointofsale associe avec le client n'existe pas en BD"
@@ -86,7 +83,7 @@ public class ClientServiceImpl implements ClientService {
         }
 
         if(!isClientUniqueForPos(clientDto.getClientName(), clientDto.getClientOthername(), clientDto.getClientCni(),
-                clientDto.getClientPosDto().getId())){
+                clientDto.getClientPosId())){
 
             log.error("A client already exist in the DB for the same pointofsale with the same name, cni or email");
             throw new DuplicateEntityException("Un client existe deja dans le pointofsale precise avec le " +
@@ -138,7 +135,7 @@ public class ClientServiceImpl implements ClientService {
          * On verifie que ce n'est pas le pointofsale quon veut modifier car si cest le cas
          * la requete doit etre rejete
          */
-        if(!clientToUpdate.getClientPos().getId().equals(clientDto.getClientPosDto().getId())){
+        if(!clientToUpdate.getClientPosId().equals(clientDto.getClientPosId())){
             log.error("The pointofsale of a client cannot be modified");
             throw new InvalidEntityException("Le pointofsale d'un client ne peut etre modifier lors d'une " +
                     "requete de modification du client ", ErrorCode.CLIENT_NOT_VALID);
@@ -186,7 +183,7 @@ public class ClientServiceImpl implements ClientService {
          */
         if(!clientDto.getClientName().equalsIgnoreCase(clientToUpdate.getClientName()) ||
                 !clientDto.getClientOthername().equalsIgnoreCase(clientToUpdate.getClientOthername())){
-            if(isClientExistWithFullNameinPos(clientDto.getClientName(), clientDto.getClientOthername(), clientDto.getClientPosDto().getId())){
+            if(isClientExistWithFullNameinPos(clientDto.getClientName(), clientDto.getClientOthername(), clientDto.getClientPosId())){
                 log.error("The new fullname precised for the client already used by another entity");
                 throw new DuplicateEntityException("Une autre entite en BD utilise deja ce fullname ",
                         ErrorCode.CLIENT_DUPLICATED);
@@ -200,7 +197,7 @@ public class ClientServiceImpl implements ClientService {
          * On verifie si c'est le cni quon veut modifier
          */
         if(!clientDto.getClientCni().equalsIgnoreCase(clientToUpdate.getClientCni())){
-            if(isClientExistWithCniinPos(clientDto.getClientCni(),  clientDto.getClientPosDto().getId())){
+            if(isClientExistWithCniinPos(clientDto.getClientCni(),  clientDto.getClientPosId())){
                 log.error("The new cni precised for the client already used by another entity");
                 throw new DuplicateEntityException("Une autre entite en BD utilise deja cette cni ",
                         ErrorCode.CLIENT_DUPLICATED);

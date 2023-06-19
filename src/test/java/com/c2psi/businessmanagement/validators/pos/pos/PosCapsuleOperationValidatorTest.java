@@ -1,15 +1,15 @@
 package com.c2psi.businessmanagement.validators.pos.pos;
 
 import com.c2psi.businessmanagement.Enumerations.OperationType;
-import com.c2psi.businessmanagement.dtos.pos.pos.*;
-import com.c2psi.businessmanagement.dtos.pos.userbm.AddressDto;
+import com.c2psi.businessmanagement.dtos.pos.pos.OperationDto;
+import com.c2psi.businessmanagement.dtos.pos.pos.PosCapsuleAccountDto;
+import com.c2psi.businessmanagement.dtos.pos.pos.PosCapsuleOperationDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.*;

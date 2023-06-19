@@ -16,7 +16,7 @@ import java.util.List;
 @Entity
 @Table(name="category",
         uniqueConstraints = {@UniqueConstraint(
-                columnNames = {"catCode", "pos_id"})})
+                columnNames = {"catCode", "catPosId"})})
 public class Category extends AbstractEntity implements Serializable {
 
     @Column(nullable = false)
@@ -31,9 +31,10 @@ public class Category extends AbstractEntity implements Serializable {
      * ****************************/
 
     //Each category belongs to 1 pointofsale
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    /*@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "pos_id", nullable = false, referencedColumnName = "id")
-    Pointofsale catPos;
+    Pointofsale catPos;*/
+    Long catPosId;
     @OneToMany(mappedBy = "prodCat", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Product> productList;
 

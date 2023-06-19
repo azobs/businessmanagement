@@ -4,8 +4,6 @@ import com.c2psi.businessmanagement.BusinessmanagementApplication;
 import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.dtos.stock.product.SupplyInvoiceDamageDto;
-import com.c2psi.businessmanagement.dtos.stock.product.SupplyInvoiceDamageDto;
-import com.c2psi.businessmanagement.dtos.stock.product.SupplyInvoiceDamageDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
 import com.c2psi.businessmanagement.exceptions.DuplicateEntityException;
 import com.c2psi.businessmanagement.exceptions.InvalidEntityException;
@@ -198,7 +196,7 @@ public class SupplyInvoiceDamageServiceImplTest {
         assertNotNull(SupplyInvoiceDamageDtoSavedFound);
 
         SupplyInvoiceDamageDto SupplyInvoiceDamageDtoSavedFound1 = supplyInvoiceDamageService.findSupplyInvoiceDamageByCode(
-                SupplyInvoiceDamageDtoSaved.getSidamCode(), SupplyInvoiceDamageDtoSaved.getSidamPosDto().getId());
+                SupplyInvoiceDamageDtoSaved.getSidamCode(), SupplyInvoiceDamageDtoSaved.getSidamPosId());
         assertNotNull(SupplyInvoiceDamageDtoSavedFound1);
 
         //On fait le update du code
@@ -235,7 +233,7 @@ public class SupplyInvoiceDamageServiceImplTest {
         assertNotNull(supplyInvoicedamDtoSavedFound);
 
         SupplyInvoiceDamageDto supplyInvoicedamDtoSavedFound1 = supplyInvoiceDamageService.findSupplyInvoiceDamageByCode(
-                supplyInvoicedamDtoSaved1.getSidamCode(), supplyInvoicedamDtoSaved1.getSidamPosDto().getId());
+                supplyInvoicedamDtoSaved1.getSidamCode(), supplyInvoicedamDtoSaved1.getSidamPosId());
         assertNotNull(supplyInvoicedamDtoSavedFound1);
 
         //On fait le update du code
@@ -277,7 +275,7 @@ public class SupplyInvoiceDamageServiceImplTest {
         assertNotNull(SupplyInvoiceDamageDtoSavedFound);
 
         SupplyInvoiceDamageDto SupplyInvoiceDamageDtoSavedFound1 = supplyInvoiceDamageService.findSupplyInvoiceDamageByCode(
-                SupplyInvoiceDamageDtoSaved.getSidamCode(), SupplyInvoiceDamageDtoSaved.getSidamPosDto().getId());
+                SupplyInvoiceDamageDtoSaved.getSidamCode(), SupplyInvoiceDamageDtoSaved.getSidamPosId());
         assertNotNull(SupplyInvoiceDamageDtoSavedFound1);
 
         //On fait le update du code
@@ -319,13 +317,13 @@ public class SupplyInvoiceDamageServiceImplTest {
         assertNotNull(SupplyInvoiceDamageDtoSavedFound);
 
         SupplyInvoiceDamageDto SupplyInvoiceDamageDtoSavedFound1 = supplyInvoiceDamageService.findSupplyInvoiceDamageByCode(
-                SupplyInvoiceDamageDtoSaved.getSidamCode(), SupplyInvoiceDamageDtoSaved.getSidamPosDto().getId());
+                SupplyInvoiceDamageDtoSaved.getSidamCode(), SupplyInvoiceDamageDtoSaved.getSidamPosId());
         assertNotNull(SupplyInvoiceDamageDtoSavedFound1);
 
         //On fait le update du code
         SupplyInvoiceDamageDtoSavedFound.setSidamCode("newCode");
         SupplyInvoiceDamageDtoSavedFound.setSidamProviderDto(providerDtoSaved1);
-        SupplyInvoiceDamageDtoSavedFound.setSidamPosDto(posDtoSaved1);
+        SupplyInvoiceDamageDtoSavedFound.setSidamPosId(posDtoSaved1.getId());
         SupplyInvoiceDamageDto SupplyInvoiceDamageDtoSavedUpdated = supplyInvoiceDamageService.updateSupplyInvoiceDamage(
                 SupplyInvoiceDamageDtoSavedFound);
         assertNotNull(SupplyInvoiceDamageDtoSavedUpdated);

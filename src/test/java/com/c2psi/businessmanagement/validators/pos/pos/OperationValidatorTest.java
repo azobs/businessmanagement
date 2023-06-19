@@ -1,9 +1,7 @@
 package com.c2psi.businessmanagement.validators.pos.pos;
 
 import com.c2psi.businessmanagement.Enumerations.OperationType;
-import com.c2psi.businessmanagement.dtos.pos.pos.EnterpriseDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.OperationDto;
-import com.c2psi.businessmanagement.dtos.pos.userbm.AddressDto;
 import org.junit.Test;
 
 import java.text.ParseException;

@@ -34,7 +34,8 @@ public class Sale extends AbstractEntity {
     @JoinColumn(name = "art_id", nullable = false, referencedColumnName = "id")
     Article saleArticle;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    /*@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "pos_id", nullable = false, referencedColumnName = "id")
-    Pointofsale salePos;
+    Pointofsale salePos;*/
+    Long salePosId;
 }

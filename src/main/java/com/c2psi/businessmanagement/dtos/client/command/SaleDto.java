@@ -35,7 +35,8 @@ public class SaleDto {
     @NotNull(message = "The article associated to the sale details cannot be null")
     ArticleDto saleArticleDto;
     @NotNull(message = "The pointofsale associated to the sale details cannot be null")
-    PointofsaleDto salePosDto;
+    //PointofsaleDto salePosDto;
+    Long salePosId;
 
     /***********************************
      * Mapping method development:   ***
@@ -53,7 +54,8 @@ public class SaleDto {
                 .saleType(sale.getSaleType())
                 .saleCommandDto(CommandDto.fromEntity(sale.getSaleCommand()))
                 .saleArticleDto(ArticleDto.fromEntity(sale.getSaleArticle()))
-                .salePosDto(PointofsaleDto.fromEntity(sale.getSalePos()))
+                //.salePosDto(PointofsaleDto.fromEntity(sale.getSalePos()))
+                .salePosId(sale.getSalePosId())
                 .build();
     }
     public static Sale toEntity(SaleDto saleDto){
@@ -68,7 +70,8 @@ public class SaleDto {
         sale.setSaleType(saleDto.getSaleType());
         sale.setSaleCommand(CommandDto.toEntity(saleDto.getSaleCommandDto()));
         sale.setSaleArticle(ArticleDto.toEntity(saleDto.getSaleArticleDto()));
-        sale.setSalePos(PointofsaleDto.toEntity(saleDto.getSalePosDto()));
+        //sale.setSalePos(PointofsaleDto.toEntity(saleDto.getSalePosDto()));
+        sale.setSalePosId(saleDto.getSalePosId());
         return sale;
     }
 }

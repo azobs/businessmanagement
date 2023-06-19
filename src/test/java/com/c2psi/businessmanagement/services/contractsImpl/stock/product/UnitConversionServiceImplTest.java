@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -168,7 +169,7 @@ public class UnitConversionServiceImplTest {
                 unitConversionService);
         assertNotNull(unitConversionDtoSaved);
 
-        unitConversionDtoSaved.setConversionFactor(Double.valueOf(12));
+        unitConversionDtoSaved.setConversionFactor(BigDecimal.valueOf(12));
         UnitConversionDto unitConversionDtoUpdated = unitConversionService.updateUnitConversion(unitConversionDtoSaved);
         assertNotNull(unitConversionDtoUpdated);
         assertEquals(Double.valueOf(12), unitConversionDtoUpdated.getConversionFactor());
@@ -191,7 +192,7 @@ public class UnitConversionServiceImplTest {
                 unitConversionService);
         assertNotNull(unitConversionDtoSaved);
 
-        unitConversionDtoSaved.setConversionFactor(Double.valueOf(12));
+        unitConversionDtoSaved.setConversionFactor(BigDecimal.valueOf(12));
         unitConversionDtoSaved.setUnitSourceDto(unitDtoSaved2);
 
         UnitConversionDto unitConversionDtoUpdated = unitConversionService.updateUnitConversion(unitConversionDtoSaved);
@@ -213,12 +214,12 @@ public class UnitConversionServiceImplTest {
                 unitConversionService);
         assertNotNull(unitConversionDtoSaved);
 
-        unitConversionDtoSaved.setConversionFactor(Double.valueOf(10));
+        unitConversionDtoSaved.setConversionFactor(BigDecimal.valueOf(10));
         UnitConversionDto unitConversionDtoUpdated = unitConversionService.updateUnitConversion(unitConversionDtoSaved);
         assertNotNull(unitConversionDtoUpdated);
         assertEquals(Double.valueOf(10), unitConversionDtoUpdated.getConversionFactor());
 
-        Double val = unitConversionService.convertTo(Double.valueOf(10), unitDtoSaved.getId(), unitDtoSaved1.getId());
+        BigDecimal val = unitConversionService.convertTo(BigDecimal.valueOf(10), unitDtoSaved.getId(), unitDtoSaved1.getId());
         assertEquals(Double.valueOf(100), val);
     }
 
@@ -239,12 +240,12 @@ public class UnitConversionServiceImplTest {
                 unitConversionService);
         assertNotNull(unitConversionDtoSaved);
 
-        unitConversionDtoSaved.setConversionFactor(Double.valueOf(10));
+        unitConversionDtoSaved.setConversionFactor(BigDecimal.valueOf(10));
         UnitConversionDto unitConversionDtoUpdated = unitConversionService.updateUnitConversion(unitConversionDtoSaved);
         assertNotNull(unitConversionDtoUpdated);
         assertEquals(Double.valueOf(10), unitConversionDtoUpdated.getConversionFactor());
 
-        Double val = unitConversionService.convertTo(Double.valueOf(10), unitDtoSaved.getId(), unitDtoSaved2.getId());
+        BigDecimal val = unitConversionService.convertTo(BigDecimal.valueOf(10), unitDtoSaved.getId(), unitDtoSaved2.getId());
         //The above line is supposed to launch the expected exception
     }
 

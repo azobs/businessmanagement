@@ -47,13 +47,17 @@ public class ArticleServiceImpl implements ArticleService {
 
 
     @Override
-    public ArticleDto fixQuantityofArticle(Long artId, BigDecimal new_quantity) {
-        /******************************************************************
-         * Il faut deja se rassurer que les parametres ne sont pas null
+    public ArticleDto fixQuantityofArticle(ArticleDto artDto) {
+        /***************************************************************************
+         * La nouvelle quantite en stock est precise dans le Dto passe en argument
          */
-        if(artId == null || new_quantity == null){
-            log.error("The artId or new_quantity pass as argument is null");
-            throw new NullArgumentException("L'id ou new_quantity passe en argument de la methode est null");
+
+        Long artId = artDto.getId();
+        BigDecimal new_quantity = artDto.getArtQuantityinstock();
+
+        if(artId == null ){
+            log.error("The artId pass as argument is null");
+            throw new NullArgumentException("L'id de l'article passe en argument de la methode est null");
         }
 
         /*****************************************************************************
@@ -92,14 +96,17 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArticleDto updateUnitofArticle(Long artId, Long unitId) {
+    public ArticleDto updateUnitofArticle(ArticleDto artDto) {
         /******************************************************************
-         * Il faut deja se rassurer que les parametres ne sont pas null
+         * Les parametre de la nouvelle unite de l'article sont dans le Dto
          */
+        Long artId = artDto.getId();
+        Long unitId = artDto.getArtUnitDto().getId();
         if(artId == null || unitId == null){
             log.error("The artId or unitId pass as argument is null");
             throw new NullArgumentException("L'id ou unitId passe en argument de la methode est null");
         }
+
 
         /*************************************************************************
          * Il faut essayer de recuperer l'article dont la quantite veut etre fixe
@@ -136,7 +143,7 @@ public class ArticleServiceImpl implements ArticleService {
         /**************************************************************************************
          * Il faut se rassurer que articleToUpdate et unitToSet sont dans le meme pointofsale
          */
-        if(!articleToUpdate.getArtPos().getId().equals(unitToSet.getUnitPos().getId())){
+        if(!articleToUpdate.getArtPosId().equals(unitToSet.getUnitPosId())){
             log.error("The new unit to set must belong to the same pointofsale than the article");
             throw new InvalidEntityException("Le nouveau unit a fixer doit etre dans le meme pointofsale que celui de " +
                     "l'article ", ErrorCode.ARTICLE_NOT_VALID);
@@ -148,10 +155,12 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArticleDto updateBasePriceofArticle(Long artId, Long basepriceId) {
+    public ArticleDto updateBasePriceofArticle(ArticleDto artDto) {
         /******************************************************************
          * Il faut deja se rassurer que les parametres ne sont pas null
          */
+        Long artId = artDto.getId();
+        Long basepriceId = artDto.getArtBpDto().getId();
         if(artId == null || basepriceId == null){
             log.error("The artId or basepriceId pass as argument is null");
             throw new NullArgumentException("L'id ou basepriceId passe en argument de la methode est null");
@@ -210,44 +219,59 @@ public class ArticleServiceImpl implements ArticleService {
         /********************************************************************
          * Il faut se rassurer que le productformated existe vraiment en BD
          */
+        if(artDto.getArtPfDto().getId() == null){
+            log.error("The productformated id is null which make the artDto {} invalid", artDto);
+            throw new InvalidEntityException("Le artDto passe en argument n'est pas valide puisque le productformated " +
+                    "indique a un id null ", ErrorCode.ARTICLE_NOT_VALID);
+        }
         Optional<ProductFormated> optionalProductFormated = pfRepository.findProductFormatedById(
                 artDto.getArtPfDto().getId());
         if(!optionalProductFormated.isPresent()){
             log.error("There is no productformated with the id {} in the DB which make the artDto {} invalid",
                     artDto.getArtPfDto().getId(), artDto);
-            throw new InvalidEntityException("Le artDto passe en argument n'est pas valide puisque le productformated " +
-                    "indique n'existe pas en BD ", ErrorCode.ARTICLE_NOT_VALID);
+            throw new EntityNotFoundException("Le artDto passe en argument n'est pas valide puisque le productformated " +
+                    "indique n'existe pas en BD ", ErrorCode.PRODUCTFORMATED_NOT_FOUND);
         }
 
         /***********************************************************************************
          * Il faut verifier que le Unit precise dans l'artDto envoye existe vraiment en BD
          */
+        if(artDto.getArtUnitDto().getId() == null){
+            log.error("The Unit id is null which make artDto {} invalid", artDto);
+            throw new InvalidEntityException("Le artDto passe en argument n'est pas valide puisque le unit indique " +
+                    "u un id null", ErrorCode.ARTICLE_NOT_VALID);
+        }
         Optional<Unit> optionalUnit = unitRepository.findUnitById(artDto.getArtUnitDto().getId());
         if(!optionalUnit.isPresent()){
             log.error("There is no Unit with the id {} in the DB which make artDto {} invalid",
                     artDto.getArtUnitDto().getId(), artDto);
-            throw new InvalidEntityException("Le artDto passe en argument n'est pas valide puisque le unit indique " +
-                    "n'existe pas en BD", ErrorCode.ARTICLE_NOT_VALID);
+            throw new EntityNotFoundException("Le artDto passe en argument n'est pas valide puisque le unit indique " +
+                    "n'existe pas en BD", ErrorCode.UNIT_NOT_FOUND);
         }
 
         /****************************************************************************************
          * Il faut verifier que le BasePrice precise dans l'artDto envoye existe vraiment en BD
          */
+        if(artDto.getArtBpDto().getId() == null){
+            log.error("There Baseprice id is null which make artDto {} invalid", artDto);
+            throw new InvalidEntityException("Le artDto passe en argument n'est pas valide puisque le BasePrice indique " +
+                    "a un id null", ErrorCode.ARTICLE_NOT_VALID);
+        }
         Optional<BasePrice> optionalBasePrice = basePriceRepository.findBasePriceById(artDto.getArtBpDto().getId());
         if(!optionalBasePrice.isPresent()){
             log.error("There is no Baseprice with the id {} in the DB which make artDto {} invalid",
                     artDto.getArtBpDto().getId(), artDto);
-            throw new InvalidEntityException("Le artDto passe en argument n'est pas valide puisque le BasePrice indique " +
-                    "n'existe pas en BD", ErrorCode.ARTICLE_NOT_VALID);
+            throw new EntityNotFoundException("Le artDto passe en argument n'est pas valide puisque le BasePrice indique " +
+                    "n'existe pas en BD", ErrorCode.BASEPRICE_NOT_FOUND);
         }
 
         /******************************************************************************************
          * Il faut verifier que le pointofsale precise dans l'artDto envoye existe vraiment en BD
          */
-        Optional<Pointofsale> optionalPointofsale = posRepository.findPointofsaleById(artDto.getArtPosDto().getId());
+        Optional<Pointofsale> optionalPointofsale = posRepository.findPointofsaleById(artDto.getArtPosId());
         if(!optionalPointofsale.isPresent()){
             log.error("There is no pointofsale with the id {} in the DB which make artDto {} invalid",
-                    artDto.getArtPosDto().getId(), artDto);
+                    artDto.getArtPosId(), artDto);
             throw new InvalidEntityException("Le artDto passe en argument n'est pas valide puisque le pointofsale " +
                     " indique n'existe pas en BD", ErrorCode.ARTICLE_NOT_VALID);
         }
@@ -256,8 +280,8 @@ public class ArticleServiceImpl implements ArticleService {
          * Il faut se rassurer que le pointofsale du unit est le meme que celui du
          * productformated indique
          */
-        if(!optionalProductFormated.get().getPfProduct().getProdPos().getId().equals(
-                optionalUnit.get().getUnitPos().getId())){
+        if(!optionalProductFormated.get().getPfProduct().getProdPosId().equals(
+                optionalUnit.get().getUnitPosId())){
             log.error("The productformated and the unit must belong to the same pointofsale");
             throw new InvalidEntityException("Dans le artDto, le productfornated et le unit doivent etre dans le " +
                     "meme pointofsale ", ErrorCode.ARTICLE_NOT_VALID);
@@ -267,8 +291,8 @@ public class ArticleServiceImpl implements ArticleService {
          * Il faut se rassurer que le pointofsale indiaue est le meme que celui du
          * productformated indique
          */
-        if(!optionalProductFormated.get().getPfProduct().getProdPos().getId().equals(
-                artDto.getArtPosDto().getId())){
+        if(!optionalProductFormated.get().getPfProduct().getProdPosId().equals(
+                artDto.getArtPosId())){
             log.error("The productformated must belong to the same pointofsale indicated for the article");
             throw new InvalidEntityException("Dans le artDto, le pointofsale indique doit etre le meme que le pointofsale " +
                     "du product formated ", ErrorCode.ARTICLE_NOT_VALID);
@@ -278,8 +302,8 @@ public class ArticleServiceImpl implements ArticleService {
          * Il faut se rassurer que le pointofsale indiaue est le meme que celui du
          * unit indique
          */
-        if(!optionalUnit.get().getUnitPos().getId().equals(
-                artDto.getArtPosDto().getId())){
+        if(!optionalUnit.get().getUnitPosId().equals(
+                artDto.getArtPosId())){
             log.error("The unit must belong to the same pointofsale indicated for the article");
             throw new InvalidEntityException("Dans le artDto, le pointofsale indique doit etre le meme que le pointofsale " +
                     "du unit ", ErrorCode.ARTICLE_NOT_VALID);
@@ -290,7 +314,7 @@ public class ArticleServiceImpl implements ArticleService {
          * donc si cest le code quon veut modifier alors on verifie si il n'y aura pas
          * duplication
          */
-        if(!isArticleUniqueInPos(artDto.getArtCode(), artDto.getArtPosDto().getId())){
+        if(!isArticleUniqueInPos(artDto.getArtCode(), artDto.getArtPosId())){
             log.error("An article already exist with the same code {} in the DB ", artDto.getArtCode());
             throw new DuplicateEntityException("Le nouveau code precise identifie deja un article dans ce " +
                     "pointofsale", ErrorCode.ARTICLE_DUPLICATED);
@@ -343,7 +367,7 @@ public class ArticleServiceImpl implements ArticleService {
         /***********************************************************************
          * Il faut se rassurer que c'est pas le pointofsale quon veut modifier
          */
-        if(!articleToUpdate.getArtPos().getId().equals(artDto.getArtPosDto().getId())){
+        if(!articleToUpdate.getArtPosId().equals(artDto.getArtPosId())){
             log.error("The pointofsale of that article cannot be modify through the modification of the article ");
             throw new InvalidEntityException("On ne peut modifier le Pointofsale pendant la modification de l'article ",
                     ErrorCode.ARTICLE_NOT_VALID);
@@ -392,7 +416,7 @@ public class ArticleServiceImpl implements ArticleService {
          * duplication
          */
         if(!articleToUpdate.getArtCode().equals(artDto.getArtCode())){
-            if(!isArticleUniqueInPos(artDto.getArtCode(), artDto.getArtPosDto().getId())){
+            if(!isArticleUniqueInPos(artDto.getArtCode(), artDto.getArtPosId())){
                 log.error("An article already exist with the same code {} in the DB ", artDto.getArtCode());
                 throw new DuplicateEntityException("Le nouveau code precise identifie deja un article dans ce " +
                         "pointofsale", ErrorCode.ARTICLE_DUPLICATED);
@@ -500,10 +524,10 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<ArticleDto> findAllArticleOfProviderInPos(Long posId, Long providerId) {return null;}
+    public List<ArticleDto> findAllArticleofProviderInPos(Long posId, Long providerId) {return null;}
 
     @Override
-    public Page<ArticleDto> findPageofArticleofProviderInPos(Long posId, int pagenum, int pagesize) {
+    public Page<ArticleDto> findPageArticleofProviderInPos(Long posId, Long providerId, int pagenum, int pagesize) {
         return null;
     }
 
@@ -532,13 +556,13 @@ public class ArticleServiceImpl implements ArticleService {
         }
 
         /****************************************
-         * On retourne donc la page d'article
+         * On retourne donc la liste d'article
          */
         return optionalArticleList.get().stream().map(ArticleDto::fromEntity).collect(Collectors.toList());
     }
 
     @Override
-    public Page<ArticleDto> findPageofArticleofPos(Long posId, int pagenum, int pagesize) {
+    public Page<ArticleDto> findPageArticleofPos(Long posId, int pagenum, int pagesize) {
         /*********************************************************
          * On verifie d'abord si l'id du pointofsale est null
          */
@@ -564,13 +588,75 @@ public class ArticleServiceImpl implements ArticleService {
         }
 
         /******************************************
-         * On retourne donc la page des produits
+         * On retourne donc la page des articles
          */
         return optionalArticlePage.get().map(ArticleDto::fromEntity);
     }
 
     @Override
-    public Page<ArticleDto> findPageArticleOfPointofsaleContaining(Long posId, String motif, int pagenum, int pagesize) {
+    public List<ArticleDto> findAllArticleofCat(Long catId) {
+        /*********************************************************
+         * On verifie d'abord si l'id de la category est null
+         */
+        if(catId == null){
+            log.error("The catId precise as argument is null ");
+            throw new NullArgumentException("L'argument passe est null");
+        }
+
+        /******************************************************************
+         * On essaye de recuperer la liste des articles du category
+         */
+        Optional<List<Article>> optionalArticleList = articleRepository.findAllArticleofCat(catId);
+
+        /******************************************************************************
+         * Si cette liste n'existe pas alors cest le category qui n'existe pas
+         */
+        if(!optionalArticleList.isPresent()){
+            log.error("There is no category with the precised id {}", catId);
+            throw new EntityNotFoundException("Aucun category n'existe avec l'id precise "+catId,
+                    ErrorCode.CATEGORY_NOT_FOUND);
+        }
+
+        /****************************************
+         * On retourne donc la liste d'article
+         */
+        return optionalArticleList.get().stream().map(ArticleDto::fromEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<ArticleDto> findPageArticleofCat(Long catId, int pagenum, int pagesize) {
+        /*********************************************************
+         * On verifie d'abord si l'id du category est null
+         */
+        if(catId == null){
+            log.error("The catId precise as argument is null ");
+            throw new NullArgumentException("L'argument passe est null");
+        }
+
+        /***********************************************************************
+         * On recupere donc page par page la liste des articles du category
+         */
+
+        Optional<Page<Article>> optionalArticlePage = articleRepository.findPageArticleofCat(catId,
+                PageRequest.of(pagenum, pagesize, Sort.by(Sort.Direction.ASC, "artName")));
+
+        /******************************************************
+         *On verifie si les page recherche existe vraiment
+         */
+        if(!optionalArticlePage.isPresent()){
+            log.error("There is no category with the precised id {}", catId);
+            throw new EntityNotFoundException("Aucun category n'existe avec l'id precise "+catId,
+                    ErrorCode.CATEGORY_NOT_FOUND);
+        }
+
+        /******************************************
+         * On retourne donc la page des articles
+         */
+        return optionalArticlePage.get().map(ArticleDto::fromEntity);
+    }
+
+    @Override
+    public Page<ArticleDto> findPageArticleofPointofsaleContaining(Long posId, String motif, int pagenum, int pagesize) {
         /*********************************************************
          * On verifie d'abord si l'id du pointofsale est null
          */
@@ -596,104 +682,12 @@ public class ArticleServiceImpl implements ArticleService {
         }
 
         /******************************************
-         * On retourne donc la page des produits
+         * On retourne donc la page des articles
          */
         return optionalArticlePage.get().map(ArticleDto::fromEntity);
     }
 
-    @Override
-    public Page<ArticleDto> findPageArticleOfEnterpriseContaining(Long entId, String motif, int pagenum, int pagesize) {
-        /*********************************************************
-         * On verifie d'abord si l'id du pointofsale est null
-         */
-        if(entId == null){
-            log.error("The entId precise as argument is null ");
-            throw new NullArgumentException("L'argument passe est null");
-        }
 
-        /***********************************************************************
-         * On recupere donc page par page la liste des articles du pointofsale
-         */
-
-        Optional<Page<Article>> optionalArticlePage = articleRepository.findAllByArtNameInEntContaining(entId, motif,
-                PageRequest.of(pagenum, pagesize, Sort.by(Sort.Direction.ASC, "artName")));
-
-        /******************************************************
-         *On verifie si les page recherche existe vraiment
-         */
-        if(!optionalArticlePage.isPresent()){
-            log.error("There is no enterprise with the precised id {}", entId);
-            throw new EntityNotFoundException("Aucune enterprise n'existe avec l'id precise "+entId,
-                    ErrorCode.ENTERPRISE_NOT_FOUND);
-        }
-
-        /******************************************
-         * On retourne donc la page des produits
-         */
-        return optionalArticlePage.get().map(ArticleDto::fromEntity);
-    }
-
-    @Override
-    public List<ArticleDto> findAllArticleofEnterprise(Long entId) {
-        /*********************************************************
-         * On verifie d'abord si l'id de l'enterprise est null
-         */
-        if(entId == null){
-            log.error("The entId precise as argument is null ");
-            throw new NullArgumentException("L'argument passe est null");
-        }
-
-        /******************************************************************
-         * On essaye de recuperer la liste des articles de l'enterprise
-         */
-        Optional<List<Article>> optionalArticleList = articleRepository.findAllArticleofEnterprise(entId);
-
-        /******************************************************************************
-         * Si cette liste n'existe pas alors cest le enterprise qui n'existe pas
-         */
-        if(!optionalArticleList.isPresent()){
-            log.error("There is no enterprise with the precised id {}", entId);
-            throw new EntityNotFoundException("Aucune enterprise n'existe avec l'id precise "+entId,
-                    ErrorCode.ENTERPRISE_NOT_FOUND);
-        }
-
-        /****************************************
-         * On retourne donc la page d'article
-         */
-        return optionalArticleList.get().stream().map(ArticleDto::fromEntity).collect(Collectors.toList());
-    }
-
-    @Override
-    public Page<ArticleDto> findPageofArticleofEnterprise(Long entId, int pagenum, int pagesize) {
-
-        /*********************************************************
-         * On verifie d'abord si l'id du enterprise est null
-         */
-        if(entId == null){
-            log.error("The entId precise as argument is null ");
-            throw new NullArgumentException("L'argument passe est null");
-        }
-
-        /***********************************************************************
-         * On recupere donc page par page la liste des articles du enterprise
-         */
-
-        Optional<Page<Article>> optionalArticlePage = articleRepository.findPageArticleofEnterprise(entId,
-                PageRequest.of(pagenum, pagesize, Sort.by(Sort.Direction.ASC, "artName")));
-        /******************************************************
-         *On verifie si les page recherche existe vraiment
-         */
-        if(!optionalArticlePage.isPresent()){
-            log.error("There is no enterprise with the precised id {}", entId);
-            throw new EntityNotFoundException("Aucun enterprise n'existe avec l'id precise "+entId,
-                    ErrorCode.ENTERPRISE_NOT_FOUND);
-        }
-
-        /******************************************
-         * On retourne donc la page des produits
-         */
-        return optionalArticlePage.get().map(ArticleDto::fromEntity);
-    }
 
     @Override
     public ArticleDto addQuantityofArticle(Long artId, BigDecimal quantityToAdd) {
@@ -765,7 +759,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public BigDecimal getCommonEffectivePriceToApplied(BigDecimal qteCommand, Long articleId) {
+    public BigDecimal getCommonEffectivePriceToApplied(Long articleId, BigDecimal qteCommand) {
         /**************************************************
          * Verifier que les parametres ne sont pas null
          */
@@ -819,4 +813,105 @@ public class ArticleServiceImpl implements ArticleService {
          */
         return basePriceofArticle.getBpDetailprice();
     }
+
+
+
+
+
+
+
+    /*@Override
+    public Page<ArticleDto> findPageArticleOfEnterpriseContaining(Long entId, String motif, int pagenum, int pagesize) {*/
+    /*********************************************************
+     * On verifie d'abord si l'id du pointofsale est null
+     */
+        /*if(entId == null){
+            log.error("The entId precise as argument is null ");
+            throw new NullArgumentException("L'argument passe est null");
+        }*/
+
+    /***********************************************************************
+     * On recupere donc page par page la liste des articles du pointofsale
+     */
+
+        /*Optional<Page<Article>> optionalArticlePage = articleRepository.findAllByArtNameInEntContaining(entId, motif,
+                PageRequest.of(pagenum, pagesize, Sort.by(Sort.Direction.ASC, "artName")));*/
+
+    /******************************************************
+     *On verifie si les page recherche existe vraiment
+     */
+        /*if(!optionalArticlePage.isPresent()){
+            log.error("There is no enterprise with the precised id {}", entId);
+            throw new EntityNotFoundException("Aucune enterprise n'existe avec l'id precise "+entId,
+                    ErrorCode.ENTERPRISE_NOT_FOUND);
+        }*/
+
+    /******************************************
+     * On retourne donc la page des produits
+     */
+        /*return optionalArticlePage.get().map(ArticleDto::fromEntity);
+    }*/
+
+    /*@Override
+    public List<ArticleDto> findAllArticleofEnterprise(Long entId) {*/
+    /*********************************************************
+     * On verifie d'abord si l'id de l'enterprise est null
+     */
+        /*if(entId == null){
+            log.error("The entId precise as argument is null ");
+            throw new NullArgumentException("L'argument passe est null");
+        }*/
+
+    /******************************************************************
+     * On essaye de recuperer la liste des articles de l'enterprise
+     */
+    /*Optional<List<Article>> optionalArticleList = articleRepository.findAllArticleofEnterprise(entId);*/
+
+    /******************************************************************************
+     * Si cette liste n'existe pas alors cest le enterprise qui n'existe pas
+     */
+        /*if(!optionalArticleList.isPresent()){
+            log.error("There is no enterprise with the precised id {}", entId);
+            throw new EntityNotFoundException("Aucune enterprise n'existe avec l'id precise "+entId,
+                    ErrorCode.ENTERPRISE_NOT_FOUND);
+        }*/
+
+    /****************************************
+     * On retourne donc la page d'article
+     */
+        /*return optionalArticleList.get().stream().map(ArticleDto::fromEntity).collect(Collectors.toList());
+    }*/
+
+    /*@Override
+    public Page<ArticleDto> findPageofArticleofEnterprise(Long entId, int pagenum, int pagesize) {*/
+
+    /*********************************************************
+     * On verifie d'abord si l'id du enterprise est null
+     */
+        /*if(entId == null){
+            log.error("The entId precise as argument is null ");
+            throw new NullArgumentException("L'argument passe est null");
+        }*/
+
+    /***********************************************************************
+     * On recupere donc page par page la liste des articles du enterprise
+     */
+
+        /*Optional<Page<Article>> optionalArticlePage = articleRepository.findPageArticleofEnterprise(entId,
+                PageRequest.of(pagenum, pagesize, Sort.by(Sort.Direction.ASC, "artName")));*/
+    /******************************************************
+     *On verifie si les page recherche existe vraiment
+     */
+        /*if(!optionalArticlePage.isPresent()){
+            log.error("There is no enterprise with the precised id {}", entId);
+            throw new EntityNotFoundException("Aucun enterprise n'existe avec l'id precise "+entId,
+                    ErrorCode.ENTERPRISE_NOT_FOUND);
+        }*/
+
+    /******************************************
+     * On retourne donc la page des produits
+     */
+        /*return optionalArticlePage.get().map(ArticleDto::fromEntity);
+    }*/
+
 }

@@ -1,9 +1,13 @@
 spring:
   mvc:
+    format:
+      date: yyyy-MM-dd
+      date-time: yyyy-MM-dd HH:mm:ss
+      time: HH:mm:ss
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
   datasource:
-    url: jdbc:mysql://localhost:3306/BM?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/BM?createDatabaseIfNotExist=true&connectionTimeZone=UTC
     username: root
     password:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -15,6 +19,8 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        jdbc:
+          time_zone: UTC
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
 server:
   port: 8081

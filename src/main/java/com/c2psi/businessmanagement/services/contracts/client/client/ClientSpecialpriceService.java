@@ -2,7 +2,6 @@ package com.c2psi.businessmanagement.services.contracts.client.client;
 
 import com.c2psi.businessmanagement.dtos.client.client.ClientDto;
 import com.c2psi.businessmanagement.dtos.client.client.ClientSpecialpriceDto;
-import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
 import org.springframework.data.domain.Page;
 
 import java.math.BigDecimal;
@@ -16,6 +15,8 @@ public interface ClientSpecialpriceService {
     //Rechercher un prix special a partir de son id
     ClientSpecialpriceDto findClientSpecialpriceById(Long cltspepriceId);
     Boolean isClientSpecialpriceUnique(Long clientId, Long articleId);
+    //Est ce qu'un client a un prix special sur un article?
+    Boolean isClientSpecialpriceofArticleforClientExist(Long articleId, Long clientId);
     //Retrouver le prix special associe a un client pour un article donne
     ClientSpecialpriceDto findClientSpecialpriceofArticleforClient(Long articleId, Long clientId);
     //Faire la liste des prix speciaux d'un article puis page par page
@@ -28,7 +29,7 @@ public interface ClientSpecialpriceService {
     List<ClientDto> findAllClientWithSpecialpriceonArticle(Long articleId);
     Page<ClientDto> findPageClientWithSpecialpriceonArticle(Long articleId, int pagenum, int pagesize);
     //Calculer le prix unitaire de facturation d'un article pour un client donne selon la quantite commadee
-    BigDecimal getEffectivePriceToApplied(BigDecimal qteCommand, Long articleId, Long clientId);
+    BigDecimal getEffectiveSpecialPriceToApplied(BigDecimal qteCommand, Long articleId, Long clientId);
     BigDecimal getCommonEffectivePriceToApplied(BigDecimal qteCommand, Long articleId);
     //Regarder si un prix special est supprimable?
     Boolean isClientSpecialpriceDeleteable(Long cltspepriceId);

@@ -61,7 +61,7 @@ public class CategoryServiceImplTest {
         assertNotNull(pointofsaleDtoSaved);
 
         CategoryDto categoryDtoToSaved = CategoryDto.builder()
-                .catPosDto(pointofsaleDtoSaved)
+                .catPosId(pointofsaleDtoSaved.getId())
                 .categoryParentId(null)
                 .catDescription("description de la categorie 1")
                 .catCode("cat code1")
@@ -120,7 +120,7 @@ public class CategoryServiceImplTest {
         assertNotNull(pointofsaleDtoSaved);
 
         CategoryDto categoryDtoToSaved = CategoryDto.builder()
-                .catPosDto(null)
+                .catPosId(null)
                 .categoryParentId(null)
                 .catDescription("description de la categorie 1")
                 .catCode("cat code1")
@@ -203,7 +203,7 @@ public class CategoryServiceImplTest {
         assertNotNull(pointofsaleDtoSaved);
 
         CategoryDto categoryDtoToSaved = CategoryDto.builder()
-                .catPosDto(pointofsaleDtoSaved)
+                .catPosId(pointofsaleDtoSaved.getId())
                 .categoryParentId(null)
                 .catDescription("description de la categorie 1")
                 .catCode("cat code1")
@@ -465,7 +465,7 @@ public class CategoryServiceImplTest {
                 categoryService);
         assertNotNull(categoryDtoSaved4);
 
-        Page<CategoryDto> categoryDtoPage = categoryService.findCategoryInPointofsale(pointofsaleDtoSaved.getId(), 0, 2);
+        Page<CategoryDto> categoryDtoPage = categoryService.findPageCategoryInPointofsale(pointofsaleDtoSaved.getId(), 0, 2);
         assertNotNull(categoryDtoPage);
         assertEquals(2, categoryDtoPage.getTotalPages());
 

@@ -1,6 +1,5 @@
 package com.c2psi.businessmanagement.validators.stock.price;
 
-import com.c2psi.businessmanagement.dtos.stock.price.CurrencyDto;
 import com.c2psi.businessmanagement.dtos.stock.price.SpecialPriceDto;
 
 import javax.validation.ConstraintViolation;

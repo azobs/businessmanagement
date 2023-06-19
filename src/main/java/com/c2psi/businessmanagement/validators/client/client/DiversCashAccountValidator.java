@@ -1,6 +1,5 @@
 package com.c2psi.businessmanagement.validators.client.client;
 
-import com.c2psi.businessmanagement.dtos.client.client.ClientCashAccountDto;
 import com.c2psi.businessmanagement.dtos.client.client.DiversCashAccountDto;
 
 import javax.validation.ConstraintViolation;

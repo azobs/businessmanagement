@@ -1,9 +1,6 @@
 package com.c2psi.businessmanagement.validators.client.delivery;
 
-import com.c2psi.businessmanagement.Enumerations.DeliveryState;
-import com.c2psi.businessmanagement.dtos.client.command.SaleDto;
 import com.c2psi.businessmanagement.dtos.client.delivery.DeliveryDto;
-import org.springframework.util.StringUtils;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;

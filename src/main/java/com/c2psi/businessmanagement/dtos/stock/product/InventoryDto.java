@@ -2,15 +2,12 @@ package com.c2psi.businessmanagement.dtos.stock.product;
 
 import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.models.Inventory;
-import com.c2psi.businessmanagement.models.InventoryLine;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.*;
 import java.time.Instant;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -19,6 +16,7 @@ public class InventoryDto {
     String invComment;
     @NotNull(message = "The inventory date cannot be null")
     @PastOrPresent(message = "The inventory date cannot be in the future")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     Instant invDate;
     @NotNull(message = "The inventory code cannot be null")
     @NotEmpty(message = "The inventory code cannot be empty")
@@ -30,7 +28,8 @@ public class InventoryDto {
      * Relation between entities  *
      * ****************************/
     @NotNull(message = "The point of sale associated with the inventory cannot be null")
-    PointofsaleDto invPosDto;
+    //PointofsaleDto invPosDto;
+    Long invPosId;
 
 
     /***********************************
@@ -46,7 +45,8 @@ public class InventoryDto {
                 .invCode(inv.getInvCode())
                 .invComment(inv.getInvComment())
                 .invDate(inv.getInvDate())
-                .invPosDto(PointofsaleDto.fromEntity(inv.getInvPos()))
+                //.invPosDto(PointofsaleDto.fromEntity(inv.getInvPos()))
+                .invPosId(inv.getInvPosId())
                 .build();
     }
 
@@ -59,7 +59,8 @@ public class InventoryDto {
         inv.setInvCode(invDto.getInvCode());
         inv.setInvComment(invDto.getInvComment());
         inv.setInvDate(invDto.getInvDate());
-        inv.setInvPos(PointofsaleDto.toEntity(invDto.getInvPosDto()));
+        //inv.setInvPos(PointofsaleDto.toEntity(invDto.getInvPosDto()));
+        inv.setInvPosId(invDto.getInvPosId());
         return inv;
     }
 }

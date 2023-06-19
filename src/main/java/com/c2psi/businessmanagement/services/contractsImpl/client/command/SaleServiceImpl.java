@@ -58,12 +58,12 @@ public class SaleServiceImpl implements SaleService {
          * Il faut se rassurer que le pointofsale id n'est pas null
          * et dans ce cas quil existe vraiment en BD
          */
-        if(saleDto.getSalePosDto().getId() == null){
+        if(saleDto.getSalePosId() == null){
             log.error("The associate pointofsale id cannot be null");
             throw new InvalidEntityException("L'id du pointofsale associe ne peut etre null ",
                     ErrorCode.SALE_NOT_VALID);
         }
-        Optional<Pointofsale> optionalPointofsale =  pointofsaleRepository.findPointofsaleById(saleDto.getSalePosDto().getId());
+        Optional<Pointofsale> optionalPointofsale =  pointofsaleRepository.findPointofsaleById(saleDto.getSalePosId());
         if(!optionalPointofsale.isPresent()){
             log.error("The associate pointofsale indicated is not in the DB");
             throw new InvalidEntityException("Le pointofsale associe a la commande est inexistant de la BD",
@@ -104,13 +104,13 @@ public class SaleServiceImpl implements SaleService {
          * Il faut se rassurer que le pointofsale indique est le
          * meme que celui de l'article et que celui du command
          */
-        if(!saleDto.getSalePosDto().getId().equals(saleDto.getSaleArticleDto().getArtPosDto().getId())){
+        if(!saleDto.getSalePosId().equals(saleDto.getSaleArticleDto().getArtPosId())){
             log.error("The pointofsale indicated must be the same with the one of the article associated");
             throw new InvalidEntityException("Le pointofsale indique pour le vente doit etre le meme que " +
                     "celui de l'article ", ErrorCode.SALE_NOT_VALID);
         }
 
-        if(!saleDto.getSalePosDto().getId().equals(saleDto.getSaleCommandDto().getCmdPosDto().getId())){
+        if(!saleDto.getSalePosId().equals(saleDto.getSaleCommandDto().getCmdPosId())){
             log.error("The pointofsale indicated must be the same with the one of the command associated");
             throw new InvalidEntityException("Le pointofsale indique pour le vente doit etre le meme que " +
                     "celui de la command ", ErrorCode.SALE_NOT_VALID);
@@ -170,7 +170,7 @@ public class SaleServiceImpl implements SaleService {
          * Il faut se rassurer que ce nest pas le pointofsale
          * quon veut modifier
          */
-        if(!saleToUpdate.getSalePos().getId().equals(saleDto.getSalePosDto().getId())){
+        if(!saleToUpdate.getSalePosId().equals(saleDto.getSalePosId())){
             log.error("It is not possible to update the pointofsale of a sale in a command");
             throw new InvalidEntityException("Il n'est pas possible de update le pointofsale d'un sale dans la command ",
                     ErrorCode.SALE_NOT_VALID);

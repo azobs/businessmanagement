@@ -4,7 +4,6 @@ import com.c2psi.businessmanagement.Enumerations.OperationType;
 import com.c2psi.businessmanagement.dtos.pos.pos.OperationDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PosDamageOperationDto;
 import com.c2psi.businessmanagement.exceptions.*;
-import com.c2psi.businessmanagement.models.PosCapsuleOperation;
 import com.c2psi.businessmanagement.models.PosDamageOperation;
 import com.c2psi.businessmanagement.models.UserBM;
 import com.c2psi.businessmanagement.repositories.pos.pos.PosDamageOperationRepository;
@@ -179,14 +178,14 @@ public class PosDamageOperationServiceImpl implements PosDamageOperationService 
     }
 
     @Override
-    public List<PosDamageOperationDto> findAllPosDamageOperationBetween(Long posdamopId, OperationType op_type, Instant startDate, Instant endDate) {
+    public List<PosDamageOperationDto> findAllPosDamageOperationofTypeBetween(Long posdamopId, OperationType op_type, Instant startDate, Instant endDate) {
         List<PosDamageOperation> posDamageOperationListoftypeBetween = posDamageOperationRepository.
                 findAllPosDamageOperationOfTypeBetween(posdamopId, op_type, startDate, endDate);
         return posDamageOperationListoftypeBetween.stream().map(PosDamageOperationDto::fromEntity).collect(Collectors.toList());
     }
 
     @Override
-    public Page<PosDamageOperationDto> findPagePosDamageOperationBetween(Long posdamopId, OperationType op_type, Instant startDate, Instant endDate, int pagenum, int pagesize) {
+    public Page<PosDamageOperationDto> findPagePosDamageOperationofTypeBetween(Long posdamopId, OperationType op_type, Instant startDate, Instant endDate, int pagenum, int pagesize) {
         Page<PosDamageOperation> posDamageOperationPageoftypeBetween = posDamageOperationRepository.
                 findPagePosDamageOperationOfTypeBetween(posdamopId, op_type, startDate, endDate, PageRequest.of(pagenum, pagesize));
         return posDamageOperationPageoftypeBetween.map(PosDamageOperationDto::fromEntity);

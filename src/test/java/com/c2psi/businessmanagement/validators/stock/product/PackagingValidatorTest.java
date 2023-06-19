@@ -17,7 +17,7 @@ public class PackagingValidatorTest {
     @Test
     public void validate() {
         PackagingDto packagingDto = PackagingDto.builder()
-                .packPosDto(PointofsaleDto.builder().build())
+                .packPosId(PointofsaleDto.builder().build().getId())
                 .packProviderDto(ProviderDto.builder().build())
                 .packPrice(BigDecimal.valueOf(3600))
                 .packFirstcolor("blue")
@@ -34,7 +34,7 @@ public class PackagingValidatorTest {
     @Test
     public void validateNull() {
         PackagingDto packagingDto = PackagingDto.builder()
-                .packPosDto(PointofsaleDto.builder().build())
+                .packPosId(PointofsaleDto.builder().build().getId())
                 .packProviderDto(ProviderDto.builder().build())
                 .packPrice(BigDecimal.valueOf(3600))
                 .packFirstcolor("blue")
@@ -52,7 +52,7 @@ public class PackagingValidatorTest {
     @Test
     public void validateNullValue() {
         PackagingDto packagingDto = PackagingDto.builder()
-                .packPosDto(null)
+                .packPosId(null)
                 .packProviderDto(null)
                 .packPrice(null)
                 .packFirstcolor(null)
@@ -78,7 +78,7 @@ public class PackagingValidatorTest {
     @Test
     public void validateEmptyValue() {
         PackagingDto packagingDto = PackagingDto.builder()
-                .packPosDto(PointofsaleDto.builder().build())
+                .packPosId(PointofsaleDto.builder().build().getId())
                 .packProviderDto(ProviderDto.builder().build())
                 .packPrice(BigDecimal.valueOf(3600))
                 .packFirstcolor("")
@@ -101,7 +101,7 @@ public class PackagingValidatorTest {
     @Test
     public void validateBlankValue() {
         PackagingDto packagingDto = PackagingDto.builder()
-                .packPosDto(PointofsaleDto.builder().build())
+                .packPosId(PointofsaleDto.builder().build().getId())
                 .packProviderDto(ProviderDto.builder().build())
                 .packPrice(BigDecimal.valueOf(3600))
                 .packFirstcolor("     ")
@@ -121,7 +121,7 @@ public class PackagingValidatorTest {
     @Test
     public void validateSizeValue() {
         PackagingDto packagingDto = PackagingDto.builder()
-                .packPosDto(PointofsaleDto.builder().build())
+                .packPosId(PointofsaleDto.builder().build().getId())
                 .packProviderDto(ProviderDto.builder().build())
                 .packPrice(BigDecimal.valueOf(-3600))
                 .packFirstcolor("dsdsds")

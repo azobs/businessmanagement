@@ -1,6 +1,5 @@
 package com.c2psi.businessmanagement.repositories.pos.userbm;
 
-import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMRoleDto;
 import com.c2psi.businessmanagement.models.Role;
 import com.c2psi.businessmanagement.models.UserBM;
 import com.c2psi.businessmanagement.models.UserBMRole;
@@ -33,14 +32,16 @@ public interface UserBMRoleRepository extends JpaRepository<UserBMRole, Long> {
      * @return
      */
     Optional<UserBMRole> findByUserbmroleUserbmAndUserbmroleRole(UserBM userbm, Role role);
+    @Query("SELECT ubmr FROM UserBMRole ubmr WHERE ubmr.userbmroleUserbm.id=:userBMId AND ubmr.userbmroleRole.id=:roleId")
+    Optional<UserBMRole> findUserBMRoleByUserbmAndRole(Long userBMId, Long roleId);
 
-    @Query("SELECT ubmr FROM UserBMRole ubmr  " +
+    /*@Query("SELECT ubmr FROM UserBMRole ubmr  " +
             "WHERE ubmr.userbmroleUserbm.bmPos.posEnterprise.id=:entId " +
             "AND ubmr.userbmroleRole.roleEnt.id=:entId")
-    List<UserBMRole> findAllUserBMRoleofEnterprise(@Param("entId") Long entId);
+    List<UserBMRole> findAllUserBMRoleofEnterprise(@Param("entId") Long entId);*/
 
     @Query("SELECT ubmr FROM UserBMRole ubmr  " +
-            "WHERE ubmr.userbmroleUserbm.bmPos.id=:posId ")
+            "WHERE ubmr.userbmroleUserbm.bmPosId=:posId ")
     List<UserBMRole> findAllUserBMRoleofPointofsale(@Param("posId") Long posId);
 
 }

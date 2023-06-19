@@ -3,11 +3,7 @@ package com.c2psi.businessmanagement.validators.client.command;
 import com.c2psi.businessmanagement.Enumerations.CommandState;
 import com.c2psi.businessmanagement.Enumerations.CommandStatus;
 import com.c2psi.businessmanagement.Enumerations.CommandType;
-import com.c2psi.businessmanagement.dtos.client.client.ClientDto;
 import com.c2psi.businessmanagement.dtos.client.command.CommandDto;
-import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
-import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMRoleDto;
-import org.springframework.util.StringUtils;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;

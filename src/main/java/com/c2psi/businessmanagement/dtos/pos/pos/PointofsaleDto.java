@@ -1,16 +1,9 @@
 package com.c2psi.businessmanagement.dtos.pos.pos;
 
-import com.c2psi.businessmanagement.dtos.client.client.ClientDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.AddressDto;
 import com.c2psi.businessmanagement.dtos.stock.price.CurrencyDto;
-import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
-import com.c2psi.businessmanagement.dtos.stock.product.PackagingDto;
-import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
-import com.c2psi.businessmanagement.models.Article;
-import com.c2psi.businessmanagement.models.Client;
-import com.c2psi.businessmanagement.models.Packaging;
 import com.c2psi.businessmanagement.models.Pointofsale;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
 
@@ -19,24 +12,26 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 @Builder
 public class PointofsaleDto {
+    @ApiModelProperty(value = "The id of the Pointofsale", name = "id", dataType = "Long")
     Long id;
     @NotNull(message = "The pointofsale name cannot be null")
     @NotEmpty(message = "The pointofsale name cannot be empty value")
     @NotBlank(message = "The pointofsale name cannot be blank value")
     @Size(max = 30, message = "The pointofsale name cannot exceed 30 characters")
+    @ApiModelProperty(value = "The name of the pointofsale", name = "posName", dataType = "String", example = "Depot")
     String posName;
 
     @NotNull(message = "The pointofsale acronym cannot be null")
     @NotEmpty(message = "The pointofsale acronym cannot be empty value")
     @NotBlank(message = "The pointofsale acronym cannot be blank value")
     @Size(max = 30, message = "The pointofsale acronym cannot exceed 30 characters")
+    @ApiModelProperty(value = "The acronym of the pointofsale", name = "posAcronym", dataType = "String", example = "D")
     String posAcronym;
+    @ApiModelProperty(value = "The description of the pointofsale", name = "posDescription", dataType = "String")
     String posDescription;
 
     @Valid
@@ -73,13 +68,16 @@ public class PointofsaleDto {
     List<ArticleDto> articleDtoList;*/
 
     @NotNull(message = "The cash account of a pointofsale cannot be null")
+    @ApiModelProperty(value = "The pointofsale cash account", name = "posCashaccountDto", dataType = "PosCashAccountDto")
     PosCashAccountDto posCashaccountDto;
     //Each pointofsale belongs to 1 enterprise
 
     @NotNull(message = "The main currency of a pointofsale cannot be null")
+    @ApiModelProperty(value = "The currency of the pointofsale", name = "posCurrencyDto", dataType = "CurrencyDto")
     CurrencyDto posCurrencyDto;
 
     @NotNull(message = "The enterprise owner of a pointofsale cannot be null")
+    @ApiModelProperty(value = "The enterprise of the pointofsale", name = "posEnterpriseDto", dataType = "EnterpriseDto")
     EnterpriseDto posEnterpriseDto;
 
     /***********************************

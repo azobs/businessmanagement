@@ -5,14 +5,13 @@ import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
 import com.c2psi.businessmanagement.models.SupplyInvoiceCash;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -27,9 +26,11 @@ public class SupplyInvoiceCashDto {
     String sicashPicture;
     @NotNull(message = "The delivery date cannot be null")
     @PastOrPresent(message = "The delivery date cannot be in the future")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     Instant sicashDeliveryDate;
     @NotNull(message = "The invoicing date cannot be null")
     @PastOrPresent(message = "The invoicing date cannot be in the future")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     Instant sicashInvoicingDate;
     @NotNull(message = "The amount expected cannot be null")
     @Positive(message = "The amount expected must be positive")
@@ -50,7 +51,8 @@ public class SupplyInvoiceCashDto {
     ProviderDto sicashProviderDto;
 
     @NotNull(message = "The point of sale associated cannot be null")
-    PointofsaleDto sicashPosDto;
+    //PointofsaleDto sicashPosDto;
+    Long sicashPosId;
 
     /*@JsonIgnore
     List<CashArrivalDto> cashArrivalDtoList;*/
@@ -79,7 +81,8 @@ public class SupplyInvoiceCashDto {
                 .sicashSourceofcash(sic.getSicashSourceofcash())
                 .sicashProviderDto(ProviderDto.fromEntity(sic.getSicashProvider()))
                 .sicashUserbmDto(UserBMDto.fromEntity(sic.getSicashUserbm()))
-                .sicashPosDto(PointofsaleDto.fromEntity(sic.getSicashPos()))
+                //.sicashPosDto(PointofsaleDto.fromEntity(sic.getSicashPos()))
+                .sicashPosId(sic.getSicashPosId())
                 .build();
     }
     public static SupplyInvoiceCash toEntity(SupplyInvoiceCashDto sicDto){
@@ -99,7 +102,8 @@ public class SupplyInvoiceCashDto {
         sic.setSicashSourceofcash(sicDto.getSicashSourceofcash());
         sic.setSicashProvider(ProviderDto.toEntity(sicDto.getSicashProviderDto()));
         sic.setSicashUserbm(UserBMDto.toEntity(sicDto.getSicashUserbmDto()));
-        sic.setSicashPos(PointofsaleDto.toEntity(sicDto.getSicashPosDto()));
+        //sic.setSicashPos(PointofsaleDto.toEntity(sicDto.getSicashPosDto()));
+        sic.setSicashPosId(sicDto.getSicashPosId());
 
         return sic;
     }

@@ -1,11 +1,10 @@
 package com.c2psi.businessmanagement.dtos.pos.userbm;
 
 import com.c2psi.businessmanagement.models.UserBMRole;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import java.time.Instant;
@@ -16,6 +15,7 @@ public class UserBMRoleDto {
     Long id;
     @NotNull(message = "Attribution date cannot be null")
     @PastOrPresent(message = "The attribution date cannot be in the future")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     Instant userbmroleAttributionDate;
     @NotNull(message = "The role to be attributed cannot be null")
     RoleDto userbmroleRoleDto;

@@ -1,6 +1,5 @@
 package com.c2psi.businessmanagement.services.contractsImpl.stock.product;
 
-import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.stock.product.FormatDto;
 import com.c2psi.businessmanagement.dtos.stock.product.ProductDto;
 import com.c2psi.businessmanagement.dtos.stock.product.ProductFormatedDto;
@@ -77,7 +76,7 @@ public class ProductFormatedServiceImpl implements ProductFormatedService {
         /*******************************
          * Verify if the format and the product is in the same pointofsale
          */
-        if(!optionalProduct.get().getProdPos().getId().equals(optionalFormat.get().getFormatPos().getId())){
+        if(!optionalProduct.get().getProdPosId().equals(optionalFormat.get().getFormatPosId())){
             log.error("The format and the product of a productFormated must belong to the same pointofsale");
             throw new InvalidEntityException("Le format et le product devant composer le productFormated doivent etre " +
                     "dans le meme pointofsale", ErrorCode.PRODUCTFORMATED_NOT_VALID);
@@ -149,7 +148,7 @@ public class ProductFormatedServiceImpl implements ProductFormatedService {
             /*******************************
              * Verify if the format and the product is in the same pointofsale
              */
-            if(!pfDto.getPfProductDto().getProdPosDto().getId().equals(pfDto.getPfFormatDto().getFormatPosDto().getId())){
+            if(!pfDto.getPfProductDto().getProdPosId().equals(pfDto.getPfFormatDto().getFormatPosId())){
                 log.error("The format and the product of a productFormated must belong to the same pointofsale");
                 throw new InvalidEntityException("Le format et le product devant composer le productFormated doivent etre " +
                         "dans le meme pointofsale", ErrorCode.PRODUCTFORMATED_NOT_VALID);
@@ -212,7 +211,7 @@ public class ProductFormatedServiceImpl implements ProductFormatedService {
     }
 
     @Override
-    public List<ProductFormatedDto> findListofProductFormatedInPos(Long posId) {
+    public List<ProductFormatedDto> findAllProductFormatedInPos(Long posId) {
         if(posId == null){
             log.error("the posId cannot be null in the function findAllProductFormated");
             throw new NullArgumentException("le prodId est null lors de lappel");
@@ -226,7 +225,7 @@ public class ProductFormatedServiceImpl implements ProductFormatedService {
     }
 
     @Override
-    public Page<ProductFormatedDto> findPageofProductFormatedInPos(Long posId, int pagenum, int pagesize) {
+    public Page<ProductFormatedDto> findPageProductFormatedInPos(Long posId, int pagenum, int pagesize) {
         if(posId == null){
             log.error("the posId cannot be null in the function findPageofProductFormatedInPos");
             throw new NullArgumentException("le prodId est null lors de lappel");

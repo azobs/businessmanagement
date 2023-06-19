@@ -4,7 +4,6 @@ import com.c2psi.businessmanagement.BusinessmanagementApplication;
 import com.c2psi.businessmanagement.Enumerations.CommandState;
 import com.c2psi.businessmanagement.Enumerations.CommandStatus;
 import com.c2psi.businessmanagement.Enumerations.CommandType;
-import com.c2psi.businessmanagement.Enumerations.DeliveryState;
 import com.c2psi.businessmanagement.dtos.client.client.ClientDto;
 import com.c2psi.businessmanagement.dtos.client.client.DiversDto;
 import com.c2psi.businessmanagement.dtos.client.command.CommandDto;
@@ -93,7 +92,7 @@ public class CommandServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         CommandDto commandDtoSaved = usedForTestForClient.saveCommand(-1, posDtoSaved, clientDtoSaved, null,
                 userBMDtoSaved, commandService);
@@ -122,7 +121,7 @@ public class CommandServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         CommandDto commandDtoSaved = usedForTestForClient.saveCommand_Invalid(-1, posDtoSaved, clientDtoSaved, null,
                 userBMDtoSaved, commandService);
@@ -147,7 +146,7 @@ public class CommandServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         posDtoSaved.setId(null);
 
@@ -174,7 +173,7 @@ public class CommandServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         posDtoSaved.setId(Long.valueOf(457821));
 
@@ -201,7 +200,7 @@ public class CommandServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         CommandDto commandDtoSaved = usedForTestForClient.saveCommand(-1, posDtoSaved, null, null,
                 userBMDtoSaved, commandService);
@@ -226,7 +225,7 @@ public class CommandServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         CommandDto commandDtoSaved = usedForTestForClient.saveCommand(-1, posDtoSaved, clientDtoSaved, diversDtoSaved,
                 userBMDtoSaved, commandService);
@@ -251,7 +250,7 @@ public class CommandServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         clientDtoSaved.setId(Long.valueOf(457896));
 
@@ -278,7 +277,7 @@ public class CommandServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         diversDtoSaved.setId(Long.valueOf(457896));
 
@@ -305,7 +304,7 @@ public class CommandServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         userBMDtoSaved.setId(null);
 
@@ -332,7 +331,7 @@ public class CommandServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         userBMDtoSaved.setId(Long.valueOf(748596));
 
@@ -359,7 +358,7 @@ public class CommandServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         UserBMDto userBMDtoSaved1 = usedForTestForAll.saveUserBM(152, userBMService);
         assertNotNull(userBMDtoSaved1);
@@ -391,7 +390,7 @@ public class CommandServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         UserBMDto userBMDtoSaved1 = usedForTestForAll.saveUserBM(152, userBMService);
         assertNotNull(userBMDtoSaved1);
@@ -419,7 +418,7 @@ public class CommandServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         CommandDto commandDtoSaved = usedForTestForClient.saveCommand(-1, posDtoSaved, clientDtoSaved, null,
                 userBMDtoSaved, commandService);
@@ -462,7 +461,7 @@ public class CommandServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         CommandDto commandDtoSaved = usedForTestForClient.saveCommand(-1, posDtoSaved, clientDtoSaved, null,
                 userBMDtoSaved, commandService);
@@ -481,7 +480,7 @@ public class CommandServiceImplTest {
 
         //On peut update le divers
         CommandDto commandDtoFound1 = commandService.findCommandByCodeinPos(commandDtoSaved1.getCmdCode(),
-                commandDtoSaved1.getCmdPosDto().getId());
+                commandDtoSaved1.getCmdPosId());
         commandDtoFound1.setCmdComment("comment divers");
         //On peut update le divers
         commandDtoFound1.setCmdDiversDto(diversDtoSaved1);
@@ -525,7 +524,7 @@ public class CommandServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         CommandDto commandDtoSaved = usedForTestForClient.saveCommand(-1, posDtoSaved, clientDtoSaved, null,
                 userBMDtoSaved, commandService);
@@ -544,7 +543,7 @@ public class CommandServiceImplTest {
 
         //On peut update le divers
         CommandDto commandDtoFound1 = commandService.findCommandByCodeinPos(commandDtoSaved1.getCmdCode(),
-                commandDtoSaved1.getCmdPosDto().getId());
+                commandDtoSaved1.getCmdPosId());
         commandDtoFound1.setCmdComment("comment divers");
         //On peut update le divers
         commandDtoFound1.setCmdDiversDto(diversDtoSaved1);
@@ -588,7 +587,7 @@ public class CommandServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         CommandDto commandDtoSaved = usedForTestForClient.saveCommand(-1, posDtoSaved, clientDtoSaved, null,
                 userBMDtoSaved, commandService);
@@ -607,7 +606,7 @@ public class CommandServiceImplTest {
 
         //On peut update le divers
         CommandDto commandDtoFound1 = commandService.findCommandByCodeinPos(commandDtoSaved1.getCmdCode(),
-                commandDtoSaved1.getCmdPosDto().getId());
+                commandDtoSaved1.getCmdPosId());
         commandDtoFound1.setCmdComment("comment divers");
         //On peut update le divers
         diversDtoSaved1.setId(null);
@@ -650,7 +649,7 @@ public class CommandServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         CommandDto commandDtoSaved = usedForTestForClient.saveCommand(-1, posDtoSaved, clientDtoSaved, null,
                 userBMDtoSaved, commandService);
@@ -669,7 +668,7 @@ public class CommandServiceImplTest {
 
         //On peut update le divers
         CommandDto commandDtoFound1 = commandService.findCommandByCodeinPos(commandDtoSaved1.getCmdCode(),
-                commandDtoSaved1.getCmdPosDto().getId());
+                commandDtoSaved1.getCmdPosId());
         commandDtoFound1.setCmdComment("comment divers");
         //On peut update le divers
         diversDtoSaved1.setId(Long.valueOf(8574213));
@@ -713,7 +712,7 @@ public class CommandServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         CommandDto commandDtoSaved = usedForTestForClient.saveCommand(-1, posDtoSaved, clientDtoSaved, null,
                 userBMDtoSaved, commandService);
@@ -733,7 +732,7 @@ public class CommandServiceImplTest {
 
         //On peut update le divers
         CommandDto commandDtoFound1 = commandService.findCommandByCodeinPos(commandDtoSaved1.getCmdCode(),
-                commandDtoSaved1.getCmdPosDto().getId());
+                commandDtoSaved1.getCmdPosId());
         commandDtoFound1.setCmdComment("comment divers");
         //On peut update le divers
         commandDtoFound1.setCmdDiversDto(diversDtoSaved1);
@@ -775,7 +774,7 @@ public class CommandServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         CommandDto commandDtoSaved = usedForTestForClient.saveCommand(-1, posDtoSaved, clientDtoSaved, null,
                 userBMDtoSaved, commandService);
@@ -795,7 +794,7 @@ public class CommandServiceImplTest {
 
         //On peut update le divers
         CommandDto commandDtoFound1 = commandService.findCommandByCodeinPos(commandDtoSaved1.getCmdCode(),
-                commandDtoSaved1.getCmdPosDto().getId());
+                commandDtoSaved1.getCmdPosId());
         commandDtoFound1.setCmdComment("comment divers");
         //On peut update le divers
         commandDtoFound1.setCmdDiversDto(diversDtoSaved1);
@@ -837,7 +836,7 @@ public class CommandServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         CommandDto commandDtoSaved = usedForTestForClient.saveCommand(-1, posDtoSaved, clientDtoSaved, null,
                 userBMDtoSaved, commandService);
@@ -856,7 +855,7 @@ public class CommandServiceImplTest {
 
         //On peut update le divers
         CommandDto commandDtoFound1 = commandService.findCommandByCodeinPos(commandDtoSaved1.getCmdCode(),
-                commandDtoSaved1.getCmdPosDto().getId());
+                commandDtoSaved1.getCmdPosId());
         commandDtoFound1.setCmdComment("comment divers");
         //On peut update le divers
         commandDtoFound1.setCmdDiversDto(diversDtoSaved1);
@@ -891,7 +890,7 @@ public class CommandServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         CommandDto commandDtoSaved = usedForTestForClient.saveCommand(-1, posDtoSaved, clientDtoSaved, null,
                 userBMDtoSaved, commandService);
@@ -958,7 +957,7 @@ public class CommandServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         CommandDto commandDtoSaved = usedForTestForClient.saveCommand(-1, posDtoSaved, clientDtoSaved, null,
                 userBMDtoSaved, commandService);
@@ -1027,7 +1026,7 @@ public class CommandServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         CommandDto commandDtoSaved = usedForTestForClient.saveCommand(-1, posDtoSaved, clientDtoSaved, null,
                 userBMDtoSaved, commandService);
@@ -1095,7 +1094,7 @@ public class CommandServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         CommandDto commandDtoSaved = usedForTestForClient.saveCommand(-1, posDtoSaved, clientDtoSaved, null,
                 userBMDtoSaved, commandService);
@@ -1181,7 +1180,7 @@ public class CommandServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         CommandDto commandDtoSaved = usedForTestForClient.saveCommand(-1, posDtoSaved, clientDtoSaved, null,
                 userBMDtoSaved, commandService);
@@ -1240,7 +1239,7 @@ public class CommandServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         CommandDto commandDtoSaved = usedForTestForClient.saveCommand(-1, posDtoSaved, clientDtoSaved, null,
                 userBMDtoSaved, commandService);
@@ -1300,7 +1299,7 @@ public class CommandServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         CommandDto commandDtoSaved = usedForTestForClient.saveCommand(-1, posDtoSaved, clientDtoSaved, null,
                 userBMDtoSaved, commandService);
@@ -1362,7 +1361,7 @@ public class CommandServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         CommandDto commandDtoSaved = usedForTestForClient.saveCommand(-1, posDtoSaved, clientDtoSaved, null,
                 userBMDtoSaved, commandService);
@@ -1397,7 +1396,7 @@ public class CommandServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         CommandDto commandDtoSaved = usedForTestForClient.saveCommand(-1, posDtoSaved, clientDtoSaved, null,
                 userBMDtoSaved, commandService);
@@ -1427,7 +1426,7 @@ public class CommandServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         CommandDto commandDtoSaved = usedForTestForClient.saveCommand(-1, posDtoSaved, clientDtoSaved, null,
                 userBMDtoSaved, commandService);
@@ -1478,7 +1477,7 @@ public class CommandServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         CommandDto commandDtoSaved = usedForTestForClient.saveCommand(-1, posDtoSaved, clientDtoSaved, null,
                 userBMDtoSaved, commandService);
@@ -1511,7 +1510,7 @@ public class CommandServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         CommandDto commandDtoSaved = usedForTestForClient.saveCommand(-1, posDtoSaved, clientDtoSaved, null,
                 userBMDtoSaved, commandService);
@@ -1539,7 +1538,7 @@ public class CommandServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         CommandDto commandDtoSaved = usedForTestForClient.saveCommand(-1, posDtoSaved, clientDtoSaved, null,
                 userBMDtoSaved, commandService);
@@ -1590,15 +1589,15 @@ public class CommandServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         UserBMDto userBMDtoSaved1 = usedForTestForAll.saveUserBM(12, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved1);
-        assertNotNull(userBMDtoSaved1.getBmPosDto());
+        assertNotNull(userBMDtoSaved1.getBmPosId());
 
         UserBMDto userBMDtoSavedPos1 = usedForTestForAll.saveUserBM(145, posDtoSaved1, userBMService);
         assertNotNull(userBMDtoSaved1);
-        assertNotNull(userBMDtoSaved1.getBmPosDto());
+        assertNotNull(userBMDtoSaved1.getBmPosId());
 
         //pos,client,user
         CommandDto commandDtoSaved = usedForTestForClient.saveCommand(-1, posDtoSaved, clientDtoSaved, null,

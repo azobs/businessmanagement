@@ -19,7 +19,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name="packaging",
         uniqueConstraints = {@UniqueConstraint(
-                columnNames = {"packLabel", "packFirstcolor", "provider_id", "pos_id"})})
+                columnNames = {"packLabel", "packFirstcolor", "provider_id", "packPosId"})})
 public class Packaging extends AbstractEntity {
 
     @Column(nullable = false)
@@ -38,7 +38,8 @@ public class Packaging extends AbstractEntity {
     @JoinColumn(name = "provider_id", nullable = false, referencedColumnName = "id")
     Provider packProvider;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    /*@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "pos_id", nullable = false, referencedColumnName = "id")
-    Pointofsale packPos;
+    Pointofsale packPos;*/
+    Long packPosId;
 }

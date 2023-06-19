@@ -1,7 +1,6 @@
 package com.c2psi.businessmanagement.services.contracts.stock.provider;
 
 import com.c2psi.businessmanagement.Enumerations.OperationType;
-import com.c2psi.businessmanagement.dtos.stock.provider.ProviderCapsuleOperationDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDamageOperationDto;
 import org.springframework.data.domain.Page;
 

@@ -68,7 +68,7 @@ public class SaleInvoiceCapsuleServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         SaleInvoiceCapsuleDto saleInvoiceCapsuleDtoSaved = usedForTestForProduct.saveSaleInvoiceCapsuleDto(0, userBMDtoSaved,
                 posDtoSaved, clientDtoSaved, saleInvoiceCapsuleService);
@@ -88,7 +88,7 @@ public class SaleInvoiceCapsuleServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         SaleInvoiceCapsuleDto saleInvoiceCapsuleDtoSaved = usedForTestForProduct.saveSaleInvoiceCapsuleDto_Invalid(0, userBMDtoSaved,
                 posDtoSaved, clientDtoSaved, saleInvoiceCapsuleService);
@@ -108,7 +108,7 @@ public class SaleInvoiceCapsuleServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         posDtoSaved.setId(null);
 
@@ -130,7 +130,7 @@ public class SaleInvoiceCapsuleServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         posDtoSaved.setId(Long.valueOf(458769));
 
@@ -152,7 +152,7 @@ public class SaleInvoiceCapsuleServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         userBMDtoSaved.setId(null);
 
@@ -174,7 +174,7 @@ public class SaleInvoiceCapsuleServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         userBMDtoSaved.setId(Long.valueOf(4581236));
 
@@ -200,11 +200,11 @@ public class SaleInvoiceCapsuleServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         UserBMDto userBMDtoSaved1 = usedForTestForAll.saveUserBM(145, posDtoSaved1, userBMService);
         assertNotNull(userBMDtoSaved1);
-        assertNotNull(userBMDtoSaved1.getBmPosDto());
+        assertNotNull(userBMDtoSaved1.getBmPosId());
 
         SaleInvoiceCapsuleDto saleInvoiceCapsuleDtoSaved = usedForTestForProduct.saveSaleInvoiceCapsuleDto(0, userBMDtoSaved1,
                 posDtoSaved, clientDtoSaved, saleInvoiceCapsuleService);
@@ -228,7 +228,7 @@ public class SaleInvoiceCapsuleServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         ClientDto clientDtoSaved1 = usedForTestForClient.saveClient(9, posDtoSaved1, clientService);
         assertNotNull(clientDtoSaved1);
@@ -252,7 +252,7 @@ public class SaleInvoiceCapsuleServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         SaleInvoiceCapsuleDto saleInvoiceCapsuleDtoSaved = usedForTestForProduct.saveSaleInvoiceCapsuleDto(0, userBMDtoSaved,
                 posDtoSaved, clientDtoSaved, saleInvoiceCapsuleService);
@@ -279,7 +279,7 @@ public class SaleInvoiceCapsuleServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         SaleInvoiceCapsuleDto saleInvoiceCapsuleDtoSaved = usedForTestForProduct.saveSaleInvoiceCapsuleDto(0, userBMDtoSaved,
                 posDtoSaved, clientDtoSaved, saleInvoiceCapsuleService);
@@ -316,7 +316,7 @@ public class SaleInvoiceCapsuleServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         SaleInvoiceCapsuleDto saleInvoiceCapsuleDtoSaved = usedForTestForProduct.saveSaleInvoiceCapsuleDto(0, userBMDtoSaved,
                 posDtoSaved, clientDtoSaved, saleInvoiceCapsuleService);
@@ -336,7 +336,7 @@ public class SaleInvoiceCapsuleServiceImplTest {
                 userBMService, currencyService);
         assertNotNull(posDtoSaved1);
 
-        saleInvoiceCapsuleDtoFound.setSaleicapsPosDto(posDtoSaved1);
+        saleInvoiceCapsuleDtoFound.setSaleicapsPosId(posDtoSaved1.getId());
 
         SaleInvoiceCapsuleDto saleInvoiceCapsuleDtoUpdated = saleInvoiceCapsuleService.updateSaleInvoiceCapsule(saleInvoiceCapsuleDtoFound);
         assertNotNull(saleInvoiceCapsuleDtoUpdated);
@@ -360,7 +360,7 @@ public class SaleInvoiceCapsuleServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         SaleInvoiceCapsuleDto saleInvoiceCapsuleDtoSaved = usedForTestForProduct.saveSaleInvoiceCapsuleDto(0, userBMDtoSaved,
                 posDtoSaved, clientDtoSaved, saleInvoiceCapsuleService);
@@ -378,7 +378,7 @@ public class SaleInvoiceCapsuleServiceImplTest {
 
         UserBMDto userBMDtoSaved1 = usedForTestForAll.saveUserBM(16, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved1);
-        assertNotNull(userBMDtoSaved1.getBmPosDto());
+        assertNotNull(userBMDtoSaved1.getBmPosId());
 
         saleInvoiceCapsuleDtoFound.setSaleicapsUserbmDto(userBMDtoSaved1);
 
@@ -401,7 +401,7 @@ public class SaleInvoiceCapsuleServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         SaleInvoiceCapsuleDto saleInvoiceCapsuleDtoSaved = usedForTestForProduct.saveSaleInvoiceCapsuleDto(0, userBMDtoSaved,
                 posDtoSaved, clientDtoSaved, saleInvoiceCapsuleService);
@@ -428,11 +428,11 @@ public class SaleInvoiceCapsuleServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         UserBMDto userBMDtoSaved1 = usedForTestForAll.saveUserBM(189, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved1);
-        assertNotNull(userBMDtoSaved1.getBmPosDto());
+        assertNotNull(userBMDtoSaved1.getBmPosId());
 
         SaleInvoiceCapsuleDto saleInvoiceCapsuleDtoSaved = usedForTestForProduct.saveSaleInvoiceCapsuleDto(0, userBMDtoSaved,
                 posDtoSaved, clientDtoSaved, saleInvoiceCapsuleService);

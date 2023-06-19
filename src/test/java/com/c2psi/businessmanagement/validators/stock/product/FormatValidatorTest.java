@@ -16,7 +16,7 @@ public class FormatValidatorTest {
     @Test
     public void validate() {
         FormatDto formatDto = FormatDto.builder()
-                .formatPosDto(PointofsaleDto.builder().build())
+                .formatPosId(PointofsaleDto.builder().build().getId())
                 .formatCapacity(BigDecimal.valueOf(0.33))
                 .formatName("sdsds")
                 .build();
@@ -30,7 +30,7 @@ public class FormatValidatorTest {
     @Test
     public void validateNull() {
         FormatDto formatDto = FormatDto.builder()
-                .formatPosDto(PointofsaleDto.builder().build())
+                .formatPosId(PointofsaleDto.builder().build().getId())
                 .formatCapacity(BigDecimal.valueOf(0.33))
                 .formatName("sdsds")
                 .build();
@@ -45,7 +45,7 @@ public class FormatValidatorTest {
     @Test
     public void validateNullValue() {
         FormatDto formatDto = FormatDto.builder()
-                .formatPosDto(null)
+                .formatPosId(null)
                 .formatCapacity(null)
                 .formatName(null)
                 .build();
@@ -64,7 +64,7 @@ public class FormatValidatorTest {
     @Test
     public void validateEmptyValue() {
         FormatDto formatDto = FormatDto.builder()
-                .formatPosDto(PointofsaleDto.builder().build())
+                .formatPosId(PointofsaleDto.builder().build().getId())
                 .formatCapacity(BigDecimal.valueOf(0.33))
                 .formatName("")
                 .build();
@@ -81,7 +81,7 @@ public class FormatValidatorTest {
     @Test
     public void validateBlankValue() {
         FormatDto formatDto = FormatDto.builder()
-                .formatPosDto(PointofsaleDto.builder().build())
+                .formatPosId(PointofsaleDto.builder().build().getId())
                 .formatCapacity(BigDecimal.valueOf(0.33))
                 .formatName("   ")
                 .build();
@@ -96,7 +96,7 @@ public class FormatValidatorTest {
     @Test
     public void validateSizeValue() {
         FormatDto formatDto = FormatDto.builder()
-                .formatPosDto(PointofsaleDto.builder().build())
+                .formatPosId(PointofsaleDto.builder().build().getId())
                 .formatCapacity(BigDecimal.valueOf(0.33))
                 .formatName("ashasakhsadhksajfdhkjsdfhjkasdhjsakdjsakdhskadhksa")
                 .build();

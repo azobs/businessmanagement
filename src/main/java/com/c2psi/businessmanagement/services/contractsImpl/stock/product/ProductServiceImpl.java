@@ -67,7 +67,7 @@ public class ProductServiceImpl implements ProductService {
          * one of the pointofsale precise in the pointofsale
          */
         Optional<Pointofsale> optionalPointofsale = posRepository.findPointofsaleById(
-                prodDto.getProdPosDto().getId());
+                prodDto.getProdPosId());
         if(optionalPointofsale.isEmpty()){
             log.error("Entity productDto not valid because the pointofsale does not exist{}", prodDto);
             throw new InvalidEntityException("Le productDto passe en argument n'est pas valide puisque son pointofsale " +
@@ -77,8 +77,8 @@ public class ProductServiceImpl implements ProductService {
         /************************************************************************************
          * Ensure that the Category owner indicated is in the same pointofsale as indicated
          */
-        if(prodDto.getProdPosDto().getId().longValue() !=
-                prodDto.getProdCatDto().getCatPosDto().getId().longValue()){
+        if(prodDto.getProdPosId().longValue() !=
+                prodDto.getProdCatDto().getCatPosId().longValue()){
             log.error("Entity productDto not valid because the category indicated is not in the same pointofsale " +
                     "as indicated {}", prodDto);
             throw new InvalidEntityException("Le productDto passe en argument n'est pas valide puisque sa category " +
@@ -88,7 +88,7 @@ public class ProductServiceImpl implements ProductService {
         /********************************************************
          * Ensure the unicity of the product in the pointofsale
          */
-        if(!isProductUniqueInPos(prodDto.getProdCode(), prodDto.getProdPosDto().getId())){
+        if(!isProductUniqueInPos(prodDto.getProdCode(), prodDto.getProdPosId())){
             log.error("An entity product already exist the same code in the DB {}", prodDto);
             throw new DuplicateEntityException("Un produit existe deja dans la BD avec les memes code ",
                     ErrorCode.PRODUCT_DUPLICATED);
@@ -142,7 +142,7 @@ public class ProductServiceImpl implements ProductService {
          */
         if(!prodDto.getProdCode().equals(productToUpdate.getProdCode())){
             //Comme ils sont pas egaux alors on veut aussi modifier le code
-            if(!isProductUniqueInPos(prodDto.getProdCode(), prodDto.getProdPosDto().getId())){
+            if(!isProductUniqueInPos(prodDto.getProdCode(), prodDto.getProdPosId())){
                 throw new DuplicateEntityException("Le nouveau prodCode identifie deja un product dans le pointofsale en question ",
                         ErrorCode.PRODUCT_DUPLICATED);
             }
@@ -156,7 +156,7 @@ public class ProductServiceImpl implements ProductService {
         if(!prodDto.getProdCatDto().getId().equals(productToUpdate.getProdCat().getId())){
             //Comme ils sont pas egaux alors on veut aussi modifier la category
             //Dans ce cas on va se rassurer que la nouvelle category est dans le meme point de vente
-            if(!prodDto.getProdCatDto().getCatPosDto().getId().equals(productToUpdate.getProdPos().getId())){
+            if(!prodDto.getProdCatDto().getCatPosId().equals(productToUpdate.getProdPosId())){
                 throw new EntityNotFoundException("La nouvelle category precise nest pas dans le meme pointofsale ou le " +
                         "product etait");
             }

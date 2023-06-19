@@ -2,9 +2,7 @@ package com.c2psi.businessmanagement.services.contracts.stock.provider;
 
 import com.c2psi.businessmanagement.Enumerations.OperationType;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderCapsuleOperationDto;
-import com.c2psi.businessmanagement.models.ProviderCapsuleOperation;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import java.time.Instant;
 import java.util.List;

@@ -22,11 +22,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service(value="PointofsaleServiceV1")
 @Slf4j
@@ -52,52 +54,63 @@ public class PointofsaleServiceImpl implements PointofsaleService {
     }
 
     @Override
-    public Double getTurnover(PointofsaleDto posDto, Date startDate, Date endDate) {
+    public BigDecimal getTurnover(Long posId, Instant startDate, Instant endDate) {
         return null;
     }
 
     @Override
-    public List<UserBMDto> findAllEmployeofPos(PointofsaleDto posDto) {
+    public List<UserBMDto> findAllEmployeofPos(Long posId) {
         return null;
     }
 
     @Override
-    public List<ProviderDto> findAllProviderofPos(PointofsaleDto posDto) {
+    public List<ProviderDto> findAllProviderofPos(Long posId) {
         return null;
     }
 
     @Override
-    public Double getTotalCash(Long entId) {
+    public BigDecimal getTotalCashofPos(Long posId) {
+        if(posId == null){
+            log.error("The posId precised is null");
+            throw new NullArgumentException("L'argument posId precise est null");
+        }
+        Optional<Pointofsale> optionalPointofsale = posRepository.findPointofsaleById(posId);
+        if(!optionalPointofsale.isPresent()){
+            log.error("The posId precised does not correspond to any Pointofsale in the DB");
+            throw new EntityNotFoundException("Aucun Pointofsale ne porte l'Id passe en argument ",
+                    ErrorCode.POINTOFSALE_NOT_FOUND);
+        }
+        Pointofsale posToFindTotalCash = optionalPointofsale.get();
+        return posToFindTotalCash.getPosCashaccount().getPcaBalance().setScale(1, RoundingMode.UP);
+    }
+
+    @Override
+    public BigDecimal getNumberofDamageofPos(Long posId) {
         return null;
     }
 
     @Override
-    public Integer getNumberofDamage(PointofsaleDto posDto) {
+    public BigDecimal getNumberofDamageofPos(Long posId, Long artId) {
         return null;
     }
 
     @Override
-    public Integer getNumberofDamage(PointofsaleDto posDto, ArticleDto artDto) {
+    public BigDecimal getNumberofCapsuleofPos(Long posId) {
         return null;
     }
 
     @Override
-    public Integer getNumberofCapsule(PointofsaleDto posDto) {
+    public BigDecimal getNumberofCapsuleofPos(Long posId, Long artId) {
         return null;
     }
 
     @Override
-    public Integer getNumberofCapsule(PointofsaleDto posDto, ArticleDto artDto) {
+    public BigDecimal getNumberofPackagingofPos(Long posId) {
         return null;
     }
 
     @Override
-    public Integer getNumberofPackaging(PointofsaleDto posDto) {
-        return null;
-    }
-
-    @Override
-    public Integer getNumberofPackaging(PointofsaleDto posDto, ProviderDto providerDto) {
+    public BigDecimal getNumberofPackagingofPos(Long posId, Long providerId) {
         return null;
     }
 
@@ -323,7 +336,7 @@ public class PointofsaleServiceImpl implements PointofsaleService {
 
     @Override
     public Boolean isPointofsaleDeleteable(Long posId) {
-        return null;
+        return true;
     }
 
     @Override
@@ -376,8 +389,8 @@ public class PointofsaleServiceImpl implements PointofsaleService {
     }
 
     @Override
-    public Boolean deletePosInEnterpriseByName(String posName, EnterpriseDto entDto) {
-        if(entDto == null){
+    public Boolean deletePosInEnterpriseByName(String posName, Long entId) {
+        if(entId == null){
             log.error("L'entreprise entDto is null");
             throw new NullArgumentException("le entDto passe en argument de la methode est null");
         }
@@ -385,8 +398,7 @@ public class PointofsaleServiceImpl implements PointofsaleService {
             log.error("Le pointofsale posName is null");
             throw new NullArgumentException("le posName passe en argument de la methode est null");
         }
-        Optional<Pointofsale> optionalPointofsale = posRepository.findPointofsaleOfEnterpriseByName(posName,
-                entDto.getId());
+        Optional<Pointofsale> optionalPointofsale = posRepository.findPointofsaleOfEnterpriseByName(posName, entId);
         if(optionalPointofsale.isPresent()){
             if(isPointofsaleDeleteable(optionalPointofsale.get().getId())){
                 log.info("tout est bon et on peut supprimer le pointofsale {}", optionalPointofsale.get());
@@ -404,9 +416,9 @@ public class PointofsaleServiceImpl implements PointofsaleService {
 
 
     @Override
-    public List<CurrencyDto> listofConvertibleCurrency(PointofsaleDto posDto) {
+    public List<CurrencyDto> listofConvertibleCurrency(Long posId) {
         List<CurrencyDto> currencyDtoList = new ArrayList<>();
-        if(posDto == null){
+        if(posId == null){
             log.error("posDto is null");
             throw new NullArgumentException("le posDto passe en argument de la methode est null");
         }
@@ -419,7 +431,17 @@ public class PointofsaleServiceImpl implements PointofsaleService {
          * alors on releve sinon on passe.
          */
         //System.out.println("isDefaultCurrencyPresent(posDto.getId()) ==> "+isDefaultCurrencyPresent(posDto.getId()));
-        if(isDefaultCurrencyPresent(posDto.getId())){
+
+        Optional<Pointofsale> optionalPointofsale = posRepository.findPointofsaleById(posId);
+        if(!optionalPointofsale.isPresent()){
+            log.error("The pointofsale indicated is not in the DB");
+            throw new InvalidEntityException("Le pointofsale indique n'existe pas en BD ",
+                    ErrorCode.POINTOFSALE_NOT_VALID);
+        }
+
+        PointofsaleDto posDto = PointofsaleDto.fromEntity(optionalPointofsale.get());
+
+        if(isDefaultCurrencyPresent(posId)){
             CurrencyDto defaultCurrency = posDto.getPosCurrencyDto();
             List<Currency> currencyList = currencyRepository.findAll();
             System.out.println("ALL currencyList ===> "+currencyList);
@@ -439,16 +461,36 @@ public class PointofsaleServiceImpl implements PointofsaleService {
                             exist2 = true;
                         }
                     }
+
                    if(!exist1){
-                       currencyDtoList.add(curconvDto.getCurrencyDestinationDto());
+                       if(!curconvDto.getCurrencyDestinationDto().getId().equals(defaultCurrency.getId())) {
+                           currencyDtoList.add(curconvDto.getCurrencyDestinationDto());
+                       }
                    }
                     if(!exist2){
-                        currencyDtoList.add(curconvDto.getCurrencySourceDto());
+                        if(!curconvDto.getCurrencySourceDto().getId().equals(defaultCurrency.getId())) {
+                            currencyDtoList.add(curconvDto.getCurrencySourceDto());
+                        }
                     }
                 }
             }
         }
         return currencyDtoList;
+    }
+
+    @Override
+    public CurrencyDto getDefaultCurrency(Long posId) {
+        if(posId == null){
+            log.error("The posId sent is null");
+            throw new NullArgumentException("L'argument passe en argument est null");
+        }
+        Optional<Pointofsale> optionalPointofsale = posRepository.findPointofsaleById(posId);
+        if(!optionalPointofsale.isPresent()){
+            log.error("There is no pointofsale with the id precised in the DB");
+            throw new EntityNotFoundException("Aucun Pointofsale n'a le Id precise", ErrorCode.POINTOFSALE_NOT_FOUND);
+        }
+        Pointofsale pointofsale = optionalPointofsale.get();
+        return CurrencyDto.fromEntity(pointofsale.getPosCurrency());
     }
 
     public Boolean isDefaultCurrencyPresent(Long posId){
@@ -467,11 +509,4 @@ public class PointofsaleServiceImpl implements PointofsaleService {
         return optionalCurrency.isPresent()?true:false;
     }
 
-    @Override
-    public CurrencyDto findDefaultCurrency(PointofsaleDto posDto) {
-        if(this.isDefaultCurrencyPresent(posDto.getId())){
-            return posDto.getPosCurrencyDto();
-        }
-        return null;
-    }
 }

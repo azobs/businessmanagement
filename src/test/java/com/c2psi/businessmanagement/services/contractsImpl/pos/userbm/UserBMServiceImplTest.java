@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -43,7 +44,7 @@ public class UserBMServiceImplTest {
      */
     @Test
     public void shouldSaveUserBMSuccessfully(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             UserBMDto userBMToSave = UserBMDto.builder()
                     .bmAddressDto(AddressDto.builder()
@@ -57,7 +58,7 @@ public class UserBMServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15"))
                     .bmLogin("useradmin")
                     .bmName("admin")
                     .bmPassword("password")
@@ -89,7 +90,7 @@ public class UserBMServiceImplTest {
 
     @Test(expected = InvalidEntityException.class)
     public void shouldThrowInvalidEntityExceptionIfPasswordIsDifferentThanRepassword(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             UserBMDto userBMToSave = UserBMDto.builder()
                     .bmAddressDto(AddressDto.builder()
@@ -103,7 +104,7 @@ public class UserBMServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15"))
                     .bmLogin("useradmin")
                     .bmName("admin")
                     .bmPassword("password4444")
@@ -121,12 +122,12 @@ public class UserBMServiceImplTest {
 
     @Test(expected = InvalidEntityException.class)
     public void shouldThrowInvalidEntityExceptionIfUserBMAddressIsNull(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             UserBMDto userBMToSave = UserBMDto.builder()
                     .bmAddressDto(null)
                     .bmCni("107235261")
-                    .bmDob(sdf.parse("15-05-1941"))
+                    .bmDob(sdf.parse("1941-05-15"))
                     .bmLogin("useradmin1")
                     .bmName("admin1")
                     .bmPassword("password1")
@@ -143,7 +144,7 @@ public class UserBMServiceImplTest {
 
     @Test(expected = InvalidEntityException.class)
     public void shouldSaveUserBMThrowInvalidEntityExceptionIfUserBMNumtel1IsNull(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             UserBMDto userBMToSave = UserBMDto.builder()
                     .bmAddressDto(AddressDto.builder()
@@ -156,7 +157,7 @@ public class UserBMServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235262")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15"))
                     .bmLogin("useradmin2")
                     .bmName("admin2")
                     .bmPassword("password2")
@@ -173,7 +174,7 @@ public class UserBMServiceImplTest {
 
     @Test(expected = InvalidEntityException.class)
     public void shouldSaveUserBMThrowInvalidEntityExceptionIfUserBMNumtel1IsEmpty(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             UserBMDto userBMToSave = UserBMDto.builder()
                     .bmAddressDto(AddressDto.builder()
@@ -187,7 +188,7 @@ public class UserBMServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235263")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15"))
                     .bmLogin("useradmin3")
                     .bmName("admin3")
                     .bmPassword("password3")
@@ -204,7 +205,7 @@ public class UserBMServiceImplTest {
 
     @Test(expected = InvalidEntityException.class)
     public void shouldSaveUserBMThrowInvalidEntityExceptionIfUserBMNumtel2IsNull(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             UserBMDto userBMToSave = UserBMDto.builder()
                     .bmAddressDto(AddressDto.builder()
@@ -217,7 +218,7 @@ public class UserBMServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235264")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15"))
                     .bmLogin("useradmin4")
                     .bmName("admin4")
                     .bmPassword("password4")
@@ -234,7 +235,7 @@ public class UserBMServiceImplTest {
 
     @Test(expected = InvalidEntityException.class)
     public void shouldSaveUserBMThrowInvalidEntityExceptionIfUserBMNumtel2IsEmpty(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             UserBMDto userBMToSave = UserBMDto.builder()
                     .bmAddressDto(AddressDto.builder()
@@ -248,7 +249,7 @@ public class UserBMServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235265")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15"))
                     .bmLogin("useradmin5")
                     .bmName("admin5")
                     .bmPassword("password5")
@@ -272,7 +273,7 @@ public class UserBMServiceImplTest {
          * Et au moins un caractere ou une chaine de caractere apres le signe @
          * Dans tous les autres cas l'email est invalide
          */
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             UserBMDto userBMToSave = UserBMDto.builder()
                     .bmAddressDto(AddressDto.builder()
@@ -286,7 +287,7 @@ public class UserBMServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235266")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15"))
                     .bmLogin("useradmin6")
                     .bmName("admin6")
                     .bmPassword("password6")
@@ -303,7 +304,7 @@ public class UserBMServiceImplTest {
 
     @Test(expected = DuplicateEntityException.class)
     public void shouldSaveUserBMThrowDuplicateEntityExceptionIfCniIsUsed(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             //On enregistre un userbm avec un cninumber
             UserBMDto userBMToSave = UserBMDto.builder()
@@ -318,7 +319,7 @@ public class UserBMServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235267")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15"))
                     .bmLogin("useradmin7")
                     .bmName("admin7")
                     .bmPassword("password7")
@@ -345,7 +346,7 @@ public class UserBMServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235267")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15"))
                     .bmLogin("useradmin77")
                     .bmName("admin77")
                     .bmPassword("password77")
@@ -364,7 +365,7 @@ public class UserBMServiceImplTest {
 
     @Test(expected = DuplicateEntityException.class)
     public void shouldSaveUserBMThrowDuplicateEntityExceptionIfLoginIsUsed(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             //On enregistre un userbm avec un cninumber
             UserBMDto userBMToSave = UserBMDto.builder()
@@ -379,7 +380,7 @@ public class UserBMServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235268")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15"))
                     .bmLogin("useradmin8")
                     .bmName("admin8")
                     .bmPassword("password8")
@@ -406,7 +407,7 @@ public class UserBMServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("1072352688")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15"))
                     .bmLogin("useradmin8")
                     .bmName("admin88")
                     .bmPassword("password8")
@@ -425,7 +426,7 @@ public class UserBMServiceImplTest {
 
     @Test(expected = DuplicateEntityException.class)
     public void shouldSaveUserBMThrowDuplicateEntityExceptionIfFullnameIsUsed(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             //On enregistre un userbm avec un cninumber
             UserBMDto userBMToSave = UserBMDto.builder()
@@ -440,7 +441,7 @@ public class UserBMServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235269")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15"))
                     .bmLogin("useradmin9")
                     .bmName("admin9")
                     .bmPassword("password9")
@@ -467,7 +468,7 @@ public class UserBMServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("1072352699")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15"))
                     .bmLogin("useradmin9")
                     .bmName("admin9")
                     .bmPassword("password9")
@@ -486,7 +487,7 @@ public class UserBMServiceImplTest {
 
     @Test(expected = InvalidEntityException.class)
     public void shouldSaveUserBMThrowInvalidEntityExceptionIfUserBMTypeIsNotAdminOrAdminEntAndPosIsNull(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             UserBMDto userBMToSave = UserBMDto.builder()
                     .bmAddressDto(AddressDto.builder()
@@ -500,7 +501,7 @@ public class UserBMServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("1072352100")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15"))
                     .bmLogin("useradmin10")
                     .bmName("admin10")
                     .bmPassword("password10")
@@ -522,7 +523,7 @@ public class UserBMServiceImplTest {
 
     @Test(expected = NullArgumentException.class)
     public void shouldUpdateUserBMThrowNullEntityExceptionIfIdIsNull(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             UserBMDto userBMToSave = UserBMDto.builder()
                     .bmAddressDto(AddressDto.builder()
@@ -536,7 +537,7 @@ public class UserBMServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15"))
                     .bmLogin("useradmin")
                     .bmName("admin")
                     .bmPassword("password")
@@ -569,7 +570,7 @@ public class UserBMServiceImplTest {
 
     @Test(expected = EntityNotFoundException.class)
     public void shouldUpdateUserBMThrowEntityNotFoundExceptionIfIdDoesNotIdentifyAUserBM(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             UserBMDto userBMToSave = UserBMDto.builder()
                     .bmAddressDto(AddressDto.builder()
@@ -583,7 +584,7 @@ public class UserBMServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15"))
                     .bmLogin("useradmin")
                     .bmName("admin")
                     .bmPassword("password")
@@ -616,7 +617,7 @@ public class UserBMServiceImplTest {
 
     @Test(expected = DuplicateEntityException.class)
     public void shouldUpdateUserBMThrowDuplicateEntityExceptionIfNewCniIsUsed(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             UserBMDto userBMToSave = UserBMDto.builder()
                     .bmAddressDto(AddressDto.builder()
@@ -630,7 +631,7 @@ public class UserBMServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15"))
                     .bmLogin("useradmin")
                     .bmName("admin")
                     .bmPassword("password")
@@ -686,7 +687,7 @@ public class UserBMServiceImplTest {
 
     @Test(expected = DuplicateEntityException.class)
     public void shouldUpdateUserBMThrowDuplicateEntityExceptionIfNewEmailIsUsed(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             UserBMDto userBMToSave = UserBMDto.builder()
                     .bmAddressDto(AddressDto.builder()
@@ -700,7 +701,7 @@ public class UserBMServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15"))
                     .bmLogin("useradmin")
                     .bmName("admin")
                     .bmPassword("password")
@@ -756,7 +757,7 @@ public class UserBMServiceImplTest {
 
     @Test(expected = DuplicateEntityException.class)
     public void shouldUpdateUserBMThrowDuplicateEntityExceptionIfNewLoginIsUsed(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             UserBMDto userBMToSave = UserBMDto.builder()
                     .bmAddressDto(AddressDto.builder()
@@ -770,7 +771,7 @@ public class UserBMServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15"))
                     .bmLogin("useradmin")
                     .bmName("admin")
                     .bmPassword("password")
@@ -826,7 +827,7 @@ public class UserBMServiceImplTest {
 
     @Test(expected = DuplicateEntityException.class)
     public void shouldUpdateUserBMThrowDuplicateEntityExceptionIfNewFullnameIsUsed(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             UserBMDto userBMToSave = UserBMDto.builder()
                     .bmAddressDto(AddressDto.builder()
@@ -896,7 +897,7 @@ public class UserBMServiceImplTest {
 
     @Test
     public void shouldUpdateUserBMSuccessfully(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             UserBMDto userBMToSave = UserBMDto.builder()
                     .bmAddressDto(AddressDto.builder()
@@ -910,7 +911,7 @@ public class UserBMServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15"))
                     .bmLogin("useradmin")
                     .bmName("admin")
                     .bmPassword("password")
@@ -957,7 +958,7 @@ public class UserBMServiceImplTest {
 
     @Test(expected = EntityNotFoundException.class)
     public void shouldFindUserBMByLoginThrowEntityNotFoundException(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             UserBMDto userBMToSave = UserBMDto.builder()
                     .bmAddressDto(AddressDto.builder()
@@ -971,7 +972,7 @@ public class UserBMServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15"))
                     .bmLogin("useradmin")
                     .bmName("admin")
                     .bmPassword("password")
@@ -996,7 +997,7 @@ public class UserBMServiceImplTest {
 
     @Test
     public void shouldFindUserBMByLoginSuccessfully(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             UserBMDto userBMToSave = UserBMDto.builder()
                     .bmAddressDto(AddressDto.builder()
@@ -1010,7 +1011,7 @@ public class UserBMServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15"))
                     .bmLogin("useradmin")
                     .bmName("admin")
                     .bmPassword("password")
@@ -1038,7 +1039,7 @@ public class UserBMServiceImplTest {
 
     @Test(expected = EntityNotFoundException.class)
     public void shouldFindUserBMByEmailThrowEntityNotFoundException(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             UserBMDto userBMToSave = UserBMDto.builder()
                     .bmAddressDto(AddressDto.builder()
@@ -1052,7 +1053,7 @@ public class UserBMServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15"))
                     .bmLogin("useradmin")
                     .bmName("admin")
                     .bmPassword("password")
@@ -1077,7 +1078,7 @@ public class UserBMServiceImplTest {
 
     @Test
     public void shouldFindUserBMByEmailSuccessfully(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             UserBMDto userBMToSave = UserBMDto.builder()
                     .bmAddressDto(AddressDto.builder()
@@ -1091,7 +1092,7 @@ public class UserBMServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15"))
                     .bmLogin("useradmin")
                     .bmName("admin")
                     .bmPassword("password")
@@ -1119,7 +1120,7 @@ public class UserBMServiceImplTest {
 
     @Test(expected = EntityNotFoundException.class)
     public void shouldFindUserBMByCniThrowEntityNotFoundException(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             UserBMDto userBMToSave = UserBMDto.builder()
                     .bmAddressDto(AddressDto.builder()
@@ -1133,7 +1134,7 @@ public class UserBMServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15"))
                     .bmLogin("useradmin")
                     .bmName("admin")
                     .bmPassword("password")
@@ -1158,7 +1159,7 @@ public class UserBMServiceImplTest {
 
     @Test
     public void shouldFindUserBMByCniSuccessfully(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             UserBMDto userBMToSave = UserBMDto.builder()
                     .bmAddressDto(AddressDto.builder()
@@ -1172,7 +1173,7 @@ public class UserBMServiceImplTest {
                             .ville("Douala")
                             .build())
                     .bmCni("107235260")
-                    .bmDob(sdf.parse("15-05-1942"))
+                    .bmDob(sdf.parse("1942-05-15"))
                     .bmLogin("useradmin")
                     .bmName("admin")
                     .bmPassword("password")
@@ -1189,6 +1190,51 @@ public class UserBMServiceImplTest {
              * l'exception EntityNotFoundException est lance
              */
             UserBMDto userBMDtoFound = userBMService.findUserBMByCni("107235260");
+
+            assertEquals(userBMSaved.getBmLogin(), userBMDtoFound.getBmLogin());
+            assertEquals(userBMSaved.getBmDob(), userBMDtoFound.getBmDob());
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void shouldFindUserBMByFulnameSuccessfully(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            UserBMDto userBMToSave = UserBMDto.builder()
+                    .bmAddressDto(AddressDto.builder()
+                            .email("testsave@gmail.com")
+                            .localisation("")
+                            .numtel1("678470262")
+                            .numtel2("695093228")
+                            .numtel3("676170067")
+                            .pays("Cameroun")
+                            .quartier("Foret bar")
+                            .ville("Douala")
+                            .build())
+                    .bmCni("107235260")
+                    .bmDob(sdf.parse("1942-05-15"))
+                    .bmLogin("useradmin")
+                    .bmName("admin")
+                    .bmPassword("password")
+                    .bmRepassword("password")
+                    .bmState(UserBMState.Activated)
+                    .bmUsertype(UserBMType.AdminBM)
+                    .bmSurname("user")
+                    .build();
+            UserBMDto userBMSaved = userBMService.saveUserBM(userBMToSave);
+            assertNotNull(userBMSaved);
+
+            /***
+             * Maintenant on va faire la recherche d'un userbm quyi n'existe pas et verifier que
+             * l'exception EntityNotFoundException est lance
+             */
+            String bmName = "admin";
+            String bmSurname = "user";
+            Date bmDob = sdf.parse("1942-05-15");
+            UserBMDto userBMDtoFound = userBMService.findUserBMByFullNameAndDob(bmName, bmSurname, bmDob);
 
             assertEquals(userBMSaved.getBmLogin(), userBMDtoFound.getBmLogin());
             assertEquals(userBMSaved.getBmDob(), userBMDtoFound.getBmDob());

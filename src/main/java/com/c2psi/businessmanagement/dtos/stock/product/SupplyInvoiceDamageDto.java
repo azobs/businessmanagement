@@ -4,6 +4,7 @@ import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
 import com.c2psi.businessmanagement.models.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
 
@@ -24,9 +25,11 @@ public class SupplyInvoiceDamageDto {
     String sidamPicture;
     @NotNull(message = "The delivery date cannot be null")
     @PastOrPresent(message = "The delivery date cannot ne be in the future")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     Instant sidamDeliveryDate;
     @NotNull(message = "The invoicing date cannot be null")
     @PastOrPresent(message = "The invoicing date cannot be in the future")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     Instant sidamInvoicingDate;
     @NotNull(message = "The total number of colis cannot be null")
     @Positive(message = "The total number of colis must be positive")
@@ -41,8 +44,9 @@ public class SupplyInvoiceDamageDto {
     ProviderDto sidamProviderDto;
     @NotNull(message = "The userbm associated cannot be null")
     UserBMDto sidamUserbmDto;
-    @NotNull(message = "The pointofsale associated cannot be null")
-    PointofsaleDto sidamPosDto;
+    /*@NotNull(message = "The pointofsale associated cannot be null")
+    PointofsaleDto sidamPosDto;*/
+    Long sidamPosId;
     /***********************************
      * Mapping method development:   ***
      * method fromEntity and toEntity **
@@ -58,7 +62,8 @@ public class SupplyInvoiceDamageDto {
                 .sidamDeliveryDate(sid.getSidamDeliveryDate())
                 .sidamInvoicingDate(sid.getSidamInvoicingDate())
                 .sidamPicture(sid.getSidamPicture())
-                .sidamPosDto(PointofsaleDto.fromEntity(sid.getSidamPos()))
+                //.sidamPosDto(PointofsaleDto.fromEntity(sid.getSidamPos()))
+                .sidamPosId(sid.getSidamPosId())
                 .sidamProviderDto(ProviderDto.fromEntity(sid.getSidamProvider()))
                 .sidamTotalDamChange(sid.getSidamTotalDamChange())
                 .sidamTotalDamToChange(sid.getSidamTotalDamToChange())
@@ -78,7 +83,8 @@ public class SupplyInvoiceDamageDto {
         sid.setSidamDeliveryDate(sidDto.getSidamDeliveryDate());
         sid.setSidamInvoicingDate(sidDto.getSidamInvoicingDate());
         sid.setSidamPicture(sidDto.getSidamPicture());
-        sid.setSidamPos(PointofsaleDto.toEntity(sidDto.getSidamPosDto()));
+        //sid.setSidamPos(PointofsaleDto.toEntity(sidDto.getSidamPosDto()));
+        sid.setSidamPosId(sidDto.getSidamPosId());
         sid.setSidamProvider(ProviderDto.toEntity(sidDto.getSidamProviderDto()));
         sid.setSidamTotalcolis(sidDto.getSidamTotalcolis());
         sid.setSidamUserbm(UserBMDto.toEntity(sidDto.getSidamUserbmDto()));

@@ -1,10 +1,8 @@
 package com.c2psi.businessmanagement.services.contracts.pos.pos;
 
 import com.c2psi.businessmanagement.Enumerations.OperationType;
-import com.c2psi.businessmanagement.dtos.client.client.ClientDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PosCashAccountDto;
-import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
-import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
+import com.c2psi.businessmanagement.dtos.pos.pos.PosCashOperationDto;
 
 import java.math.BigDecimal;
 
@@ -24,6 +22,8 @@ public interface PosCashAccountService {
 
     Boolean saveCashOperation(Long pcaId, BigDecimal amount, OperationType operationType,
                                Long userbmId, String opObject, String opDescription);
+    //Boolean saveCapsuleOperation(PosCapsuleAccountDto poscapaccDto, PosCapsuleOperationDto poscapopDto);
+    Boolean saveCashOperation(PosCashAccountDto posCashAccountDto, PosCashOperationDto posCashOperationDto);
     Boolean isPosCashAccountDeleteable(Long id);
     Boolean deletePosCashAccountById(Long id);
 

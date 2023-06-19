@@ -196,7 +196,7 @@ public class SupplyInvoiceCapsuleServiceImplTest {
         assertNotNull(supplyInvoiceCapsuleDtoSavedFound);
 
         SupplyInvoiceCapsuleDto supplyInvoiceCapsuleDtoSavedFound1 = supplyInvoiceCapsuleService.findSupplyInvoiceCapsuleByCode(
-                supplyInvoiceCapsuleDtoSaved.getSicapsCode(), supplyInvoiceCapsuleDtoSaved.getSicapsPosDto().getId());
+                supplyInvoiceCapsuleDtoSaved.getSicapsCode(), supplyInvoiceCapsuleDtoSaved.getSicapsPosId());
         assertNotNull(supplyInvoiceCapsuleDtoSavedFound1);
 
         //On fait le update du code
@@ -233,7 +233,7 @@ public class SupplyInvoiceCapsuleServiceImplTest {
         assertNotNull(supplyInvoiceCapsDtoSavedFound);
 
         SupplyInvoiceCapsuleDto supplyInvoiceCapsDtoSavedFound1 = supplyInvoiceCapsuleService.findSupplyInvoiceCapsuleByCode(
-                supplyInvoiceCapsDtoSaved1.getSicapsCode(), supplyInvoiceCapsDtoSaved1.getSicapsPosDto().getId());
+                supplyInvoiceCapsDtoSaved1.getSicapsCode(), supplyInvoiceCapsDtoSaved1.getSicapsPosId());
         assertNotNull(supplyInvoiceCapsDtoSavedFound1);
 
         //On fait le update du code
@@ -275,7 +275,7 @@ public class SupplyInvoiceCapsuleServiceImplTest {
         assertNotNull(supplyInvoiceCapsuleDtoSavedFound);
 
         SupplyInvoiceCapsuleDto supplyInvoiceCapsuleDtoSavedFound1 = supplyInvoiceCapsuleService.findSupplyInvoiceCapsuleByCode(
-                supplyInvoiceCapsuleDtoSaved.getSicapsCode(), supplyInvoiceCapsuleDtoSaved.getSicapsPosDto().getId());
+                supplyInvoiceCapsuleDtoSaved.getSicapsCode(), supplyInvoiceCapsuleDtoSaved.getSicapsPosId());
         assertNotNull(supplyInvoiceCapsuleDtoSavedFound1);
 
         //On fait le update du code
@@ -317,13 +317,13 @@ public class SupplyInvoiceCapsuleServiceImplTest {
         assertNotNull(supplyInvoiceCapsuleDtoSavedFound);
 
         SupplyInvoiceCapsuleDto supplyInvoiceCapsuleDtoSavedFound1 = supplyInvoiceCapsuleService.findSupplyInvoiceCapsuleByCode(
-                supplyInvoiceCapsuleDtoSaved.getSicapsCode(), supplyInvoiceCapsuleDtoSaved.getSicapsPosDto().getId());
+                supplyInvoiceCapsuleDtoSaved.getSicapsCode(), supplyInvoiceCapsuleDtoSaved.getSicapsPosId());
         assertNotNull(supplyInvoiceCapsuleDtoSavedFound1);
 
         //On fait le update du code
         supplyInvoiceCapsuleDtoSavedFound.setSicapsCode("newCode");
         supplyInvoiceCapsuleDtoSavedFound.setSicapsProviderDto(providerDtoSaved1);
-        supplyInvoiceCapsuleDtoSavedFound.setSicapsPosDto(posDtoSaved1);
+        supplyInvoiceCapsuleDtoSavedFound.setSicapsPosId(posDtoSaved1.getId());
         SupplyInvoiceCapsuleDto supplyInvoiceCapsuleDtoSavedUpdated = supplyInvoiceCapsuleService.updateSupplyInvoiceCapsule(
                 supplyInvoiceCapsuleDtoSavedFound);
         assertNotNull(supplyInvoiceCapsuleDtoSavedUpdated);

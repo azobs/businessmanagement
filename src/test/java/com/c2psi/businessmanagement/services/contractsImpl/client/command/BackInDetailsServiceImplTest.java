@@ -75,7 +75,7 @@ public class BackInDetailsServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         ClientDto clientDtoSaved = usedForTestForClient.saveClient(5, posDtoSaved, clientService);
         assertNotNull(clientDtoSaved);
@@ -128,7 +128,7 @@ public class BackInDetailsServiceImplTest {
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(11, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
-        assertNotNull(userBMDtoSaved.getBmPosDto());
+        assertNotNull(userBMDtoSaved.getBmPosId());
 
         ClientDto clientDtoSaved = usedForTestForClient.saveClient(5, posDtoSaved, clientService);
         assertNotNull(clientDtoSaved);

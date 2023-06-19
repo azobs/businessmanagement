@@ -8,7 +8,7 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
-import java.util.stream.Collectors;
+import java.math.BigDecimal;
 
 
 @Data
@@ -17,9 +17,9 @@ public class PackingDetailsDto {
     Long id;
     @NotNull(message = "The number of package used cannot be null")
     @Positive(message = "The number of package used must be positive")
-    Integer pdNumberofpackageused;
+    BigDecimal pdNumberofpackageused;
     @PositiveOrZero(message = "The number of package return must be positive or null")
-    Integer pdNumberofpackagereturn;
+    BigDecimal pdNumberofpackagereturn;
 
     /******************************
      * Relation between entities  *

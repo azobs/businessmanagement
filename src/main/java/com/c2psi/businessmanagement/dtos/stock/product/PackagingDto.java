@@ -37,7 +37,8 @@ public class PackagingDto {
     /*@NotNull
     EnterpriseDto packEntDto;*/
     @NotNull(message = "The point of sale associated with the packaging cannot be null")
-    PointofsaleDto packPosDto;
+    //PointofsaleDto packPosDto;
+    Long packPosId;
     /***********************************
      * Mapping method development:   ***
      * method fromEntity and toEntity **
@@ -53,7 +54,8 @@ public class PackagingDto {
                 .packFirstcolor(packaging.getPackFirstcolor())
                 .packPrice(packaging.getPackPrice())
                 .packProviderDto(ProviderDto.fromEntity(packaging.getPackProvider()))
-                .packPosDto(PointofsaleDto.fromEntity(packaging.getPackPos()))
+                //.packPosDto(PointofsaleDto.fromEntity(packaging.getPackPos()))
+                .packPosId(packaging.getPackPosId())
                 .build();
     }
     public static Packaging toEntity(PackagingDto packagingDto){
@@ -67,7 +69,8 @@ public class PackagingDto {
         packaging.setPackFirstcolor(packagingDto.getPackFirstcolor());
         packaging.setPackPrice(packagingDto.getPackPrice());
         packaging.setPackProvider(ProviderDto.toEntity(packagingDto.getPackProviderDto()));
-        packaging.setPackPos(PointofsaleDto.toEntity(packagingDto.getPackPosDto()));
+        //packaging.setPackPos(PointofsaleDto.toEntity(packagingDto.getPackPosDto()));
+        packaging.setPackPosId(packagingDto.getPackPosId());
         return packaging;
     }
 }

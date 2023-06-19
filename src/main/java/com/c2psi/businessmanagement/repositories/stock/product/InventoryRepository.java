@@ -13,12 +13,12 @@ import java.util.Optional;
 
 public interface InventoryRepository extends JpaRepository<Inventory, Long> {
     Optional<Inventory> findInventoryById(Long invId);
-    @Query("SELECT inv FROM Inventory inv WHERE inv.invCode=:invCode AND inv.invPos.id=:posId")
+    @Query("SELECT inv FROM Inventory inv WHERE inv.invCode=:invCode AND inv.invPosId=:posId")
     Optional<Inventory> findInventoryByCodeinPos(@Param("invCode") String invCode, @Param("posId") Long posId);
-    @Query("SELECT inv FROM Inventory inv WHERE inv.invPos.id=:posId AND (inv.invDate>=:startDate AND inv.invDate<=:endDate) ORDER BY inv.invCode ASC")
+    @Query("SELECT inv FROM Inventory inv WHERE inv.invPosId=:posId AND (inv.invDate>=:startDate AND inv.invDate<=:endDate) ORDER BY inv.invCode ASC")
     Optional<List<Inventory>> findAllInventoryinPosBetween(@Param("posId") Long posId, @Param("startDate") Instant startDate,
                                                            @Param("endDate") Instant endDate);
-    @Query("SELECT inv FROM Inventory inv WHERE inv.invPos.id=:posId AND (inv.invDate>=:startDate AND inv.invDate<=:endDate) ORDER BY inv.invCode ASC")
+    @Query("SELECT inv FROM Inventory inv WHERE inv.invPosId=:posId AND (inv.invDate>=:startDate AND inv.invDate<=:endDate) ORDER BY inv.invCode ASC")
     Optional<Page<Inventory>> findPageInventoryinPosBetween(@Param("posId") Long posId, @Param("startDate") Instant startDate,
                                                             @Param("endDate") Instant endDate, Pageable pageable);
 }

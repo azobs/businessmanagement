@@ -1,11 +1,9 @@
 package com.c2psi.businessmanagement.services.contracts.stock.product;
 
-import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.stock.product.InventoryDto;
 import org.springframework.data.domain.Page;
 
 import java.time.Instant;
-import java.util.Date;
 import java.util.List;
 
 public interface InventoryService {

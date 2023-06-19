@@ -28,10 +28,10 @@ public interface PosCapsuleOperationService {
     Page<PosCapsuleOperationDto> findPagePosCapsuleOperationBetween(Long pcapsaccId, Instant startDate, Instant endDate,
                                                               int pagenum, int pagesize);
 
-    List<PosCapsuleOperationDto> findAllPosCapsuleOperationBetween(
+    List<PosCapsuleOperationDto> findAllPosCapsuleOperationofTypeBetween(
             Long pcapsaccId, OperationType op_type, Instant startDate, Instant endDate);
 
-    Page<PosCapsuleOperationDto> findPagePosCapsuleOperationBetween(Long pcapsaccId, OperationType op_type,
+    Page<PosCapsuleOperationDto> findPagePosCapsuleOperationofTypeBetween(Long pcapsaccId, OperationType op_type,
                                                               Instant startDate, Instant endDate,
                                                               int pagenum, int pagesize);
 }

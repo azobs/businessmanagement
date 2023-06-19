@@ -3,7 +3,6 @@ package com.c2psi.businessmanagement.services.contractsImpl.client.client;
 import com.c2psi.businessmanagement.BusinessmanagementApplication;
 import com.c2psi.businessmanagement.dtos.client.client.ClientDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
-import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
 import com.c2psi.businessmanagement.exceptions.DuplicateEntityException;
 import com.c2psi.businessmanagement.exceptions.EntityNotFoundException;
 import com.c2psi.businessmanagement.exceptions.InvalidEntityException;
@@ -14,8 +13,6 @@ import com.c2psi.businessmanagement.services.contractsImpl.pos.pos.PointofsaleSe
 import com.c2psi.businessmanagement.services.contractsImpl.pos.pos.PosCashAccountServiceImpl;
 import com.c2psi.businessmanagement.services.contractsImpl.pos.userbm.UserBMServiceImpl;
 import com.c2psi.businessmanagement.services.contractsImpl.stock.price.CurrencyServiceImpl;
-import com.c2psi.businessmanagement.services.contractsImpl.stock.provider.ProviderServiceImpl;
-import com.c2psi.businessmanagement.services.contractsImpl.stock.provider.UsedForTestForProvider;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

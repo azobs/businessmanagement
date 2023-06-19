@@ -1,6 +1,5 @@
 package com.c2psi.businessmanagement.validators.stock.product;
 
-import com.c2psi.businessmanagement.dtos.stock.price.SpecialPriceDto;
 import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
 import org.springframework.util.StringUtils;
 

@@ -1,25 +1,23 @@
 package com.c2psi.businessmanagement.controllers.api.pos.pos;
 
 import com.c2psi.businessmanagement.dtos.pos.pos.EnterpriseDto;
-import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
-import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
-import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
 
+@Validated
 @Api(APP_ROOT+"/enterprise")
 public interface EnterpriseApi {
     @PostMapping(value = APP_ROOT+"/enterprise/create",
@@ -30,9 +28,12 @@ public interface EnterpriseApi {
             response = EnterpriseDto.class)
     @ApiResponses(value={
             @ApiResponse(code=200, message="Object Enterprise add successfully"),
-            @ApiResponse(code=400, message="Object Enterprise is not valid")
+            @ApiResponse(code=400, message="Object Enterprise is not valid during the saving process")
     })
-    ResponseEntity<EnterpriseDto> saveEnterprise(@Valid @RequestBody EnterpriseDto entDto, BindingResult bindingResult);
+    ResponseEntity saveEnterprise(
+            @ApiParam(name = "entDto", type = "UserBMDto", required = true,
+                    value="The JSON object that represent the enterprise to save")
+            @Valid @RequestBody EnterpriseDto entDto, BindingResult bindingResult);
 
     @PutMapping(value = APP_ROOT+"/enterprise/update",
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -41,10 +42,31 @@ public interface EnterpriseApi {
             notes = "This method is used to update an enterprise in the DB",
             response = EnterpriseDto.class)
     @ApiResponses(value={
-            @ApiResponse(code=200, message="Object Enterprise modify successfully"),
-            @ApiResponse(code=400, message="Object Enterprise is not valid")
+            @ApiResponse(code=200, message="Object Enterprise modified successfully"),
+            @ApiResponse(code=400, message="Object Enterprise is not valid during the updating process")
     })
-    ResponseEntity<EnterpriseDto> updateEnterprise(@Valid @RequestBody EnterpriseDto entDto, BindingResult bindingResult);
+    ResponseEntity updateEnterprise(
+            @ApiParam(name = "entDto", type = "UserBMDto", required = true,
+                    value="The JSON object that represent the updated version of the enterprise to update")
+            @Valid @RequestBody EnterpriseDto entDto, BindingResult bindingResult);
+
+    /*@PutMapping(value = APP_ROOT+"/enterprise/setAdmin",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Change the user admin of an enterprise",
+            notes = "This method is used to change the admin of an enterprise in the DB",
+            response = EnterpriseDto.class)
+    @ApiResponses(value={
+            @ApiResponse(code=200, message="Admin of Enterprise modified successfully"),
+            @ApiResponse(code=400, message="Object admin of enterprise is not valid during the setAdmin process")
+    })
+    ResponseEntity setAdminEnterprise(
+            @ApiParam(name = "entId", type = "Long", required = true,
+                    value="Id of the enterprise for which an admin will be set", example = "1")
+            @NotNull @RequestBody Long entId,
+            @ApiParam(name = "userBMId", type = "Long", required = true,
+                    value="Id of the UserBM which will be set as admin of the enterprise", example = "1")
+            @NotNull @RequestBody Long userBMAdminId);*/
 
     @PutMapping(value = APP_ROOT+"/enterprise/setAdmin",
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -53,24 +75,29 @@ public interface EnterpriseApi {
             notes = "This method is used to change the admin of an enterprise in the DB",
             response = EnterpriseDto.class)
     @ApiResponses(value={
-            @ApiResponse(code=200, message="Admin of Enterprise modify successfully"),
-            @ApiResponse(code=400, message="Object admin of enterprise is not valid")
+            @ApiResponse(code=200, message="Admin of Enterprise modified successfully"),
+            @ApiResponse(code=400, message="Object admin of enterprise is not valid during the setAdmin process")
     })
-    ResponseEntity<EnterpriseDto> setAdminEnterprise(@PathVariable("idEnterprise") Long entId,
-                                     @PathVariable("idUserBM") Long userBMAdminId);
+    ResponseEntity setAdminEnterprise(
+            @ApiParam(name = "enterpriseDto", type = "Long", required = true,
+                    value="Id's of enterprise and Userbm ")
+            @Valid @RequestBody EnterpriseDto enterpriseDto, BindingResult bindingResult);
 
-    @GetMapping(value = APP_ROOT+"/enterprise/{idEnterprise}",
+    @GetMapping(value = APP_ROOT+"/enterprise/{enterpriseId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find enterprise by id",
             notes = "This method is used to find an enterprise in the DB by its id",
             response = EnterpriseDto.class)
     @ApiResponses(value={
             @ApiResponse(code=200, message="Object Enterprise found successfully"),
-            @ApiResponse(code=404, message="No Object Enterprise found with the id provided")
+            @ApiResponse(code=404, message="No Object Enterprise found by Id in the findByEnterpriseId")
     })
-    ResponseEntity<EnterpriseDto> findEnterpriseById(@PathVariable("idEnterprise") Long id);
+    ResponseEntity findEnterpriseById(
+            @ApiParam(name = "enterpriseId", type = "Long", required = true,
+                    value="Id of the enterprise found", example = "1")
+            @NotNull @PathVariable("enterpriseId") Long enterpriseId);
 
-    @GetMapping(value = APP_ROOT+"/enterprise/{entName}",
+    @GetMapping(value = APP_ROOT+"/enterprise/name/{entName}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find enterprise by entName",
             notes = "This method is used to find an enterprise in the DB by its entName",
@@ -79,9 +106,12 @@ public interface EnterpriseApi {
             @ApiResponse(code=200, message="Object Enterprise found successfully"),
             @ApiResponse(code=404, message="No Object Enterprise with the precised entName")
     })
-    ResponseEntity<EnterpriseDto> findEnterpriseByName(@PathVariable("entName") String entName);
+    ResponseEntity findEnterpriseByName(
+            @ApiParam(name = "entName", type = "String", required = true,
+                    value="Name of the enterprise found", example = "Name")
+            @NotNull @NotEmpty @NotBlank @PathVariable("entName") String entName);
 
-    @GetMapping(value = APP_ROOT+"/enterprise/{entNiu}",
+    @GetMapping(value = APP_ROOT+"/enterprise/niu/{entNiu}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find enterprise by entNiu",
             notes = "This method is used to find an enterprise in the DB by its entNiu",
@@ -90,7 +120,10 @@ public interface EnterpriseApi {
             @ApiResponse(code=200, message="Object Enterprise found successfully"),
             @ApiResponse(code=404, message="No Object Enterprise with the precised entNiu")
     })
-    ResponseEntity<EnterpriseDto> findEnterpriseByNiu(@PathVariable("entName") String entNiu);
+    ResponseEntity findEnterpriseByNiu(
+            @ApiParam(name = "entNiu", type = "String", required = true,
+                    value="Niu of the enterprise found", example = "Niu")
+            @NotNull @NotEmpty @NotBlank @PathVariable("entNiu") String entNiu);
 
     @DeleteMapping(value = APP_ROOT+"/enterprise/delete/{entId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -100,25 +133,34 @@ public interface EnterpriseApi {
     @ApiResponses(value={
             @ApiResponse(code=200, message="Object Enterprise deleted successfully")
     })
-    ResponseEntity<Boolean> deleteEnterpriseById(@PathVariable("entId") Long id);
+    ResponseEntity deleteEnterpriseById(
+            @ApiParam(name = "entId", type = "Long", required = true,
+                    value="Id of the enterprise which will be deleted", example = "1")
+            @NotNull @PathVariable("entId") Long entId);
 
-    @DeleteMapping(value = APP_ROOT+"/enterprise/delete/{entName}",
+    @DeleteMapping(value = APP_ROOT+"/enterprise/delete/name/{entName}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Delete an enterprise in DB by Name",
             notes = "This method is used to delete an enterprise saved in the DB", response = Boolean.class)
     @ApiResponses(value={
             @ApiResponse(code=200, message="Object Enterprise deleted successfully")
     })
-    ResponseEntity<Boolean> deleteEnterpriseByName(@PathVariable("entName") String entName);
+    ResponseEntity deleteEnterpriseByName(
+            @ApiParam(name = "entName", type = "String", required = true,
+                    value="Name of the enterprise which will be deleted", example = "Name")
+            @NotNull @NotEmpty @NotBlank @PathVariable("entName") String entName);
 
-    @DeleteMapping(value = APP_ROOT+"/enterprise/delete/{entNiu}",
+    @DeleteMapping(value = APP_ROOT+"/enterprise/delete/niu/{entNiu}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Delete an enterprise in DB by Niu",
             notes = "This method is used to delete an enterprise saved in the DB", response = Boolean.class)
     @ApiResponses(value={
             @ApiResponse(code=200, message="Object Enterprise deleted successfully")
     })
-    ResponseEntity<Boolean> deleteEnterpriseByNiu(@PathVariable("entNiu") String entNiu);
+    ResponseEntity deleteEnterpriseByNiu(
+            @ApiParam(name = "entNiu", type = "String", required = true,
+                    value="Niu of the enterprise which will be deleted", example = "Niu")
+            @NotNull @NotEmpty @NotBlank @PathVariable("entNiu") String entNiu);
 
     @GetMapping(value = APP_ROOT+"/enterprise/all",
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -128,7 +170,7 @@ public interface EnterpriseApi {
     @ApiResponses(value={
             @ApiResponse(code=200, message="List of Object Enterprise found successfully or empty list")
     })
-    ResponseEntity<List<EnterpriseDto>> findAllEnterprise();
+    ResponseEntity findAllEnterprise();
 
     @GetMapping(value = APP_ROOT+"/enterprise/allPointofsale/{entId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -138,7 +180,10 @@ public interface EnterpriseApi {
     @ApiResponses(value={
             @ApiResponse(code=200, message="List of Object Pointofsale of an  Enterprise found successfully or empty list")
     })
-    ResponseEntity<List<PointofsaleDto>> findAllPosofEnterprise(@PathVariable("entId") Long entId);
+    ResponseEntity findAllPosofEnterprise(
+            @ApiParam(name = "entId", type = "Long", required = true,
+                    value="Id of the enterprise for which list of pointofsale is found", example = "1")
+            @NotNull @PathVariable("entId") Long entId);
 
     @GetMapping(value = APP_ROOT+"/enterprise/getTurnover/{entId}/{startDate}/{endDate}",
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -148,8 +193,16 @@ public interface EnterpriseApi {
     @ApiResponses(value={
             @ApiResponse(code=200, message="The turnover of the  Enterprise calsulate successfully")
     })
-    ResponseEntity<BigDecimal> getTurnover(@PathVariable("entId") Long entId, @PathVariable("startDate") Date startDate,
-                           @PathVariable("endDate") Date endDate);
+    ResponseEntity getTurnover(
+            @ApiParam(name = "entId", type = "Long", required = true,
+                    value="Id of the enterprise for which the turnover is found", example = "1")
+            @NotNull @PathVariable("entId") Long entId,
+            @ApiParam(name = "startDate", type = "Date",
+                    value="The minimum date from which the calculation going to start")
+            @PathVariable("startDate") Date startDate,
+            @ApiParam(name = "endDate", type = "Date",
+                    value="The maximum date from which the calculation going to stop")
+            @PathVariable("endDate") Date endDate);
 
     @GetMapping(value = APP_ROOT+"/enterprise/allEmploye/{entId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -159,9 +212,12 @@ public interface EnterpriseApi {
     @ApiResponses(value={
             @ApiResponse(code=200, message="List of Object UserBM of an  Enterprise found successfully or empty list")
     })
-    ResponseEntity<List<UserBMDto>> findAllEmployeofEnterprise (@PathVariable("entId") Long entId);
+    ResponseEntity findAllEmployeofEnterprise (
+            @ApiParam(name = "entId", type = "Long", required = true,
+                    value="Id of the enterprise for which the employe list is found", example = "1")
+            @NotNull @PathVariable("entId") Long entId);
 
-    @GetMapping(value = APP_ROOT+"/enterprise/allProvider/{entId}",
+    /*@GetMapping(value = APP_ROOT+"/enterprise/allProvider/{entId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find all Provider of an enterprise",
             notes = "This method is used to find all provider of an enterprise in DB",
@@ -169,7 +225,7 @@ public interface EnterpriseApi {
     @ApiResponses(value={
             @ApiResponse(code=200, message="List of Object Provider of an  Enterprise found successfully or empty list")
     })
-    ResponseEntity<List<ProviderDto>> findAllProviderofEnterprise (@PathVariable("entId") Long entId);
+    ResponseEntity<List<ProviderDto>> findAllProviderofEnterprise (@PathVariable("entId") Long entId);*/
 
     @GetMapping(value = APP_ROOT+"/enterprise/getTotalCash/{entId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -179,73 +235,103 @@ public interface EnterpriseApi {
     @ApiResponses(value={
             @ApiResponse(code=200, message="The total cash of the  Enterprise calculate successfully")
     })
-    ResponseEntity<BigDecimal> getTotalCash(@PathVariable("entId") Long entId);
+    ResponseEntity getTotalCash(
+            @ApiParam(name = "entId", type = "Long", required = true,
+                    value="Id of the enterprise for which the total cash is found", example = "1")
+            @NotNull @PathVariable("entId") Long entId);
 
     @GetMapping(value = APP_ROOT+"/enterprise/getNumberofDamage/{entId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Return the total number of Damage product of an enterprise",
             notes = "This method is used to return the total number of damage product available in an enterprise",
-            response = Integer.class)
+            response = BigDecimal.class)
     @ApiResponses(value={
             @ApiResponse(code=200, message="The total number of damage of the  Enterprise calculate successfully")
     })
-    ResponseEntity<Integer> getNumberofDamage(@PathVariable("entId") Long entId);
+    ResponseEntity getNumberofDamage(
+            @ApiParam(name = "entId", type = "Long", required = true,
+                    value="Id of the enterprise for which the number of damage is found", example = "1")
+            @NotNull @PathVariable("entId") Long entId);
 
     @GetMapping(value = APP_ROOT+"/enterprise/getNumberofDamage/{entId}/{artId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Return the total number of Damage product for a particular article of an enterprise",
             notes = "This method is used to return the total number of damage product of a particular article" +
                     " available in an enterprise",
-            response = Integer.class)
+            response = BigDecimal.class)
     @ApiResponses(value={
             @ApiResponse(code=200, message="The total number of damage of a particular article in an  " +
                     " Enterprise calculate successfully")
     })
-    ResponseEntity<Integer> getNumberofDamage(@PathVariable("entId") Long entId, @PathVariable("artId") Long artId);
+    ResponseEntity getNumberofDamage(
+            @ApiParam(name = "entId", type = "Long", required = true,
+                    value="Id of the enterprise for which the number of damage is found", example = "1")
+            @NotNull @PathVariable("entId") Long entId,
+            @ApiParam(name = "entId", type = "Long", required = true,
+                    value="Id of the article for which the number of damage is found", example = "1")
+            @NotNull @PathVariable("artId") Long artId);
 
     @GetMapping(value = APP_ROOT+"/enterprise/getNumberofCover/{entId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Return the total number of cover product of an enterprise",
             notes = "This method is used to return the total number of cover product available in an enterprise",
-            response = Integer.class)
+            response = BigDecimal.class)
     @ApiResponses(value={
             @ApiResponse(code=200, message="The total number of cover of the  Enterprise calculate successfully")
     })
-    ResponseEntity<Integer> getNumberofCapsule(@PathVariable("entId") Long entId);
+    ResponseEntity getNumberofCapsule(
+            @ApiParam(name = "entId", type = "Long", required = true,
+                    value="Id of the enterprise for which the number of cover is found", example = "1")
+            @NotNull @PathVariable("entId") Long entId);
 
     @GetMapping(value = APP_ROOT+"/enterprise/getNumberofCover/{entId}/{artId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Return the total number of cover product for a particular article of an enterprise",
             notes = "This method is used to return the total number of cover product of a particular article" +
                     " available in an enterprise",
-            response = Integer.class)
+            response = BigDecimal.class)
     @ApiResponses(value={
             @ApiResponse(code=200, message="The total number of cover of a particular article in an  " +
                     " Enterprise calculate successfully")
     })
-    ResponseEntity<Integer> getNumberofCapsule(@PathVariable("entId") Long entId, @PathVariable("artId") Long artId);
+    ResponseEntity getNumberofCapsule(
+            @ApiParam(name = "entId", type = "Long", required = true,
+                    value="Id of the enterprise for which the number of cover is found", example = "1")
+            @NotNull @PathVariable("entId") Long entId,
+            @ApiParam(name = "entId", type = "Long", required = true,
+                    value="Id of the article for which the number of cover is found", example = "1")
+            @NotNull @PathVariable("artId") Long artId);
 
     @GetMapping(value = APP_ROOT+"/enterprise/getNumberofPackaging/{entId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Return the total number of packaging of an enterprise",
             notes = "This method is used to return the total number of packaging available in an enterprise",
-            response = Integer.class)
+            response = BigDecimal.class)
     @ApiResponses(value={
             @ApiResponse(code=200, message="The total number of packaging of the  Enterprise calculate successfully")
     })
-    ResponseEntity<Integer> getNumberofPackaging(@PathVariable("entId") Long entId);
+    ResponseEntity getNumberofPackaging(
+            @ApiParam(name = "entId", type = "Long", required = true,
+                    value="Id of the enterprise for which the number of packaging is found", example = "1")
+            @NotNull @PathVariable("entId") Long entId);
 
     @GetMapping(value = APP_ROOT+"/enterprise/getNumberofCover/{entId}/{providerId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Return the total number of packaging for a particular provider of an enterprise",
             notes = "This method is used to return the total number of packaging  of a particular provider" +
                     " available in an enterprise",
-            response = Integer.class)
+            response = BigDecimal.class)
     @ApiResponses(value={
             @ApiResponse(code=200, message="The total number of packaging of a particular provider in an  " +
                     " Enterprise calculate successfully")
     })
-    ResponseEntity<Integer> getNumberofPackaging(@PathVariable("entId") Long entId, @PathVariable("providerId") Long providerId);
+    ResponseEntity getNumberofPackaging(
+            @ApiParam(name = "entId", type = "Long", required = true,
+                    value="Id of the enterprise for which the number of packaging is found", example = "1")
+            @NotNull @PathVariable("entId") Long entId,
+            @ApiParam(name = "entId", type = "Long", required = true,
+                    value="Id of the provider for which the number of packaging is found", example = "1")
+            @NotNull @PathVariable("providerId") Long providerId);
 
 
 }

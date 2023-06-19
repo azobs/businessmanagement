@@ -1,8 +1,6 @@
 package com.c2psi.businessmanagement.validators.client.command;
 
-import com.c2psi.businessmanagement.dtos.client.command.CommandDto;
 import com.c2psi.businessmanagement.dtos.client.command.SaleInvoiceCapsuleDto;
-import org.springframework.util.StringUtils;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;

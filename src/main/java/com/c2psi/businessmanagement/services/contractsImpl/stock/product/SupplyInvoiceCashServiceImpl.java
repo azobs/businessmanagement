@@ -11,7 +11,6 @@ import com.c2psi.businessmanagement.repositories.pos.userbm.UserBMRepository;
 import com.c2psi.businessmanagement.repositories.stock.product.SupplyInvoiceCashRepository;
 import com.c2psi.businessmanagement.repositories.stock.provider.ProviderRepository;
 import com.c2psi.businessmanagement.services.contracts.stock.product.SupplyInvoiceCashService;
-import com.c2psi.businessmanagement.validators.stock.product.ArticleValidator;
 import com.c2psi.businessmanagement.validators.stock.product.SupplyInvoiceCashValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.time.Instant;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -63,16 +61,16 @@ public class SupplyInvoiceCashServiceImpl implements SupplyInvoiceCashService {
          * Verifier que l'id du pointofsale n'est pas null et quil identifie
          * vraiment un pointofsale
          */
-        if(sicashDto.getSicashPosDto().getId() == null){
+        if(sicashDto.getSicashPosId() == null){
             log.error("The id of the pointofsale in the request is null");
             throw new InvalidEntityException("L'Id du pointofsale dans le sicashDto est null ",
                     ErrorCode.SUPPLYINVOICECASH_NOT_VALID);
         }
         //L'id du pointofsale n'est pas null on verifie si c'est vraiment un pos dans la BD
         Optional<Pointofsale> optionalPointofsale = pointofsaleRepository.findPointofsaleById(
-                sicashDto.getSicashPosDto().getId());
+                sicashDto.getSicashPosId());
         if(!optionalPointofsale.isPresent()){
-            log.error("There is no pointofsale in the DB with the precised id {}", sicashDto.getSicashPosDto().getId());
+            log.error("There is no pointofsale in the DB with the precised id {}", sicashDto.getSicashPosId());
             throw new InvalidEntityException("Aucun Pointofsale n'existe avec l'id precise dans la requete ",
                     ErrorCode.SUPPLYINVOICECASH_NOT_VALID);
         }
@@ -116,19 +114,19 @@ public class SupplyInvoiceCashServiceImpl implements SupplyInvoiceCashService {
         /********************************************************************************************
          * On verifie que le pointofsale dans la requete est le meme que celui du userbm et provider
          */
-        if(!optionalPointofsale.get().getId().equals(optionalUserBM.get().getBmPos().getId())){
+        if(!optionalPointofsale.get().getId().equals(optionalUserBM.get().getBmPosId())){
             log.error("The pointofsale in the sicashDto must be the same with the one of the userBM");
             throw new InvalidEntityException("Le pointofsale dans la requete doit etre le meme que celui du UserBM " +
                     "precise precise dans le sicashDto ", ErrorCode.SUPPLYINVOICECASH_NOT_VALID);
         }
 
-        if(!optionalPointofsale.get().getId().equals(optionalProvider.get().getProviderPos().getId())){
+        if(!optionalPointofsale.get().getId().equals(optionalProvider.get().getProviderPosId())){
             log.error("The pointofsale in the sicashDto must be the same with the one of the provider");
             throw new InvalidEntityException("Le pointofsale dans la requete doit etre le meme que celui du provider " +
                     "precise precise dans le sicashDto ", ErrorCode.SUPPLYINVOICECASH_NOT_VALID);
         }
 
-        if(!optionalProvider.get().getProviderPos().getId().equals(optionalUserBM.get().getBmPos().getId())){
+        if(!optionalProvider.get().getProviderPosId().equals(optionalUserBM.get().getBmPosId())){
             log.error("The Provider in the sicashDto must be the same with the one of the UserBM");
             throw new InvalidEntityException("Le Provider dans la requete doit etre le meme que celui du UserBM " +
                     "precise precise dans le sicashDto ", ErrorCode.SUPPLYINVOICECASH_NOT_VALID);
@@ -138,7 +136,7 @@ public class SupplyInvoiceCashServiceImpl implements SupplyInvoiceCashService {
          * On verifie quil y a pas un autre SupplyInvoiceCash avec le meme code deja enregistre en BD
          * pour le meme pointofsale
          */
-        if(!isSupplyInvoiceCashUnique(sicashDto.getSicashCode(), sicashDto.getSicashPosDto().getId())){
+        if(!isSupplyInvoiceCashUnique(sicashDto.getSicashCode(), sicashDto.getSicashPosId())){
             log.error("There is a supplyinvoicecash already register in the DB with the same code in the same pointofsale");
             throw new DuplicateEntityException("Une facture supplyinvoicecash est deja existante dans la BD avec ce code",
                     ErrorCode.SUPPLYINVOICECASH_DUPLICATED);
@@ -195,7 +193,7 @@ public class SupplyInvoiceCashServiceImpl implements SupplyInvoiceCashService {
         /**************************************************************************
          * On va se rassurer que ce n'est pas le pointofsale qu'on veut modifier
          */
-        if(!supplyInvoiceCashToUpdate.getSicashPos().getId().equals(sicashDto.getSicashPosDto().getId())){
+        if(!supplyInvoiceCashToUpdate.getSicashPosId().equals(sicashDto.getSicashPosId())){
             log.error("It is not possible to update the pointofsale of that sicashDto");
             throw new InvalidEntityException("Il n'est pas possible de modifier le Pointofsale du sicashDto ",
                     ErrorCode.SUPPLYINVOICECASH_NOT_VALID);
@@ -224,7 +222,7 @@ public class SupplyInvoiceCashServiceImpl implements SupplyInvoiceCashService {
             /********************
              * On se rassure donc que le nouveau provider est dans le meme pointofsale
              */
-            if(!newProvider.getProviderPos().getId().equals(sicashDto.getSicashPosDto().getId())){
+            if(!newProvider.getProviderPosId().equals(sicashDto.getSicashPosId())){
                 log.error("The new provider don't belong to the same pointofsale");
                 throw new InvalidEntityException("Le nouveau provider n'est pas dans le meme pointofsale que le " +
                         "sicashDto et cette mise a jour ne peut donc etre effectue", ErrorCode.SUPPLYINVOICECASH_NOT_VALID);
@@ -242,7 +240,7 @@ public class SupplyInvoiceCashServiceImpl implements SupplyInvoiceCashService {
              *  Alors cest le sicashCode quon veut modifier
              *  on se rassure donc quil ny aura pas de duplicata
              */
-            if(!isSupplyInvoiceCashUnique(sicashDto.getSicashCode(), sicashDto.getSicashPosDto().getId())){
+            if(!isSupplyInvoiceCashUnique(sicashDto.getSicashCode(), sicashDto.getSicashPosId())){
                 log.error("There is a supplyinvoicecash already register in the DB with the same code in the same pointofsale");
                 throw new DuplicateEntityException("Une facture supplyinvoicecash est deja existante dans la BD avec ce code",
                         ErrorCode.SUPPLYINVOICECASH_DUPLICATED);

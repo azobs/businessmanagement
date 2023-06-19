@@ -96,7 +96,7 @@ public class InventoryLineServiceImpl implements InventoryLineService {
          * Il faut se rassurer que le pointofsale de l'id et celui de
          * l'inventory sont les memes sinon il y a probleme
          */
-        if(!articleAssociated.getArtPos().getId().equals(inventoryAssociated.getInvPos().getId())){
+        if(!articleAssociated.getArtPosId().equals(inventoryAssociated.getInvPosId())){
             log.error("The article and the inventory associated in the inventoryline must belong to the same pointofsale");
             throw new InvalidEntityException("L'article et l'inventory qui seront associe dans l'inventoryline " +
                     "doivent appartenir au meme pointofsale");

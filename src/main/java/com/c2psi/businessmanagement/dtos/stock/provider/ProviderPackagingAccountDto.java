@@ -1,6 +1,5 @@
 package com.c2psi.businessmanagement.dtos.stock.provider;
 
-import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.stock.product.PackagingDto;
 import com.c2psi.businessmanagement.models.ProviderPackagingAccount;
 import lombok.Builder;

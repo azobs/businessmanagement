@@ -10,7 +10,6 @@ import com.c2psi.businessmanagement.dtos.stock.price.SpecialPriceDto;
 import com.c2psi.businessmanagement.dtos.stock.product.*;
 import com.c2psi.businessmanagement.exceptions.DuplicateEntityException;
 import com.c2psi.businessmanagement.exceptions.InvalidEntityException;
-import com.c2psi.businessmanagement.services.contracts.client.client.ClientSpecialpriceService;
 import com.c2psi.businessmanagement.services.contractsImpl.UsedForTestForAll;
 import com.c2psi.businessmanagement.services.contractsImpl.client.UsedForTestForClient;
 import com.c2psi.businessmanagement.services.contractsImpl.pos.pos.EnterpriseServiceImpl;
