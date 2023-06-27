@@ -188,7 +188,7 @@ public class ProviderPackagingOperationServiceImpl implements ProviderPackagingO
     }
 
     @Override
-    public List<ProviderPackagingOperationDto> findAllProviderPackagingOperationBetween(Long propackopId, OperationType op_type,
+    public List<ProviderPackagingOperationDto> findAllProviderPackagingOperationofTypeBetween(Long propackopId, OperationType op_type,
                                                                                         Instant startDate, Instant endDate) {
         List<ProviderPackagingOperation> providerPackagingOperationListoftypeBetween = providerPackagingOperationRepository.
                 findAllProviderPackagingOperationOfTypeBetween(propackopId, op_type, startDate, endDate);
@@ -196,7 +196,7 @@ public class ProviderPackagingOperationServiceImpl implements ProviderPackagingO
     }
 
     @Override
-    public Page<ProviderPackagingOperationDto> findPageProviderPackagingOperationBetween(Long propackopId, OperationType op_type, Instant startDate, Instant endDate, int pagenum, int pagesize) {
+    public Page<ProviderPackagingOperationDto> findPageProviderPackagingOperationofTypeBetween(Long propackopId, OperationType op_type, Instant startDate, Instant endDate, int pagenum, int pagesize) {
         Page<ProviderPackagingOperation> providerPackagingOperationPageoftypeBetween = providerPackagingOperationRepository.
                 findPageProviderPackagingOperationOfTypeBetween(propackopId, op_type, startDate, endDate, PageRequest.of(pagenum, pagesize));
         return providerPackagingOperationPageoftypeBetween.map(ProviderPackagingOperationDto::fromEntity);

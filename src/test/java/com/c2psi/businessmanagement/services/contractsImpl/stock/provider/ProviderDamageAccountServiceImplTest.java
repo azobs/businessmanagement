@@ -226,14 +226,14 @@ public class ProviderDamageAccountServiceImplTest {
 
             ///////////////////////////////////////
             List<ProviderDamageOperationDto> providerDamageOperationDtoList1 = providerDamageOperationService.
-                    findAllProviderDamageOperationBetween(providerDamageAccountDtoFound.getId(), OperationType.Withdrawal,
+                    findAllProviderDamageOperationofTypeBetween(providerDamageAccountDtoFound.getId(), OperationType.Withdrawal,
                             startDate.toInstant(), endDate.toInstant());
             assertEquals(1, providerDamageOperationDtoList1.size());
 
             //////////////////////////
 
             Page<ProviderDamageOperationDto> providerDamageOperationDtoPage1 = providerDamageOperationService.
-                    findPageProviderDamageOperationBetween(providerDamageAccountDtoFound.getId(), OperationType.Credit, startDate.toInstant(),
+                    findPageProviderDamageOperationofTypeBetween(providerDamageAccountDtoFound.getId(), OperationType.Credit, startDate.toInstant(),
                             endDate.toInstant(), 0, 1);
             assertEquals(2, providerDamageOperationDtoPage1.getTotalPages());
 

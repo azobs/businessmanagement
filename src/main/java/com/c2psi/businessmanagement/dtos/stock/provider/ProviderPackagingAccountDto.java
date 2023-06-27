@@ -2,6 +2,7 @@ package com.c2psi.businessmanagement.dtos.stock.provider;
 
 import com.c2psi.businessmanagement.dtos.stock.product.PackagingDto;
 import com.c2psi.businessmanagement.models.ProviderPackagingAccount;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
 
@@ -11,8 +12,10 @@ import java.math.BigDecimal;
 @Data
 @Builder
 public class ProviderPackagingAccountDto {
+    @ApiModelProperty(value = "The Id of the provider in the DB", name = "id", dataType = "Long")
     Long id;
     @NotNull(message = "The number in the packaging account cannot ne null")
+    @ApiModelProperty(value = "The number of packaging in the account", name = "ppaNumber", dataType = "BigDecimal")
     BigDecimal ppaNumber;
     /******************************
      * Relation between entities  *
@@ -23,10 +26,12 @@ public class ProviderPackagingAccountDto {
 
     //Each providerpackagingaccount must belonging to one provider
     @NotNull(message = "The provider associated with the account cannot be null")
+    @ApiModelProperty(value = "The provider owner of the account", name = "ppaProviderDto", dataType = "ProviderDto")
     ProviderDto ppaProviderDto;
 
     //Each ProviderPackagingAccount is for 1 packaging
     @NotNull(message = "The packaging associated with the account cannot be null")
+    @ApiModelProperty(value = "The packaging owner of the account", name = "ppaPackagingDto", dataType = "PackagingDto")
     PackagingDto ppaPackagingDto;
     /***********************************
      * Mapping method development:   ***

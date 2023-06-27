@@ -20,10 +20,10 @@ public interface PosPackagingOperationService {
                                                                        Instant endDate);
     Page<PosPackagingOperationDto> findPagePosPackagingOperationBetween(Long ppackopId, Instant startDate,
                                                                         Instant endDate, int pagenum, int pagesize);
-    List<PosPackagingOperationDto> findAllPosPackagingOperationBetween(Long ppackopId, OperationType op_type,
+    List<PosPackagingOperationDto> findAllPosPackagingOperationofTypeBetween(Long ppackopId, OperationType op_type,
                                                                        Instant startDate, Instant endDate);
 
-    Page<PosPackagingOperationDto> findPagePosPackagingOperationBetween(Long ppackopId, OperationType op_type,
+    Page<PosPackagingOperationDto> findPagePosPackagingOperationofTypeBetween(Long ppackopId, OperationType op_type,
                                                                         Instant startDate, Instant endDate,
                                                                         int pagenum, int pagesize);
 }

@@ -128,6 +128,11 @@ public class ClientPackagingOperationServiceImpl implements ClientPackagingOpera
                 clientPackagingOperationRepository.delete(optionalClientPackagingOperation.get());
                 return true;
             }
+            else{
+                log.error("The ClientPackagingOperation cannot be deleteable");
+                throw new EntityNotDeleteableException("Le ClientPackagingOperation ne peut etre supprime ",
+                        ErrorCode.CLIENTPACKAGINGACCOUNT_NOT_DELETEABLE);
+            }
         }
         throw new EntityNotFoundException("Aucune entite n'existe avec l'ID passe en argument ",
                 ErrorCode.CLIENTPACKAGINGOPERATION_NOT_FOUND);
@@ -135,13 +140,35 @@ public class ClientPackagingOperationServiceImpl implements ClientPackagingOpera
 
     @Override
     public List<ClientPackagingOperationDto> findAllClientPackagingOperation(Long cltpackopId) {
+        if(cltpackopId == null){
+            log.error("cltpackopId is null");
+            throw new NullArgumentException("Le cltpackopId passe en argument de la methode est null");
+        }
         List<ClientPackagingOperation> clientPackagingOperationList = clientPackagingOperationRepository.
                 findAllClientPackagingOperation(cltpackopId);
         return clientPackagingOperationList.stream().map(ClientPackagingOperationDto::fromEntity).collect(Collectors.toList());
     }
 
+    Boolean isOperationTypeValid(OperationType operationType){
+        if(!operationType.equals(OperationType.Change) && !operationType.equals(OperationType.Withdrawal)
+        && !operationType.equals(OperationType.Credit) && !operationType.equals(OperationType.Others)){
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public List<ClientPackagingOperationDto> findAllClientPackagingOperationofType(Long cltpackopId, OperationType opType) {
+        if(cltpackopId == null){
+            log.error("cltpackopId is null");
+            throw new NullArgumentException("Le cltpackopId passe en argument de la methode est null");
+        }
+
+        if(!isOperationTypeValid(opType)){
+            log.error("The operation type precised is not valid");
+            throw new InvalidValueException("Le type d'operation precise n'est pas valide ");
+        }
+
         List<ClientPackagingOperation> clientPackagingOperationList = clientPackagingOperationRepository.
                 findAllClientPackagingOperationOfType(cltpackopId, opType);
 
@@ -150,6 +177,11 @@ public class ClientPackagingOperationServiceImpl implements ClientPackagingOpera
 
     @Override
     public Page<ClientPackagingOperationDto> findPageClientPackagingOperation(Long cltpackopId, int pagenum, int pagesize) {
+        if(cltpackopId == null){
+            log.error("cltpackopId is null");
+            throw new NullArgumentException("Le cltpackopId passe en argument de la methode est null");
+        }
+
         Page<ClientPackagingOperation> clientPackagingOperationPage = clientPackagingOperationRepository.findPageClientPackagingOperation(
                 cltpackopId, PageRequest.of(pagenum, pagesize));
 
@@ -158,6 +190,16 @@ public class ClientPackagingOperationServiceImpl implements ClientPackagingOpera
 
     @Override
     public Page<ClientPackagingOperationDto> findPageClientPackagingOperationofType(Long cltpackopId, OperationType opType, int pagenum, int pagesize) {
+        if(cltpackopId == null){
+            log.error("cltpackopId is null");
+            throw new NullArgumentException("Le cltpackopId passe en argument de la methode est null");
+        }
+
+        if(!isOperationTypeValid(opType)){
+            log.error("The operation type precised is not valid");
+            throw new InvalidValueException("Le type d'operation precise n'est pas valide ");
+        }
+
         Page<ClientPackagingOperation> clientPackagingOperationPage = clientPackagingOperationRepository.
                 findPageClientPackagingOperationOfType(cltpackopId, opType, PageRequest.of(pagenum, pagesize));
 
@@ -167,28 +209,61 @@ public class ClientPackagingOperationServiceImpl implements ClientPackagingOpera
     @Override
     public List<ClientPackagingOperationDto> findAllClientPackagingOperationBetween(Long cltpackopId, Instant startDate,
                                                                                     Instant endDate) {
+        if(cltpackopId == null){
+            log.error("cltpackopId is null");
+            throw new NullArgumentException("Le cltpackopId passe en argument de la methode est null");
+        }
+
         List<ClientPackagingOperation> clientPackagingOperationListBetween = clientPackagingOperationRepository.
                 findAllClientPackagingOperationBetween(cltpackopId, startDate, endDate);
         return clientPackagingOperationListBetween.stream().map(ClientPackagingOperationDto::fromEntity).collect(Collectors.toList());
     }
 
     @Override
-    public Page<ClientPackagingOperationDto> findPageClientPackagingOperationBetween(Long cltpackopId, Instant startDate, Instant endDate, int pagenum, int pagesize) {
+    public Page<ClientPackagingOperationDto> findPageClientPackagingOperationBetween(Long cltpackopId, Instant startDate,
+                                                                                     Instant endDate, int pagenum,
+                                                                                     int pagesize) {
+        if(cltpackopId == null){
+            log.error("cltpackopId is null");
+            throw new NullArgumentException("Le cltpackopId passe en argument de la methode est null");
+        }
+
         Page<ClientPackagingOperation> clientPackagingOperationPageBetween = clientPackagingOperationRepository.
                 findPageClientPackagingOperationBetween(cltpackopId, startDate, endDate, PageRequest.of(pagenum, pagesize));
         return clientPackagingOperationPageBetween.map(ClientPackagingOperationDto::fromEntity);
     }
 
     @Override
-    public List<ClientPackagingOperationDto> findAllClientPackagingOperationBetween(Long cltpackopId, OperationType op_type,
+    public List<ClientPackagingOperationDto> findAllClientPackagingOperationofTypeBetween(Long cltpackopId, OperationType op_type,
                                                                                     Instant startDate, Instant endDate) {
+        if(cltpackopId == null){
+            log.error("cltpackopId is null");
+            throw new NullArgumentException("Le cltpackopId passe en argument de la methode est null");
+        }
+
+        if(!isOperationTypeValid(op_type)){
+            log.error("The operation type precised is not valid");
+            throw new InvalidValueException("Le type d'operation precise n'est pas valide ");
+        }
+
         List<ClientPackagingOperation> clientPackagingOperationListoftypeBetween = clientPackagingOperationRepository.
                 findAllClientPackagingOperationOfTypeBetween(cltpackopId, op_type, startDate, endDate);
         return clientPackagingOperationListoftypeBetween.stream().map(ClientPackagingOperationDto::fromEntity).collect(Collectors.toList());
     }
 
     @Override
-    public Page<ClientPackagingOperationDto> findPageClientPackagingOperationBetween(Long cltpackopId, OperationType op_type, Instant startDate, Instant endDate, int pagenum, int pagesize) {
+    public Page<ClientPackagingOperationDto> findPageClientPackagingOperationofTypeBetween(Long cltpackopId, OperationType op_type,
+                                                                                     Instant startDate, Instant endDate,
+                                                                                     int pagenum, int pagesize) {
+        if(cltpackopId == null){
+            log.error("cltpackopId is null");
+            throw new NullArgumentException("Le cltpackopId passe en argument de la methode est null");
+        }
+
+        if(!isOperationTypeValid(op_type)){
+            log.error("The operation type precised is not valid");
+            throw new InvalidValueException("Le type d'operation precise n'est pas valide ");
+        }
         Page<ClientPackagingOperation> clientPackagingOperationPageoftypeBetween = clientPackagingOperationRepository.
                 findPageClientPackagingOperationOfTypeBetween(cltpackopId, op_type, startDate, endDate,
                         PageRequest.of(pagenum, pagesize));

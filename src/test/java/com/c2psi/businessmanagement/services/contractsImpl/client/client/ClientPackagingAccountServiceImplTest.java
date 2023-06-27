@@ -193,7 +193,7 @@ public class ClientPackagingAccountServiceImplTest {
                 clientDtoSaved, packagingDtoSaved, clientPackagingAccountService);
         assertNotNull(clientPackagingAccountDtoSaved);
 
-        ClientPackagingAccountDto clientPackagingAccountDtoFound = clientPackagingAccountService.findClientPackagingAccount(
+        ClientPackagingAccountDto clientPackagingAccountDtoFound = clientPackagingAccountService.findClientPackagingAccountByClientAndPackaging(
                 packagingDtoSaved.getId(), clientDtoSaved.getId());
         assertNotNull(clientPackagingAccountDtoFound);
         assertEquals(clientPackagingAccountDtoSaved.getId(), clientPackagingAccountDtoFound.getId());
@@ -403,7 +403,7 @@ public class ClientPackagingAccountServiceImplTest {
             //List<ClientPackagingOperationDto> findAllClientPackagingOperationBetween(Long cltpackopId, OperationType op_type,
             //                                                        Instant startDate, Instant endDate)
             List<ClientPackagingOperationDto> clientPackagingOperationDtoListBetweenoftype = clientPackagingOperationService.
-                    findAllClientPackagingOperationBetween(clientPackagingAccountDtoSaved.getId(), OperationType.Credit,
+                    findAllClientPackagingOperationofTypeBetween(clientPackagingAccountDtoSaved.getId(), OperationType.Credit,
                             startDate.toInstant(), endDate.toInstant());
             assertNotNull(clientPackagingOperationDtoListBetweenoftype);
             assertEquals(1, clientPackagingOperationDtoListBetweenoftype.size());
@@ -412,7 +412,7 @@ public class ClientPackagingAccountServiceImplTest {
             //                                                                 Instant startDate, Instant endDate,
             //                                                                 int pagenum, int pagesize)
             Page<ClientPackagingOperationDto> clientPackagingOperationDtoPageBetweenoftype = clientPackagingOperationService.
-                    findPageClientPackagingOperationBetween(clientPackagingAccountDtoSaved.getId(), OperationType.Credit,
+                    findPageClientPackagingOperationofTypeBetween(clientPackagingAccountDtoSaved.getId(), OperationType.Credit,
                             startDate.toInstant(), endDate.toInstant(), 0, 2);
             assertNotNull(clientPackagingOperationDtoPageBetweenoftype);
             assertEquals(1, clientPackagingOperationDtoPageBetweenoftype.getTotalPages());

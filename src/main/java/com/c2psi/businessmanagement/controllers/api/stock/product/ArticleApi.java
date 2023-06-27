@@ -262,7 +262,7 @@ public interface ArticleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/article/stock/add/{artId}/{quantity}",
+    /*@GetMapping(value = APP_ROOT+"/article/stock/add/{artId}/{quantity}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "addQuantityofArticle", notes = "Add a quantity of article in stock",
             response = ArticleDto.class)
@@ -276,11 +276,28 @@ public interface ArticleApi {
             @NotNull @PathVariable("artId") Long artId,
             @ApiParam(name = "quantity", type = "BigDecimal", required = true,
                     value="Quantity to add", example = "0")
-            @NotNull @PathVariable("quantity") BigDecimal quantity);
+            @NotNull @PathVariable("quantity") BigDecimal quantity);*/
+
+    @PutMapping(value = APP_ROOT+"/article/update/add",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "addQuantityofArticle",
+            notes = "This method is used to update the quantity of an article in the DB by adding it",
+            response = ArticleDto.class)
+    @ApiResponses(value={
+            @ApiResponse(code=200, message="Object Article(quantity in stock) added successfully"),
+            @ApiResponse(code=400, message="Object Article(quantity in stock) is not valid during the updating process")
+    })
+    ResponseEntity addQuantityofArticle(
+            @ApiParam(name = "artDto", type = "ArticleDto", required = true,
+                    value="The JSON object that represent the Article to update")
+            @Valid @RequestBody ArticleDto artDto, BindingResult bindingResult);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/article/stock/reduce/{artId}/{quantity}",
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /*@GetMapping(value = APP_ROOT+"/article/stock/reduce/{artId}/{quantity}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "reduceQuantityofArticle", notes = "Reduce a quantity of article in stock",
             response = ArticleDto.class)
@@ -294,11 +311,26 @@ public interface ArticleApi {
             @NotNull @PathVariable("artId") Long artId,
             @ApiParam(name = "quantity", type = "BigDecimal", required = true,
                     value="Quantity to add", example = "0")
-            @NotNull @PathVariable("quantity") BigDecimal quantity);
+            @NotNull @PathVariable("quantity") BigDecimal quantity);*/
+
+    @PutMapping(value = APP_ROOT+"/article/update/reduce",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "reduceQuantityofArticle",
+            notes = "This method is used to update the quantity of an article in the DB by reducing it",
+            response = ArticleDto.class)
+    @ApiResponses(value={
+            @ApiResponse(code=200, message="Object Article(quantity in stock) reduced successfully"),
+            @ApiResponse(code=400, message="Object Article(quantity in stock) is not valid during the updating process")
+    })
+    ResponseEntity reduceQuantityofArticle(
+            @ApiParam(name = "artDto", type = "ArticleDto", required = true,
+                    value="The JSON object that represent the Article to update")
+            @Valid @RequestBody ArticleDto artDto, BindingResult bindingResult);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/article/damage/add/{artId}/{quantity}",
+    /*@GetMapping(value = APP_ROOT+"/article/damage/add/{artId}/{quantity}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "addDamageArticleof", notes = "Add a damage quantity of article in stock",
             response = ArticleDto.class)
@@ -312,11 +344,26 @@ public interface ArticleApi {
             @NotNull @PathVariable("artId") Long artId,
             @ApiParam(name = "quantity", type = "BigDecimal", required = true,
                     value="Quantity to add", example = "0")
-            @NotNull @PathVariable("quantity") BigDecimal quantity);
+            @NotNull @PathVariable("quantity") BigDecimal quantity);*/
+
+    @PutMapping(value = APP_ROOT+"/article/damage/update/add",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "addDamageArticleof",
+            notes = "Add a damage quantity of article in stock",
+            response = ArticleDto.class)
+    @ApiResponses(value={
+            @ApiResponse(code=200, message="The damage quantity of article with the id precised is added successfully"),
+            @ApiResponse(code=400, message="Error faced during the adding damage quantity process")
+    })
+    ResponseEntity addDamageArticleof(
+            @ApiParam(name = "artDto", type = "ArticleDto", required = true,
+                    value="The JSON object that represent the Article to update")
+            @Valid @RequestBody ArticleDto artDto, BindingResult bindingResult);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/article/damage/reduce/{artId}/{quantity}",
+    /*@GetMapping(value = APP_ROOT+"/article/damage/reduce/{artId}/{quantity}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "reduceDamageArticle", notes = "Reduce a damage quantity of article in stock",
             response = ArticleDto.class)
@@ -330,7 +377,22 @@ public interface ArticleApi {
             @NotNull @PathVariable("artId") Long artId,
             @ApiParam(name = "quantity", type = "BigDecimal", required = true,
                     value="Quantity to add", example = "0")
-            @NotNull @PathVariable("quantity") BigDecimal quantity);
+            @NotNull @PathVariable("quantity") BigDecimal quantity);*/
+
+    @PutMapping(value = APP_ROOT+"/article/damage/update/reduce",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "reduceDamageArticle",
+            notes = "Reduce a damage quantity of article in stock",
+            response = ArticleDto.class)
+    @ApiResponses(value={
+            @ApiResponse(code=200, message="The damage quantity of article with the id precised is reduced successfully"),
+            @ApiResponse(code=400, message="Error faced during the adding damage quantity process")
+    })
+    ResponseEntity reduceDamageArticle(
+            @ApiParam(name = "artDto", type = "ArticleDto", required = true,
+                    value="The JSON object that represent the Article to update")
+            @Valid @RequestBody ArticleDto artDto, BindingResult bindingResult);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -20,9 +20,9 @@ public interface ClientPackagingOperationService {
                                                                              Instant endDate);
     Page<ClientPackagingOperationDto> findPageClientPackagingOperationBetween(Long cltpackopId, Instant startDate,
                                                                               Instant endDate, int pagenum, int pagesize);
-    List<ClientPackagingOperationDto> findAllClientPackagingOperationBetween(Long cltpackopId, OperationType op_type,
+    List<ClientPackagingOperationDto> findAllClientPackagingOperationofTypeBetween(Long cltpackopId, OperationType op_type,
                                                                              Instant startDate, Instant endDate);
-    Page<ClientPackagingOperationDto> findPageClientPackagingOperationBetween(Long cltpackopId, OperationType op_type,
+    Page<ClientPackagingOperationDto> findPageClientPackagingOperationofTypeBetween(Long cltpackopId, OperationType op_type,
                                                                               Instant startDate, Instant endDate,
                                                                               int pagenum, int pagesize);
 }

@@ -3,6 +3,7 @@ package com.c2psi.businessmanagement.dtos.stock.provider;
 import com.c2psi.businessmanagement.dtos.pos.pos.OperationDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.models.ProviderCapsuleOperation;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
 
@@ -13,19 +14,25 @@ import java.math.BigDecimal;
 @Data
 @Builder
 public class ProviderCapsuleOperationDto {
+    @ApiModelProperty(value = "The Id of the ProviderCapsuleOperationDto in the DB", name = "id", dataType = "Long")
     Long id;
     @NotNull(message = "The operation associated cannot be null")
+    @ApiModelProperty(value = "The Operation data", name = "proscoOperationDto", dataType = "OperationDto")
     OperationDto proscoOperationDto;
     @NotNull(message = "The number in mvt in the operation cannot be null")
     @Positive(message = "The number in mvt in the operation must be positive")
+    @ApiModelProperty(value = "The number of cover in mouvement", name = "procsoNumberinmvt", dataType = "BigDecimal")
     BigDecimal procsoNumberinmvt;
     /******************************
      * Relation between entities  *
      * ****************************/
     //Many ProviderCapsuleOperation for 1 ProviderCapsuleAccount
     @NotNull(message = "The provider account associated cannot ne null")
+    @ApiModelProperty(value = "The capsule account linked with the operation", name = "procsoProCapsuleAccountDto",
+            dataType = "ProviderCapsuleAccountDto")
     ProviderCapsuleAccountDto procsoProCapsuleAccountDto;
     @NotNull(message = "The userbm associated with the operation cannot be null")
+    @ApiModelProperty(value = "The user that launch the operation", name = "procsoUserbmDto", dataType = "UserBMDto")
     UserBMDto procsoUserbmDto;
     /***********************************
      * Mapping method development:   ***

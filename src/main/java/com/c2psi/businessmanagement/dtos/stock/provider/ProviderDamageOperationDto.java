@@ -3,6 +3,7 @@ package com.c2psi.businessmanagement.dtos.stock.provider;
 import com.c2psi.businessmanagement.dtos.pos.pos.OperationDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.models.ProviderDamageOperation;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
 
@@ -13,19 +14,25 @@ import java.math.BigDecimal;
 @Data
 @Builder
 public class ProviderDamageOperationDto {
+    @ApiModelProperty(value = "The Id of the ProviderDamageOperationDto in the DB", name = "id", dataType = "Long")
     Long id;
     @NotNull(message = "The damage operation cannot be null")
+    @ApiModelProperty(value = "The Operation in the DB", name = "prodoOperationDto", dataType = "OperationDto")
     OperationDto prodoOperationDto;
     @NotNull(message = "The number in mvt in the damage operation cannot be null")
     @Positive(message = "The number in mvt in the damage operation must be positive")
+    @ApiModelProperty(value = "The number of damage article in mvt", name = "prodoNumberinmvt", dataType = "BigDecimal")
     BigDecimal prodoNumberinmvt;
     /******************************
      * Relation between entities  *
      * ****************************/
     //Many ProviderDamageOperation for 1 ProviderDamageAccount
     @NotNull(message = "The damage account cannot be null")
+    @ApiModelProperty(value = "The provider damage account link with the operation", name = "prodoProDamageAccountDto",
+            dataType = "ProviderDamageAccountDto")
     ProviderDamageAccountDto prodoProDamageAccountDto;
     @NotNull(message = "The userbm associated with the operation cannot be null")
+    @ApiModelProperty(value = "The Userbm that launch the operation", name = "prodoUserbmDto", dataType = "UserBMDto")
     UserBMDto prodoUserbmDto;
     /***********************************
      * Mapping method development:   ***

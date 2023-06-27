@@ -200,7 +200,7 @@ public class ProviderCapsuleOperationServiceImpl implements ProviderCapsuleOpera
     }
 
     @Override
-    public List<ProviderCapsuleOperationDto> findAllProviderCapsuleOperationBetween(Long procapsaccId, OperationType opType,
+    public List<ProviderCapsuleOperationDto> findAllProviderCapsuleOperationofTypeBetween(Long procapsaccId, OperationType opType,
                                                                                     Instant startDate, Instant endDate) {
         List<ProviderCapsuleOperation> providerCapsuleOperationListoftypeBetween = providerCapsuleOperationRepository.
                 findAllProviderCapsuleOperationofTypeBetween(procapsaccId, opType, startDate, endDate);
@@ -208,7 +208,7 @@ public class ProviderCapsuleOperationServiceImpl implements ProviderCapsuleOpera
     }
 
     @Override
-    public Page<ProviderCapsuleOperationDto> findPageProviderCapsuleOperationBetween(Long procapsaccId, OperationType opType,
+    public Page<ProviderCapsuleOperationDto> findPageProviderCapsuleOperationofTypeBetween(Long procapsaccId, OperationType opType,
                                                                                      Instant startDate, Instant endDate,
                                                                                      int pagenum, int pagesize) {
         Page<ProviderCapsuleOperation> providerCapsuleOperationPageoftypeBetween = providerCapsuleOperationRepository.

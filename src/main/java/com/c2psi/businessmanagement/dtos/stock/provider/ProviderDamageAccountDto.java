@@ -2,6 +2,7 @@ package com.c2psi.businessmanagement.dtos.stock.provider;
 
 import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
 import com.c2psi.businessmanagement.models.ProviderDamageAccount;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
 
@@ -11,8 +12,10 @@ import java.math.BigDecimal;
 @Data
 @Builder
 public class ProviderDamageAccountDto {
+    @ApiModelProperty(value = "The Id of the ProviderDamageAccountDto in the DB", name = "id", dataType = "Long")
     Long id;
     @NotNull(message = "The number of damage product cannot be null")
+    @ApiModelProperty(value = "The number of Damage article in the DB", name = "pdaNumber", dataType = "BigDecimal")
     BigDecimal pdaNumber;
     /******************************
      * Relation between entities  *
@@ -23,10 +26,12 @@ public class ProviderDamageAccountDto {
 
     //Each providerdamageaccount must belonging to one provider
     @NotNull(message = "The provider associated with the account cannot be null")
+    @ApiModelProperty(value = "The provider link with the DB", name = "pdaProviderDto", dataType = "ProviderDto")
     ProviderDto pdaProviderDto;
 
     //Each ProviderdamageAccount is for 1 article but not all article must have an ProviderdamageAccount
     @NotNull(message = "The article associated with the account cannot be null")
+    @ApiModelProperty(value = "The article link with the DB", name = "pdaArticleDto", dataType = "ArticleDto")
     ArticleDto pdaArticleDto;
     /***********************************
      * Mapping method development:   ***

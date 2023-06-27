@@ -229,13 +229,13 @@ public class ClientDamageAccountServiceImplTest {
             //////////////////////////////////////
 
             List<ClientDamageOperationDto> clientDamageOperationDtoList1 = clientDamageOperationService.
-                    findAllClientDamageOperationBetween(clientDamageAccountDtoFound.getId(), OperationType.Withdrawal,
+                    findAllClientDamageOperationofTypeBetween(clientDamageAccountDtoFound.getId(), OperationType.Withdrawal,
                             startDate.toInstant(), endDate.toInstant());
             assertEquals(1, clientDamageOperationDtoList1.size());
             //////////////////////////////////
 
             Page<ClientDamageOperationDto> clientDamageOperationDtoPage1 = clientDamageOperationService.
-                    findPageClientDamageOperationBetween(clientDamageAccountDtoFound.getId(), OperationType.Credit, startDate.toInstant(),
+                    findPageClientDamageOperationofTypeBetween(clientDamageAccountDtoFound.getId(), OperationType.Credit, startDate.toInstant(),
                             endDate.toInstant(), 0, 1);
             assertEquals(2, clientDamageOperationDtoPage1.getTotalPages());
 

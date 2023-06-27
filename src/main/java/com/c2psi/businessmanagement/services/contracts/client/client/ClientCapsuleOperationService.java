@@ -21,8 +21,8 @@ public interface ClientCapsuleOperationService {
 
     Page<ClientCapsuleOperationDto> findPageClientCapsuleOperationBetween(
             Long ccaccId, Instant startDate, Instant endDate, int pagenum, int pagesize);
-    List<ClientCapsuleOperationDto> findAllClientCapsuleOperationBetween(
+    List<ClientCapsuleOperationDto> findAllClientCapsuleOperationofTypeBetween(
             Long ccaccId, OperationType opType, Instant startDate, Instant endDate);
-    Page<ClientCapsuleOperationDto> findPageClientCapsuleOperationBetween(
+    Page<ClientCapsuleOperationDto> findPageClientCapsuleOperationofTypeBetween(
             Long ccaccId, OperationType opType, Instant startDate, Instant endDate, int pagenum, int pagesize);
 }

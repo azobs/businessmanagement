@@ -368,7 +368,7 @@ public class PosPackagingServiceImplTest {
             //List<PosPackagingOperationDto> findAllPosPackagingOperationBetween(Long ppackopId, OperationType op_type,
             //                                                        Instant startDate, Instant endDate)
             List<PosPackagingOperationDto> posPackagingOperationDtoListBetweenoftype = posPackagingOperationService.
-                    findAllPosPackagingOperationBetween(posPackagingAccountDtoSaved.getId(), OperationType.Credit,
+                    findAllPosPackagingOperationofTypeBetween(posPackagingAccountDtoSaved.getId(), OperationType.Credit,
                             startDate.toInstant(), endDate.toInstant());
             assertNotNull(posPackagingOperationDtoListBetweenoftype);
             assertEquals(1, posPackagingOperationDtoListBetweenoftype.size());
@@ -377,7 +377,7 @@ public class PosPackagingServiceImplTest {
             //                                                                 Instant startDate, Instant endDate,
             //                                                                 int pagenum, int pagesize)
             Page<PosPackagingOperationDto> posPackagingOperationDtoPageBetweenoftype = posPackagingOperationService.
-                    findPagePosPackagingOperationBetween(posPackagingAccountDtoSaved.getId(), OperationType.Credit,
+                    findPagePosPackagingOperationofTypeBetween(posPackagingAccountDtoSaved.getId(), OperationType.Credit,
                             startDate.toInstant(), endDate.toInstant(), 0, 2);
             assertNotNull(posPackagingOperationDtoPageBetweenoftype);
             assertEquals(1, posPackagingOperationDtoPageBetweenoftype.getTotalPages());

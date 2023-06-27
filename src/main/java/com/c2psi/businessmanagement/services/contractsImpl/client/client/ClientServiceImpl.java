@@ -334,6 +334,21 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
+    public ClientDto findClientById(Long clientId) {
+        if(clientId == null){
+            log.error("clientId is null");
+            throw new NullArgumentException("le clientId passe en argument de la methode est null");
+        }
+        Optional<Client> optionalClient = clientRepository.findClientById(clientId);
+        if(!optionalClient.isPresent()){
+            log.error("There is no client in the DB with the id passed as argument");
+            throw new EntityNotFoundException("Aucun client n'existe avec l'id passe en argument ",
+                    ErrorCode.CLIENT_NOT_FOUND);
+        }
+        return ClientDto.fromEntity(optionalClient.get());
+    }
+
+    @Override
     public List<ClientDto> findAllClientofPos(Long posId) {
         if(posId == null){
             log.error("The posId precised in the method is null");

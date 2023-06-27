@@ -1,6 +1,7 @@
 package com.c2psi.businessmanagement.dtos.pos.pos;
 
 import com.c2psi.businessmanagement.models.PosCashAccount;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
 
@@ -10,8 +11,10 @@ import java.math.BigDecimal;
 @Data
 @Builder
 public class PosCashAccountDto {
+    @ApiModelProperty(value = "The id of the PosCashAccount", name = "id", dataType = "Long")
     Long id;
     @NotNull(message = "The account balance cannot be null")
+    @ApiModelProperty(value = "The PosCashAccount balance", name = "pcaBalance", dataType = "BigDecimal")
     BigDecimal pcaBalance;
     /***********************************
      * Mapping method development:   ***

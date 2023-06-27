@@ -52,7 +52,7 @@ public interface FormatApi {
     })
     ResponseEntity updateFormat(
             @ApiParam(name = "formatDto", type = "FormatDto", required = true,
-                    value="The JSON object that represent the format to save")
+                    value="The JSON object that represent the format to update")
             @Valid @RequestBody FormatDto formatDto, BindingResult bindingResult);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -122,6 +122,20 @@ public interface FormatApi {
             @NotNull @PathVariable("posId") Long posId,
             @PathVariable(name = "pagenum", required = false) Optional<Integer> optpagenum,
             @PathVariable(name = "pagesize", required = false) Optional<Integer> optpagesize);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @DeleteMapping(value = APP_ROOT+"/format/delete/id/{formatId}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "deleteFormatById",
+            notes = "This method is used to delete a format saved in the DB", response = Boolean.class)
+    @ApiResponses(value={
+            @ApiResponse(code=200, message="Object Format deleted successfully")
+    })
+    ResponseEntity deleteFormatById(
+            @ApiParam(name = "formatId", type = "Long", required = true,
+                    value="Id of the Format to delete", example = "1")
+            @NotNull @PathVariable("formatId") Long formatId);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

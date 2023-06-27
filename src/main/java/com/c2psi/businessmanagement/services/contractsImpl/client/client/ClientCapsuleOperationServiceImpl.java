@@ -37,6 +37,15 @@ public class ClientCapsuleOperationServiceImpl implements ClientCapsuleOperation
         this.userBMRepository = userBMRepository;
     }
 
+    Boolean isOperationTypeValid(OperationType operationType){
+        switch (operationType){
+            case Credit, Withdrawal, Change -> {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public ClientCapsuleOperationDto updateClientCapsuleOperation(ClientCapsuleOperationDto ccopDto) {
 
@@ -72,9 +81,7 @@ public class ClientCapsuleOperationServiceImpl implements ClientCapsuleOperation
          * Il faut se rassurer que le type d'operation est soit credit soit debit
          * soit changement (permutation)
          */
-        if(!ccopDto.getCltcsoOperationDto().getOpType().equals(OperationType.Withdrawal) &&
-                !ccopDto.getCltcsoOperationDto().getOpType().equals(OperationType.Change) &&
-                !ccopDto.getCltcsoOperationDto().getOpType().equals(OperationType.Credit)){
+        if(!isOperationTypeValid(ccopDto.getCltcsoOperationDto().getOpType())){
             log.error("Operation Type not recognize by the system");
             throw new InvalidValueException("La valeur du type d'operation envoye n'est pas reconnu par le system");
         }
@@ -134,6 +141,11 @@ public class ClientCapsuleOperationServiceImpl implements ClientCapsuleOperation
 
     @Override
     public List<ClientCapsuleOperationDto> findAllClientCapsuleOperation(Long ccaccId) {
+        if (ccaccId == null){
+            log.error("The ccaccId sent is null in the method");
+            throw new NullArgumentException("L'argument ccaccId est null dans la methode");
+        }
+
         List<ClientCapsuleOperation> clientCapsuleOperationList = clientCapsuleOperationRepository.
                 findAllClientCapsuleOperation(ccaccId);
         return clientCapsuleOperationList.stream().map(ClientCapsuleOperationDto::fromEntity).collect(Collectors.toList());
@@ -141,6 +153,11 @@ public class ClientCapsuleOperationServiceImpl implements ClientCapsuleOperation
 
     @Override
     public Page<ClientCapsuleOperationDto> findPageClientCapsuleOperation(Long ccaccId, int pagenum, int pagesize) {
+        if (ccaccId == null){
+            log.error("The ccaccId sent is null in the method");
+            throw new NullArgumentException("L'argument ccaccId est null dans la methode");
+        }
+
         Page<ClientCapsuleOperation> clientCapsuleOperationPage = clientCapsuleOperationRepository.
                 findPageClientCapsuleOperation(ccaccId, PageRequest.of(pagenum, pagesize));
 
@@ -149,6 +166,18 @@ public class ClientCapsuleOperationServiceImpl implements ClientCapsuleOperation
 
     @Override
     public List<ClientCapsuleOperationDto> findAllClientCapsuleOperationofType(Long ccaccId, OperationType opType) {
+        if (ccaccId == null){
+            log.error("The ccaccId sent is null in the method");
+            throw new NullArgumentException("L'argument ccaccId est null dans la methode");
+        }
+        if (opType == null){
+            log.error("The opType sent is null in the method");
+            throw new NullArgumentException("L'argument opType est null dans la methode");
+        }
+        if (!isOperationTypeValid(opType)){
+            log.error("The Operation type sent is not valid {}", opType);
+            throw new InvalidValueException("Le type d'operation envoye n'est pas reconnu par le systeme");
+        }
         List<ClientCapsuleOperation> clientCapsuleOperationList = clientCapsuleOperationRepository.findAllClientCapsuleOperationofType(
                 ccaccId, opType);
 
@@ -158,6 +187,19 @@ public class ClientCapsuleOperationServiceImpl implements ClientCapsuleOperation
     @Override
     public Page<ClientCapsuleOperationDto> findPageClientCapsuleOperationofType(Long ccaccId, OperationType opType,
                                                                                 int pagenum, int pagesize) {
+        if (ccaccId == null){
+            log.error("The ccaccId sent is null in the method");
+            throw new NullArgumentException("L'argument ccaccId est null dans la methode");
+        }
+        if (opType == null){
+            log.error("The opType sent is null in the method");
+            throw new NullArgumentException("L'argument opType est null dans la methode");
+        }
+        if (!isOperationTypeValid(opType)){
+            log.error("The Operation type sent is not valid {}", opType);
+            throw new InvalidValueException("Le type d'operation envoye n'est pas reconnu par le systeme");
+        }
+
         Page<ClientCapsuleOperation> clientCapsuleOperationPage = clientCapsuleOperationRepository.
                 findPageClientCapsuleOperationofType(
                         ccaccId, opType, PageRequest.of(pagenum, pagesize));
@@ -168,6 +210,11 @@ public class ClientCapsuleOperationServiceImpl implements ClientCapsuleOperation
     @Override
     public List<ClientCapsuleOperationDto> findAllClientCapsuleOperationBetween(Long ccaccId, Instant startDate,
                                                                                 Instant endDate) {
+        if (ccaccId == null){
+            log.error("The ccaccId sent is null in the method");
+            throw new NullArgumentException("L'argument ccaccId est null dans la methode");
+        }
+
         List<ClientCapsuleOperation> clientCapsuleOperationListBetween = clientCapsuleOperationRepository.
                 findAllClientCapsuleOperationBetween(ccaccId, startDate, endDate);
         return clientCapsuleOperationListBetween.stream().map(ClientCapsuleOperationDto::fromEntity).collect(Collectors.toList());
@@ -177,20 +224,55 @@ public class ClientCapsuleOperationServiceImpl implements ClientCapsuleOperation
     public Page<ClientCapsuleOperationDto> findPageClientCapsuleOperationBetween(Long ccaccId, Instant startDate,
                                                                                  Instant endDate, int pagenum,
                                                                                  int pagesize) {
+        if (ccaccId == null){
+            log.error("The ccaccId sent is null in the method");
+            throw new NullArgumentException("L'argument ccaccId est null dans la methode");
+        }
+
         Page<ClientCapsuleOperation> clientCapsuleOperationPageBetween = clientCapsuleOperationRepository.
                 findPageClientCapsuleOperationBetween(ccaccId, startDate, endDate, PageRequest.of(pagenum, pagesize));
         return clientCapsuleOperationPageBetween.map(ClientCapsuleOperationDto::fromEntity);
     }
 
     @Override
-    public List<ClientCapsuleOperationDto> findAllClientCapsuleOperationBetween(Long ccaccId, OperationType opType, Instant startDate, Instant endDate) {
+    public List<ClientCapsuleOperationDto> findAllClientCapsuleOperationofTypeBetween(Long ccaccId, OperationType opType,
+                                                                                      Instant startDate, Instant endDate) {
+
+        if (ccaccId == null){
+            log.error("The ccaccId sent is null in the method");
+            throw new NullArgumentException("L'argument ccaccId est null dans la methode");
+        }
+        if (opType == null){
+            log.error("The opType sent is null in the method");
+            throw new NullArgumentException("L'argument opType est null dans la methode");
+        }
+        if (!isOperationTypeValid(opType)){
+            log.error("The Operation type sent is not valid {}", opType);
+            throw new InvalidValueException("Le type d'operation envoye n'est pas reconnu par le systeme");
+        }
+
         List<ClientCapsuleOperation> clientCapsuleOperationListoftypeBetween = clientCapsuleOperationRepository.
                 findAllClientCapsuleOperationofTypeBetween(ccaccId, opType, startDate, endDate);
         return clientCapsuleOperationListoftypeBetween.stream().map(ClientCapsuleOperationDto::fromEntity).collect(Collectors.toList());
     }
 
     @Override
-    public Page<ClientCapsuleOperationDto> findPageClientCapsuleOperationBetween(Long ccaccId, OperationType opType, Instant startDate, Instant endDate, int pagenum, int pagesize) {
+    public Page<ClientCapsuleOperationDto> findPageClientCapsuleOperationofTypeBetween(Long ccaccId, OperationType opType,
+                                                                                       Instant startDate, Instant endDate,
+                                                                                       int pagenum, int pagesize) {
+        if (ccaccId == null){
+            log.error("The ccaccId sent is null in the method");
+            throw new NullArgumentException("L'argument ccaccId est null dans la methode");
+        }
+        if (opType == null){
+            log.error("The opType sent is null in the method");
+            throw new NullArgumentException("L'argument opType est null dans la methode");
+        }
+        if (!isOperationTypeValid(opType)){
+            log.error("The Operation type sent is not valid {}", opType);
+            throw new InvalidValueException("Le type d'operation envoye n'est pas reconnu par le systeme");
+        }
+
         Page<ClientCapsuleOperation> clientCapsuleOperationPageoftypeBetween = clientCapsuleOperationRepository.
                 findPageClientCapsuleOperationofTypeBetween(ccaccId, opType, startDate, endDate,
                         PageRequest.of(pagenum, pagesize));

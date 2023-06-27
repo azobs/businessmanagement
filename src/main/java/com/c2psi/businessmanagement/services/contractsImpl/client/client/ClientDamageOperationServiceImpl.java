@@ -133,6 +133,11 @@ public class ClientDamageOperationServiceImpl implements ClientDamageOperationSe
 
     @Override
     public List<ClientDamageOperationDto> findAllClientDamageOperation(Long cdaccId) {
+        if(cdaccId == null){
+            log.error("The id cdaccId pass as argument is null");
+            throw new NullArgumentException("L'argument cdaccId de la methode est null");
+        }
+
         List<ClientDamageOperation> clientDamageOperationList = clientDamageOperationRepository.
                 findAllClientDamageOperation(cdaccId);
         return clientDamageOperationList.stream().map(ClientDamageOperationDto::fromEntity).collect(Collectors.toList());
@@ -140,14 +145,40 @@ public class ClientDamageOperationServiceImpl implements ClientDamageOperationSe
 
     @Override
     public Page<ClientDamageOperationDto> findPageClientDamageOperation(Long cdaccId, int pagenum, int pagesize) {
+        if(cdaccId == null){
+            log.error("The id cdaccId pass as argument is null");
+            throw new NullArgumentException("L'argument cdaccId de la methode est null");
+        }
+
         Page<ClientDamageOperation> clientDamageOperationPage = clientDamageOperationRepository.
                 findPageClientDamageOperation(cdaccId, PageRequest.of(pagenum, pagesize));
 
         return clientDamageOperationPage.map(ClientDamageOperationDto::fromEntity);
     }
 
+    Boolean isOperationTypeValid(OperationType operationType){
+        switch (operationType){
+            case Credit, Withdrawal, Change, Others -> {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public List<ClientDamageOperationDto> findAllClientDamageOperationofType(Long cdaccId, OperationType opType) {
+        if(cdaccId == null){
+            log.error("The id cdaccId pass as argument is null");
+            throw new NullArgumentException("L'argument cdaccId de la methode est null");
+        }
+        if(opType == null){
+            log.error("The id opType pass as argument is null");
+            throw new NullArgumentException("L'argument opType de la methode est null");
+        }
+        if(!isOperationTypeValid(opType)){
+            log.error("The operation type sent is not valid");
+            throw new InvalidValueException("Le type d'operation precise n'est pas une valeur valide");
+        }
         List<ClientDamageOperation> clientDamageOperationList = clientDamageOperationRepository.findAllClientDamageOperationofType(
                 cdaccId, opType);
 
@@ -157,6 +188,19 @@ public class ClientDamageOperationServiceImpl implements ClientDamageOperationSe
     @Override
     public Page<ClientDamageOperationDto> findPageClientDamageOperationofType(Long cdaccId, OperationType opType,
                                                                               int pagenum, int pagesize) {
+        if(cdaccId == null){
+            log.error("The id cdaccId pass as argument is null");
+            throw new NullArgumentException("L'argument cdaccId de la methode est null");
+        }
+        if(opType == null){
+            log.error("The id opType pass as argument is null");
+            throw new NullArgumentException("L'argument opType de la methode est null");
+        }
+        if(!isOperationTypeValid(opType)){
+            log.error("The operation type sent is not valid");
+            throw new InvalidValueException("Le type d'operation precise n'est pas une valeur valide");
+        }
+
         Page<ClientDamageOperation> clientDamageOperationPage = clientDamageOperationRepository.
                 findPageClientDamageOperationofType(
                         cdaccId, opType, PageRequest.of(pagenum, pagesize));
@@ -167,6 +211,11 @@ public class ClientDamageOperationServiceImpl implements ClientDamageOperationSe
     @Override
     public List<ClientDamageOperationDto> findAllClientDamageOperationBetween(Long cdaccId, Instant startDate,
                                                                               Instant endDate) {
+        if(cdaccId == null){
+            log.error("The id cdaccId pass as argument is null");
+            throw new NullArgumentException("L'argument cdaccId de la methode est null");
+        }
+
         List<ClientDamageOperation> clientDamageOperationListBetween = clientDamageOperationRepository.
                 findAllClientDamageOperationBetween(cdaccId, startDate, endDate);
         return clientDamageOperationListBetween.stream().map(ClientDamageOperationDto::fromEntity).collect(Collectors.toList());
@@ -176,23 +225,52 @@ public class ClientDamageOperationServiceImpl implements ClientDamageOperationSe
     public Page<ClientDamageOperationDto> findPageClientDamageOperationBetween(Long cdaccId, Instant startDate,
                                                                                Instant endDate, int pagenum,
                                                                                int pagesize) {
+        if(cdaccId == null){
+            log.error("The id cdaccId pass as argument is null");
+            throw new NullArgumentException("L'argument cdaccId de la methode est null");
+        }
+
         Page<ClientDamageOperation> clientDamageOperationPageBetween = clientDamageOperationRepository.
                 findPageClientDamageOperationBetween(cdaccId, startDate, endDate, PageRequest.of(pagenum, pagesize));
         return clientDamageOperationPageBetween.map(ClientDamageOperationDto::fromEntity);
     }
 
     @Override
-    public List<ClientDamageOperationDto> findAllClientDamageOperationBetween(Long cdaccId, OperationType opType,
+    public List<ClientDamageOperationDto> findAllClientDamageOperationofTypeBetween(Long cdaccId, OperationType opType,
                                                                               Instant startDate, Instant endDate) {
+        if(cdaccId == null){
+            log.error("The id cdaccId pass as argument is null");
+            throw new NullArgumentException("L'argument cdaccId de la methode est null");
+        }
+        if(opType == null){
+            log.error("The id opType pass as argument is null");
+            throw new NullArgumentException("L'argument opType de la methode est null");
+        }
+        if(!isOperationTypeValid(opType)){
+            log.error("The operation type sent is not valid");
+            throw new InvalidValueException("Le type d'operation precise n'est pas une valeur valide");
+        }
         List<ClientDamageOperation> clientDamageOperationListoftypeBetween = clientDamageOperationRepository.
                 findAllClientDamageOperationofTypeBetween(cdaccId, opType, startDate, endDate);
         return clientDamageOperationListoftypeBetween.stream().map(ClientDamageOperationDto::fromEntity).collect(Collectors.toList());
     }
 
     @Override
-    public Page<ClientDamageOperationDto> findPageClientDamageOperationBetween(Long cdaccId, OperationType opType,
+    public Page<ClientDamageOperationDto> findPageClientDamageOperationofTypeBetween(Long cdaccId, OperationType opType,
                                                                                Instant startDate, Instant endDate,
                                                                                int pagenum, int pagesize) {
+        if(cdaccId == null){
+            log.error("The id cdaccId pass as argument is null");
+            throw new NullArgumentException("L'argument cdaccId de la methode est null");
+        }
+        if(opType == null){
+            log.error("The id opType pass as argument is null");
+            throw new NullArgumentException("L'argument opType de la methode est null");
+        }
+        if(!isOperationTypeValid(opType)){
+            log.error("The operation type sent is not valid");
+            throw new InvalidValueException("Le type d'operation precise n'est pas une valeur valide");
+        }
         Page<ClientDamageOperation> clientDamageOperationPageoftypeBetween = clientDamageOperationRepository.
                 findPageClientDamageOperationofTypeBetween(cdaccId, opType, startDate, endDate,
                         PageRequest.of(pagenum, pagesize));

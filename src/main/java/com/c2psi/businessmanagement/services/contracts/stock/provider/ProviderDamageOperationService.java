@@ -20,9 +20,9 @@ public interface ProviderDamageOperationService {
                                                                            Instant endDate);
     Page<ProviderDamageOperationDto> findPageProviderDamageOperationBetween(Long prodamaccId, Instant startDate,
                                                                             Instant endDate, int pagenum, int pagesize);
-    List<ProviderDamageOperationDto> findAllProviderDamageOperationBetween(Long prodamaccId, OperationType opType,
+    List<ProviderDamageOperationDto> findAllProviderDamageOperationofTypeBetween(Long prodamaccId, OperationType opType,
                                                                            Instant startDate, Instant endDate);
-    Page<ProviderDamageOperationDto> findPageProviderDamageOperationBetween(Long prodamaccId, OperationType opType,
+    Page<ProviderDamageOperationDto> findPageProviderDamageOperationofTypeBetween(Long prodamaccId, OperationType opType,
                                                                             Instant startDate, Instant endDate,
                                                                             int pagenum, int pagesize);
 }

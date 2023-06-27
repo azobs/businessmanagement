@@ -8,21 +8,21 @@ import java.time.Instant;
 import java.util.List;
 
 public interface ClientDamageOperationService {
-    ClientDamageOperationDto updateClientDamageOperation(ClientDamageOperationDto ccopDto);
-    Boolean isClientDamageOperationDeleteable(Long ccopId);
-    Boolean deleteClientDamageOperationById(Long ccopId);
-    List<ClientDamageOperationDto> findAllClientDamageOperation(Long ccaccId);
-    Page<ClientDamageOperationDto> findPageClientDamageOperation(Long ccaccId, int pagenum, int pagesize);
-    List<ClientDamageOperationDto> findAllClientDamageOperationofType(Long ccaccId, OperationType opType);
-    Page<ClientDamageOperationDto> findPageClientDamageOperationofType(Long ccaccId, OperationType opType,
+    ClientDamageOperationDto updateClientDamageOperation(ClientDamageOperationDto cdamopDto);
+    Boolean isClientDamageOperationDeleteable(Long cdamopId);
+    Boolean deleteClientDamageOperationById(Long cdamopId);
+    List<ClientDamageOperationDto> findAllClientDamageOperation(Long cdamaccId);
+    Page<ClientDamageOperationDto> findPageClientDamageOperation(Long cdamaccId, int pagenum, int pagesize);
+    List<ClientDamageOperationDto> findAllClientDamageOperationofType(Long cdamaccId, OperationType opType);
+    Page<ClientDamageOperationDto> findPageClientDamageOperationofType(Long cdamaccId, OperationType opType,
                                                                          int pagenum, int pagesize);
     List<ClientDamageOperationDto> findAllClientDamageOperationBetween(
-            Long ccaccId, Instant startDate, Instant endDate);
+            Long cdamaccId, Instant startDate, Instant endDate);
 
     Page<ClientDamageOperationDto> findPageClientDamageOperationBetween(
-            Long ccaccId, Instant startDate, Instant endDate, int pagenum, int pagesize);
-    List<ClientDamageOperationDto> findAllClientDamageOperationBetween(
-            Long ccaccId, OperationType opType, Instant startDate, Instant endDate);
-    Page<ClientDamageOperationDto> findPageClientDamageOperationBetween(
-            Long ccaccId, OperationType opType, Instant startDate, Instant endDate, int pagenum, int pagesize);
+            Long cdamaccId, Instant startDate, Instant endDate, int pagenum, int pagesize);
+    List<ClientDamageOperationDto> findAllClientDamageOperationofTypeBetween(
+            Long cdamaccId, OperationType opType, Instant startDate, Instant endDate);
+    Page<ClientDamageOperationDto> findPageClientDamageOperationofTypeBetween(
+            Long cdamaccId, OperationType opType, Instant startDate, Instant endDate, int pagenum, int pagesize);
 }

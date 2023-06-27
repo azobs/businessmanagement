@@ -254,14 +254,14 @@ public class ProviderCapsuleAccountServiceImplTest {
             ///////////////////////////////////////
 
             List<ProviderCapsuleOperationDto> providerCapsuleOperationDtoList1 = providerCapsuleOperationService.
-                    findAllProviderCapsuleOperationBetween(providerCapsuleAccountDtoFound.getId(), OperationType.Withdrawal,
+                    findAllProviderCapsuleOperationofTypeBetween(providerCapsuleAccountDtoFound.getId(), OperationType.Withdrawal,
                             startDate.toInstant(), endDate.toInstant());
             assertEquals(1, providerCapsuleOperationDtoList1.size());
 
             //////////////////////////
 
             Page<ProviderCapsuleOperationDto> providerCapsuleOperationDtoPage1 = providerCapsuleOperationService.
-                    findPageProviderCapsuleOperationBetween(providerCapsuleAccountDtoFound.getId(), OperationType.Credit, startDate.toInstant(),
+                    findPageProviderCapsuleOperationofTypeBetween(providerCapsuleAccountDtoFound.getId(), OperationType.Credit, startDate.toInstant(),
                             endDate.toInstant(), 0, 1);
             assertEquals(2, providerCapsuleOperationDtoPage1.getTotalPages());
 

@@ -2,6 +2,7 @@ package com.c2psi.businessmanagement.dtos.pos.pos;
 
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.models.PosCashOperation;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
 
@@ -13,11 +14,14 @@ import java.math.BigDecimal;
 @Data
 @Builder
 public class PosCashOperationDto {
+    @ApiModelProperty(value = "The id of the PosCashOperationDto", name = "id", dataType = "Long")
     Long id;
     @Valid
+    @ApiModelProperty(value = "The id of the Operation", name = "poscoOperationDto", dataType = "OperationDto")
     OperationDto poscoOperationDto;
     @NotNull(message = "The amount in mvt cannot be null")
     @Positive(message = "The amount in mvt cannot must be positive")
+    @ApiModelProperty(value = "The amount in mouvement in the operation", name = "poscoAmountinmvt", dataType = "BigDecimal")
     BigDecimal poscoAmountinmvt;
     /******************************
      * Relation between entities  *
@@ -25,9 +29,13 @@ public class PosCashOperationDto {
     //Many PosPackagingOperation for 1 PosPackagingAccount
 
     @NotNull(message = "The cash account associate with the operation cannot be null")
+    @ApiModelProperty(value = "The account that will be affected by the operation", name = "poscoPosCashAccountDto",
+            dataType = "PosCashAccountDto")
     PosCashAccountDto poscoPosCashAccountDto;
 
     @NotNull(message = "The user associate with the operation cannot be null")
+    @ApiModelProperty(value = "The user that launch the operation", name = "poscoUserbmDto",
+            dataType = "UserBMDto")
     UserBMDto poscoUserbmDto;
 
     /***********************************

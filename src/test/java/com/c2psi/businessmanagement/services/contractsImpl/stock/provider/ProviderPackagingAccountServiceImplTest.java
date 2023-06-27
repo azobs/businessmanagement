@@ -370,7 +370,7 @@ public class ProviderPackagingAccountServiceImplTest {
             //List<ProviderPackagingOperationDto> findAllProviderPackagingOperationBetween(Long propackopId, OperationType op_type,
             //                                                        Instant startDate, Instant endDate)
             List<ProviderPackagingOperationDto> providerPackagingOperationDtoListBetweenoftype = providerPackagingOperationService.
-                    findAllProviderPackagingOperationBetween(providerPackagingAccountDtoSaved.getId(), OperationType.Credit,
+                    findAllProviderPackagingOperationofTypeBetween(providerPackagingAccountDtoSaved.getId(), OperationType.Credit,
                             startDate.toInstant(), endDate.toInstant());
             assertNotNull(providerPackagingOperationDtoListBetweenoftype);
             assertEquals(1, providerPackagingOperationDtoListBetweenoftype.size());
@@ -379,7 +379,7 @@ public class ProviderPackagingAccountServiceImplTest {
             //                                                                 Instant startDate, Instant endDate,
             //                                                                 int pagenum, int pagesize)
             Page<ProviderPackagingOperationDto> providerPackagingOperationDtoPageBetweenoftype = providerPackagingOperationService.
-                    findPageProviderPackagingOperationBetween(providerPackagingAccountDtoSaved.getId(), OperationType.Credit,
+                    findPageProviderPackagingOperationofTypeBetween(providerPackagingAccountDtoSaved.getId(), OperationType.Credit,
                             startDate.toInstant(), endDate.toInstant(), 0, 2);
             assertNotNull(providerPackagingOperationDtoPageBetweenoftype);
             assertEquals(1, providerPackagingOperationDtoPageBetweenoftype.getTotalPages());

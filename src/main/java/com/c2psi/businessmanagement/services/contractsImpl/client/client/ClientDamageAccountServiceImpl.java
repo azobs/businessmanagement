@@ -2,6 +2,7 @@ package com.c2psi.businessmanagement.services.contractsImpl.client.client;
 
 import com.c2psi.businessmanagement.Enumerations.OperationType;
 import com.c2psi.businessmanagement.dtos.client.client.ClientDamageAccountDto;
+import com.c2psi.businessmanagement.dtos.client.client.ClientDamageOperationDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PosDamageAccountDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PosDamageOperationDto;
 import com.c2psi.businessmanagement.exceptions.*;
@@ -317,13 +318,13 @@ public class ClientDamageAccountServiceImpl implements ClientDamageAccountServic
     }
 
     @Override
-    public Boolean saveDamageOperation(PosDamageAccountDto poscapaccDto, PosDamageOperationDto poscapopDto) {
-        Long cdaccId = poscapaccDto.getId();
-        BigDecimal qte = poscapopDto.getPosdoNumberinmvt();
-        Long userbmId = poscapopDto.getPosdoUserbmDto().getId();
-        OperationType operationType = poscapopDto.getPosdoOperationDto().getOpType();
-        String opObject = poscapopDto.getPosdoOperationDto().getOpObject();
-        String opDescription = poscapopDto.getPosdoOperationDto().getOpDescription();
+    public Boolean saveDamageOperation(ClientDamageAccountDto cltdamaccDto, ClientDamageOperationDto cltcapopDto) {
+        Long cdaccId = cltdamaccDto.getId();
+        BigDecimal qte = cltcapopDto.getCltdoNumberinmvt();
+        Long userbmId = cltcapopDto.getCltdoUserbmDto().getId();
+        OperationType operationType = cltcapopDto.getCltdoOperationDto().getOpType();
+        String opObject = cltcapopDto.getCltdoOperationDto().getOpObject();
+        String opDescription = cltcapopDto.getCltdoOperationDto().getOpDescription();
         /******************************************************************
          * Se rassurer que les donnees dans la fonction ne sont pas null
          */

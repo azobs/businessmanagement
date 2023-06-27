@@ -181,14 +181,14 @@ public class ProviderDamageOperationServiceImpl implements ProviderDamageOperati
     }
 
     @Override
-    public List<ProviderDamageOperationDto> findAllProviderDamageOperationBetween(Long prodamaccId, OperationType opType, Instant startDate, Instant endDate) {
+    public List<ProviderDamageOperationDto> findAllProviderDamageOperationofTypeBetween(Long prodamaccId, OperationType opType, Instant startDate, Instant endDate) {
         List<ProviderDamageOperation> providerDamageOperationListoftypeBetween = providerDamageOperationRepository.
                 findAllProviderDamageOperationofTypeBetween(prodamaccId, opType, startDate, endDate);
         return providerDamageOperationListoftypeBetween.stream().map(ProviderDamageOperationDto::fromEntity).collect(Collectors.toList());
     }
 
     @Override
-    public Page<ProviderDamageOperationDto> findPageProviderDamageOperationBetween(Long prodamaccId, OperationType opType,
+    public Page<ProviderDamageOperationDto> findPageProviderDamageOperationofTypeBetween(Long prodamaccId, OperationType opType,
                                                                                    Instant startDate, Instant endDate, int pagenum, int pagesize) {
         Page<ProviderDamageOperation> providerDamageOperationPageoftypeBetween = providerDamageOperationRepository.
                 findPageProviderDamageOperationofTypeBetween(prodamaccId, opType, startDate, endDate, PageRequest.of(pagenum, pagesize));

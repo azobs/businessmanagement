@@ -12,6 +12,7 @@ public interface ClientService {
     Boolean isClientUniqueForPos(String clientName, String clientOthername, String clientCni, Long posId);
     public Boolean isClientUniqueWithEmail(String clientEmail);
     ClientDto findClientByCniofPos(String clientCni, Long posId);
+    ClientDto findClientById(Long clientId);
     ClientDto findClientByEmail(String clientEmail);
     List<ClientDto> findAllClientofPos(Long posId);
     Page<ClientDto> findPageClientofPos(Long posId, int pagenum, int pagesize);

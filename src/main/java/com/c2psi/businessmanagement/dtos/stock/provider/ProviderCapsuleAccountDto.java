@@ -3,6 +3,7 @@ package com.c2psi.businessmanagement.dtos.stock.provider;
 
 import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
 import com.c2psi.businessmanagement.models.ProviderCapsuleAccount;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
 
@@ -12,8 +13,10 @@ import java.math.BigDecimal;
 @Data
 @Builder
 public class ProviderCapsuleAccountDto {
+    @ApiModelProperty(value = "The Id of the ProviderCapsuleAccountDto in the DB", name = "id", dataType = "Long")
     Long id;
     @NotNull(message = "The number of capsule in the account cannot be null")
+    @ApiModelProperty(value = "The number of cover in the account", name = "pcsaNumber", dataType = "BigDecimal")
     BigDecimal pcsaNumber;
     /******************************
      * Relation between entities  *
@@ -24,11 +27,13 @@ public class ProviderCapsuleAccountDto {
 
     //Each providercapsuleaccount must belonging to one provider
     @NotNull(message = "The provider associated cannot be null")
+    @ApiModelProperty(value = "The provider that own the account", name = "pcsaProviderDto", dataType = "ProviderDto")
     ProviderDto pcsaProviderDto;
 
     //Each ProviderCapsuleAccount is for 1 article but not all article must have an ProviderCapsuleAccount
 
     @NotNull(message = "The article associated cannot be null")
+    @ApiModelProperty(value = "The article for which the account is created", name = "pcsaArticleDto", dataType = "ArticleDto")
     ArticleDto pcsaArticleDto;
     /***********************************
      * Mapping method development:   ***

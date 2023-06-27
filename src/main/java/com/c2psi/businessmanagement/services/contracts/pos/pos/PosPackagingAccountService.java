@@ -2,6 +2,7 @@ package com.c2psi.businessmanagement.services.contracts.pos.pos;
 
 import com.c2psi.businessmanagement.Enumerations.OperationType;
 import com.c2psi.businessmanagement.dtos.pos.pos.PosPackagingAccountDto;
+import com.c2psi.businessmanagement.dtos.pos.pos.PosPackagingOperationDto;
 import org.springframework.data.domain.Page;
 
 import java.math.BigDecimal;
@@ -19,4 +20,6 @@ public interface PosPackagingAccountService {
     Boolean isPosPackagingAccountDeleteable(Long ppackaccId);
     Boolean savePackagingOperation(Long ppackaccId, BigDecimal qte, OperationType operationType,
                                  Long userBMId, String opObject, String opDescription);
+    Boolean savePackagingOperation(PosPackagingAccountDto posPackagingAccountDto,
+                                   PosPackagingOperationDto posPackagingOperationDto);
 }

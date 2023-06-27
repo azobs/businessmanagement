@@ -20,4 +20,8 @@ public interface ClientPackagingAccountRepository
     Optional<List<ClientPackagingAccount>> findAllPackagingAccountofClient(@Param("clientId") Long clientId);
     @Query("SELECT cltpacksacc FROM ClientPackagingAccount cltpacksacc WHERE cltpacksacc.cpaClient.id=:clientId ORDER BY cltpacksacc.cpaPackaging.packLabel ASC")
     Optional<Page<ClientPackagingAccount>> findPagePackagingAccountofClient(@Param("clientId") Long clientId, Pageable pageable);
+    @Query("SELECT cltpacksacc FROM ClientPackagingAccount cltpacksacc WHERE cltpacksacc.cpaClient.clientPosId=:posId ORDER BY cltpacksacc.cpaPackaging.packLabel ASC")
+    Optional<List<ClientPackagingAccount>> findAllPackagingAccountinPos(@Param("posId") Long posId);
+    @Query("SELECT cltpacksacc FROM ClientPackagingAccount cltpacksacc WHERE cltpacksacc.cpaClient.clientPosId=:posId ORDER BY cltpacksacc.cpaPackaging.packLabel ASC")
+    Optional<Page<ClientPackagingAccount>> findPagePackagingAccountinPos(@Param("posId") Long posId, Pageable pageable);
 }

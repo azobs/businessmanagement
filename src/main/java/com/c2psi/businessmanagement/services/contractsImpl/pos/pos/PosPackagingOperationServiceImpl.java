@@ -183,7 +183,7 @@ public class PosPackagingOperationServiceImpl implements PosPackagingOperationSe
     }
 
     @Override
-    public List<PosPackagingOperationDto> findAllPosPackagingOperationBetween(Long ppackopId, OperationType op_type,
+    public List<PosPackagingOperationDto> findAllPosPackagingOperationofTypeBetween(Long ppackopId, OperationType op_type,
                                                                               Instant startDate, Instant endDate) {
         List<PosPackagingOperation> posPackagingOperationListoftypeBetween = posPackagingOperationRepository.
                 findAllPosPackagingOperationOfTypeBetween(ppackopId, op_type, startDate, endDate);
@@ -191,7 +191,7 @@ public class PosPackagingOperationServiceImpl implements PosPackagingOperationSe
     }
 
     @Override
-    public Page<PosPackagingOperationDto> findPagePosPackagingOperationBetween(Long ppackopId, OperationType op_type,
+    public Page<PosPackagingOperationDto> findPagePosPackagingOperationofTypeBetween(Long ppackopId, OperationType op_type,
                                                                                Instant startDate, Instant endDate,
                                                                                int pagenum, int pagesize) {
         Page<PosPackagingOperation> posPackagingOperationPageoftypeBetween = posPackagingOperationRepository.

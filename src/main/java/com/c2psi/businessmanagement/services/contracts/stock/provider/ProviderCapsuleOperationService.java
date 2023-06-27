@@ -30,10 +30,10 @@ public interface ProviderCapsuleOperationService {
     Page<ProviderCapsuleOperationDto> findPageProviderCapsuleOperationBetween(
             Long pcapsaccId, Instant startDate, Instant endDate, int pagenum, int pagesize);
 
-    List<ProviderCapsuleOperationDto> findAllProviderCapsuleOperationBetween(
+    List<ProviderCapsuleOperationDto> findAllProviderCapsuleOperationofTypeBetween(
             Long pcapsaccId, OperationType opType, Instant startDate, Instant endDate);
 
-    Page<ProviderCapsuleOperationDto> findPageProviderCapsuleOperationBetween(
+    Page<ProviderCapsuleOperationDto> findPageProviderCapsuleOperationofTypeBetween(
             Long pcapsaccId, OperationType opType, Instant startDate, Instant endDate, int pagenum, int pagesize);
 
 

@@ -231,12 +231,12 @@ public class ClientCapsuleAccountServiceImplTest {
             assertEquals(2, clientCapsuleOperationDtoPage.getTotalPages());
             //////////////////////////////////////
             List<ClientCapsuleOperationDto> clientCapsuleOperationDtoList1 = clientCapsuleOperationService.
-                    findAllClientCapsuleOperationBetween(clientCapsuleAccountDtoFound.getId(), OperationType.Withdrawal,
+                    findAllClientCapsuleOperationofTypeBetween(clientCapsuleAccountDtoFound.getId(), OperationType.Withdrawal,
                             startDate.toInstant(), endDate.toInstant());
             assertEquals(1, clientCapsuleOperationDtoList1.size());
             //////////////////////////////////
             Page<ClientCapsuleOperationDto> clientCapsuleOperationDtoPage1 = clientCapsuleOperationService.
-                    findPageClientCapsuleOperationBetween(clientCapsuleAccountDtoFound.getId(), OperationType.Credit, startDate.toInstant(),
+                    findPageClientCapsuleOperationofTypeBetween(clientCapsuleAccountDtoFound.getId(), OperationType.Credit, startDate.toInstant(),
                             endDate.toInstant(), 0, 1);
             assertEquals(2, clientCapsuleOperationDtoPage1.getTotalPages());
 
