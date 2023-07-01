@@ -45,6 +45,21 @@ public class ArticleApiImpl implements ArticleApi {
     }
 
     @Override
+    public ResponseEntity findAllArticleofPosOrderByCreationDate(Long posId) {
+        Map<String, Object> map = new LinkedHashMap<>();
+
+        List<ArticleDto> articleDtoList = articleService.findAllArticleofPosOrderByCreationDate(posId);
+        log.info("The method findAllArticleofPos is being executed");
+        //return ResponseEntity.ok(articleDtoList);
+        map.clear();
+        map.put("status", HttpStatus.OK);
+        map.put("message", "article list in pos found successfully ");
+        map.put("data", articleDtoList);
+        map.put("cause", "RAS");
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
+    @Override
     public ResponseEntity findPageArticleofPos(Long posId, Optional<Integer> optpagenum,
                                                Optional<Integer> optpagesize) {
         int pagenum = optpagenum.isPresent()?optpagenum.get():0;
@@ -53,6 +68,25 @@ public class ArticleApiImpl implements ArticleApi {
         Map<String, Object> map = new LinkedHashMap<>();
 
         Page<ArticleDto> articleDtoPage = articleService.findPageArticleofPos(posId, pagenum, pagesize);
+        log.info("The method findPageArticleofPos is being executed");
+        //return ResponseEntity.ok(articleDtoPage);
+        map.clear();
+        map.put("status", HttpStatus.OK);
+        map.put("message", "article page in pos found successfully ");
+        map.put("data", articleDtoPage);
+        map.put("cause", "RAS");
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity findPageArticleofPosOrderByCreationDate(Long posId, Optional<Integer> optpagenum,
+                                                                  Optional<Integer> optpagesize) {
+        int pagenum = optpagenum.isPresent()?optpagenum.get():0;
+        int pagesize = optpagesize.isPresent()?optpagesize.get():1;
+
+        Map<String, Object> map = new LinkedHashMap<>();
+
+        Page<ArticleDto> articleDtoPage = articleService.findPageArticleofPosOrderByCreationDate(posId, pagenum, pagesize);
         log.info("The method findPageArticleofPos is being executed");
         //return ResponseEntity.ok(articleDtoPage);
         map.clear();

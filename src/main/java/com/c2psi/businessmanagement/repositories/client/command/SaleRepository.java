@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +26,16 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
     //Rechercher la liste des Sale concernant un article
     @Query("SELECT sale FROM Sale sale WHERE sale.saleArticle.id=:artId ORDER BY sale.saleArticle.artName ASC")
     Optional<List<Sale>> findAllSaleonArticle(@Param("artId") Long artId);
+
+    //Rechercher la liste des Sale concernant un article dans un intervalle de date
+    @Query("SELECT sale FROM Sale sale WHERE sale.saleArticle.id=:artId AND (sale.saleCommand.cmdDate>=:startDate AND sale.saleCommand.cmdDate<=:endDate) ORDER BY sale.saleArticle.artName ASC")
+    Optional<List<Sale>> findAllSaleonArticleBetween(@Param("artId") Long artId, @Param("startDate") Instant startDate,
+                                              @Param("endDate") Instant endDate);
+
+    @Query("SELECT sale FROM Sale sale WHERE sale.saleArticle.id=:artId AND (sale.saleCommand.cmdDate>=:startDate AND sale.saleCommand.cmdDate<=:endDate) ORDER BY sale.saleArticle.artName ASC")
+    Optional<Page<Sale>> findPageSaleonArticleBetween(@Param("artId") Long artId, @Param("startDate") Instant startDate,
+                                                     @Param("endDate") Instant endDate, Pageable pageable);
+
     @Query("SELECT sale FROM Sale sale WHERE sale.saleArticle.id=:artId ORDER BY sale.saleArticle.artName ASC")
     Optional<Page<Sale>> findPageSaleonArticle(@Param("artId") Long artId, Pageable pageable);
     //Rechercher la liste des Articles concernant un article et dont la vente a un certain type (si un article a deja ete vendu par permetation,

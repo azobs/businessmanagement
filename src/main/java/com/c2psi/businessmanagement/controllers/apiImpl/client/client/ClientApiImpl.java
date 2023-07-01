@@ -1,10 +1,12 @@
 package com.c2psi.businessmanagement.controllers.apiImpl.client.client;
 
+import com.c2psi.businessmanagement.Enumerations.OperationType;
 import com.c2psi.businessmanagement.controllers.api.client.client.ClientApi;
 import com.c2psi.businessmanagement.dtos.client.client.ClientCashAccountDto;
 import com.c2psi.businessmanagement.dtos.client.client.ClientCashOperationDto;
 import com.c2psi.businessmanagement.dtos.client.client.ClientDto;
 import com.c2psi.businessmanagement.services.contracts.client.client.ClientCashAccountService;
+import com.c2psi.businessmanagement.services.contracts.client.client.ClientCashOperationService;
 import com.c2psi.businessmanagement.services.contracts.client.client.ClientService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.Instant;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,11 +28,14 @@ public class ClientApiImpl implements ClientApi {
 
     private ClientService clientService;
     private ClientCashAccountService clientCashAccountService;
+    private ClientCashOperationService clientCashOperationService;
 
     @Autowired
-    public ClientApiImpl(ClientService clientService, ClientCashAccountService clientCashAccountService) {
+    public ClientApiImpl(ClientService clientService, ClientCashAccountService clientCashAccountService,
+                         ClientCashOperationService clientCashOperationService) {
         this.clientService = clientService;
         this.clientCashAccountService = clientCashAccountService;
+        this.clientCashOperationService = clientCashOperationService;
     }
 
     @Override
@@ -187,34 +193,21 @@ public class ClientApiImpl implements ClientApi {
     }
 
     @Override
-    public ResponseEntity saveCashOperation(ClientCashAccountDto clientCashAccountDto, BindingResult bindingResult1,
-                                            ClientCashOperationDto clientCashOperationDto, BindingResult bindingResult2) {
+    public ResponseEntity saveCashOperation(ClientCashOperationDto clientCashOperationDto, BindingResult bindingResult) {
         Map<String, Object> map = new LinkedHashMap<>();
-        if (bindingResult1.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             log.info("Error during the pre-validation of the model passed in argument {} " +
-                    "and the report errors are {}", clientCashAccountDto, bindingResult1);
-            //return ResponseEntity.badRequest().body(bindingResult1.toString());
-            map.clear();
-            map.put("status", HttpStatus.BAD_REQUEST);
-            map.put("message", "Some data are not validated");
-            map.put("data", bindingResult1);
-            map.put("cause", "Erreur de validation des donnees dans la requete envoyee");
-            //return ResponseEntity.ok(map);
-            return ResponseEntity.badRequest().body(map);
-        }
-        if (bindingResult2.hasErrors()) {
-            log.info("Error during the pre-validation of the model passed in argument {} " +
-                    "and the report errors are {}", clientCashOperationDto, bindingResult2);
+                    "and the report errors are {}", clientCashOperationDto, bindingResult);
             //return ResponseEntity.badRequest().body(bindingResult2.toString());
             map.clear();
             map.put("status", HttpStatus.BAD_REQUEST);
             map.put("message", "Some data are not validated");
-            map.put("data", bindingResult2);
+            map.put("data", bindingResult);
             map.put("cause", "Erreur de validation des donnees dans la requete envoyee");
             //return ResponseEntity.ok(map);
             return ResponseEntity.badRequest().body(map);
         }
-        Boolean opSaved = clientCashAccountService.saveCashOperation(clientCashAccountDto, clientCashOperationDto);
+        Boolean opSaved = clientCashAccountService.saveCashOperation(clientCashOperationDto);
         log.info("The method saveCashOperation is being executed");
         //return ResponseEntity.ok(opSaved);
         map.clear();
@@ -278,6 +271,155 @@ public class ClientApiImpl implements ClientApi {
         map.put("status", HttpStatus.OK);
         map.put("message", "Client cash account found successfully");
         map.put("data", delete);
+        map.put("cause", "RAS");
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity updateClientCashOperation(ClientCashOperationDto cltCashOpDto, BindingResult bindingResult) {
+        Map<String, Object> map = new LinkedHashMap<>();
+        if (bindingResult.hasErrors()) {
+            log.info("Error during the pre-validation of the model passed in argument {} " +
+                    "and the report errors are {}", cltCashOpDto, bindingResult);
+            //return ResponseEntity.badRequest().body(bindingResult.toString());
+            map.clear();
+            map.put("status", HttpStatus.BAD_REQUEST);
+            map.put("message", "Some data are not validated");
+            map.put("data", bindingResult);
+            map.put("cause", "Erreur de validation des donnees dans la requete envoyee");
+            //return ResponseEntity.ok(map);
+            return ResponseEntity.badRequest().body(map);
+        }
+        ClientCashOperationDto cltCashOpDtoUpdated = clientCashOperationService.updateClientCashOperation(cltCashOpDto);
+        log.info("The method updateClientCashOperation is being executed");
+        map.clear();
+        map.put("status", HttpStatus.OK);
+        map.put("message", "Client cash operation updated successfully");
+        map.put("data", cltCashOpDtoUpdated);
+        map.put("cause", "RAS");
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity deleteClientCashOperationById(Long ccaopId) {
+        Map<String, Object> map = new LinkedHashMap<>();
+        Boolean delete = clientCashOperationService.deleteClientCashOperationById(ccaopId);
+        log.info("The method deleteClientCashOperationById is being executed");
+        map.clear();
+        map.put("status", HttpStatus.OK);
+        map.put("message", "Client cash operation deleted successfully");
+        map.put("data", delete);
+        map.put("cause", "RAS");
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity findClientCashOperationById(Long ccaopId) {
+        Map<String, Object> map = new LinkedHashMap<>();
+        ClientCashOperationDto clientCashOpDtoFound = clientCashOperationService.findClientCashOperationById(ccaopId);
+        log.info("The method findClientCashOperationById is being executed");
+        map.clear();
+        map.put("status", HttpStatus.OK);
+        map.put("message", "Client cash operation found successfully");
+        map.put("data", clientCashOpDtoFound);
+        map.put("cause", "RAS");
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity findAllClientCashOperation(Long ccaId) {
+        Map<String, Object> map = new LinkedHashMap<>();
+        List<ClientCashOperationDto> clientCashOpDtoList = clientCashOperationService.findAllClientCashOperation(ccaId);
+        log.info("The method findAllClientCashOperation is being executed");
+        map.clear();
+        map.put("status", HttpStatus.OK);
+        map.put("message", "Client cash operation list found successfully");
+        map.put("data", clientCashOpDtoList);
+        map.put("cause", "RAS");
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity findPageClientCashOperation(Long ccaId, Optional<Integer> optpagenum,
+                                                      Optional<Integer> optpagesize) {
+        int pagenum = optpagenum.isPresent()?optpagenum.get():0;
+        int pagesize = optpagesize.isPresent()?optpagesize.get():1;
+
+        Map<String, Object> map = new LinkedHashMap<>();
+        Page<ClientCashOperationDto> clientCashOpDtoPage = clientCashOperationService.findPageClientCashOperation(ccaId,
+                pagenum, pagesize);
+        log.info("The method findAllClientCashOperation is being executed");
+        map.clear();
+        map.put("status", HttpStatus.OK);
+        map.put("message", "Client cash operation Page found successfully");
+        map.put("data", clientCashOpDtoPage);
+        map.put("cause", "RAS");
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity findAllClientCashOperationBetween(Long ccaId, Instant startDate, Instant endDate) {
+        Map<String, Object> map = new LinkedHashMap<>();
+        List<ClientCashOperationDto> clientCashOpDtoList = clientCashOperationService.findAllClientCashOperationBetween(
+                ccaId, startDate, endDate);
+        log.info("The method findAllClientCashOperationBetween is being executed");
+        map.clear();
+        map.put("status", HttpStatus.OK);
+        map.put("message", "Client cash operation list found successfully");
+        map.put("data", clientCashOpDtoList);
+        map.put("cause", "RAS");
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity findPageClientCashOperationBetween(Long ccaId, Instant startDate, Instant endDate,
+                                                             Optional<Integer> optpagenum, Optional<Integer> optpagesize) {
+        int pagenum = optpagenum.isPresent()?optpagenum.get():0;
+        int pagesize = optpagesize.isPresent()?optpagesize.get():1;
+
+        Map<String, Object> map = new LinkedHashMap<>();
+        Page<ClientCashOperationDto> clientCashOpDtoPage = clientCashOperationService.findPageClientCashOperationBetween(ccaId,
+                startDate, endDate, pagenum, pagesize);
+        log.info("The method findPageClientCashOperationBetween is being executed");
+        map.clear();
+        map.put("status", HttpStatus.OK);
+        map.put("message", "Client cash operation Page found successfully");
+        map.put("data", clientCashOpDtoPage);
+        map.put("cause", "RAS");
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity findAllClientCashOperationofTypeBetween(Long ccaId, OperationType opType, Instant startDate,
+                                                                  Instant endDate) {
+        Map<String, Object> map = new LinkedHashMap<>();
+        List<ClientCashOperationDto> clientCashOpDtoList = clientCashOperationService.findAllClientCashOperationofTypeBetween(
+                ccaId, opType, startDate, endDate);
+        log.info("The method findAllClientCashOperationBetween is being executed");
+        map.clear();
+        map.put("status", HttpStatus.OK);
+        map.put("message", "Client cash operation list found successfully");
+        map.put("data", clientCashOpDtoList);
+        map.put("cause", "RAS");
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity findPageClientCashOperationofTypeBetween(Long ccaId, OperationType opType, Instant startDate,
+                                                                   Instant endDate, Optional<Integer> optpagenum,
+                                                                   Optional<Integer> optpagesize) {
+
+        int pagenum = optpagenum.isPresent()?optpagenum.get():0;
+        int pagesize = optpagesize.isPresent()?optpagesize.get():1;
+
+        Map<String, Object> map = new LinkedHashMap<>();
+        Page<ClientCashOperationDto> clientCashOpDtoPage = clientCashOperationService.findPageClientCashOperationofTypeBetween(
+                ccaId, opType, startDate, endDate, pagenum, pagesize);
+        log.info("The method findAllClientCashOperationBetween is being executed");
+        map.clear();
+        map.put("status", HttpStatus.OK);
+        map.put("message", "Client cash operation page found successfully");
+        map.put("data", clientCashOpDtoPage);
         map.put("cause", "RAS");
         return new ResponseEntity(map, HttpStatus.OK);
     }

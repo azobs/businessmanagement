@@ -255,6 +255,78 @@ public class PosCashAccountServiceImpl implements PosCashAccountService {
     }
 
     @Override
+    public Boolean saveCashOperation(PosCashOperationDto posCashOperationDto) {
+        Long pcaId = posCashOperationDto.getPoscoPosCashAccountDto().getId();
+        BigDecimal amount = posCashOperationDto.getPoscoAmountinmvt();
+        Long userbmId = posCashOperationDto.getPoscoUserbmDto().getId();
+        OperationType operationType = posCashOperationDto.getPoscoOperationDto().getOpType();
+        String opDescription = posCashOperationDto.getPoscoOperationDto().getOpDescription();
+        String opObject = posCashOperationDto.getPoscoOperationDto().getOpObject();
+
+        if(pcaId == null || amount == null || userbmId == null || operationType == null){
+            log.error("pcaId, amount or even userbmId is null ");
+            throw new NullArgumentException("Appel de la methode saveCashOperation avec des parametres null");
+        }
+        if(amount.compareTo(BigDecimal.valueOf(0)) <= 0){
+            log.error("The amount cannot be negative value");
+            throw new InvalidValueException("La valeur du montant ne saurait etre negative");
+        }
+        if(!operationType.equals(OperationType.Credit) && !operationType.equals(OperationType.Withdrawal)){
+            log.error("The operationType is not recognized for this operation");
+            throw new InvalidValueException("Le type d'operation precise n'est pas valide dans cette fonction ");
+        }
+        if(!this.isUserBMExistWithId(userbmId)){
+            log.error("The userbmId sent as argument don't identify any userBM in the DB");
+            throw new EntityNotFoundException("Aucun UserBM n'existe avec le ID precise "+userbmId,
+                    ErrorCode.USERBM_NOT_FOUND);
+        }
+        if(!this.isPosCashAccountExistWithId(pcaId)){
+            throw  new EntityNotFoundException("Aucun PosCashAccount n'existe avec le ID precise "+pcaId,
+                    ErrorCode.POSCASHACCOUNT_NOT_FOUND);
+        }
+        PosCashAccount pca = PosCashAccountDto.toEntity(this.findPosCashAccountById(pcaId));
+        UserBM userBM = UserBMDto.toEntity(this.findUserBMById(userbmId));
+        BigDecimal solde = pca.getPcaBalance();
+        BigDecimal updatedSolde = BigDecimal.valueOf(0.0);
+
+        /***
+         * On doit ici enregistrer un depot dans un compte cash d'un point de vente. Pour cela il
+         * faut ajouter le montant de la transaction au solde du compte et ensuite enregistrer l'operation ainsi
+         * réalise
+         */
+        if(operationType.equals(OperationType.Credit)){
+            updatedSolde = solde.add(amount);//Car BigDecimal est immutable on peut pas directement modifier sa valeur
+        }
+        else if(operationType.equals(OperationType.Withdrawal)){
+            if(solde.compareTo(amount) < 0){
+                log.error("Insufficient balance");
+                throw new InvalidValueException("Solde insuffisant "+solde);
+            }
+            updatedSolde = solde.subtract(amount);
+        }
+
+        pca.setPcaBalance(updatedSolde);
+        //Il faut save le PosCashAccount
+        posCashAccountRepository.save(pca);
+        //Preparation de l'enregistrement de l'operation correspondante
+        PosCashOperation pco = new PosCashOperation();
+        pco.setPoscoAmountinmvt(amount);
+        pco.setPoscoUserbm(userBM);
+        pco.setPoscoPosCashAccount(pca);
+
+        Operation op = new Operation();
+        op.setOpDate(new Date().toInstant());
+        op.setOpDescription(opDescription);
+        op.setOpObject(opObject);
+        op.setOpType(operationType);
+        pco.setPoscoOperation(op);
+        //Il faut save le PosCashOperation
+        posCashOperationRepository.save(pco);
+
+        return true;
+    }
+
+    @Override
     public Boolean isPosCashAccountDeleteable(Long id) {
         return true;
     }

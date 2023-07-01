@@ -526,7 +526,7 @@ public class SaleInvoiceDamageServiceImplTest {
             assertNotNull(saleInvoiceDamageDtoList3);
             assertEquals(5,saleInvoiceDamageDtoList3.size());
 
-            Page<SaleInvoiceDamageDto> saleInvoiceDamageDtoPage3 = saleInvoiceDamageService.findAllSaleiDamageinPosBetween(
+            Page<SaleInvoiceDamageDto> saleInvoiceDamageDtoPage3 = saleInvoiceDamageService.findPageSaleiDamageinPosBetween(
                     posDtoSaved.getId(), startDate.toInstant(), endDate.toInstant(), 0, 2);
             assertNotNull(saleInvoiceDamageDtoPage3);
             assertEquals(3,saleInvoiceDamageDtoPage3.getTotalPages());
@@ -538,7 +538,7 @@ public class SaleInvoiceDamageServiceImplTest {
             assertNotNull(saleInvoiceDamageDtoList4);
             assertEquals(3,saleInvoiceDamageDtoList4.size());
 
-            Page<SaleInvoiceDamageDto> saleInvoiceDamageDtoPage4 = saleInvoiceDamageService.findAllSaleiDamageofUserbminPosBetween(
+            Page<SaleInvoiceDamageDto> saleInvoiceDamageDtoPage4 = saleInvoiceDamageService.findPageSaleiDamageofUserbminPosBetween(
                     userBMDtoSaved.getId(), posDtoSaved.getId(), startDate.toInstant(), endDate.toInstant(), 0, 2);
             assertNotNull(saleInvoiceDamageDtoPage4);
             assertEquals(2,saleInvoiceDamageDtoPage4.getTotalPages());

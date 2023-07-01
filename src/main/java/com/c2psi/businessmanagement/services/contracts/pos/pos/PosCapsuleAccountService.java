@@ -28,6 +28,7 @@ public interface PosCapsuleAccountService {
                                  Long userBMId, String opObject, String opDescription);
 
     Boolean saveCapsuleOperation(PosCapsuleAccountDto poscapaccDto, PosCapsuleOperationDto poscapopDto);
+    Boolean saveCapsuleOperation(PosCapsuleOperationDto poscapopDto);
 
 
     Boolean isPosCapsuleAccountDeleteable(Long posCapsAccId);

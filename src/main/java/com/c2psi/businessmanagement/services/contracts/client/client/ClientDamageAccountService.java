@@ -20,5 +20,6 @@ public interface ClientDamageAccountService {
     Boolean saveDamageOperation(Long cdaccId, BigDecimal qte, OperationType operationType,
                                  Long userbmId, String opObject, String opDescription );
     Boolean saveDamageOperation(ClientDamageAccountDto poscapaccDto, ClientDamageOperationDto poscapopDto);
+    Boolean saveDamageOperation(ClientDamageOperationDto cltdamopDto);
 
 }

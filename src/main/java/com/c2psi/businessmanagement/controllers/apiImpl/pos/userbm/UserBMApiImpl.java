@@ -6,18 +6,22 @@ import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.services.contracts.pos.userbm.UserBMService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.*;
 
 @RestController
 @Slf4j
 public class UserBMApiImpl implements UserBMApi {
     private UserBMService userBMService;
+
     @Autowired
     public UserBMApiImpl(UserBMService userBMService1){
         this.userBMService = userBMService1;
@@ -48,6 +52,54 @@ public class UserBMApiImpl implements UserBMApi {
          */
 
 
+
+        UserBMDto userBMDtoSaved = userBMService.saveUserBM(userBMDto);
+        log.info("Entity UserBM saved successfully {} ", userBMDtoSaved);
+
+        /***************************************************************
+         * Une fois le UserBM saved, il faut maintenant renommer la photo
+         * dans le dossier des uploads avec son ID. En fait si la photo a ete Uploade c'est que
+         * c'est le nom de la photo qui est en BD et meme dans le dossier
+         * des upload. on va donc renommer ce fichier avec l'id car dans les
+         * prochain chargement
+         */
+
+        //return new ResponseEntity(userBMDtoSaved, HttpStatus.CREATED);
+        map.clear();
+        map.put("status", HttpStatus.CREATED);
+        map.put("message", "UserBM created successfully ");
+        map.put("data", userBMDtoSaved);
+        map.put("cause", "RAS");
+        return new ResponseEntity(map, HttpStatus.CREATED);
+    }
+
+    //@Override
+    public ResponseEntity saveUserBM(UserBMDto userBMDto, BindingResult bindingResult,
+                                                MultipartFile filephotoPers) {
+        Map<String, Object> map = new LinkedHashMap<>();
+
+        if (bindingResult.hasErrors()) {
+            log.info("Error during the pre-validation of the model passed in argument {} " +
+                    "and the report errors are {}", userBMDto, bindingResult);
+            //return ResponseEntity.badRequest().body(bindingResult.toString());
+            map.clear();
+            map.put("status", HttpStatus.BAD_REQUEST);
+            map.put("message", "Some data are not validated");
+            map.put("data", bindingResult);
+            map.put("cause", "Erreur de validation des donnees dans la requete envoyee");
+            //return ResponseEntity.ok(map);
+            return ResponseEntity.badRequest().body(map);
+        }
+
+        /***********************************************************************
+         * Il faut voir si l'image a ete uploader et si c'est le cas
+         */
+
+        /**********************************************************
+         * Un UserBM contient une fois son adresse donc pas besoin
+         * d'enregistrer separrement l'adresse du UserBM.
+         * Que ce soit le userBM d'un Pos ou pas
+         */
 
         UserBMDto userBMDtoSaved = userBMService.saveUserBM(userBMDto);
         log.info("Entity UserBM saved successfully {} ", userBMDtoSaved);

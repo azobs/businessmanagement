@@ -27,5 +27,6 @@ public interface PosDamageAccountService {
                                  Long userBMId, String opObject, String opDescription);
     //Boolean saveCapsuleOperation(PosCapsuleAccountDto poscapaccDto, PosCapsuleOperationDto poscapopDto);
     Boolean saveDamageOperation(PosDamageAccountDto posdamaccDto, PosDamageOperationDto posdamopDto);
+    Boolean saveDamageOperation(PosDamageOperationDto posdamopDto);
     Boolean isPosDamageAccountDeleteable(Long posdamAccId);
 }

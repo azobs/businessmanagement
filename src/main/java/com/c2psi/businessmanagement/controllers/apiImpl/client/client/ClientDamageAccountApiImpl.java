@@ -126,37 +126,24 @@ public class ClientDamageAccountApiImpl implements ClientDamageAccountApi {
     }
 
     @Override
-    public ResponseEntity saveDamageOperation(ClientDamageAccountDto cltdamaccDto, BindingResult bindingResult1,
-                                              ClientDamageOperationDto cltdamopDto, BindingResult bindingResult2) {
+    public ResponseEntity saveDamageOperation(ClientDamageOperationDto cltdamopDto, BindingResult bindingResult) {
 
         Map<String, Object> map = new LinkedHashMap<>();
-        if (bindingResult1.hasErrors()) {
+
+        if (bindingResult.hasErrors()) {
             log.info("Error during the pre-validation of the model passed in argument {} " +
-                    "and the report errors are {}", cltdamaccDto, bindingResult1);
+                    "and the report errors are {}", cltdamopDto, bindingResult);
             //return ResponseEntity.badRequest().body(bindingResult.toString());
             map.clear();
             map.put("status", HttpStatus.BAD_REQUEST);
             map.put("message", "Some data are not validated");
-            map.put("data", bindingResult1);
+            map.put("data", bindingResult);
             map.put("cause", "Erreur de validation des donnees dans la requete envoyee");
             //return ResponseEntity.ok(map);
             return ResponseEntity.badRequest().body(map);
         }
 
-        if (bindingResult2.hasErrors()) {
-            log.info("Error during the pre-validation of the model passed in argument {} " +
-                    "and the report errors are {}", cltdamopDto, bindingResult2);
-            //return ResponseEntity.badRequest().body(bindingResult.toString());
-            map.clear();
-            map.put("status", HttpStatus.BAD_REQUEST);
-            map.put("message", "Some data are not validated");
-            map.put("data", bindingResult2);
-            map.put("cause", "Erreur de validation des donnees dans la requete envoyee");
-            //return ResponseEntity.ok(map);
-            return ResponseEntity.badRequest().body(map);
-        }
-
-        Boolean opSaved = clientDamageAccountService.saveDamageOperation(cltdamaccDto, cltdamopDto);
+        Boolean opSaved = clientDamageAccountService.saveDamageOperation(cltdamopDto);
         log.info("The method saveDamageOperation is executed successfully");
         map.clear();
         map.put("status", HttpStatus.CREATED);

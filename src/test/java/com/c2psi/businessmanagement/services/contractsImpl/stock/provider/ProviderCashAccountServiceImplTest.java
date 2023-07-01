@@ -131,8 +131,8 @@ public class ProviderCashAccountServiceImplTest {
                                                                               Instant endDate, OperationType opType)
              */
             List<ProviderCashOperationDto> providerCashOperationDtoList1 = providerCashOperationService.
-                    findAllProviderCashOperationBetween(providerCashAccountDtoFound.getId(), startDate.toInstant(),
-                            endDate.toInstant(), OperationType.Credit);
+                    findAllProviderCashOperationofTypeBetween(providerCashAccountDtoFound.getId(), OperationType.Credit,
+                            startDate.toInstant(), endDate.toInstant());
             assertEquals(1, providerCashOperationDtoList1.size());
 
             /*
@@ -141,8 +141,8 @@ public class ProviderCashAccountServiceImplTest {
                                                                                int pagenum, int pagesize)
              */
             Page<ProviderCashOperationDto> providerCashOperationDtoPage1 = providerCashOperationService.
-                    findPageProviderCashOperationBetween(providerCashAccountDtoFound.getId(), startDate.toInstant(),
-                            endDate.toInstant(), OperationType.Credit, 0, 1);
+                    findPageProviderCashOperationofTypeBetween(providerCashAccountDtoFound.getId(), OperationType.Credit,
+                            startDate.toInstant(), endDate.toInstant(), 0, 1);
             assertEquals(1, providerCashOperationDtoPage1.getTotalPages());
 
 

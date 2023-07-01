@@ -3,6 +3,7 @@ package com.c2psi.businessmanagement.services.contracts.client.command;
 import com.c2psi.businessmanagement.dtos.client.command.SaleDto;
 import org.springframework.data.domain.Page;
 
+import java.time.Instant;
 import java.util.List;
 
 public interface SaleService {
@@ -17,4 +18,6 @@ public interface SaleService {
     Page<SaleDto> findPageSaleofCommand(Long cmdId, int pagenum, int pagesize);
     List<SaleDto> findAllSaleonArticle(Long artId);
     Page<SaleDto> findPageSaleonArticle(Long artId, int pagenum, int pagesize);
+    List<SaleDto> findAllSaleonArticleBetween(Long artId, Instant startDate, Instant endDate);
+    Page<SaleDto> findPageSaleonArticleBetween(Long artId, Instant startDate, Instant endDate, int pagenum, int pagesize);
 }

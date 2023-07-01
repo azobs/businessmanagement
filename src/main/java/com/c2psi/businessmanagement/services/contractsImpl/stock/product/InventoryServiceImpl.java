@@ -168,6 +168,21 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
+    public InventoryDto findInventoryById(Long invId) {
+        if(invId == null){
+            log.error("The invId sent cannot be null");
+            throw new NullArgumentException("Le invId envoye est null");
+        }
+        Optional<Inventory> optionalInventory = inventoryRepository.findInventoryById(invId);
+        if(!optionalInventory.isPresent()){
+            log.error("There is no Inventory with the precised id {} in the DB", invId);
+            throw new EntityNotFoundException("Aucun inventaire n'a l'Id indique dans la BD ",
+                    ErrorCode.INVENTORY_NOT_FOUND);
+        }
+        return InventoryDto.fromEntity(optionalInventory.get());
+    }
+
+    @Override
     public InventoryDto findInventoryByCodeinPos(String invCode, Long posId) {
         if(posId == null){
             log.error("The posId sent cannot be null");

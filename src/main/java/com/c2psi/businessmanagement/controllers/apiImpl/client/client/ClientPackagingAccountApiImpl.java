@@ -50,6 +50,7 @@ public class ClientPackagingAccountApiImpl implements ClientPackagingAccountApi 
             //return ResponseEntity.ok(map);
             return ResponseEntity.badRequest().body(map);
         }
+
         ClientPackagingAccountDto cltpackaccDtoSaved = clientPackagingAccountService.
                 saveClientPackagingAccount(cltpackaccDto);
         log.info("The method saveClientPackagingAccount is executed successfully");
@@ -84,7 +85,7 @@ public class ClientPackagingAccountApiImpl implements ClientPackagingAccountApi 
                 findClientPackagingAccountByClientAndPackaging(packagingId, clientId);
         log.info("The method findClientPackagingAccountByClientAndPackaging is executed successfully");
         map.clear();
-        map.put("status", HttpStatus.CREATED);
+        map.put("status", HttpStatus.OK);
         map.put("message", "ClientPackagingAccount found successfully");
         map.put("data", cltpackaccDtoFound);
         map.put("cause", "Le compte packaging du client a ete retrouve avec success a partir du packaging et " +
@@ -160,34 +161,23 @@ public class ClientPackagingAccountApiImpl implements ClientPackagingAccountApi 
     }
 
     @Override
-    public ResponseEntity savePackagingOperationforClient(ClientPackagingAccountDto cltpackaccDto, BindingResult bindingResult1,
-                                                 ClientPackagingOperationDto cltpackopDto, BindingResult bindingResult2) {
+    public ResponseEntity savePackagingOperationforClient(ClientPackagingOperationDto cltpackopDto,
+                                                          BindingResult bindingResult) {
         Map<String, Object> map = new LinkedHashMap<>();
-        if (bindingResult1.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             log.info("Error during the pre-validation of the model passed in argument {} " +
-                    "and the report errors are {}", cltpackaccDto, bindingResult1);
+                    "and the report errors are {}", cltpackopDto, bindingResult);
             //return ResponseEntity.badRequest().body(bindingResult.toString());
             map.clear();
             map.put("status", HttpStatus.BAD_REQUEST);
             map.put("message", "Some data are not validated");
-            map.put("data", bindingResult1);
+            map.put("data", bindingResult);
             map.put("cause", "Erreur de validation des donnees dans la requete envoyee");
             //return ResponseEntity.ok(map);
             return ResponseEntity.badRequest().body(map);
         }
-        if (bindingResult2.hasErrors()) {
-            log.info("Error during the pre-validation of the model passed in argument {} " +
-                    "and the report errors are {}", cltpackaccDto, bindingResult2);
-            //return ResponseEntity.badRequest().body(bindingResult.toString());
-            map.clear();
-            map.put("status", HttpStatus.BAD_REQUEST);
-            map.put("message", "Some data are not validated");
-            map.put("data", bindingResult2);
-            map.put("cause", "Erreur de validation des donnees dans la requete envoyee");
-            //return ResponseEntity.ok(map);
-            return ResponseEntity.badRequest().body(map);
-        }
-        Boolean opSaved = clientPackagingAccountService.savePackagingOperationforClient(cltpackaccDto, cltpackopDto);
+
+        Boolean opSaved = clientPackagingAccountService.savePackagingOperationforClient(cltpackopDto);
         log.info("The method savePackagingOperationforClient is executed successfully");
         map.clear();
         map.put("status", HttpStatus.CREATED);

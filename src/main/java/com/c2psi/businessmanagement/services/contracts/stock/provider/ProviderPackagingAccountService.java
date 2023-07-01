@@ -21,4 +21,5 @@ public interface ProviderPackagingAccountService {
     //Boolean saveCapsuleOperation(PosCapsuleAccountDto poscapaccDto, PosCapsuleOperationDto poscapopDto);
     Boolean savePackagingOperationforProvider(ProviderPackagingAccountDto providerPackagingAccountDto,
                                               ProviderPackagingOperationDto providerPackagingOperationDto);
+    Boolean savePackagingOperationforProvider(ProviderPackagingOperationDto providerPackagingOperationDto);
 }

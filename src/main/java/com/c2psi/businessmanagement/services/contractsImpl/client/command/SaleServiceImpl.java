@@ -19,6 +19,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -357,6 +358,40 @@ public class SaleServiceImpl implements SaleService {
             throw new NullArgumentException("Le artId precise est null");
         }
         Optional<Page<Sale>> optionalSalePage = saleRepository.findPageSaleonArticle(artId,
+                PageRequest.of(pagenum, pagesize));
+        if(!optionalSalePage.isPresent()){
+            log.error("There is no command with the artId {} precised ", artId);
+            throw new EntityNotFoundException("Aucune commande n'existe avec le artId precise ",
+                    ErrorCode.ARTICLE_NOT_FOUND);
+        }
+
+        return optionalSalePage.get().map(SaleDto::fromEntity);
+    }
+
+    @Override
+    public List<SaleDto> findAllSaleonArticleBetween(Long artId, Instant startDate, Instant endDate) {
+        if(artId == null){
+            log.error("The artId precised in the method cannot be null");
+            throw new NullArgumentException("Le artId precise est null");
+        }
+        Optional<List<Sale>> optionalSaleList = saleRepository.findAllSaleonArticleBetween(artId, startDate, endDate);
+        if(!optionalSaleList.isPresent()){
+            log.error("There is no command with the artId {} precised ", artId);
+            throw new EntityNotFoundException("Aucune commande n'existe avec le artId precise ",
+                    ErrorCode.ARTICLE_NOT_FOUND);
+        }
+
+        return optionalSaleList.get().stream().map(SaleDto::fromEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<SaleDto> findPageSaleonArticleBetween(Long artId, Instant startDate, Instant endDate, int pagenum,
+                                                      int pagesize) {
+        if(artId == null){
+            log.error("The artId precised in the method cannot be null");
+            throw new NullArgumentException("Le artId precise est null");
+        }
+        Optional<Page<Sale>> optionalSalePage = saleRepository.findPageSaleonArticleBetween(artId, startDate, endDate,
                 PageRequest.of(pagenum, pagesize));
         if(!optionalSalePage.isPresent()){
             log.error("There is no command with the artId {} precised ", artId);

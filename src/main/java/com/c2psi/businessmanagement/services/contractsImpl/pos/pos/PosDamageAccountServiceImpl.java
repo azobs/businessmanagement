@@ -443,6 +443,105 @@ public class PosDamageAccountServiceImpl implements PosDamageAccountService {
         return true;
     }
 
+    @Override
+    public Boolean saveDamageOperation(PosDamageOperationDto posdamopDto) {
+        if(posdamopDto == null){
+            log.error("The posdamopDto is null");
+            throw new NullArgumentException("Appel de la methode saveDamageOperation avec des parametres null");
+        }
+
+        Long posdamaccId = posdamopDto.getPosdoPosDamageAccountDto().getId();
+        BigDecimal qte = posdamopDto.getPosdoNumberinmvt();
+        Long userbmId = posdamopDto.getPosdoUserbmDto().getId();
+        OperationType operationType = posdamopDto.getPosdoOperationDto().getOpType();
+        String opDescription = posdamopDto.getPosdoOperationDto().getOpDescription();
+        String opObject = posdamopDto.getPosdoOperationDto().getOpObject();
+
+        /******************************************************************
+         * Se rassurer que les donnees dans la fonction ne sont pas null
+         */
+        if(posdamaccId == null || qte == null || userbmId == null || operationType == null){
+            log.error("posdamaccId, qte or even userbmId is null ");
+            throw new NullArgumentException("Appel de la methode saveCapsuleOperation avec des parametres null");
+        }
+
+        /**********************************************************************************
+         * Se rassurer que la quantite d'article dans l'operation est strictement positive
+         */
+        if(qte.compareTo(BigDecimal.valueOf(0)) <= 0){
+            log.error("The qte cannot be negative value");
+            throw new InvalidValueException("La quantite dans l'operation ne saurait etre negative");
+        }
+
+        /******************************************************************************************
+         * On va essayer de recuperer le userbm qui est associe a cette operation
+         */
+        Optional<UserBM> optionalUserBM = userBMRepository.findUserBMById(userbmId);
+        if(!optionalUserBM.isPresent()){
+            log.error("There is no userbm associated with the id {} precised in argument ", userbmId);
+            throw new EntityNotFoundException("Aucun userbm n'existe avec le id precise ", ErrorCode.USERBM_NOT_FOUND);
+        }
+
+        /***************************************************************************************
+         * Se rassurer que le type d'operation souhaite est soit un credit soit un debit
+         */
+        if(!operationType.equals(OperationType.Credit) && !operationType.equals(OperationType.Withdrawal)){
+            log.error("The operationType is not recognized for this operation");
+            throw new InvalidValueException("Le type d'operation precise n'est pas valide dans cette fonction ");
+        }
+
+        /*************************************************************************************
+         * On essaye donc de recuperer d'abord le compte dans lequel l'operation sera realise
+         */
+        if(!this.isPosDamageAccountExistWithId(posdamaccId)){
+            log.error("The posdamaccId {} does not identify any account ", posdamaccId);
+            throw  new EntityNotFoundException("Aucun PosDamageAccount n'existe avec le ID precise "+posdamaccId,
+                    ErrorCode.POSCAPSULEACCOUNT_NOT_FOUND);
+        }
+        Optional<PosDamageAccount> optionalPosDamageAccount = posDamAccountRepository.
+                findPosDamageAccountById(posdamaccId);
+        //A ce niveau on na pas besoin de regarder si isPresent est true car on est sur que ca existe
+        PosDamageAccount posDamageAccountToUpdate = optionalPosDamageAccount.get();
+
+        BigDecimal solde = posDamageAccountToUpdate.getPdaNumber();
+        BigDecimal updatedSolde = BigDecimal.valueOf(0.0);
+
+        /***
+         * On doit ici enregistrer un depot dans un compte capsule d'un point de vente. Pour cela il
+         * faut ajouter la qte de la transaction au solde du compte et ensuite enregistrer l'operation ainsi
+         * réalise
+         */
+        if(operationType.equals(OperationType.Credit)){
+            updatedSolde = solde.add(qte);//Car BigDecimal est immutable on peut pas directement modifier sa valeur
+        }
+        else if(operationType.equals(OperationType.Withdrawal)){
+            if(solde.compareTo(qte) < 0){
+                log.error("Insufficient balance");
+                throw new InvalidValueException("Solde insuffisant "+solde);
+            }
+            updatedSolde = solde.subtract(qte);
+        }
+        posDamageAccountToUpdate.setPdaNumber(updatedSolde);
+
+        posDamAccountRepository.save(posDamageAccountToUpdate);
+
+        PosDamageOperation posdamo = new PosDamageOperation();
+        posdamo.setPosdoNumberinmvt(qte);
+        posdamo.setPosdoUserbm(optionalUserBM.get());
+        posdamo.setPosdoPosDamageAccount(posDamageAccountToUpdate);
+
+        Operation op = new Operation();
+        op.setOpDate(new Date().toInstant());
+        op.setOpDescription(opDescription);
+        op.setOpObject(opObject);
+        op.setOpType(operationType);
+        posdamo.setPosdoOperation(op);
+        //Il faut save le PosCapsuleOperation
+        posDamOperationRepository.save(posdamo);
+
+        return true;
+    }
+
     public Boolean isPosDamageAccountExistWithId(Long pdaId){
         if(pdaId == null){
             log.error("pdaId is null");

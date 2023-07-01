@@ -411,6 +411,100 @@ public class ProviderCapsuleAccountServiceImpl implements ProviderCapsuleAccount
         return true;
     }
 
+    @Override
+    public Boolean saveCapsuleOperation(ProviderCapsuleOperationDto providerCapsuleOperationDto) {
+        Long procapaccId = providerCapsuleOperationDto.getProcsoProCapsuleAccountDto().getId();
+        BigDecimal qte = providerCapsuleOperationDto.getProcsoNumberinmvt();
+        Long userbmId = providerCapsuleOperationDto.getProcsoUserbmDto().getId();
+        OperationType operationType = providerCapsuleOperationDto.getProscoOperationDto().getOpType();
+        String opObject = providerCapsuleOperationDto.getProscoOperationDto().getOpObject();
+        String opDescription = providerCapsuleOperationDto.getProscoOperationDto().getOpDescription();
+
+        /******************************************************************
+         * Se rassurer que les donnees dans la fonction ne sont pas null
+         */
+        if(procapaccId == null || qte == null || userbmId == null || operationType == null){
+            log.error("procapaccId, qte or even userbmId is null ");
+            throw new NullArgumentException("Appel de la methode saveCapsuleOperation avec des parametres null");
+        }
+
+        /**********************************************************************************
+         * Se rassurer que la quantite d'article dans l'operation est strictement positive
+         */
+        if(qte.compareTo(BigDecimal.valueOf(0)) <= 0){
+            log.error("The qte cannot be negative value");
+            throw new InvalidValueException("La quantite dans l'operation ne saurait etre negative");
+        }
+
+        /******************************************************************************************
+         * On va essayer de recuperer le userbm qui est associe a cette operation
+         */
+        Optional<UserBM> optionalUserBM = userBMRepository.findUserBMById(userbmId);
+        if(!optionalUserBM.isPresent()){
+            log.error("There is no userbm associated with the id {} precised in argument ", userbmId);
+            throw new EntityNotFoundException("Aucun userbm n'existe avec le id precise ", ErrorCode.USERBM_NOT_FOUND);
+        }
+
+        /***************************************************************************************
+         * Se rassurer que le type d'operation souhaite est soit un credit soit un debit
+         */
+        if(!operationType.equals(OperationType.Credit) && !operationType.equals(OperationType.Withdrawal)){
+            log.error("The operationType is not recognized for this operation");
+            throw new InvalidValueException("Le type d'operation precise n'est pas valide dans cette fonction ");
+        }
+
+        /*************************************************************************************
+         * On essaye donc de recuperer d'abord le compte dans lequel l'operation sera realise
+         */
+        if(!this.isProviderCapsuleAccountExistWithId(procapaccId)){
+            log.error("The procapaccId {} does not identify any account ", procapaccId);
+            throw  new EntityNotFoundException("Aucun ProviderCapsuleAccount n'existe avec le ID precise "+procapaccId,
+                    ErrorCode.PROVIDERCAPSULEACCOUNT_NOT_FOUND);
+        }
+        Optional<ProviderCapsuleAccount> optionalProviderCapsuleAccount = providerCapsAccountRepository.
+                findProviderCapsuleAccountById(procapaccId);
+        //A ce niveau on na pas besoin de regarder si isPresent est true car on est sur que ca existe
+        ProviderCapsuleAccount providerCapsuleAccountToUpdate = optionalProviderCapsuleAccount.get();
+
+        BigDecimal solde = providerCapsuleAccountToUpdate.getPcsaNumber();
+        BigDecimal updatedSolde = BigDecimal.valueOf(0.0);
+
+        /***
+         * On doit ici enregistrer un depot dans un compte capsule d'un provider pour un article. Pour cela il
+         * faut ajouter la qte de la transaction au solde du compte et ensuite enregistrer l'operation ainsi
+         * réalise
+         */
+        if(operationType.equals(OperationType.Credit)){
+            updatedSolde = solde.add(qte);//Car BigDecimal est immutable on peut pas directement modifier sa valeur
+        }
+        else if(operationType.equals(OperationType.Withdrawal)){
+            if(solde.compareTo(qte) < 0){
+                log.error("Insufficient balance");
+                throw new InvalidValueException("Solde insuffisant "+solde);
+            }
+            updatedSolde = solde.subtract(qte);
+        }
+        providerCapsuleAccountToUpdate.setPcsaNumber(updatedSolde);
+
+        providerCapsAccountRepository.save(providerCapsuleAccountToUpdate);
+
+        ProviderCapsuleOperation procapso = new ProviderCapsuleOperation();
+        procapso.setProcsoNumberinmvt(qte);
+        procapso.setProcsoUserbm(optionalUserBM.get());
+        procapso.setProcsoProCapsuleAccount(providerCapsuleAccountToUpdate);
+
+        Operation op = new Operation();
+        op.setOpDate(new Date().toInstant());
+        op.setOpDescription(opDescription);
+        op.setOpObject(opObject);
+        op.setOpType(operationType);
+        procapso.setProscoOperation(op);
+        //Il faut save le ProviderCapsuleOperation
+        providerCapsOperationRepository.save(procapso);
+
+        return true;
+    }
+
     public Boolean isProviderCapsuleAccountExistWithId(Long procapaccId){
         if(procapaccId == null){
             log.error("procapaccId is null");

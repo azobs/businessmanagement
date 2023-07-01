@@ -12,6 +12,7 @@ public interface ClientCashAccountService {
                               String opObject, String opDescription);
     //Boolean saveCapsuleOperation(PosCapsuleAccountDto poscapaccDto, PosCapsuleOperationDto poscapopDto);
     Boolean saveCashOperation(ClientCashAccountDto clientCashAccountDto, ClientCashOperationDto clientCashOperationDto);
+    Boolean saveCashOperation(ClientCashOperationDto clientCashOperationDto);
 
     ClientCashAccountDto saveClientCashAccount(ClientCashAccountDto ccaDto);
 

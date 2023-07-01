@@ -7,4 +7,7 @@ import java.util.Optional;
 
 public interface DiversCashAccountRepository extends JpaRepository<DiversCashAccount, Long> {
     Optional<DiversCashAccount> findDiversCashAccountById(Long dcaId);
+
+    Optional<DiversCashAccount> findDiversCashAccountByAndDiverscashPosId(Long diverscashPosId);
+
 }

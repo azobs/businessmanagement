@@ -113,6 +113,46 @@
                     <target>18</target>
                 </configuration>
             </plugin>
+            <!--Generate the swagger documentation for frontend-->
+            <plugin>
+                <groupId>com.github.kongchen</groupId>
+                <artifactId>swagger-maven-plugin</artifactId>
+                <version>3.1.8</version>
+                <configuration>
+                    <apiSources>
+                        <apiSource>
+                            <springmvc>true</springmvc>
+                            <locations>
+                                <location>com.c2psi.businessmanagement.controllers.apiImpl</location>
+                            </locations>
+                            <basePath>http://localhost:8081</basePath>
+                            <info>
+                                <title>Swagger Api documentation for Bussiness management application first version</title>
+                                <version>${project.version}</version>
+                                <description>Swagger Api documentation for Bussiness management application first version</description>
+                                <contact>
+                                    <email>ckiadjeu@gmail.com</email>
+                                    <name>Cedric KIADJEU</name>
+                                    <url></url>
+                                </contact>
+                            </info>
+                            <outputPath>${project.build.directory}</outputPath>
+                            <outputFormats>json</outputFormats>
+                            <swaggerApiReader>com.github.kongchen.swagger.docgen.reader.SpringMvcApiReader</swaggerApiReader>
+                            <swaggerDirectory>${project.build.directory}</swaggerDirectory>
+                        </apiSource>
+                    </apiSources>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--End of the configuration used to generate the swagger documentation-->
         </plugins>
     </build>
 

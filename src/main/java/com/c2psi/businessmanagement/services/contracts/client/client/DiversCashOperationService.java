@@ -17,8 +17,9 @@ public interface DiversCashOperationService {
     List<DiversCashOperationDto> findAllDiversCashOperationBetween(Long dcaopId, Instant startDate, Instant endDate);
     Page<DiversCashOperationDto> findPageDiversCashOperationBetween(Long dcaopId, Instant startDate, Instant endDate,
                                                                     int pagenum, int pagesize);
-    List<DiversCashOperationDto> findAllDiversCashOperationBetween(Long dcaopId, Instant startDate, Instant endDate,
-                                                                   OperationType opType);
-    Page<DiversCashOperationDto> findPageDiversCashOperationBetween(Long dcaopId, Instant startDate, Instant endDate,
-                                                                    OperationType opType, int pagenum, int pagesize);
+    List<DiversCashOperationDto> findAllDiversCashOperationofTypeBetween(Long dcaopId, OperationType opType,
+                                                                         Instant startDate, Instant endDate);
+    Page<DiversCashOperationDto> findPageDiversCashOperationofTypeBetween(Long dcaopId, OperationType opType,
+                                                                          Instant startDate, Instant endDate,
+                                                                    int pagenum, int pagesize);
 }

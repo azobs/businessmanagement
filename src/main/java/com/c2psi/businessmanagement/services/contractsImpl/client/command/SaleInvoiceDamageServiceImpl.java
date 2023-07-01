@@ -403,7 +403,7 @@ public class SaleInvoiceDamageServiceImpl implements SaleInvoiceDamageService {
     }
 
     @Override
-    public Page<SaleInvoiceDamageDto> findAllSaleiDamageinPosBetween(Long posId, Instant startDate, Instant endDate, int pagenum, int pagesize) {
+    public Page<SaleInvoiceDamageDto> findPageSaleiDamageinPosBetween(Long posId, Instant startDate, Instant endDate, int pagenum, int pagesize) {
         if(posId == null){
             log.error("The id precised for the pos is null");
             throw new NullArgumentException("L'argument precise dans la requete est null");
@@ -432,7 +432,7 @@ public class SaleInvoiceDamageServiceImpl implements SaleInvoiceDamageService {
     }
 
     @Override
-    public Page<SaleInvoiceDamageDto> findAllSaleiDamageofUserbminPosBetween(Long userbmId, Long posId, Instant startDate,
+    public Page<SaleInvoiceDamageDto> findPageSaleiDamageofUserbminPosBetween(Long userbmId, Long posId, Instant startDate,
                                                                                Instant endDate, int pagenum, int pagesize) {
         if(userbmId == null){
             log.error("The id precised for the userbm is null");

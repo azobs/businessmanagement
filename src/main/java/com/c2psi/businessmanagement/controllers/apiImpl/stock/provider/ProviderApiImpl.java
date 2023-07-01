@@ -1,10 +1,12 @@
 package com.c2psi.businessmanagement.controllers.apiImpl.stock.provider;
 
+import com.c2psi.businessmanagement.Enumerations.OperationType;
 import com.c2psi.businessmanagement.controllers.api.stock.provider.ProviderApi;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderCashAccountDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderCashOperationDto;
 import com.c2psi.businessmanagement.dtos.stock.provider.ProviderDto;
 import com.c2psi.businessmanagement.services.contracts.stock.provider.ProviderCashAccountService;
+import com.c2psi.businessmanagement.services.contracts.stock.provider.ProviderCashOperationService;
 import com.c2psi.businessmanagement.services.contracts.stock.provider.ProviderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.Instant;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,11 +27,14 @@ import java.util.Optional;
 public class ProviderApiImpl implements ProviderApi {
     private ProviderService providerService;
     private ProviderCashAccountService providerCashAccountService;
+    private ProviderCashOperationService providerCashOperationService;
 
     @Autowired
-    public ProviderApiImpl(ProviderService providerService, ProviderCashAccountService providerCashAccountService) {
+    public ProviderApiImpl(ProviderService providerService, ProviderCashAccountService providerCashAccountService,
+                           ProviderCashOperationService providerCashOperationService) {
         this.providerService = providerService;
         this.providerCashAccountService = providerCashAccountService;
+        this.providerCashOperationService = providerCashOperationService;
     }
 
     @Override
@@ -164,36 +170,22 @@ public class ProviderApiImpl implements ProviderApi {
     }
 
     @Override
-    public ResponseEntity saveCashOperation(ProviderCashAccountDto providerCashAccountDto, BindingResult bindingResult1,
-                                            ProviderCashOperationDto providerCashOperationDto, BindingResult bindingResult2) {
+    public ResponseEntity saveCashOperation(ProviderCashOperationDto providerCashOperationDto, BindingResult bindingResult) {
         Map<String, Object> map = new LinkedHashMap<>();
-        if (bindingResult1.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             log.info("Error during the pre-validation of the model passed in argument {} " +
-                    "and the report errors are {}", providerCashAccountDto, bindingResult1);
+                    "and the report errors are {}", providerCashOperationDto, bindingResult);
             //return ResponseEntity.badRequest().body(bindingResult.toString());
             map.clear();
             map.put("status", HttpStatus.BAD_REQUEST);
             map.put("message", "Some data are not validated");
-            map.put("data", bindingResult1);
+            map.put("data", bindingResult);
             map.put("cause", "Erreur de validation des donnees dans la requete envoyee");
             //return ResponseEntity.ok(map);
             return ResponseEntity.badRequest().body(map);
         }
 
-        if (bindingResult2.hasErrors()) {
-            log.info("Error during the pre-validation of the model passed in argument {} " +
-                    "and the report errors are {}", providerCashOperationDto, bindingResult2);
-            //return ResponseEntity.badRequest().body(bindingResult.toString());
-            map.clear();
-            map.put("status", HttpStatus.BAD_REQUEST);
-            map.put("message", "Some data are not validated");
-            map.put("data", bindingResult2);
-            map.put("cause", "Erreur de validation des donnees dans la requete envoyee");
-            //return ResponseEntity.ok(map);
-            return ResponseEntity.badRequest().body(map);
-        }
-
-        Boolean opSaved = providerCashAccountService.saveCashOperation(providerCashAccountDto, providerCashOperationDto);
+        Boolean opSaved = providerCashAccountService.saveCashOperation(providerCashOperationDto);
         log.info("The method saveCashOperation is being executed");
         //return ResponseEntity.ok(opSaved);
         map.put("status", HttpStatus.CREATED);
@@ -202,6 +194,7 @@ public class ProviderApiImpl implements ProviderApi {
         map.put("cause", "RAS");
         return new ResponseEntity(map, HttpStatus.CREATED);
     }
+
 
     @Override
     public ResponseEntity saveProviderCashAccount(ProviderCashAccountDto providerCashAccountDto,
@@ -253,6 +246,159 @@ public class ProviderApiImpl implements ProviderApi {
         map.put("status", HttpStatus.OK);
         map.put("message", "Provider cash account deleted successfully ");
         map.put("data", delete);
+        map.put("cause", "RAS");
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity updateProviderCashOperation(ProviderCashOperationDto proCashOpDto, BindingResult bindingResult) {
+        Map<String, Object> map = new LinkedHashMap<>();
+        if (bindingResult.hasErrors()) {
+            log.info("Error during the pre-validation of the model passed in argument {} " +
+                    "and the report errors are {}", proCashOpDto, bindingResult);
+            //return ResponseEntity.badRequest().body(bindingResult.toString());
+            map.clear();
+            map.put("status", HttpStatus.BAD_REQUEST);
+            map.put("message", "Some data are not validated");
+            map.put("data", bindingResult);
+            map.put("cause", "Erreur de validation des donnees dans la requete envoyee");
+            //return ResponseEntity.ok(map);
+            return ResponseEntity.badRequest().body(map);
+        }
+        ProviderCashOperationDto proCashOpDtoUpdated = providerCashOperationService.
+                updateProviderCashOperation(proCashOpDto);
+        log.info("The method updateProviderCashOperation is being executed");
+
+        map.put("status", HttpStatus.OK);
+        map.put("message", "Provider cash operation updated successfully ");
+        map.put("data", proCashOpDtoUpdated);
+        map.put("cause", "RAS");
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity deleteProviderCashOperationById(Long procopId) {
+        Map<String, Object> map = new LinkedHashMap<>();
+        Boolean delete = providerCashOperationService.deleteProviderCashOperationById(procopId);
+        log.info("The method deleteProviderCashOperationById is being executed");
+        map.put("status", HttpStatus.OK);
+        map.put("message", "Provider cash operation deleted successfully ");
+        map.put("data", delete);
+        map.put("cause", "RAS");
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity findProviderCashOperationById(Long procopId) {
+        Map<String, Object> map = new LinkedHashMap<>();
+        ProviderCashOperationDto proCashOpDtoFound = providerCashOperationService.
+                findProviderCashOperationById(procopId);
+        log.info("The method findProviderCashOperationById is being executed");
+
+        map.put("status", HttpStatus.OK);
+        map.put("message", "Provider cash operation found successfully ");
+        map.put("data", proCashOpDtoFound);
+        map.put("cause", "RAS");
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity findAllProviderCashOperation(Long procaId) {
+        Map<String, Object> map = new LinkedHashMap<>();
+        List<ProviderCashOperationDto> proCashOpDtoList = providerCashOperationService.
+                findAllProviderCashOperation(procaId);
+        log.info("The method findAllProviderCashOperation is being executed");
+
+        map.put("status", HttpStatus.OK);
+        map.put("message", "Provider cash operation list found successfully ");
+        map.put("data", proCashOpDtoList);
+        map.put("cause", "RAS");
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity findPageProviderCashOperation(Long procaId, Optional<Integer> optpagenum,
+                                                        Optional<Integer> optpagesize) {
+
+        int pagenum = optpagenum.isPresent()?optpagenum.get():0;
+        int pagesize = optpagesize.isPresent()?optpagesize.get():1;
+
+        Map<String, Object> map = new LinkedHashMap<>();
+        Page<ProviderCashOperationDto> proCashOpDtoPage = providerCashOperationService.
+                findPageProviderCashOperation(procaId, pagenum, pagesize);
+        log.info("The method findPageProviderCashOperation is being executed");
+
+        map.put("status", HttpStatus.OK);
+        map.put("message", "Provider cash operation page found successfully ");
+        map.put("data", proCashOpDtoPage);
+        map.put("cause", "RAS");
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity findAllProviderCashOperationBetween(Long procaId, Instant startDate, Instant endDate) {
+        Map<String, Object> map = new LinkedHashMap<>();
+        List<ProviderCashOperationDto> proCashOpDtoList = providerCashOperationService.
+                findAllProviderCashOperationBetween(procaId, startDate, endDate);
+        log.info("The method findAllProviderCashOperationBetween is being executed");
+
+        map.put("status", HttpStatus.OK);
+        map.put("message", "Provider cash operation list found successfully ");
+        map.put("data", proCashOpDtoList);
+        map.put("cause", "RAS");
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity findPageProviderCashOperationBetween(Long procaId, Instant startDate, Instant endDate,
+                                                               Optional<Integer> optpagenum,
+                                                               Optional<Integer> optpagesize) {
+        int pagenum = optpagenum.isPresent()?optpagenum.get():0;
+        int pagesize = optpagesize.isPresent()?optpagesize.get():1;
+
+        Map<String, Object> map = new LinkedHashMap<>();
+        Page<ProviderCashOperationDto> proCashOpDtoPage = providerCashOperationService.
+                findPageProviderCashOperationBetween(procaId, startDate, endDate, pagenum, pagesize);
+        log.info("The method findPageProviderCashOperationBetween is being executed");
+
+        map.put("status", HttpStatus.OK);
+        map.put("message", "Provider cash operation page found successfully ");
+        map.put("data", proCashOpDtoPage);
+        map.put("cause", "RAS");
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity findAllProviderCashOperationofTypeBetween(Long procaId, OperationType opType,
+                                                                    Instant startDate, Instant endDate) {
+        Map<String, Object> map = new LinkedHashMap<>();
+        List<ProviderCashOperationDto> proCashOpDtoList = providerCashOperationService.
+                findAllProviderCashOperationofTypeBetween(procaId, opType, startDate, endDate);
+        log.info("The method findAllProviderCashOperationofTypeBetween is being executed");
+
+        map.put("status", HttpStatus.OK);
+        map.put("message", "Provider cash operation list found successfully ");
+        map.put("data", proCashOpDtoList);
+        map.put("cause", "RAS");
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity findPageProviderCashOperationofTypeBetween(Long procaId, OperationType opType,
+                                                                     Instant startDate, Instant endDate,
+                                                                     Optional<Integer> optpagenum,
+                                                                     Optional<Integer> optpagesize) {
+        int pagenum = optpagenum.isPresent()?optpagenum.get():0;
+        int pagesize = optpagesize.isPresent()?optpagesize.get():1;
+
+        Map<String, Object> map = new LinkedHashMap<>();
+        Page<ProviderCashOperationDto> proCashOpDtoPage = providerCashOperationService.
+                findPageProviderCashOperationofTypeBetween(procaId, opType, startDate, endDate, pagenum, pagesize);
+        log.info("The method findPageProviderCashOperationBetween is being executed");
+
+        map.put("status", HttpStatus.OK);
+        map.put("message", "Provider cash operation page found successfully ");
+        map.put("data", proCashOpDtoPage);
         map.put("cause", "RAS");
         return new ResponseEntity(map, HttpStatus.OK);
     }

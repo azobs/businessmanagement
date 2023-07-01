@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -24,6 +25,7 @@ import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
 @Validated
 @Api(APP_ROOT+"/userbm")
 public interface UserBMApi {
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @PostMapping(value = APP_ROOT+"/userbm/create",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -34,11 +36,14 @@ public interface UserBMApi {
             @ApiResponse(code=200, message="Object UserBM added/created successfully"),
             @ApiResponse(code=400, message="The execution of the request encounter a problem")
     })
-    ResponseEntity<UserBMDto> saveUserBM(
+    ResponseEntity saveUserBM(
             @ApiParam(name = "userBMDto", type = "UserBMDto", required = true,
                     value="The JSON object that represent the UserBM to save")
-            @Valid @RequestBody UserBMDto userBMDto, BindingResult bindingResult);
+            @Valid @RequestBody UserBMDto userBMDto, BindingResult bindingResult
+            /*@RequestParam(name="picture")MultipartFile filephotoPers*/);
             //throws BMException;
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @PutMapping(value = APP_ROOT+"/userbm/update",
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -56,6 +61,8 @@ public interface UserBMApi {
             @Valid @RequestBody UserBMDto userBMDto, BindingResult bindingResult);
             //throws BMException;
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     @PutMapping(value = APP_ROOT+"/userbm/switchUserBMState",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -71,6 +78,8 @@ public interface UserBMApi {
                     value="Any possible next state in the JSON object")
             @Valid @RequestBody UserBMDto userBMDto, BindingResult bindingResult);
             //throws BMException;
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @PutMapping(value = APP_ROOT+"/userbm/resetPassword",
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -88,6 +97,8 @@ public interface UserBMApi {
             @Valid @RequestBody UserBMDto userBMDto, BindingResult bindingResult);
             //throws BMException;
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     @GetMapping(value = {APP_ROOT+"/userbm/login/{bmLogin}"},
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find userbm by login",
@@ -101,6 +112,8 @@ public interface UserBMApi {
             @ApiParam(name = "bmLogin", type = "String", value = "The login of the user researched enterred during registration",
                     example = "login", required = true)
             @NotNull @NotEmpty @NotBlank @PathVariable("bmLogin") String bmLogin);// throws BMException;
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @GetMapping(value = APP_ROOT+"/userbm/cni/{bmCni}",
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -116,6 +129,8 @@ public interface UserBMApi {
                     example = "107235260", required = true)
             @NotNull @NotEmpty @NotBlank @PathVariable("bmCni") String bmCni);// throws BMException;
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     @GetMapping(value = APP_ROOT+"/userbm/email/{bmEmail}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find userbm by email address",
@@ -129,6 +144,8 @@ public interface UserBMApi {
             @ApiParam(name = "bmEmail", type = "String", value = "The email of the user researched enterred during registration",
                     example = "test_@gmail.com", required = true)
             @NotNull @NotEmpty @NotBlank @PathVariable("bmEmail") String bmEmail);// throws BMException;
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @GetMapping(value = APP_ROOT+"/userbm/fullname/{bmName}/{bmSurname}/{bmDob}",
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -150,6 +167,8 @@ public interface UserBMApi {
                     example = "1989-05-15", required = true)
             @NotNull @PastOrPresent @PathVariable("bmDob") Date bmDob);// throws BMException;
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     @GetMapping(value = APP_ROOT+"/userbm/id/{bmId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -163,6 +182,8 @@ public interface UserBMApi {
     ResponseEntity<UserBMDto> findUserBMById(
             @ApiParam(name = "bmId", type = "Long", value = "The id of the UserBM researched", example = "1" , required = true)
             @NotNull @PathVariable("bmId") Long bmId);// throws BMException;
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @GetMapping(value = APP_ROOT+"/userbm/type/{bmUsertype}",
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -178,6 +199,8 @@ public interface UserBMApi {
                     allowableValues = "AdminEnterprise;AdminBM; Employe", required = true, example = "AdminBM")
             @NotNull @PathVariable("bmUsertype") UserBMType bmUsertype);// throws BMException;
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     @GetMapping(value = APP_ROOT+"/userbm/all",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find all userbm registered",
@@ -188,6 +211,8 @@ public interface UserBMApi {
                     " or empty list")
     })
     ResponseEntity<List<UserBMDto>> findAllUserBM();// throws BMException;
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @GetMapping(value = APP_ROOT+"/userbm/pos/{posId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -202,6 +227,8 @@ public interface UserBMApi {
             @ApiParam(name = "idPos", type = "Long", value="The id of the pointofsale that Users are researched",
                     example = "1", required = true)
             @NotNull @PathVariable("posId") Long posId);// throws BMException;
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @GetMapping(value = {APP_ROOT+"/userbm/page/pos/{posId}", APP_ROOT+"/userbm/page/pos/{posId}/{sample}/{pagenum}/{pagesize}"},
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -221,6 +248,8 @@ public interface UserBMApi {
             @PathVariable(name = "pagesize", required = false) Optional<Integer> optpagesize);
             //throws BMException;
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     @GetMapping(value = {APP_ROOT+"/userbm/page",
             APP_ROOT+"/userbm/page/{sample}", APP_ROOT+"/userbm/page/{sample}/{pagenum}/{pagesize}" },
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -236,6 +265,8 @@ public interface UserBMApi {
             @PathVariable(name = "pagenum", required = false) Optional<Integer> optpagenum,
             @PathVariable(name = "pagesize", required = false) Optional<Integer> optpagesize);// throws BMException;
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     @DeleteMapping(value = APP_ROOT+"/userbm/delete/login/{bmLogin}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Delete a userbm in DB by login",
@@ -248,6 +279,8 @@ public interface UserBMApi {
                     example = "login", required = true)
             @NotNull @NotEmpty @NotBlank @PathVariable("bmLogin") String bmLogin);// throws BMException;
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     @DeleteMapping(value = APP_ROOT+"/userbm/delete/cni/{bmCni}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Delete a userbm in DB by cni number",
@@ -259,6 +292,8 @@ public interface UserBMApi {
             @ApiParam(name = "bmCni", type = "String", value = "The cni number of the user researched enterred during registration",
                     example = "107235260", required = true)
             @NotNull @NotEmpty @NotBlank @PathVariable("bmCni") String bmCni);// throws BMException;
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @DeleteMapping(value = APP_ROOT+"/userbm/delete/fullname/{bmName}/{bmSurname}/{bmDob}",
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -278,6 +313,8 @@ public interface UserBMApi {
                     example = "1989-05-15", required = true)
             @NotNull @PastOrPresent @PathVariable("bmDob") Date bmDob);// throws BMException;
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     @DeleteMapping(value = APP_ROOT+"/userbm/delete/id/{bmId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Delete a userbm in DB by id",
@@ -289,6 +326,8 @@ public interface UserBMApi {
             @ApiParam(name = "bmId", type = "Long", value = "The id of the UserBM researched", example = "1",
                     required = true)
             @NotNull @PathVariable("bmId") Long bmId);// throws BMException;
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 

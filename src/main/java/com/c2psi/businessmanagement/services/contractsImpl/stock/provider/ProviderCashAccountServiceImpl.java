@@ -233,6 +233,105 @@ public class ProviderCashAccountServiceImpl implements ProviderCashAccountServic
     }
 
     @Override
+    public Boolean saveCashOperation(ProviderCashOperationDto providerCashOperationDto) {
+        Long pcaId = providerCashOperationDto.getPcoProCashAccountDto().getId();
+        BigDecimal amount = providerCashOperationDto.getPcoAmountinmvt();
+        Long userbmId = providerCashOperationDto.getPcoUserbmDto().getId();
+        OperationType operationType = providerCashOperationDto.getPcoOperationDto().getOpType();
+        String opDescription = providerCashOperationDto.getPcoOperationDto().getOpDescription();
+        String opObject = providerCashOperationDto.getPcoOperationDto().getOpObject();
+        /***************************************************************************************
+         * Il faut se rassurer que les parametres sensible de l'operation ne sont pas null
+         */
+        if(pcaId == null || amount == null || userbmId == null || operationType == null){
+            log.error("pcaId, amount or even userbmId is null ");
+            throw new NullArgumentException("Appel de la methode saveCashDeposit avec des parametres null");
+        }
+        /******************************************************************************
+         * On verifie que la valeur ou le montant en jeu est strictement superieur a 0
+         */
+        if(amount.compareTo(BigDecimal.valueOf(0)) <= 0){
+            log.error("The amount cannot be negative value");
+            throw new InvalidValueException("La valeur du montant ne saurait etre negative");
+        }
+
+        /******************************************************************************************
+         * On se rassure que le type d'operation precise est soit le retrait soit le depot car
+         * ce sont les seuls operations possible sur un compte cash
+         */
+        if(!operationType.equals(OperationType.Credit) && !operationType.equals(OperationType.Withdrawal)){
+            log.error("The operationType is not recognized for this operation");
+            throw new InvalidValueException("Le type d'operation precise n'est pas valide dans cette fonction ");
+        }
+
+        /***********************************************************
+         * On doit recuperer le UserBM qui effectue l'operation ou
+         * lancer une exception sil n'existe pas
+         */
+        Optional<UserBM> optionalUserBM = userBMRepository.findUserBMById(userbmId);
+        if(!optionalUserBM.isPresent()){
+            log.error("There is no UserBM in DB with the id pass as argument");
+            throw new EntityNotFoundException("Aucun userBM n'existe avec l'id envoye ", ErrorCode.USERBM_NOT_FOUND);
+        }
+        UserBM userAssociate = optionalUserBM.get();
+
+        /**********************************************************
+         * On recupere le compte qui sera affecte par l'operation
+         */
+        Optional<ProviderCashAccount> optionalProviderCashAccount =
+                providerCashAccountRepository.findProviderCashAccountById(pcaId);
+        if(!optionalProviderCashAccount.isPresent()){
+            log.error("There is no providercashAccount in DB that match with the id passed");
+            throw new EntityNotFoundException("Aucun compte cash provider n'existe avec l'id passe en argument ",
+                    ErrorCode.PROVIDERCASHACCOUNT_NOT_FOUND);
+        }
+        ProviderCashAccount providerCashAccount = optionalProviderCashAccount.get();
+        BigDecimal solde = providerCashAccount.getPcaBalance();
+        BigDecimal updatedSolde = BigDecimal.valueOf(0.0);
+
+        /*******************************************************************
+         * On calcule le nouveau solde du compte en fonction de l'operation
+         */
+        if(operationType.equals(OperationType.Credit)){
+            updatedSolde = solde.add(amount);//Car BigDecimal est immutable on peut pas directement modifier sa valeur
+        }
+        else if(operationType.equals(OperationType.Withdrawal)){
+            if(solde.compareTo(amount)<0){
+                //Cela veut dire le solde est insuffisant
+                log.error("The account balance is insufficient for the operation asked");
+                throw new InvalidValueException("Le solde du compte est insuffisant pour retirer le montant demamdee ");
+            }
+            updatedSolde = solde.subtract(amount);
+        }
+
+        /***********************
+         * Il faut donc effectuer la mise a jour effective du compte
+         */
+        providerCashAccount.setPcaBalance(updatedSolde);
+        //Il faut save le PosCashAccount
+        providerCashAccountRepository.save(providerCashAccount);
+
+        /*****************************
+         * Il faut maintenant enregistrer l'operation ainsi realise
+         */
+        ProviderCashOperation pco = new ProviderCashOperation();
+        pco.setPcoAmountinmvt(amount);
+        pco.setPcoUserbm(userAssociate);
+        pco.setPcoProCashAccount(providerCashAccount);
+
+        Operation op = new Operation();
+        op.setOpDate(new Date().toInstant());
+        op.setOpDescription(opDescription);
+        op.setOpObject(opObject);
+        op.setOpType(operationType);
+        pco.setPcoOperation(op);
+        //Il faut save le ProviderCashOperation
+        providerCashOperationRepository.save(pco);
+
+        return true;
+    }
+
+    @Override
     public ProviderCashAccountDto saveProviderCashAccount(ProviderCashAccountDto pcaDto) {
         List<String> errors = ProviderCashAccountValidator.validate(pcaDto);
         if(!errors.isEmpty()){

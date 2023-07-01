@@ -117,12 +117,9 @@ public interface ProviderDamageAccountApi {
             @ApiResponse(code=400, message="The operation is not valid during the saving process")
     })
     ResponseEntity saveDamageOperation(
-            @ApiParam(name = "prodamaccDto", type = "ProviderDamageAccountDto", required = true,
-                    value="The JSON object that represent the ProviderDamageAccountDto to save")
-            @Valid @RequestBody ProviderDamageAccountDto prodamaccDto, BindingResult bindingResult1,
             @ApiParam(name = "prodamopDto", type = "ProviderDamageOperationDto", required = true,
                     value="The JSON object that represent the ProviderDamageOperationDto to save")
-            @Valid @RequestBody ProviderDamageOperationDto prodamopDto, BindingResult bindingResult2);
+            @Valid @RequestBody ProviderDamageOperationDto prodamopDto, BindingResult bindingResult);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

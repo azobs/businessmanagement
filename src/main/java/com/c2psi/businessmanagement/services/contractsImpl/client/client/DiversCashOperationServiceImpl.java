@@ -179,16 +179,16 @@ public class DiversCashOperationServiceImpl implements DiversCashOperationServic
     }
 
     @Override
-    public List<DiversCashOperationDto> findAllDiversCashOperationBetween(Long dcaopId, Instant startDate,
-                                                                          Instant endDate, OperationType opType) {
+    public List<DiversCashOperationDto> findAllDiversCashOperationofTypeBetween(Long dcaopId, OperationType opType,
+                                                                                Instant startDate, Instant endDate) {
         List<DiversCashOperation> diversCashOperationListBetween =
                 diversCashOperationRepository.findAllDiversCashOperationOfTypeBetween(dcaopId, opType, startDate, endDate);
         return diversCashOperationListBetween.stream().map(DiversCashOperationDto::fromEntity).collect(Collectors.toList());
     }
 
     @Override
-    public Page<DiversCashOperationDto> findPageDiversCashOperationBetween(Long dcaopId, Instant startDate,
-                                                                           Instant endDate, OperationType opType,
+    public Page<DiversCashOperationDto> findPageDiversCashOperationofTypeBetween(Long dcaopId, OperationType opType,
+                                                                           Instant startDate, Instant endDate,
                                                                            int pagenum, int pagesize) {
         Page<DiversCashOperation> diversCashOperationPageBetween =
                 diversCashOperationRepository.findPageDiversCashOperationOfTypeBetween(dcaopId, opType, startDate,

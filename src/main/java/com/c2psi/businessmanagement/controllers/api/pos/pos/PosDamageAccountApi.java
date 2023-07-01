@@ -162,12 +162,9 @@ public interface PosDamageAccountApi {
             @ApiResponse(code=400, message="Object PosDamageOperation is not valid during the saving process")
     })
     ResponseEntity saveDamageOperation(
-            @ApiParam(name = "posdamaccDto", type = "PosDamageAccountDto", required = true,
-                    value="The JSON object that represent the PosDamageAccountDto to save")
-            @Valid @RequestBody PosDamageAccountDto posdamaccDto, BindingResult bindingResult1,
             @ApiParam(name = "posdamopDto", type = "PosDamageOperationDto", required = true,
                     value="The JSON object that represent the PosDamageOperationDto to save")
-            @Valid @RequestBody PosDamageOperationDto posdamopDto, BindingResult bindingResult2);
+            @Valid @RequestBody PosDamageOperationDto posdamopDto, BindingResult bindingResult);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

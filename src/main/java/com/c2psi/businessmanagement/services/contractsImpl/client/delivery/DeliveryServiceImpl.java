@@ -242,6 +242,11 @@ public class DeliveryServiceImpl implements DeliveryService {
     }
 
     @Override
+    public DeliveryDto switchDeliveryState(DeliveryDto deliveryDto) {
+        return null;
+    }
+
+    @Override
     public DeliveryDto findDeliveryById(Long deliveryId) {
         if(deliveryId == null){
             log.error("The deliveryId can't be null");

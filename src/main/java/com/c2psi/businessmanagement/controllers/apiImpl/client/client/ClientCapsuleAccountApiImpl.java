@@ -125,37 +125,24 @@ public class ClientCapsuleAccountApiImpl implements ClientCapsuleAccountApi {
     }
 
     @Override
-    public ResponseEntity saveCapsuleOperation(ClientCapsuleAccountDto cltcapaccDto, BindingResult bindingResult1,
-                                               ClientCapsuleOperationDto cltcapopDto, BindingResult bindingResult2) {
+    public ResponseEntity saveCapsuleOperation(ClientCapsuleOperationDto cltcapopDto, BindingResult bindingResult) {
 
         Map<String, Object> map = new LinkedHashMap<>();
-        if (bindingResult1.hasErrors()) {
+
+        if (bindingResult.hasErrors()) {
             log.info("Error during the pre-validation of the model passed in argument {} " +
-                    "and the report errors are {}", cltcapaccDto, bindingResult1);
+                    "and the report errors are {}", cltcapopDto, bindingResult);
             //return ResponseEntity.badRequest().body(bindingResult.toString());
             map.clear();
             map.put("status", HttpStatus.BAD_REQUEST);
             map.put("message", "Some data are not validated");
-            map.put("data", bindingResult1);
+            map.put("data", bindingResult);
             map.put("cause", "Erreur de validation des donnees dans la requete envoyee");
             //return ResponseEntity.ok(map);
             return ResponseEntity.badRequest().body(map);
         }
 
-        if (bindingResult2.hasErrors()) {
-            log.info("Error during the pre-validation of the model passed in argument {} " +
-                    "and the report errors are {}", cltcapopDto, bindingResult2);
-            //return ResponseEntity.badRequest().body(bindingResult.toString());
-            map.clear();
-            map.put("status", HttpStatus.BAD_REQUEST);
-            map.put("message", "Some data are not validated");
-            map.put("data", bindingResult2);
-            map.put("cause", "Erreur de validation des donnees dans la requete envoyee");
-            //return ResponseEntity.ok(map);
-            return ResponseEntity.badRequest().body(map);
-        }
-
-        Boolean opSaved = clientCapsuleAccountService.saveCapsuleOperation(cltcapaccDto, cltcapopDto);
+        Boolean opSaved = clientCapsuleAccountService.saveCapsuleOperation(cltcapopDto);
         log.info("The method saveCapsuleOperation is being executed");
         map.clear();
         map.put("status", HttpStatus.CREATED);

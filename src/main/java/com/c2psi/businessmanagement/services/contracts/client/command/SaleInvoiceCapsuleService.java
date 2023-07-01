@@ -34,12 +34,12 @@ public interface SaleInvoiceCapsuleService {
 
     //Faire la liste des SaleInvoiceCapsule dans un Pos dans un intervalle de temps puis page par page
     List<SaleInvoiceCapsuleDto> findAllSaleiCapsuleinPosBetween(Long posId, Instant startDate, Instant endDate);
-    Page<SaleInvoiceCapsuleDto> findAllSaleiCapsuleinPosBetween(Long posId, Instant startDate, Instant endDate,
+    Page<SaleInvoiceCapsuleDto> findPageSaleiCapsuleinPosBetween(Long posId, Instant startDate, Instant endDate,
                                                                 int pagenum, int pagesize);
     //Faire la liste des SaleInvoiceCapsule d'un userBM dans un Pos dans un intervalle de temps puis page par page
     List<SaleInvoiceCapsuleDto> findAllSaleiCapsuleofUserbminPosBetween(Long userbmId, Long posId, Instant startDate,
                                                                         Instant endDate);
-    Page<SaleInvoiceCapsuleDto> findAllSaleiCapsuleofUserbminPosBetween(Long userbmId, Long posId, Instant startDate,
+    Page<SaleInvoiceCapsuleDto> findPageSaleiCapsuleofUserbminPosBetween(Long userbmId, Long posId, Instant startDate,
                                                                         Instant endDate, int pagenum, int pagesize);
 
     //Faire la liste des SaleInvoiceCapsule d'un client dans un Pos dans un intervalle de temps puis page par page

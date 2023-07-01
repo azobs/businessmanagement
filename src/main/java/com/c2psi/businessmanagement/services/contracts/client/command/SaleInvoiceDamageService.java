@@ -34,12 +34,12 @@ public interface SaleInvoiceDamageService {
 
     //Faire la liste des SaleInvoiceDamage dans un Pos dans un intervalle de temps puis page par page
     List<SaleInvoiceDamageDto> findAllSaleiDamageinPosBetween(Long posId, Instant startDate, Instant endDate);
-    Page<SaleInvoiceDamageDto> findAllSaleiDamageinPosBetween(Long posId, Instant startDate, Instant endDate,
+    Page<SaleInvoiceDamageDto> findPageSaleiDamageinPosBetween(Long posId, Instant startDate, Instant endDate,
                                                                 int pagenum, int pagesize);
     //Faire la liste des SaleInvoiceDamage d'un userBM dans un Pos dans un intervalle de temps puis page par page
     List<SaleInvoiceDamageDto> findAllSaleiDamageofUserbminPosBetween(Long userbmId, Long posId, Instant startDate,
                                                                         Instant endDate);
-    Page<SaleInvoiceDamageDto> findAllSaleiDamageofUserbminPosBetween(Long userbmId, Long posId, Instant startDate,
+    Page<SaleInvoiceDamageDto> findPageSaleiDamageofUserbminPosBetween(Long userbmId, Long posId, Instant startDate,
                                                                         Instant endDate, int pagenum, int pagesize);
 
     //Faire la liste des SaleInvoiceDamage d'un client dans un Pos dans un intervalle de temps puis page par page

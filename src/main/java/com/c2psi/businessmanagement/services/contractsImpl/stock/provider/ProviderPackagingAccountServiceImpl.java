@@ -415,6 +415,99 @@ public class ProviderPackagingAccountServiceImpl implements ProviderPackagingAcc
         return true;
     }
 
+    @Override
+    public Boolean savePackagingOperationforProvider(ProviderPackagingOperationDto providerPackagingOperationDto) {
+        Long propackaccId = providerPackagingOperationDto.getPropoProPackagingAccountDto().getId();
+        BigDecimal qte = providerPackagingOperationDto.getPropoNumberinmvt();
+        Long userbmId = providerPackagingOperationDto.getPropoUserbmDto().getId();
+        OperationType operationType = providerPackagingOperationDto.getPropoOperationDto().getOpType();
+        String opDescription = providerPackagingOperationDto.getPropoOperationDto().getOpDescription();
+        String opObject = providerPackagingOperationDto.getPropoOperationDto().getOpObject();
+        /******************************************************************
+         * Se rassurer que les donnees dans la fonction ne sont pas null
+         */
+        if(propackaccId == null || qte == null || userbmId == null || operationType == null){
+            log.error("propackaccId, qte or even userbmId is null ");
+            throw new NullArgumentException("Appel de la methode savePackagingOperationforProvider avec des parametres null");
+        }
+
+        /*************************************************************************************
+         * Se rassurer que la quantite de packaging dans l'operation est strictement positive
+         */
+        if(qte.compareTo(BigDecimal.valueOf(0)) <= 0){
+            log.error("The qte cannot be negative value");
+            throw new InvalidValueException("La quantite dans l'operation ne saurait etre negative");
+        }
+
+        /******************************************************************************************
+         * On va essayer de recuperer le userbm qui est associe a cette operation
+         */
+        Optional<UserBM> optionalUserBM = userBMRepository.findUserBMById(userbmId);
+        if(!optionalUserBM.isPresent()){
+            log.error("There is no userbm associated with the id {} precised in argument ", userbmId);
+            throw new EntityNotFoundException("Aucun userbm n'existe avec le id precise ", ErrorCode.USERBM_NOT_FOUND);
+        }
+
+        /***************************************************************************************
+         * Se rassurer que le type d'operation souhaite est soit un credit soit un debit
+         */
+        if(!operationType.equals(OperationType.Credit) && !operationType.equals(OperationType.Withdrawal)){
+            log.error("The operationType is not recognized for this operation");
+            throw new InvalidValueException("Le type d'operation precise n'est pas valide dans cette fonction ");
+        }
+
+        /*************************************************************************************
+         * On essaye donc de recuperer d'abord le compte dans lequel l'operation sera realise
+         */
+        if(!this.isProviderPackagingAccountExistWithId(propackaccId)){
+            log.error("The propackaccId {} does not identify any account ", propackaccId);
+            throw  new EntityNotFoundException("Aucun ProviderPackagingAccount n'existe avec le ID precise "+propackaccId,
+                    ErrorCode.PROVIDERPACKAGINGACCOUNT_NOT_FOUND);
+        }
+        Optional<ProviderPackagingAccount> optionalProviderPackagingAccount = providerPackagingAccountRepository.
+                findProviderPackagingAccountById(propackaccId);
+        //A ce niveau on na pas besoin de regarder si isPresent est true car on est sur que ca existe
+        ProviderPackagingAccount providerPackagingAccountToUpdate = optionalProviderPackagingAccount.get();
+
+        BigDecimal solde = providerPackagingAccountToUpdate.getPpaNumber();
+        BigDecimal updatedSolde = BigDecimal.valueOf(0.0);
+
+        /***
+         * On doit ici enregistrer un depot dans un compte packaging d'un provider. Pour cela il
+         * faut ajouter la qte de la transaction au solde du compte et ensuite enregistrer l'operation ainsi
+         * realise
+         */
+        if(operationType.equals(OperationType.Credit)){
+            updatedSolde = solde.add(qte);//Car BigDecimal est immutable on peut pas directement modifier sa valeur
+        }
+        else if(operationType.equals(OperationType.Withdrawal)){
+            if(solde.compareTo(qte) < 0){
+                log.error("Insufficient balance");
+                throw new InvalidValueException("Solde insuffisant "+solde);
+            }
+            updatedSolde = solde.subtract(qte);
+        }
+        providerPackagingAccountToUpdate.setPpaNumber(updatedSolde);
+
+        providerPackagingAccountRepository.save(providerPackagingAccountToUpdate);
+
+        ProviderPackagingOperation propackop = new ProviderPackagingOperation();
+        propackop.setPropoNumberinmvt(qte);
+        propackop.setPropoUserbm(optionalUserBM.get());
+        propackop.setPropoProPackagingAccount(providerPackagingAccountToUpdate);
+
+        Operation op = new Operation();
+        op.setOpDate(new Date().toInstant());
+        op.setOpDescription(opDescription);
+        op.setOpObject(opObject);
+        op.setOpType(operationType);
+        propackop.setPropoOperation(op);
+        //Il faut save le ProviderPackagingOperation
+        providerPackagingOperationRepository.save(propackop);
+
+        return true;
+    }
+
     public Boolean isProviderPackagingAccountExistWithId(Long propackId){
         if(propackId == null){
             log.error("propackId is null");

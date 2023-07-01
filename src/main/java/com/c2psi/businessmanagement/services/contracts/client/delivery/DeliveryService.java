@@ -11,6 +11,7 @@ public interface DeliveryService {
     DeliveryDto saveDelivery(DeliveryDto deliveryDto);
     DeliveryDto updateDelivery(DeliveryDto deliveryDto);
     DeliveryDto switchDeliveryState(Long deliveryId, DeliveryState deliveryState);
+    DeliveryDto switchDeliveryState(DeliveryDto deliveryDto);
     DeliveryDto findDeliveryById(Long deliveryId);
     DeliveryDto findDeliveryByCodeinPos(String deliveryCode, Long posId);
     Boolean deleteDeliveryById(Long deliveryId);

@@ -107,7 +107,7 @@ public interface ProviderCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/procapsuleaccount/create",
+    @PostMapping(value = APP_ROOT+"/procapsuleaccount/operation/create",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveCapsuleOperation",
@@ -118,12 +118,9 @@ public interface ProviderCapsuleAccountApi {
             @ApiResponse(code=400, message="The operation is not valid during the saving process")
     })
     ResponseEntity saveCapsuleOperation(
-            @ApiParam(name = "procapaccDto", type = "ProviderCapsuleAccountDto", required = true,
-                    value="The JSON object that represent the ProviderCapsuleAccountDto to save")
-            @Valid @RequestBody ProviderCapsuleAccountDto procapaccDto, BindingResult bindingResult1,
             @ApiParam(name = "procapopDto", type = "ProviderCapsuleOperationDto", required = true,
                     value="The JSON object that represent the ProviderCapsuleOperationDto to save")
-            @Valid @RequestBody ProviderCapsuleOperationDto procapopDto, BindingResult bindingResult2);
+            @Valid @RequestBody ProviderCapsuleOperationDto procapopDto, BindingResult bindingResult);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -403,7 +403,7 @@ public class SaleInvoiceCapsuleServiceImpl implements SaleInvoiceCapsuleService 
     }
 
     @Override
-    public Page<SaleInvoiceCapsuleDto> findAllSaleiCapsuleinPosBetween(Long posId, Instant startDate, Instant endDate, int pagenum, int pagesize) {
+    public Page<SaleInvoiceCapsuleDto> findPageSaleiCapsuleinPosBetween(Long posId, Instant startDate, Instant endDate, int pagenum, int pagesize) {
         if(posId == null){
             log.error("The id precised for the pos is null");
             throw new NullArgumentException("L'argument precise dans la requete est null");
@@ -432,7 +432,7 @@ public class SaleInvoiceCapsuleServiceImpl implements SaleInvoiceCapsuleService 
     }
 
     @Override
-    public Page<SaleInvoiceCapsuleDto> findAllSaleiCapsuleofUserbminPosBetween(Long userbmId, Long posId, Instant startDate,
+    public Page<SaleInvoiceCapsuleDto> findPageSaleiCapsuleofUserbminPosBetween(Long userbmId, Long posId, Instant startDate,
                                                                          Instant endDate, int pagenum, int pagesize) {
         if(userbmId == null){
             log.error("The id precised for the userbm is null");

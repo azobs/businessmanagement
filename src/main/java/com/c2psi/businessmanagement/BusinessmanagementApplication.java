@@ -1,10 +1,16 @@
 package com.c2psi.businessmanagement;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import javax.annotation.PostConstruct;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.TimeZone;
 
 @SpringBootApplication
@@ -17,7 +23,34 @@ import java.util.TimeZone;
  *  @CreatedBy
  *  @LastModifiedBy
  */
+@Slf4j
 public class BusinessmanagementApplication {
+
+    @Value("${dir.images.articles}")
+    public String photosArticleDir;
+
+    @Value("${dir.images.persons}")
+    public String photosPersonsDir;
+
+    @PostConstruct
+    void init(){
+        try {
+            log.info("Creation or verification folder for upload {}",photosPersonsDir);
+
+            /*Path currentRelativePath = Paths.get("");
+            String userDirectory = System.getProperty("user.dir");
+            String s = currentRelativePath.toAbsolutePath().toString();
+            log.info("Current absolute path is: {} et {}", s, userDirectory);*/
+
+            Files.createDirectories(Paths.get(photosArticleDir));
+            Files.createDirectories(Paths.get(photosPersonsDir));
+            BMGlobalArguments.photosArticleDir = photosArticleDir;
+            BMGlobalArguments.photosPersonsDir = photosPersonsDir;
+            log.info("GlobalValues.photosPersonsDir  {}", photosPersonsDir);
+        } catch (IOException e) {
+            throw new RuntimeException("Could not initialize folder for upload!");
+        }
+    }
 
     @PostConstruct
     void started() {

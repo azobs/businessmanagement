@@ -9,13 +9,14 @@ import java.math.BigDecimal;
 public interface DiversCashAccountService {
     Boolean saveCashOperation(Long dcaId, BigDecimal amount, OperationType operationType, Long userbmId,
                               String opObject, String opDescription);
-    //Boolean saveDamageOperation(PosDamageAccountDto poscapaccDto, PosDamageOperationDto poscapopDto);
+    //Boolean saveDamageOperation(DiversCashAccountDto diverscashaccDto, DiversCashOperationDto poscapopDto);
     Boolean saveCashOperation(DiversCashAccountDto diversCashAccountDto, DiversCashOperationDto diversCashOperationDto);
+    Boolean saveCashOperation(DiversCashOperationDto diversCashOperationDto);
 
     DiversCashAccountDto saveDiversCashAccount(DiversCashAccountDto dcaDto);
 
     Boolean deleteDiversCashAccountById(Long dcaId);
     Boolean isDiversCashAccountDeleteable(Long dcaId);
     DiversCashAccountDto findDiversCashAccountById(Long dcaId);
-    DiversCashAccountDto findDiversCashAccountIfExistOrCreate();
+    DiversCashAccountDto findDiversCashAccountofPosIfExistOrCreate(Long posId);
 }

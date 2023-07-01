@@ -575,14 +575,14 @@ public interface CommandRepository extends JpaRepository<Command, Long> {
     @Query("SELECT cmd FROM Command cmd WHERE cmd.commandPosId=:posId AND cmd.cmdUserbm.id=:userbmId AND cmd.cmdStatus=:cmdStatus AND (cmd.cmdDate>=:startDate AND cmd.cmdDate<=:endDate) ORDER BY cmd.cmdDate ASC, cmd.cmdCode ASC")
     Optional<List<Command>> findAllCommandinPosofUserbmAndcmdStatusBetween(@Param("posId") Long posId,
                                                                           @Param("userbmId") Long userbmId,
-                                                                          @Param("cmdStatus") CommandState cmdStatus,
+                                                                          @Param("cmdStatus") CommandStatus cmdStatus,
                                                                           @Param("startDate") Instant startDate,
                                                                           @Param("endDate") Instant endDate);//K
 
     @Query("SELECT cmd FROM Command cmd WHERE cmd.commandPosId=:posId AND cmd.cmdUserbm.id=:userbmId AND cmd.cmdStatus=:cmdStatus AND (cmd.cmdDate>=:startDate AND cmd.cmdDate<=:endDate) ORDER BY cmd.cmdDate ASC, cmd.cmdCode ASC")
     Optional<Page<Command>> findPageCommandinPosofUserbmAndcmdStatusBetween(@Param("posId") Long posId,
                                                                             @Param("userbmId") Long userbmId,
-                                                                            @Param("cmdStatus") CommandState cmdStatus,
+                                                                            @Param("cmdStatus") CommandStatus cmdStatus,
                                                                             @Param("startDate") Instant startDate,
                                                                             @Param("endDate") Instant endDate,
                                                                             Pageable pageable);//K

@@ -159,7 +159,7 @@ public class PosCashAccountServiceImplTest {
             );
             assertEquals(3, posCashOperationDtoPage.getTotalPages());
 
-            List<PosCashOperationDto> posCashOperationCreditDtoList = posCashOperationService.findAllPosCashOperationBetween(
+            List<PosCashOperationDto> posCashOperationCreditDtoList = posCashOperationService.findAllPosCashOperationofTypeBetween(
                     posCashAccountDtoFound.getId(), OperationType.Credit, startDate.toInstant(), endDate.toInstant()
             );
             assertNotNull(posCashOperationCreditDtoList);
@@ -176,19 +176,19 @@ public class PosCashAccountServiceImplTest {
             assertNotNull(posCashOperationDtoUpdated);
             assertTrue(BigDecimal.valueOf(15).compareTo(posCashOperationDtoUpdated.getPoscoAmountinmvt())==0);
 
-            Page<PosCashOperationDto> posCashOperationCreditDtoPage = posCashOperationService.findPagePosCashOperationBetween(
+            Page<PosCashOperationDto> posCashOperationCreditDtoPage = posCashOperationService.findPagePosCashOperationofTypeBetween(
                     posCashAccountDtoFound.getId(), OperationType.Credit, startDate.toInstant(), endDate.toInstant(), 0, 2
             );
             assertNotNull(posCashOperationCreditDtoPage);
             assertEquals(1, posCashOperationCreditDtoPage.getTotalPages());
 
-            List<PosCashOperationDto> posCashOperationDebitDtoList = posCashOperationService.findAllPosCashOperationBetween(
+            List<PosCashOperationDto> posCashOperationDebitDtoList = posCashOperationService.findAllPosCashOperationofTypeBetween(
                     posCashAccountDtoFound.getId(), OperationType.Withdrawal, startDate.toInstant(), endDate.toInstant()
             );
             assertNotNull(posCashOperationDebitDtoList);
             assertEquals(1, posCashOperationDebitDtoList.size());
 
-            Page<PosCashOperationDto> posCashOperationDebitDtoPage = posCashOperationService.findPagePosCashOperationBetween(
+            Page<PosCashOperationDto> posCashOperationDebitDtoPage = posCashOperationService.findPagePosCashOperationofTypeBetween(
                     posCashAccountDtoFound.getId(), OperationType.Withdrawal, startDate.toInstant(), endDate.toInstant(), 0, 2
             );
             assertNotNull(posCashOperationDebitDtoPage);

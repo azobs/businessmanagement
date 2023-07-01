@@ -24,6 +24,7 @@ public interface PosCashAccountService {
                                Long userbmId, String opObject, String opDescription);
     //Boolean saveCapsuleOperation(PosCapsuleAccountDto poscapaccDto, PosCapsuleOperationDto poscapopDto);
     Boolean saveCashOperation(PosCashAccountDto posCashAccountDto, PosCashOperationDto posCashOperationDto);
+    Boolean saveCashOperation(PosCashOperationDto posCashOperationDto);
     Boolean isPosCashAccountDeleteable(Long id);
     Boolean deletePosCashAccountById(Long id);
 

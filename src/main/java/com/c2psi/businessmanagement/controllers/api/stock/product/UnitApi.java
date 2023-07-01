@@ -184,10 +184,10 @@ public interface UnitApi {
                     value="The quantity to convert", example = "1")
             @NotNull @PathVariable("quantity") BigDecimal quantity,
             @ApiParam(name = "from", type = "Long", required = true,
-                    value="The id of the unit source")
+                    value="The id of the unit source", example = "1")
             @NotNull @PathVariable("from") Long from,
             @ApiParam(name = "to", type = "Long", required = true,
-                    value="The id of the unit destination")
+                    value="The id of the unit destination", example = "1")
             @NotNull @PathVariable("to") Long to);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

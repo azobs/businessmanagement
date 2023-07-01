@@ -1,6 +1,5 @@
 package com.c2psi.businessmanagement.controllers.api.stock.product;
 
-import com.c2psi.businessmanagement.dtos.stock.price.BasePriceDto;
 import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
 import io.swagger.annotations.*;
 import org.springframework.http.MediaType;
@@ -38,6 +37,23 @@ public interface ArticleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @GetMapping(value = APP_ROOT+"/article/all/pos/creationDate/{posId}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "findAllArticleofPos", notes = "Search all articles in a pointofsale order by creation date",
+            responseContainer = "List<ArticleDto>")
+    @ApiResponses(value={
+            @ApiResponse(code=200, message="The list of article of pointofsale found successfully"),
+            @ApiResponse(code=404, message="Error faced during the finding process")
+    })
+    ResponseEntity findAllArticleofPosOrderByCreationDate(
+            @ApiParam(name = "posId", type = "Long", required = true,
+                    value="Id of the concerned pointofsale", example = "1")
+            @NotNull @PathVariable("posId") Long posId);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     @GetMapping(value = APP_ROOT+"/article/page/pos/{posId}/{pagenum}/{pagesize}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageArticleofPos", notes = "Search all articles in a pointofsale page by page",
@@ -47,6 +63,23 @@ public interface ArticleApi {
             @ApiResponse(code=404, message="Error faced during the finding process")
     })
     ResponseEntity findPageArticleofPos(
+            @ApiParam(name = "posId", type = "Long", required = true,
+                    value="Id of the concerned pointofsale", example = "1")
+            @NotNull @PathVariable("posId") Long posId,
+            @PathVariable(name = "pagenum", required = false) Optional<Integer> optpagenum,
+            @PathVariable(name = "pagesize", required = false) Optional<Integer> optpagesize);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @GetMapping(value = APP_ROOT+"/article/page/pos/creationDate/{posId}/{pagenum}/{pagesize}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "findPageArticleofPos", notes = "Search all articles in a pointofsale order by creation date page by page",
+            responseContainer = "Page<ArticleDto>")
+    @ApiResponses(value={
+            @ApiResponse(code=200, message="The page of article of pointofsale found successfully"),
+            @ApiResponse(code=404, message="Error faced during the finding process")
+    })
+    ResponseEntity findPageArticleofPosOrderByCreationDate(
             @ApiParam(name = "posId", type = "Long", required = true,
                     value="Id of the concerned pointofsale", example = "1")
             @NotNull @PathVariable("posId") Long posId,

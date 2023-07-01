@@ -18,6 +18,10 @@ import java.util.List;
 public class DiversCashAccount extends AbstractEntity{
     BigDecimal dcaBalance;
 
+    //Le pointofsale propretaire du compte
+    @Column(unique = true)
+    Long diverscashPosId;
+
     @OneToMany(mappedBy = "diversCa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Divers> diversList;
 }

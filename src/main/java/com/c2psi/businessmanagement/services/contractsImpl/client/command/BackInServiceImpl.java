@@ -281,7 +281,7 @@ public class BackInServiceImpl implements BackInService {
     }
 
     @Override
-    public List<BackInDto> findAllBackIninPosBetween(Long posId, Long userbmId, Instant startDate, Instant endDate) {
+    public List<BackInDto> findAllBackIninPosforUserBMBetween(Long posId, Long userbmId, Instant startDate, Instant endDate) {
         if(posId == null){
             log.error("The posId precised is null");
             throw new NullArgumentException("Le posId precise est null");
@@ -303,7 +303,7 @@ public class BackInServiceImpl implements BackInService {
     }
 
     @Override
-    public Page<BackInDto> findPageBackIninPosBetween(Long posId, Long userbmId, Instant startDate, Instant endDate,
+    public Page<BackInDto> findPageBackIninPosforUserBMBetween(Long posId, Long userbmId, Instant startDate, Instant endDate,
                                                    int pagenum, int pagesize) {
         if(posId == null){
             log.error("The posId precised is null");

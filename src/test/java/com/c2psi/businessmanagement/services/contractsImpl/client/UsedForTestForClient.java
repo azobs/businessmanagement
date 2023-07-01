@@ -278,7 +278,7 @@ public class UsedForTestForClient {
         assertNotNull(diversCashAccountService);
 
         AddressDto diversAddress = usedForTestForAll.getAddressDto(num+554);
-        DiversCashAccountDto diversCashAccountDtoSaved = diversCashAccountService.findDiversCashAccountIfExistOrCreate();
+        DiversCashAccountDto diversCashAccountDtoSaved = diversCashAccountService.findDiversCashAccountofPosIfExistOrCreate(pointofsaleDtoSaved.getId());
         assertNotNull(diversCashAccountDtoSaved);
         DiversDto diversDtoToSave = DiversDto.builder()
                 .diversAddressDto(diversAddress)
@@ -295,7 +295,7 @@ public class UsedForTestForClient {
     public DiversDto saveDivers_Invalid(int num, PointofsaleDto pointofsaleDtoSaved, DiversCashAccountService diversCashAccountService,
                                         DiversService diversService){
         AddressDto diversAddress = usedForTestForAll.getAddressDto(num+554);
-        DiversCashAccountDto diversCashAccountDtoSaved = diversCashAccountService.findDiversCashAccountIfExistOrCreate();
+        DiversCashAccountDto diversCashAccountDtoSaved = diversCashAccountService.findDiversCashAccountofPosIfExistOrCreate(pointofsaleDtoSaved.getId());
         DiversDto diversDtoToSave = DiversDto.builder()
                 .diversAddressDto(diversAddress)
                 .diversCaDto(null)

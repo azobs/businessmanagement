@@ -141,35 +141,22 @@ public class PosPackagingAccountApiImpl implements PosPackagingAccountApi {
     }
 
     @Override
-    public ResponseEntity savePackagingOperation(PosPackagingAccountDto pospackaccDto, BindingResult bindingResult1,
-                                                 PosPackagingOperationDto pospackopDto, BindingResult bindingResult2) {
+    public ResponseEntity savePackagingOperation(PosPackagingOperationDto pospackopDto, BindingResult bindingResult) {
         Map<String, Object> map = new LinkedHashMap<>();
-        if (bindingResult1.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             log.info("Error during the pre-validation of the model passed in argument {} " +
-                    "and the report errors are {}", pospackaccDto, bindingResult1);
+                    "and the report errors are {}", pospackopDto, bindingResult);
             //return ResponseEntity.badRequest().body(bindingResult.toString());
             map.clear();
             map.put("status", HttpStatus.BAD_REQUEST);
             map.put("message", "Some data are not validated");
-            map.put("data", bindingResult1);
-            map.put("cause", "Erreur de validation des donnees dans la requete envoyee");
-            //return ResponseEntity.ok(map);
-            return ResponseEntity.badRequest().body(map);
-        }
-        if (bindingResult2.hasErrors()) {
-            log.info("Error during the pre-validation of the model passed in argument {} " +
-                    "and the report errors are {}", pospackaccDto, bindingResult2);
-            //return ResponseEntity.badRequest().body(bindingResult.toString());
-            map.clear();
-            map.put("status", HttpStatus.BAD_REQUEST);
-            map.put("message", "Some data are not validated");
-            map.put("data", bindingResult2);
+            map.put("data", bindingResult);
             map.put("cause", "Erreur de validation des donnees dans la requete envoyee");
             //return ResponseEntity.ok(map);
             return ResponseEntity.badRequest().body(map);
         }
 
-        Boolean opSaved = posPackagingAccountService.savePackagingOperation(pospackaccDto, pospackopDto);
+        Boolean opSaved = posPackagingAccountService.savePackagingOperation(pospackopDto);
         log.info("The method savePackagingOperation is being executed");
         //return ResponseEntity.ok(opSaved);
         map.clear();

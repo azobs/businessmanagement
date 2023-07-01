@@ -22,6 +22,17 @@ spring:
         jdbc:
           time_zone: UTC
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  servlet:
+    multipart:
+      max-file-size: 75MB
+      max-request-size: 100MB
 server:
   port: 8081
+dir:
+  home: ${user.home}
+  images:
+    articless: ${user.home}/BM/articles
+    personss: ${user.home}/BM/persons
+    articles: ${user.dir}/img/articles
+    persons: ${user.dir}/img/persons
 

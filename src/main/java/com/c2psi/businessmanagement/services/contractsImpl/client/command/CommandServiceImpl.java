@@ -2744,7 +2744,7 @@ public class CommandServiceImpl implements CommandService {
 
     @Override
     public List<CommandDto> findAllCommandinPosofUserbmAndcmdStatusBetween(Long posId, Long userbmId,
-                                                                        CommandState cmdStatus,
+                                                                        CommandStatus cmdStatus,
                                                                         Instant startDate, Instant endDate) {
         /****************************************************************
          * Il faut se rassurer que les arguments envoye ne sont pas null
@@ -2773,7 +2773,7 @@ public class CommandServiceImpl implements CommandService {
 
     @Override
     public Page<CommandDto> findPageCommandinPosofUserbmAndcmdStatusBetween(Long posId, Long userbmId,
-                                                                         CommandState cmdStatus,
+                                                                         CommandStatus cmdStatus,
                                                                          Instant startDate, Instant endDate,
                                                                          int pagenum, int pagesize) {
         /****************************************************************
@@ -3005,7 +3005,7 @@ public class CommandServiceImpl implements CommandService {
     }
 
     @Override
-    public List<CommandDto> findAllCommandinPosofUserbmAndcmdTypeAndcmdStatusBetween(
+    public List<CommandDto> findAllCommandinPosofUserbmAndcmdTypeAndcmdDeliveryStateBetween(
             Long posId, Long userbmId,
             CommandType cmdType, DeliveryState deliveryState,
             Instant startDate, Instant endDate) {
@@ -3040,7 +3040,7 @@ public class CommandServiceImpl implements CommandService {
     }
 
     @Override
-    public Page<CommandDto> findPageCommandinPosofUserbmAndcmdTypeAndcmdStatusBetween(
+    public Page<CommandDto> findPageCommandinPosofUserbmAndcmdTypeAndcmdDeliveryStateBetween(
             Long posId, Long userbmId,
             CommandType cmdType, DeliveryState deliveryState,
             Instant startDate, Instant endDate,
@@ -3436,7 +3436,7 @@ public class CommandServiceImpl implements CommandService {
     }
 
     @Override
-    public Page<CommandDto> findPageCommandinPosofUserbmforClientBetween(Long posId, Long userbmId,
+    public Page<CommandDto> findPageCommandinPosofClientforUserbmBetween(Long posId, Long userbmId,
                                                                       Long clientId,
                                                                       Instant startDate, Instant endDate,
                                                                       int pagenum, int pagesize) {
@@ -3603,7 +3603,7 @@ public class CommandServiceImpl implements CommandService {
     }
 
     @Override
-    public List<CommandDto> findAllCommandinPosofClientAndUserbmAndcmdStateBetween(Long posId, Long clientId,
+    public List<CommandDto> findAllCommandinPosofClientAndUserbmAndcmdStatusBetween(Long posId, Long clientId,
                                                                                 Long userbmId, CommandStatus cmdStatus,
                                                                                 Instant startDate, Instant endDate) {
         /****************************************************************
@@ -3636,7 +3636,7 @@ public class CommandServiceImpl implements CommandService {
     }
 
     @Override
-    public Page<CommandDto> findPageCommandinPosofClientAndUserbmAndcmdStateBetween(Long posId, Long clientId,
+    public Page<CommandDto> findPageCommandinPosofClientAndUserbmAndcmdStatusBetween(Long posId, Long clientId,
                                                                                  Long userbmId, CommandStatus cmdStatus,
                                                                                  Instant startDate, Instant endDate,
                                                                                  int pagenum, int pagesize) {
@@ -3904,7 +3904,7 @@ public class CommandServiceImpl implements CommandService {
     }
 
     @Override
-    public List<CommandDto> findAllCommandinPosofClientAndUserbmAndcmdTypeAndcmdStatusBetween(
+    public List<CommandDto> findAllCommandinPosofClientAndUserbmAndcmdTypeAndcmdDeliveryStateBetween(
             Long posId, Long clientId,
             Long userbmId, CommandType cmdType,
             DeliveryState deliveryState,
@@ -3944,7 +3944,7 @@ public class CommandServiceImpl implements CommandService {
     }
 
     @Override
-    public Page<CommandDto> findPageCommandinPosofClientAndUserbmAndcmdTypeAndcmdStatusBetween(
+    public Page<CommandDto> findPageCommandinPosofClientAndUserbmAndcmdTypeAndcmdDeliveryStateBetween(
             Long posId, Long clientId,
             Long userbmId, CommandType cmdType,
             DeliveryState deliveryState,

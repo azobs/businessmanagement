@@ -149,50 +149,50 @@ public class ClientCashOperationServiceImpl implements ClientCashOperationServic
     }
 
     @Override
-    public List<ClientCashOperationDto> findAllClientCashOperation(Long ccaopId) {
+    public List<ClientCashOperationDto> findAllClientCashOperation(Long ccaId) {
         List<ClientCashOperation> clientCashOperationList = clientCashOperationRepository.
-                findAllClientCashOperation(ccaopId);
+                findAllClientCashOperation(ccaId);
         return clientCashOperationList.stream().map(ClientCashOperationDto::fromEntity).collect(Collectors.toList());
     }
 
     @Override
-    public Page<ClientCashOperationDto> findPageClientCashOperation(Long ccaopId, int pagenum, int pagesize) {
+    public Page<ClientCashOperationDto> findPageClientCashOperation(Long ccaId, int pagenum, int pagesize) {
         Page<ClientCashOperation> clientCashOperationPage = clientCashOperationRepository.
-                findPageClientCashOperation(ccaopId,
+                findPageClientCashOperation(ccaId,
                         PageRequest.of(pagenum, pagesize));
         return clientCashOperationPage.map(ClientCashOperationDto::fromEntity);
     }
 
     @Override
-    public List<ClientCashOperationDto> findAllClientCashOperationBetween(Long ccaopId, Instant startDate, Instant endDate) {
+    public List<ClientCashOperationDto> findAllClientCashOperationBetween(Long ccaId, Instant startDate, Instant endDate) {
         List<ClientCashOperation> clientCashOperationListBetween =
-                clientCashOperationRepository.findAllClientCashOperationBetween(ccaopId, startDate, endDate);
+                clientCashOperationRepository.findAllClientCashOperationBetween(ccaId, startDate, endDate);
         return clientCashOperationListBetween.stream().map(ClientCashOperationDto::fromEntity).collect(Collectors.toList());
     }
 
     @Override
-    public Page<ClientCashOperationDto> findPageClientCashOperationBetween(Long ccaopId, Instant startDate,
+    public Page<ClientCashOperationDto> findPageClientCashOperationBetween(Long ccaId, Instant startDate,
                                                                            Instant endDate, int pagenum, int pagesize) {
         Page<ClientCashOperation> clientCashOperationPageBetween = clientCashOperationRepository.
-                findPageClientCashOperationBetween(ccaopId,
+                findPageClientCashOperationBetween(ccaId,
                 startDate, endDate, PageRequest.of(pagenum, pagesize));
         return clientCashOperationPageBetween.map(ClientCashOperationDto::fromEntity);
     }
 
     @Override
-    public List<ClientCashOperationDto> findAllClientCashOperationBetween(Long ccaopId, Instant startDate,
-                                                                          Instant endDate, OperationType opType) {
+    public List<ClientCashOperationDto> findAllClientCashOperationofTypeBetween(Long ccaId, OperationType opType,
+                                                                          Instant startDate, Instant endDate) {
         List<ClientCashOperation> clientCashOperationListBetween =
-                clientCashOperationRepository.findAllClientCashOperationOfTypeBetween(ccaopId, opType, startDate, endDate);
+                clientCashOperationRepository.findAllClientCashOperationOfTypeBetween(ccaId, opType, startDate, endDate);
         return clientCashOperationListBetween.stream().map(ClientCashOperationDto::fromEntity).collect(Collectors.toList());
     }
 
     @Override
-    public Page<ClientCashOperationDto> findPageClientCashOperationBetween(Long ccaopId, Instant startDate,
-                                                                           Instant endDate, OperationType opType,
+    public Page<ClientCashOperationDto> findPageClientCashOperationofTypeBetween(Long ccaId, OperationType opType,
+                                                                           Instant startDate, Instant endDate,
                                                                            int pagenum, int pagesize) {
         Page<ClientCashOperation> clientCashOperationPageBetween = clientCashOperationRepository.
-                findPageClientCashOperationOfTypeBetween(ccaopId,
+                findPageClientCashOperationOfTypeBetween(ccaId,
                 opType, startDate, endDate, PageRequest.of(pagenum, pagesize));
         return clientCashOperationPageBetween.map(ClientCashOperationDto::fromEntity);
     }

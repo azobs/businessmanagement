@@ -179,17 +179,17 @@ public class ProviderCashOperationServiceImpl implements ProviderCashOperationSe
     }
 
     @Override
-    public List<ProviderCashOperationDto> findAllProviderCashOperationBetween(Long procopId, Instant startDate,
-                                                                              Instant endDate, OperationType opType) {
+    public List<ProviderCashOperationDto> findAllProviderCashOperationofTypeBetween(Long procopId, OperationType opType,
+                                                                                    Instant startDate, Instant endDate) {
         List<ProviderCashOperation> providerCashOperationListBetween =
                 providerCashOperationRepository.findAllProviderCashOperationOfTypeBetween(procopId, opType, startDate, endDate);
         return providerCashOperationListBetween.stream().map(ProviderCashOperationDto::fromEntity).collect(Collectors.toList());
     }
 
     @Override
-    public Page<ProviderCashOperationDto> findPageProviderCashOperationBetween(Long procopId, Instant startDate,
-                                                                               Instant endDate, OperationType opType,
-                                                                               int pagenum, int pagesize) {
+    public Page<ProviderCashOperationDto> findPageProviderCashOperationofTypeBetween(Long procopId, OperationType opType,
+                                                                                     Instant startDate, Instant endDate,
+                                                                                     int pagenum, int pagesize) {
         Page<ProviderCashOperation> providerCashOperationPageBetween = providerCashOperationRepository.findPageProviderCashOperationOfTypeBetween(procopId,
                 opType, startDate, endDate, PageRequest.of(pagenum, pagesize));
         return providerCashOperationPageBetween.map(ProviderCashOperationDto::fromEntity);

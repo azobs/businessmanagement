@@ -10,6 +10,7 @@ public interface InventoryService {
     InventoryDto saveInventory(InventoryDto invDto);
     InventoryDto updateInventory(InventoryDto invDto);
     Boolean isInventoryUniqueinPos(String invCode, Long posId);
+    InventoryDto findInventoryById(Long invId);
     InventoryDto findInventoryByCodeinPos(String invCode, Long posId);
     List<InventoryDto> findAllInventoryinPosBetween(Long posId, Instant startDate, Instant endDate);
     Page<InventoryDto> findPageInventoryinPosBetween(Long posId, Instant startDate, Instant endDate,

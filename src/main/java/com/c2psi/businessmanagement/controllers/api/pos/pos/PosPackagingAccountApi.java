@@ -131,12 +131,9 @@ public interface PosPackagingAccountApi {
             @ApiResponse(code=400, message="The operation is not valid during the saving process")
     })
     ResponseEntity savePackagingOperation(
-            @ApiParam(name = "pospackaccDto", type = "PosPackagingAccountDto", required = true,
-                    value="The JSON object that represent the PosPackagingAccountDto to save")
-            @Valid @RequestBody PosPackagingAccountDto pospackaccDto, BindingResult bindingResult1,
             @ApiParam(name = "pospackopDto", type = "PosPackagingOperationDto", required = true,
                     value="The JSON object that represent the PosPackagingOperationDto to save")
-            @Valid @RequestBody PosPackagingOperationDto pospackopDto, BindingResult bindingResult2);
+            @Valid @RequestBody PosPackagingOperationDto pospackopDto, BindingResult bindingResult);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

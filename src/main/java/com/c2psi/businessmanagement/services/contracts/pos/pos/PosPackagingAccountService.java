@@ -22,4 +22,5 @@ public interface PosPackagingAccountService {
                                  Long userBMId, String opObject, String opDescription);
     Boolean savePackagingOperation(PosPackagingAccountDto posPackagingAccountDto,
                                    PosPackagingOperationDto posPackagingOperationDto);
+    Boolean savePackagingOperation(PosPackagingOperationDto posPackagingOperationDto);
 }

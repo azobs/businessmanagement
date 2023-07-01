@@ -21,4 +21,5 @@ public interface ProviderDamageAccountService {
     //Boolean saveCapsuleOperation(PosCapsuleAccountDto poscapaccDto, PosCapsuleOperationDto poscapopDto);
     Boolean saveDamageOperation(ProviderDamageAccountDto providerDamageAccountDto,
                                 ProviderDamageOperationDto providerDamageOperationDto);
+    Boolean saveDamageOperation(ProviderDamageOperationDto providerDamageOperationDto);
 }

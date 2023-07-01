@@ -13,13 +13,14 @@ public interface ProviderCashOperationService {
     Boolean deleteProviderCashOperationById(Long procopId);
     ProviderCashOperationDto findProviderCashOperationById(Long procopId);
 
-    List<ProviderCashOperationDto> findAllProviderCashOperation(Long procopId);
-    Page<ProviderCashOperationDto> findPageProviderCashOperation(Long procopId, int pagenum, int pagesize);
-    List<ProviderCashOperationDto> findAllProviderCashOperationBetween(Long procopId, Instant startDate, Instant endDate);
-    Page<ProviderCashOperationDto> findPageProviderCashOperationBetween(Long procopId, Instant startDate, Instant endDate,
+    List<ProviderCashOperationDto> findAllProviderCashOperation(Long procaId);
+    Page<ProviderCashOperationDto> findPageProviderCashOperation(Long procaId, int pagenum, int pagesize);
+    List<ProviderCashOperationDto> findAllProviderCashOperationBetween(Long procaId, Instant startDate, Instant endDate);
+    Page<ProviderCashOperationDto> findPageProviderCashOperationBetween(Long procaId, Instant startDate, Instant endDate,
                                                                         int pagenum, int pagesize);
-    List<ProviderCashOperationDto> findAllProviderCashOperationBetween(Long procopId, Instant startDate, Instant endDate,
-                                                                  OperationType opType);
-    Page<ProviderCashOperationDto> findPageProviderCashOperationBetween(Long procopId, Instant startDate, Instant endDate,
-                                                                       OperationType opType, int pagenum, int pagesize);
+    List<ProviderCashOperationDto> findAllProviderCashOperationofTypeBetween(Long procaId, OperationType opType,
+                                                                             Instant startDate, Instant endDate);
+    Page<ProviderCashOperationDto> findPageProviderCashOperationofTypeBetween(Long procaId, OperationType opType,
+                                                                              Instant startDate, Instant endDate,
+                                                                              int pagenum, int pagesize);
 }

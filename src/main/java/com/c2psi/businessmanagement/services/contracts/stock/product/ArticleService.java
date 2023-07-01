@@ -9,6 +9,8 @@ import java.util.List;
 public interface ArticleService {
     List<ArticleDto> findAllArticleofPos(Long posId);
     Page<ArticleDto> findPageArticleofPos(Long posId, int pagenum, int pagesize);
+    List<ArticleDto> findAllArticleofPosOrderByCreationDate(Long posId);
+    Page<ArticleDto> findPageArticleofPosOrderByCreationDate(Long posId, int pagenum, int pagesize);
     List<ArticleDto> findAllArticleofCat(Long catId);
     Page<ArticleDto> findPageArticleofCat(Long catId, int pagenum, int pagesize);
     ArticleDto saveArticle(ArticleDto artDto);

@@ -106,7 +106,7 @@ public interface ClientDamageAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/clientdamageaccount/create",
+    @PostMapping(value = APP_ROOT+"/clientdamageaccount/operation/create",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveDamageOperation",
@@ -117,12 +117,9 @@ public interface ClientDamageAccountApi {
             @ApiResponse(code=400, message="The operation is not valid during the saving process")
     })
     ResponseEntity saveDamageOperation(
-            @ApiParam(name = "cltdamaccDto", type = "ClientDamageAccountDto", required = true,
-                    value="The JSON object that represent the ClientDamageAccountDto to save")
-            @Valid @RequestBody ClientDamageAccountDto cltdamaccDto, BindingResult bindingResult1,
             @ApiParam(name = "cltdamopDto", type = "ClientDamageOperationDto", required = true,
                     value="The JSON object that represent the ClientDamageOperationDto to save")
-            @Valid @RequestBody ClientDamageOperationDto cltdamopDto, BindingResult bindingResult2);
+            @Valid @RequestBody ClientDamageOperationDto cltdamopDto, BindingResult bindingResult);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

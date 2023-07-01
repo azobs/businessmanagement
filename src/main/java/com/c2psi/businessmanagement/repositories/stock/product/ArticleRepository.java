@@ -16,10 +16,15 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     Optional<Article> findArticleByArtCodeAndPos(@Param("artCode") String artCode, @Param("posId") Long posId);
     @Query("SELECT art FROM Article art WHERE art.artPosId=:posId ORDER BY art.artPf.pfProduct.prodCat.catName ASC, art.artName ASC")
     Optional<List<Article>> findAllArticleofPos(@Param("posId") Long posId);
+
+    @Query("SELECT art FROM Article art WHERE art.artPosId=:posId ORDER BY art.creationDate DESC")
+    Optional<List<Article>> findAllArticleofPosOrderByCreationDate(@Param("posId") Long posId);
     @Query("SELECT art FROM Article art WHERE art.artPf.pfProduct.prodCat=:catId ORDER BY art.artPf.pfProduct.prodCat.catName ASC, art.artName ASC")
     Optional<List<Article>> findAllArticleofCat(@Param("catId") Long catId);
     @Query("SELECT art FROM Article art WHERE art.artPosId=:posId ORDER BY art.artPf.pfProduct.prodCat.catName ASC, art.artName ASC")
     Optional<Page<Article>> findPageArticleofPos(@Param("posId") Long posId, Pageable pageable);
+    @Query("SELECT art FROM Article art WHERE art.artPosId=:posId ORDER BY art.creationDate DESC")
+    Optional<Page<Article>> findPageArticleofPosOrderByCreationDate(@Param("posId") Long posId, Pageable pageable);
     @Query("SELECT art FROM Article art WHERE art.artPf.pfProduct.prodCat=:catId ORDER BY art.artPf.pfProduct.prodCat.catName ASC, art.artName ASC")
     Optional<Page<Article>> findPageArticleofCat(@Param("catId") Long catId, Pageable pageable);
     @Query("SELECT art FROM Article  art WHERE art.artName LIKE :sample AND art.artPosId=:posId ORDER BY art.artName ASC")

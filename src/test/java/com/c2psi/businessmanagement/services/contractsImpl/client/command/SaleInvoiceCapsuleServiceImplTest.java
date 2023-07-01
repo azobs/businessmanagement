@@ -527,7 +527,7 @@ public class SaleInvoiceCapsuleServiceImplTest {
             assertNotNull(saleInvoiceCapsuleDtoList3);
             assertEquals(5,saleInvoiceCapsuleDtoList3.size());
 
-            Page<SaleInvoiceCapsuleDto> saleInvoiceCapsuleDtoPage3 = saleInvoiceCapsuleService.findAllSaleiCapsuleinPosBetween(
+            Page<SaleInvoiceCapsuleDto> saleInvoiceCapsuleDtoPage3 = saleInvoiceCapsuleService.findPageSaleiCapsuleinPosBetween(
                     posDtoSaved.getId(), startDate.toInstant(), endDate.toInstant(), 0, 2);
             assertNotNull(saleInvoiceCapsuleDtoPage3);
             assertEquals(3,saleInvoiceCapsuleDtoPage3.getTotalPages());
@@ -539,7 +539,7 @@ public class SaleInvoiceCapsuleServiceImplTest {
             assertNotNull(saleInvoiceCapsuleDtoList4);
             assertEquals(3,saleInvoiceCapsuleDtoList4.size());
 
-            Page<SaleInvoiceCapsuleDto> saleInvoiceCapsuleDtoPage4 = saleInvoiceCapsuleService.findAllSaleiCapsuleofUserbminPosBetween(
+            Page<SaleInvoiceCapsuleDto> saleInvoiceCapsuleDtoPage4 = saleInvoiceCapsuleService.findPageSaleiCapsuleofUserbminPosBetween(
                     userBMDtoSaved.getId(), posDtoSaved.getId(), startDate.toInstant(), endDate.toInstant(), 0, 2);
             assertNotNull(saleInvoiceCapsuleDtoPage4);
             assertEquals(2,saleInvoiceCapsuleDtoPage4.getTotalPages());

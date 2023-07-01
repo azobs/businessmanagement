@@ -131,8 +131,8 @@ public class ClientCashAccountServiceImplTest {
                                                                               Instant endDate, OperationType opType)
              */
             List<ClientCashOperationDto> clientCashOperationDtoList1 = clientCashOperationService.
-                    findAllClientCashOperationBetween(clientCashAccountDtoFound.getId(), startDate.toInstant(),
-                            endDate.toInstant(), OperationType.Credit);
+                    findAllClientCashOperationofTypeBetween(clientCashAccountDtoFound.getId(), OperationType.Credit,
+                            startDate.toInstant(), endDate.toInstant());
             assertEquals(1, clientCashOperationDtoList1.size());
 
             /*
@@ -141,8 +141,8 @@ public class ClientCashAccountServiceImplTest {
                                                                                int pagenum, int pagesize)
              */
             Page<ClientCashOperationDto> clientCashOperationDtoPage1 = clientCashOperationService.
-                    findPageClientCashOperationBetween(clientCashAccountDtoFound.getId(), startDate.toInstant(),
-                            endDate.toInstant(), OperationType.Credit, 0, 1);
+                    findPageClientCashOperationofTypeBetween(clientCashAccountDtoFound.getId(), OperationType.Credit,
+                            startDate.toInstant(), endDate.toInstant(), 0, 1);
             assertEquals(1, clientCashOperationDtoPage1.getTotalPages());
 
         }catch (Exception e){

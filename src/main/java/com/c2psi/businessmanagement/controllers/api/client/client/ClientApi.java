@@ -1,5 +1,6 @@
 package com.c2psi.businessmanagement.controllers.api.client.client;
 
+import com.c2psi.businessmanagement.Enumerations.OperationType;
 import com.c2psi.businessmanagement.dtos.client.client.ClientCashAccountDto;
 import com.c2psi.businessmanagement.dtos.client.client.ClientCashOperationDto;
 import com.c2psi.businessmanagement.dtos.client.client.ClientDto;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import java.time.Instant;
 import java.util.Optional;
 
 import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
@@ -182,12 +184,9 @@ public interface ClientApi {
             @ApiResponse(code=400, message="Object ClientCashOperation is not valid during the saving process")
     })
     ResponseEntity saveCashOperation(
-            @ApiParam(name = "clientCashAccountDto", type = "ClientCashAccountDto", required = true,
-                    value="The JSON object that represent the ClientCashAccountDto to save")
-            @Valid @RequestBody ClientCashAccountDto clientCashAccountDto, BindingResult bindingResult1,
             @ApiParam(name = "clientCashOperationDto", type = "ClientCashOperationDto", required = true,
                     value="The JSON object that represent the ClientCashOperationDto to save")
-            @Valid @RequestBody ClientCashOperationDto clientCashOperationDto, BindingResult bindingResult2);
+            @Valid @RequestBody ClientCashOperationDto clientCashOperationDto, BindingResult bindingResult);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -236,6 +235,188 @@ public interface ClientApi {
             @NotNull @PathVariable("ccaId") Long ccaId);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @PutMapping(value = APP_ROOT+"/client/cash/operation/update",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "updateClientCashOperation",
+            notes = "This method is used to update a client cash operation in the DB",
+            response = ClientCashOperationDto.class)
+    @ApiResponses(value={
+            @ApiResponse(code=200, message="Object Client cash operation updated successfully"),
+            @ApiResponse(code=400, message="Object Client cash operation is not valid during the updating process")
+    })
+    ResponseEntity updateClientCashOperation(
+            @ApiParam(name = "cltCashOpDto", type = "ClientCashOperationDto", required = true,
+                    value="The JSON object that represent the Client to update")
+            @Valid @RequestBody ClientCashOperationDto cltCashOpDto, BindingResult bindingResult);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @DeleteMapping(value = APP_ROOT+"/client/cash/operation/delete/{ccaopId}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "deleteClientCashOperationById",
+            notes = "This method is used to delete a clientCashOperation saved in the DB", response = Boolean.class)
+    @ApiResponses(value={
+            @ApiResponse(code=200, message="Object clientCashOperation deleted successfully")
+    })
+    ResponseEntity deleteClientCashOperationById(
+            @ApiParam(name = "ccaopId", type = "Long", required = true,
+                    value="Id of the ClientCashOperation to delete", example = "1")
+            @NotNull @PathVariable("ccaopId") Long ccaopId);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @GetMapping(value = APP_ROOT+"/client/cash/operation/id/{ccaopId}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "findClientCashOperationById", notes = "Search in the DB a clientcashoperation by its Id",
+            response = ClientCashOperationDto.class)
+    @ApiResponses(value={
+            @ApiResponse(code=200, message="The clientcashoperation with the id precised found successfully"),
+            @ApiResponse(code=404, message="Error faced during the finding process")
+    })
+    ResponseEntity findClientCashOperationById(
+            @ApiParam(name = "ccaopId", type = "Long", required = true,
+                    value="Id of the concerned ClientCashAccount", example = "1")
+            @NotNull @PathVariable("ccaopId") Long ccaopId);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @GetMapping(value = APP_ROOT+"/client/cash/operation/all/{ccaId}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "findAllClientCashOperation", notes = "Search in the DB a clientcashoperation the list " +
+            "of operation",
+            responseContainer = "List<ClientCashOperationDto>")
+    @ApiResponses(value={
+            @ApiResponse(code=200, message="The clientcashoperation list with the id precised found successfully"),
+            @ApiResponse(code=404, message="Error faced during the finding process")
+    })
+    ResponseEntity findAllClientCashOperation(
+            @ApiParam(name = "ccaId", type = "Long", required = true,
+                    value="Id of the concerned ClientCashAccount", example = "1")
+            @NotNull @PathVariable("ccaId") Long ccaId);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @GetMapping(value = APP_ROOT+"/client/cash/operation/all/{ccaId}/{pagenum}/{pagesize}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "findPageClientCashOperation", notes = "Search in the DB a clientcashoperation the list of " +
+            "operation",
+            responseContainer = "Page<ClientCashOperationDto>")
+    @ApiResponses(value={
+            @ApiResponse(code=200, message="The clientcashoperation page with the id precised found successfully"),
+            @ApiResponse(code=404, message="Error faced during the finding process")
+    })
+    ResponseEntity findPageClientCashOperation(
+            @ApiParam(name = "ccaopId", type = "Long", required = true,
+                    value="Id of the concerned ClientCashAccount", example = "1")
+            @NotNull @PathVariable("ccaId") Long ccaId,
+            @PathVariable(name = "pagenum", required = false) Optional<Integer> optpagenum,
+            @PathVariable(name = "pagesize", required = false) Optional<Integer> optpagesize);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @GetMapping(value = APP_ROOT+"/client/cash/operation/all/between/{ccaId}/{from}/{to}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "findAllClientCashOperationBetween", notes = "Search in the DB a clientcashoperation " +
+            "the list of operation",
+            responseContainer = "List<ClientCashOperationDto>")
+    @ApiResponses(value={
+            @ApiResponse(code=200, message="The clientcashoperation list with the id precised found successfully"),
+            @ApiResponse(code=404, message="Error faced during the finding process")
+    })
+    ResponseEntity findAllClientCashOperationBetween(
+            @ApiParam(name = "ccaId", type = "Long", required = true,
+                    value="Id of the concerned ClientCashAccount", example = "1")
+            @NotNull @PathVariable("ccaId") Long ccaId,
+            @ApiParam(name = "from", type = "Instant", required = true,
+                    value="The date from which to search")
+            @NotNull @PathVariable("from") Instant startDate,
+            @ApiParam(name = "to", type = "Instant", required = true,
+                    value="The date to which to search")
+            @NotNull @PathVariable("to") Instant endDate);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @GetMapping(value = APP_ROOT+"/client/cash/operation/page/between/{ccaId}/{from}/{to}/{pagenum}/{pagesize}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "findAllClientCashOperationBetween", notes = "Search in the DB a clientcashoperation " +
+            "the list of operation",
+            responseContainer = "Page<ClientCashOperationDto>")
+    @ApiResponses(value={
+            @ApiResponse(code=200, message="The clientcashoperation page with the id precised found successfully"),
+            @ApiResponse(code=404, message="Error faced during the finding process")
+    })
+    ResponseEntity findPageClientCashOperationBetween(
+            @ApiParam(name = "ccaId", type = "Long", required = true,
+                    value="Id of the concerned ClientCashAccount", example = "1")
+            @NotNull @PathVariable("ccaId") Long ccaId,
+            @ApiParam(name = "from", type = "Instant", required = true,
+                    value="The date from which to search")
+            @NotNull @PathVariable("from") Instant startDate,
+            @ApiParam(name = "to", type = "Instant", required = true,
+                    value="The date to which to search")
+            @NotNull @PathVariable("to") Instant endDate,
+            @PathVariable(name = "pagenum", required = false) Optional<Integer> optpagenum,
+            @PathVariable(name = "pagesize", required = false) Optional<Integer> optpagesize);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @GetMapping(value = APP_ROOT+"/client/cash/operation/type/all/between/{ccaId}/{opType}/{from}/{to}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "findAllClientCashOperationofTypeBetween", notes = "Search in the DB a clientcashoperation the " +
+            "list of operation",
+            responseContainer = "List<ClientCashOperationDto>")
+    @ApiResponses(value={
+            @ApiResponse(code=200, message="The clientcashoperation list with the id precised found successfully"),
+            @ApiResponse(code=404, message="Error faced during the finding process")
+    })
+    ResponseEntity findAllClientCashOperationofTypeBetween(
+            @ApiParam(name = "ccaId", type = "Long", required = true,
+                    value="Id of the concerned ClientCashAccount", example = "1")
+            @NotNull @PathVariable("ccaId") Long ccaId,
+            @ApiParam(name = "opType", type = "OperationType", required = true,
+                    value="The concerned Operation type", example = "Credit")
+            @NotNull @PathVariable("opType") OperationType opType,
+            @ApiParam(name = "from", type = "Instant", required = true,
+                    value="The date from which to search")
+            @NotNull @PathVariable("from") Instant startDate,
+            @ApiParam(name = "to", type = "Instant", required = true,
+                    value="The date to which to search")
+            @NotNull @PathVariable("to") Instant endDate);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @GetMapping(value = APP_ROOT+"/client/cash/operation/type/page/between/{ccaId}/{opType}/{from}/{to}/{pagenum}/{pagesize}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "findPageClientCashOperationofTypeBetween", notes = "Search in the DB a clientcashoperation the " +
+            "list of operation",
+            responseContainer = "Page<ClientCashOperationDto>")
+    @ApiResponses(value={
+            @ApiResponse(code=200, message="The clientcashoperation page with the id precised found successfully"),
+            @ApiResponse(code=404, message="Error faced during the finding process")
+    })
+    ResponseEntity findPageClientCashOperationofTypeBetween(
+            @ApiParam(name = "ccaId", type = "Long", required = true,
+                    value="Id of the concerned ClientCashAccount", example = "1")
+            @NotNull @PathVariable("ccaId") Long ccaId,
+            @ApiParam(name = "opType", type = "OperationType", required = true,
+                    value="The concerned Operation type", example = "Credit")
+            @NotNull @PathVariable("opType") OperationType opType,
+            @ApiParam(name = "from", type = "Instant", required = true,
+                    value="The date from which to search")
+            @NotNull @PathVariable("from") Instant startDate,
+            @ApiParam(name = "to", type = "Instant", required = true,
+                    value="The date to which to search")
+            @NotNull @PathVariable("to") Instant endDate,
+            @PathVariable(name = "pagenum", required = false) Optional<Integer> optpagenum,
+            @PathVariable(name = "pagesize", required = false) Optional<Integer> optpagesize);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
 
 
 

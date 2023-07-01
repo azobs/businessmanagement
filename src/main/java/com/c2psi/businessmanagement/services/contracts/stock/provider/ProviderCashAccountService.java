@@ -18,6 +18,7 @@ public interface ProviderCashAccountService {
     //Boolean saveCapsuleOperation(PosCapsuleAccountDto poscapaccDto, PosCapsuleOperationDto poscapopDto);
     Boolean saveCashOperation(ProviderCashAccountDto providerCashAccountDto,
                               ProviderCashOperationDto providerCashOperationDto);
+    Boolean saveCashOperation(ProviderCashOperationDto providerCashOperationDto);
     ProviderCashAccountDto saveProviderCashAccount(ProviderCashAccountDto pcaDto);
     Boolean deleteProviderCashAccountById(Long id);
     Boolean isProviderCashAccountDeleteable(Long pcaId);

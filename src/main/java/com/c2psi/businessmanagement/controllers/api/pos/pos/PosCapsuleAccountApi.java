@@ -162,12 +162,9 @@ public interface PosCapsuleAccountApi {
             @ApiResponse(code=400, message="Object PosCapsuleOperation is not valid during the saving process")
     })
     ResponseEntity saveCapsuleOperation(
-            @ApiParam(name = "poscapaccDto", type = "PosCapsuleAccountDto", required = true,
-                    value="The JSON object that represent the PosCapsuleAccountDto to save")
-            @Valid @RequestBody PosCapsuleAccountDto poscapaccDto, BindingResult bindingResult1,
             @ApiParam(name = "poscapopDto", type = "PosCapsuleOperationDto", required = true,
                     value="The JSON object that represent the PosCapsuleOperationDto to save")
-            @Valid @RequestBody PosCapsuleOperationDto poscapopDto, BindingResult bindingResult2);
+            @Valid @RequestBody PosCapsuleOperationDto poscapopDto, BindingResult bindingResult);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

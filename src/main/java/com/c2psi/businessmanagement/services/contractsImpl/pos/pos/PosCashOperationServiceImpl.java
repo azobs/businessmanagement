@@ -188,7 +188,7 @@ public class PosCashOperationServiceImpl implements PosCashOperationService {
     }
 
     @Override
-    public List<PosCashOperationDto> findAllPosCashOperationBetween(Long pcaId, OperationType op_type,
+    public List<PosCashOperationDto> findAllPosCashOperationofTypeBetween(Long pcaId, OperationType op_type,
                                                                     Instant startDate, Instant endDate) {
         List<PosCashOperation> listofPosCashOperationoftypeBetween =
                 posCashOperationRepository.findAllPosCashOperationOfTypeBetween(pcaId, op_type, startDate, endDate);
@@ -196,7 +196,7 @@ public class PosCashOperationServiceImpl implements PosCashOperationService {
     }
 
     @Override
-    public Page<PosCashOperationDto> findPagePosCashOperationBetween(Long pcaId, OperationType op_type,
+    public Page<PosCashOperationDto> findPagePosCashOperationofTypeBetween(Long pcaId, OperationType op_type,
                                                                     Instant startDate, Instant endDate,
                                                                     int pagenum, int pagesize) {
         Page<PosCashOperation> pageofPosCashOperation = posCashOperationRepository.findAllPosCashOperationOfTypeBetween(pcaId,

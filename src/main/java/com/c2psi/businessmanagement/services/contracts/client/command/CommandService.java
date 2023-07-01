@@ -269,10 +269,10 @@ public interface CommandService {
                                                                  int pagenum, int pagesize);
 
     List<CommandDto> findAllCommandinPosofUserbmAndcmdStatusBetween(Long posId, Long userbmId,
-                                                                  CommandState cmdStatus,
+                                                                  CommandStatus cmdStatus,
                                                                   Instant startDate, Instant endDate);
     Page<CommandDto> findPageCommandinPosofUserbmAndcmdStatusBetween(Long posId, Long userbmId,
-                                                                  CommandState cmdStatus,
+                                                                  CommandStatus cmdStatus,
                                                                   Instant startDate, Instant endDate,
                                                                   int pagenum, int pagesize);
 
@@ -300,11 +300,11 @@ public interface CommandService {
                                                                             Instant startDate, Instant endDate,
                                                                             int pagenum, int pagesize);
 
-    List<CommandDto> findAllCommandinPosofUserbmAndcmdTypeAndcmdStatusBetween(
+    List<CommandDto> findAllCommandinPosofUserbmAndcmdTypeAndcmdDeliveryStateBetween(
             Long posId, Long userbmId,
             CommandType cmdType, DeliveryState deliveryState,
             Instant startDate, Instant endDate);
-    Page<CommandDto> findPageCommandinPosofUserbmAndcmdTypeAndcmdStatusBetween(
+    Page<CommandDto> findPageCommandinPosofUserbmAndcmdTypeAndcmdDeliveryStateBetween(
             Long posId, Long userbmId,
             CommandType cmdType, DeliveryState deliveryState,
             Instant startDate, Instant endDate,
@@ -360,7 +360,7 @@ public interface CommandService {
 
     List<CommandDto> findAllCommandinPosofClientforUserbmBetween(Long posId, Long clientId, Long userbmId,
                                                               Instant startDate, Instant endDate);
-    Page<CommandDto> findPageCommandinPosofUserbmforClientBetween(Long posId, Long userbmId,
+    Page<CommandDto> findPageCommandinPosofClientforUserbmBetween(Long posId, Long userbmId,
                                                                Long clientId,
                                                                Instant startDate, Instant endDate,
                                                                int pagenum, int pagesize);
@@ -384,11 +384,11 @@ public interface CommandService {
             Instant startDate, Instant endDate,
             int pagenum, int pagesize);
 
-    List<CommandDto> findAllCommandinPosofClientAndUserbmAndcmdStateBetween(
+    List<CommandDto> findAllCommandinPosofClientAndUserbmAndcmdStatusBetween(
             Long posId, Long clientId,
             Long userbmId, CommandStatus cmdStatus,
             Instant startDate, Instant endDate);
-    Page<CommandDto> findPageCommandinPosofClientAndUserbmAndcmdStateBetween(
+    Page<CommandDto> findPageCommandinPosofClientAndUserbmAndcmdStatusBetween(
             Long posId, Long clientId,
             Long userbmId, CommandStatus cmdStatus,
             Instant startDate, Instant endDate,
@@ -428,12 +428,12 @@ public interface CommandService {
             Instant startDate, Instant endDate,
             int pagenum, int pagesize);
 
-    List<CommandDto> findAllCommandinPosofClientAndUserbmAndcmdTypeAndcmdStatusBetween(
+    List<CommandDto> findAllCommandinPosofClientAndUserbmAndcmdTypeAndcmdDeliveryStateBetween(
             Long posId, Long clientId,
             Long userbmId, CommandType cmdType,
             DeliveryState deliveryState,
             Instant startDate, Instant endDate);
-    Page<CommandDto> findPageCommandinPosofClientAndUserbmAndcmdTypeAndcmdStatusBetween(
+    Page<CommandDto> findPageCommandinPosofClientAndUserbmAndcmdTypeAndcmdDeliveryStateBetween(
             Long posId, Long clientId,
             Long userbmId, CommandType cmdType,
             DeliveryState deliveryState,

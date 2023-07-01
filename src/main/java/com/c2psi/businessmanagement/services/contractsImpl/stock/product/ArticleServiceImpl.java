@@ -594,6 +594,68 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public List<ArticleDto> findAllArticleofPosOrderByCreationDate(Long posId) {
+        /*********************************************************
+         * On verifie d'abord si l'id du pointofsale est null
+         */
+        if(posId == null){
+            log.error("The posId precise as argument is null ");
+            throw new NullArgumentException("L'argument passe est null");
+        }
+
+        /******************************************************************
+         * On essaye de recuperer la liste des articles du pointofsale
+         */
+        Optional<List<Article>> optionalArticleList = articleRepository.findAllArticleofPosOrderByCreationDate(posId);
+
+        /******************************************************************************
+         * Si cette liste n'existe pas alors cest le pointofsale qui n'existe pas
+         */
+        if(!optionalArticleList.isPresent()){
+            log.error("There is no pointofsale with the precised id {}", posId);
+            throw new EntityNotFoundException("Aucun pointofsale n'existe avec l'id precise "+posId,
+                    ErrorCode.POINTOFSALE_NOT_FOUND);
+        }
+
+        /****************************************
+         * On retourne donc la liste d'article
+         */
+        return optionalArticleList.get().stream().map(ArticleDto::fromEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<ArticleDto> findPageArticleofPosOrderByCreationDate(Long posId, int pagenum, int pagesize) {
+        /*********************************************************
+         * On verifie d'abord si l'id du pointofsale est null
+         */
+        if(posId == null){
+            log.error("The posId precise as argument is null ");
+            throw new NullArgumentException("L'argument passe est null");
+        }
+
+        /***********************************************************************
+         * On recupere donc page par page la liste des articles du pointofsale
+         */
+
+        Optional<Page<Article>> optionalArticlePage = articleRepository.findPageArticleofPosOrderByCreationDate(posId,
+                PageRequest.of(pagenum, pagesize, Sort.by(Sort.Direction.ASC, "artName")));
+
+        /******************************************************
+         *On verifie si les page recherche existe vraiment
+         */
+        if(!optionalArticlePage.isPresent()){
+            log.error("There is no pointofsale with the precised id {}", posId);
+            throw new EntityNotFoundException("Aucun pointofsale n'existe avec l'id precise "+posId,
+                    ErrorCode.POINTOFSALE_NOT_FOUND);
+        }
+
+        /******************************************
+         * On retourne donc la page des articles
+         */
+        return optionalArticlePage.get().map(ArticleDto::fromEntity);
+    }
+
+    @Override
     public List<ArticleDto> findAllArticleofCat(Long catId) {
         /*********************************************************
          * On verifie d'abord si l'id de la category est null

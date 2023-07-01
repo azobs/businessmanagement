@@ -451,6 +451,99 @@ public class ClientPackagingAccountServiceImpl implements ClientPackagingAccount
         return true;
     }
 
+    @Override
+    public Boolean savePackagingOperationforClient(ClientPackagingOperationDto clientPackOpDto) {
+        Long cltpackaccId = clientPackOpDto.getCltpoCltPackagingAccountDto().getId();
+        BigDecimal qte = clientPackOpDto.getCltpoNumberinmvt();
+        Long userbmId  = clientPackOpDto.getCltpoUserbmDto().getId();
+        OperationType operationType = clientPackOpDto.getCltpoOperationDto().getOpType();
+        String opObject = clientPackOpDto.getCltpoOperationDto().getOpObject();
+        String opDescription = clientPackOpDto.getCltpoOperationDto().getOpDescription();
+        /******************************************************************
+         * Se rassurer que les donnees dans la fonction ne sont pas null
+         */
+        if(cltpackaccId == null || qte == null || userbmId == null || operationType == null){
+            log.error("cltpackaccId, qte or even userbmId is null ");
+            throw new NullArgumentException("Appel de la methode savePackagingOperationforClient avec des parametres null");
+        }
+
+        /*************************************************************************************
+         * Se rassurer que la quantite de packaging dans l'operation est strictement positive
+         */
+        if(qte.compareTo(BigDecimal.valueOf(0)) <= 0){
+            log.error("The qte cannot be negative value");
+            throw new InvalidValueException("La quantite dans l'operation ne saurait etre negative");
+        }
+
+        /******************************************************************************************
+         * On va essayer de recuperer le userbm qui est associe a cette operation
+         */
+        Optional<UserBM> optionalUserBM = userBMRepository.findUserBMById(userbmId);
+        if(!optionalUserBM.isPresent()){
+            log.error("There is no userbm associated with the id {} precised in argument ", userbmId);
+            throw new EntityNotFoundException("Aucun userbm n'existe avec le id precise ", ErrorCode.USERBM_NOT_FOUND);
+        }
+
+        /***************************************************************************************
+         * Se rassurer que le type d'operation souhaite est soit un credit soit un debit
+         */
+        if(!operationType.equals(OperationType.Credit) && !operationType.equals(OperationType.Withdrawal)){
+            log.error("The operationType is not recognized for this operation");
+            throw new InvalidValueException("Le type d'operation precise n'est pas valide dans cette fonction ");
+        }
+
+        /*************************************************************************************
+         * On essaye donc de recuperer d'abord le compte dans lequel l'operation sera realise
+         */
+        if(!this.isClientPackagingAccountExistWithId(cltpackaccId)){
+            log.error("The cltpackaccId {} does not identify any account ", cltpackaccId);
+            throw  new EntityNotFoundException("Aucun ClientPackagingAccount n'existe avec le ID precise "+cltpackaccId,
+                    ErrorCode.CLIENTPACKAGINGACCOUNT_NOT_FOUND);
+        }
+        Optional<ClientPackagingAccount> optionalClientPackagingAccount = clientPackagingAccountRepository.
+                findClientPackagingAccountById(cltpackaccId);
+        //A ce niveau on na pas besoin de regarder si isPresent est true car on est sur que ca existe
+        ClientPackagingAccount clientPackagingAccountToUpdate = optionalClientPackagingAccount.get();
+
+        BigDecimal solde = clientPackagingAccountToUpdate.getCpaNumber();
+        BigDecimal updatedSolde = BigDecimal.valueOf(0.0);
+
+        /***
+         * On doit ici enregistrer un depot dans un compte packaging d'un client. Pour cela il
+         * faut ajouter la qte de la transaction au solde du compte et ensuite enregistrer l'operation ainsi
+         * realise
+         */
+        if(operationType.equals(OperationType.Credit)){
+            updatedSolde = solde.add(qte);//Car BigDecimal est immutable on peut pas directement modifier sa valeur
+        }
+        else if(operationType.equals(OperationType.Withdrawal)){
+            if(solde.compareTo(qte) < 0){
+                log.error("Insufficient balance");
+                throw new InvalidValueException("Solde insuffisant "+solde);
+            }
+            updatedSolde = solde.subtract(qte);
+        }
+        clientPackagingAccountToUpdate.setCpaNumber(updatedSolde);
+
+        clientPackagingAccountRepository.save(clientPackagingAccountToUpdate);
+
+        ClientPackagingOperation cltpackop = new ClientPackagingOperation();
+        cltpackop.setCltpoNumberinmvt(qte);
+        cltpackop.setCltpoUserbm(optionalUserBM.get());
+        cltpackop.setCltpoCltPackagingAccount(clientPackagingAccountToUpdate);
+
+        Operation op = new Operation();
+        op.setOpDate(new Date().toInstant());
+        op.setOpDescription(opDescription);
+        op.setOpObject(opObject);
+        op.setOpType(operationType);
+        cltpackop.setCltpoOperation(op);
+        //Il faut save le ClientPackagingOperation
+        clientPackagingOperationRepository.save(cltpackop);
+
+        return true;
+    }
+
     public Boolean isClientPackagingAccountExistWithId(Long cltpackId){
         if(cltpackId == null){
             log.error("cltpackId is null");

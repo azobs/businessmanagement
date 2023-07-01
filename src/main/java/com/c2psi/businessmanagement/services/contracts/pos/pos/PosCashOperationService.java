@@ -15,8 +15,7 @@ public interface PosCashOperationService {
 
     PosCashOperationDto findPosCashOperationById(Long pcopId);
 
-    List<PosCashOperationDto> findAllPosCashOperation(
-            Long pcaId);
+    List<PosCashOperationDto> findAllPosCashOperation(Long pcaId);
 
     Page<PosCashOperationDto> findPagePosCashOperation(Long pcaId, int pagenum, int pagesize);
 
@@ -26,10 +25,10 @@ public interface PosCashOperationService {
     Page<PosCashOperationDto> findPagePosCashOperationBetween(Long pcaId, Instant startDate, Instant endDate,
                                                              int pagenum, int pagesize);
 
-    List<PosCashOperationDto> findAllPosCashOperationBetween(
+    List<PosCashOperationDto> findAllPosCashOperationofTypeBetween(
             Long pcaId, OperationType op_type, Instant startDate, Instant endDate);
 
-    Page<PosCashOperationDto> findPagePosCashOperationBetween(Long pcaId, OperationType op_type,
+    Page<PosCashOperationDto> findPagePosCashOperationofTypeBetween(Long pcaId, OperationType op_type,
                                                              Instant startDate, Instant endDate,
                                                              int pagenum, int pagesize);
 }
