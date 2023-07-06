@@ -17,23 +17,23 @@ public class SpecialPriceDto {
     Long id;
     @NotNull(message = "The special whole price cannot be null")
     @Positive(message = "The special whole price must be positive")
-    @ApiModelProperty(value = "The special whole sale price", name = "spWholesaleprice", dataType = "BigDecimal")
+    @ApiModelProperty(value = "The special whole sale price", name = "spWholesaleprice", dataType = "String")
     BigDecimal spWholesaleprice;
     @NotNull(message = "The special detail price cannot be null")
     @Positive(message = "The special detail price must be positive")
-    @ApiModelProperty(value = "The special details price", name = "spDetailprice", dataType = "BigDecimal")
+    @ApiModelProperty(value = "The special details price", name = "spDetailprice", dataType = "String")
     BigDecimal spDetailprice;
     @NotNull(message = "The special semi whole price cannot be null")
     @Positive(message = "The special semi whole price must be positive")
-    @ApiModelProperty(value = "The special semi whole sale price", name = "spSemiwholesaleprice", dataType = "BigDecimal")
+    @ApiModelProperty(value = "The special semi whole sale price", name = "spSemiwholesaleprice", dataType = "String")
     BigDecimal spSemiwholesaleprice;
     @NotNull(message = "The special precompte cannot be null")
     @PositiveOrZero(message = "The special precompte must be positive or zero")
-    @ApiModelProperty(value = "The special precompte kept due the price", name = "spPrecompte", dataType = "BigDecimal")
+    @ApiModelProperty(value = "The special precompte kept due the price", name = "spPrecompte", dataType = "String")
     BigDecimal spPrecompte;
     @NotNull(message = "The special ristourne cannot be null")
     @PositiveOrZero(message = "The special ristourne must be positive or zero")
-    @ApiModelProperty(value = "The special ristourne kept due the price", name = "spRistourne", dataType = "BigDecimal")
+    @ApiModelProperty(value = "The special ristourne kept due the price", name = "spRistourne", dataType = "String")
     BigDecimal spRistourne;
     /******************************
      * Relation between entities  *

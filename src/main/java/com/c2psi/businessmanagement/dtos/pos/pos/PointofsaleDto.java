@@ -37,9 +37,9 @@ public class PointofsaleDto {
     @Valid
     AddressDto posAddressDto;
 
-    /******************************
-     * Relation between Dto entities  *
-     * ****************************/
+    /********************************
+     * Relation between Dto entities*
+     * ******************************/
     //Each pointofsale must be related to a list of packagingaccount (one per packaging)
 
     /*@JsonIgnore

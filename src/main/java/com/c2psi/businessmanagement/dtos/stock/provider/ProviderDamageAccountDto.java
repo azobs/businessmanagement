@@ -15,7 +15,7 @@ public class ProviderDamageAccountDto {
     @ApiModelProperty(value = "The Id of the ProviderDamageAccountDto in the DB", name = "id", dataType = "Long")
     Long id;
     @NotNull(message = "The number of damage product cannot be null")
-    @ApiModelProperty(value = "The number of Damage article in the DB", name = "pdaNumber", dataType = "BigDecimal")
+    @ApiModelProperty(value = "The number of Damage article in the DB", name = "pdaNumber", dataType = "String")
     BigDecimal pdaNumber;
     /******************************
      * Relation between entities  *

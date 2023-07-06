@@ -14,7 +14,7 @@ public class ProviderCashAccountDto {
     @ApiModelProperty(value = "The Id of the providercashaccount in the DB", name = "id", dataType = "Long")
     Long id;
     @NotNull(message = "The provider account balance cannot be null")
-    @ApiModelProperty(value = "The provider cash account balance", name = "pcaBalance", dataType = "BigDecimal")
+    @ApiModelProperty(value = "The provider cash account balance", name = "pcaBalance", dataType = "String")
     BigDecimal pcaBalance;
     /******************************
      * Relation between entities  *

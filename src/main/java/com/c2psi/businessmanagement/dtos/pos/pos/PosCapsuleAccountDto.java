@@ -17,7 +17,7 @@ public class PosCapsuleAccountDto {
     Long id;
     @NotNull(message = "The number capsule cannot be null")
     @PositiveOrZero(message = "The number of capsule product must be positive ou null")
-    @ApiModelProperty(value = "The number of cover for an article", name = "pcsaNumber", dataType = "BigDecimal")
+    @ApiModelProperty(value = "The number of cover for an article", name = "pcsaNumber", dataType = "String")
     BigDecimal pcsaNumber;
 
     /******************************

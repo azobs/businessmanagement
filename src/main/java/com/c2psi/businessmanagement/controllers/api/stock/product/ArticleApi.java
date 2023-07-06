@@ -432,7 +432,7 @@ public interface ArticleApi {
     @GetMapping(value = APP_ROOT+"/article/price/{artId}/{quantity}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "getCommonEffectivePriceToApplied", notes = "Get the effective price to applied according to the quantity command",
-            response = BigDecimal.class)
+            response = String.class)
     @ApiResponses(value={
             @ApiResponse(code=200, message="The effectve price of the article is computed successfully"),
             @ApiResponse(code=404, message="Error faced during the computing process")

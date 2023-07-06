@@ -21,7 +21,7 @@ public class ProviderPackagingOperationDto {
     OperationDto propoOperationDto;
     @NotNull(message = "The number of packaging in mvt cannot be null")
     @Positive(message = "The number of packaging in mvt must be positive")
-    @ApiModelProperty(value = "The number of packaging in mouvement", name = "propoNumberinmvt", dataType = "BigDecimal")
+    @ApiModelProperty(value = "The number of packaging in mouvement", name = "propoNumberinmvt", dataType = "String")
     BigDecimal propoNumberinmvt;
     /******************************
      * Relation between entities  *

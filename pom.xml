@@ -13,6 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>businessmanagement</name>
     <description>API REST du projet Business Management</description>
+    <packaging>jar</packaging>
     <properties>
         <java.version>19</java.version>
     </properties>
@@ -104,17 +105,26 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${project.parent.version}</version>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
             </plugin>
-            <plugin>
+            <!--<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <source>18</source>
                     <target>18</target>
                 </configuration>
-            </plugin>
+            </plugin>-->
             <!--Generate the swagger documentation for frontend-->
-            <plugin>
+            <!--<plugin>
                 <groupId>com.github.kongchen</groupId>
                 <artifactId>swagger-maven-plugin</artifactId>
                 <version>3.1.8</version>
@@ -133,7 +143,7 @@
                                 <contact>
                                     <email>ckiadjeu@gmail.com</email>
                                     <name>Cedric KIADJEU</name>
-                                    <url></url>
+                                    <url>https://www.google.com</url>
                                 </contact>
                             </info>
                             <outputPath>${project.build.directory}</outputPath>
@@ -151,7 +161,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
             <!--End of the configuration used to generate the swagger documentation-->
         </plugins>
     </build>

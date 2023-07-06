@@ -30,10 +30,10 @@ public interface PointofsaleApi {
 
     ///////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pos/{posId}/{startDate}/{endDate}",
+    @GetMapping(value = APP_ROOT+"/pos/turnover/{posId}/{startDate}/{endDate}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "getTurnover", notes = "Compute the turnover of a pointofsale between 02 dates",
-            response = BigDecimal.class)
+            response = String.class)
     @ApiResponses(value={
             @ApiResponse(code=200, message="The turnover computed successfully"),
             @ApiResponse(code=404, message="Error faced during computation of the turnover")
@@ -82,7 +82,7 @@ public interface PointofsaleApi {
     @GetMapping(value = APP_ROOT+"/pos/totalcash/{posId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "getTotalCashofPos", notes = "The total cash of a pointofsale",
-            response = BigDecimal.class)
+            response = String.class)
     @ApiResponses(value={
             @ApiResponse(code=200, message="The total cash found successfully"),
             @ApiResponse(code=404, message="Error faced during the computing process")
@@ -97,7 +97,7 @@ public interface PointofsaleApi {
     @GetMapping(value = APP_ROOT+"/pos/damage/{posId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "getNumberofDamageofPos", notes = "The total damage for articles in a pointofsale",
-            response = BigDecimal.class)
+            response = String.class)
     @ApiResponses(value={
             @ApiResponse(code=200, message="The total damage article found successfully"),
             @ApiResponse(code=404, message="Error faced during the computing process")
@@ -112,7 +112,7 @@ public interface PointofsaleApi {
     @GetMapping(value = APP_ROOT+"/pos/damage/{posId}/{artId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "getNumberofDamageofPos", notes = "The total damage of an article in a pointofsale",
-            response = BigDecimal.class)
+            response = String.class)
     @ApiResponses(value={
             @ApiResponse(code=200, message="The total damage of an article found successfully"),
             @ApiResponse(code=404, message="Error faced during the computing process")
@@ -130,7 +130,7 @@ public interface PointofsaleApi {
     @GetMapping(value = APP_ROOT+"/pos/cover/{posId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "getNumberofCapsuleofPos", notes = "The total cover for articles in a pointofsale",
-            response = BigDecimal.class)
+            response = String.class)
     @ApiResponses(value={
             @ApiResponse(code=200, message="The total cover article found successfully"),
             @ApiResponse(code=404, message="Error faced during the computing process")
@@ -145,7 +145,7 @@ public interface PointofsaleApi {
     @GetMapping(value = APP_ROOT+"/pos/cover/{posId}/{artId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "getNumberofCapsuleofPos", notes = "The total cover of an article in a pointofsale",
-            response = BigDecimal.class)
+            response = String.class)
     @ApiResponses(value={
             @ApiResponse(code=200, message="The total cover of an article found successfully"),
             @ApiResponse(code=404, message="Error faced during the computing process")
@@ -163,7 +163,7 @@ public interface PointofsaleApi {
     @GetMapping(value = APP_ROOT+"/pos/packaging/{posId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "getNumberofPackagingofPos", notes = "The total packaging in a pointofsale",
-            response = BigDecimal.class)
+            response = String.class)
     @ApiResponses(value={
             @ApiResponse(code=200, message="The total packaging found successfully"),
             @ApiResponse(code=404, message="Error faced during the computing process")
@@ -178,7 +178,7 @@ public interface PointofsaleApi {
     @GetMapping(value = APP_ROOT+"/pos/packaging/{posId}/{providerId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "getNumberofPackagingofPos", notes = "The total packaging of a provider in a pointofsale",
-            response = BigDecimal.class)
+            response = String.class)
     @ApiResponses(value={
             @ApiResponse(code=200, message="The total cover of a provider found successfully"),
             @ApiResponse(code=404, message="Error faced during the computing process")

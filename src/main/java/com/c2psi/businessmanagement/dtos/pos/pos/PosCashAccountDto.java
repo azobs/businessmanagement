@@ -14,7 +14,7 @@ public class PosCashAccountDto {
     @ApiModelProperty(value = "The id of the PosCashAccount", name = "id", dataType = "Long")
     Long id;
     @NotNull(message = "The account balance cannot be null")
-    @ApiModelProperty(value = "The PosCashAccount balance", name = "pcaBalance", dataType = "BigDecimal")
+    @ApiModelProperty(value = "The PosCashAccount balance", name = "pcaBalance", dataType = "String")
     BigDecimal pcaBalance;
     /***********************************
      * Mapping method development:   ***

@@ -172,7 +172,7 @@ public interface CurrencyApi {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Convert amount ",
             notes = "This method is used to convert an amount from one currency to another",
-            response = BigDecimal.class)
+            response = String.class)
     @ApiResponses(value={
             @ApiResponse(code=200, message="Conversion successfully done"),
             @ApiResponse(code=404, message="Error during the conversion process")

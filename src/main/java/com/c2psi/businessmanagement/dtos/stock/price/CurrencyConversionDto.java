@@ -16,7 +16,7 @@ public class CurrencyConversionDto {
     Long id;
     @NotNull(message = "The conversion factor cannot be null")
     @Positive(message = "The converion factor must be positive")
-    @ApiModelProperty(value = "The conversion factor", name = "conversionFactor", dataType = "BigDecimal")
+    @ApiModelProperty(value = "The conversion factor", name = "conversionFactor", dataType = "String")
     BigDecimal conversionFactor;
     /******************************
      * Relation between entities  *

@@ -121,8 +121,9 @@ public class DiversCashAccountServiceImplTest {
                                                                               Instant endDate, OperationType opType)
              */
             List<DiversCashOperationDto> diversCashOperationDtoList1 = diversCashOperationService.
-                    findAllDiversCashOperationBetween(diversCashAccountDtoFound.getId(), startDate.toInstant(),
-                            endDate.toInstant(), OperationType.Credit);
+                    findAllDiversCashOperationofTypeBetween(diversCashAccountDtoFound.getId(), OperationType.Credit,
+                            startDate.toInstant(),
+                            endDate.toInstant());
             assertEquals(1, diversCashOperationDtoList1.size());
 
             /*
@@ -131,8 +132,9 @@ public class DiversCashAccountServiceImplTest {
                                                                                int pagenum, int pagesize)
              */
             Page<DiversCashOperationDto> diversCashOperationDtoPage1 = diversCashOperationService.
-                    findPageDiversCashOperationBetween(diversCashAccountDtoFound.getId(), startDate.toInstant(),
-                            endDate.toInstant(), OperationType.Credit, 0, 1);
+                    findPageDiversCashOperationofTypeBetween(diversCashAccountDtoFound.getId(), OperationType.Credit,
+                            startDate.toInstant(),
+                            endDate.toInstant(), 0, 1);
             assertEquals(1, diversCashOperationDtoPage1.getTotalPages());
 
         }catch (Exception e){

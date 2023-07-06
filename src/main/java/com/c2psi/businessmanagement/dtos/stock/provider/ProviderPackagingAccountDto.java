@@ -15,7 +15,7 @@ public class ProviderPackagingAccountDto {
     @ApiModelProperty(value = "The Id of the provider in the DB", name = "id", dataType = "Long")
     Long id;
     @NotNull(message = "The number in the packaging account cannot ne null")
-    @ApiModelProperty(value = "The number of packaging in the account", name = "ppaNumber", dataType = "BigDecimal")
+    @ApiModelProperty(value = "The number of packaging in the account", name = "ppaNumber", dataType = "String")
     BigDecimal ppaNumber;
     /******************************
      * Relation between entities  *

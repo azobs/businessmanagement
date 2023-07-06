@@ -17,27 +17,27 @@ public class BasePriceDto {
     Long id;
     @NotNull(message = "The purchase price cannot be null")
     @Positive(message = "The purchase price cannot be null")
-    @ApiModelProperty(value = "The purchase price", name = "bpPurchaseprice", dataType = "BigDecimal")
+    @ApiModelProperty(value = "The purchase price", name = "bpPurchaseprice", dataType = "String")
     BigDecimal bpPurchaseprice;
     @NotNull(message = "The sale whole price cannot be null")
     @Positive(message = "The sale whole price must be positive")
-    @ApiModelProperty(value = "The whole sale price", name = "bpWholesaleprice", dataType = "BigDecimal")
+    @ApiModelProperty(value = "The whole sale price", name = "bpWholesaleprice", dataType = "String")
     BigDecimal bpWholesaleprice;
     @NotNull(message = "The sale details price cannot be null")
     @Positive(message = "The sale details price must be positive")
-    @ApiModelProperty(value = "The details sale price", name = "bpDetailprice", dataType = "BigDecimal")
+    @ApiModelProperty(value = "The details sale price", name = "bpDetailprice", dataType = "String")
     BigDecimal bpDetailprice;
     @NotNull(message = "The sale semi whole price cannot be null")
     @Positive(message = "The sale semi whole price must be positive")
-    @ApiModelProperty(value = "The semi whole sale price", name = "bpSemiwholesaleprice", dataType = "BigDecimal")
+    @ApiModelProperty(value = "The semi whole sale price", name = "bpSemiwholesaleprice", dataType = "String")
     BigDecimal bpSemiwholesaleprice;
     @NotNull(message = "The precompte value cannot be null")
     @PositiveOrZero(message = "The precompte value must be positive or null")
-    @ApiModelProperty(value = "The precompte kept due the price", name = "bpPrecompte", dataType = "BigDecimal")
+    @ApiModelProperty(value = "The precompte kept due the price", name = "bpPrecompte", dataType = "String")
     BigDecimal bpPrecompte;
     @NotNull(message = "The ristourne value cannot be null")
     @PositiveOrZero(message = "The ristourne value must be positive or null")
-    @ApiModelProperty(value = "The ristourne kept due the price", name = "bpRistourne", dataType = "BigDecimal")
+    @ApiModelProperty(value = "The ristourne kept due the price", name = "bpRistourne", dataType = "String")
     BigDecimal bpRistourne;
     /******************************
      * Relation between entities  *

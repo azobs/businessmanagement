@@ -21,7 +21,7 @@ public class ProviderDamageOperationDto {
     OperationDto prodoOperationDto;
     @NotNull(message = "The number in mvt in the damage operation cannot be null")
     @Positive(message = "The number in mvt in the damage operation must be positive")
-    @ApiModelProperty(value = "The number of damage article in mvt", name = "prodoNumberinmvt", dataType = "BigDecimal")
+    @ApiModelProperty(value = "The number of damage article in mvt", name = "prodoNumberinmvt", dataType = "String")
     BigDecimal prodoNumberinmvt;
     /******************************
      * Relation between entities  *

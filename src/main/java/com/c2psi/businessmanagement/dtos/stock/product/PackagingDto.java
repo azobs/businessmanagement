@@ -31,7 +31,7 @@ public class PackagingDto {
     String packFirstcolor;
     @NotNull(message = "The packaging price cannot be null")
     @PositiveOrZero(message = "The packaging price must be positive or zero")
-    @ApiModelProperty(value = "The price of the packaging", name = "packPrice", dataType = "BigDecimal")
+    @ApiModelProperty(value = "The price of the packaging", name = "packPrice", dataType = "String")
     BigDecimal packPrice;
 
     /******************************

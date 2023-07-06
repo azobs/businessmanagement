@@ -21,7 +21,7 @@ public class PosCashOperationDto {
     OperationDto poscoOperationDto;
     @NotNull(message = "The amount in mvt cannot be null")
     @Positive(message = "The amount in mvt cannot must be positive")
-    @ApiModelProperty(value = "The amount in mouvement in the operation", name = "poscoAmountinmvt", dataType = "BigDecimal")
+    @ApiModelProperty(value = "The amount in mouvement in the operation", name = "poscoAmountinmvt", dataType = "String")
     BigDecimal poscoAmountinmvt;
     /******************************
      * Relation between entities  *

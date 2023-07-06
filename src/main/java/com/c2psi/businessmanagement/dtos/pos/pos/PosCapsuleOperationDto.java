@@ -22,14 +22,15 @@ public class PosCapsuleOperationDto {
 
     @NotNull(message = "The number in mouvement cannot be null")
     @Positive(message = "The number in mouvement must be positive")
-    @ApiModelProperty(value = "The number of capsule in mouvement", name = "poscsoNumberinmvt", dataType = "BigDecimal")
+    @ApiModelProperty(value = "The number of capsule in mouvement", name = "poscsoNumberinmvt", dataType = "String")
     BigDecimal poscsoNumberinmvt;
     /******************************
      * Relation between entities  *
      * ****************************/
     //Many PosCapsuleOperation for 1 PosCapsuleAccount
     @NotNull(message = "The pos capsule account cannot be null")
-    @ApiModelProperty(value = "The associated PosCapsuleAccountDto", name = "poscsoPosCapsuleAccountDto", dataType = "PosCapsuleAccountDto")
+    @ApiModelProperty(value = "The associated PosCapsuleAccountDto", name = "poscsoPosCapsuleAccountDto",
+            dataType = "PosCapsuleAccountDto")
     PosCapsuleAccountDto poscsoPosCapsuleAccountDto;
 
     @NotNull(message = "The user that execute the operation cannot be null")

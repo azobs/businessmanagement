@@ -53,7 +53,8 @@ public class UserBMDto {
     String bmName;
 
     @Size(max = 30, message = "The user surname size if is precised must have at least 30 characters")
-    @ApiModelProperty(value = "The last names of the UserBM", name = "bmSurname", dataType = "String", example = "surname_")
+    @ApiModelProperty(value = "The last names of the UserBM", name = "bmSurname", dataType = "String",
+            example = "surname_")
     String bmSurname;
 
     @NotNull(message = "The date of birth of the user cannot be null")
@@ -70,11 +71,11 @@ public class UserBMDto {
     @ApiModelProperty(value = "The image name of the UserBM", name = "bmPicture", dataType = "String", example = "tof.jpg")
     String bmPicture;
     @NotNull(message = "The user state cannot be null")
-    @ApiModelProperty(value = "The state in which the userBM is", name = "bmState", dataType = "UserBMState",
+    @ApiModelProperty(value = "The state in which the userBM is", name = "bmState", dataType = "String",
             example = "Activated", required = true, allowableValues = "Activated; Deactivated; Connected; Disconnected")
     UserBMState bmState;
     @NotNull(message = "The user type cannot be null")
-    @ApiModelProperty(value = "The type of the UserBM", name = "bmUsertype", dataType = "UserBMType",
+    @ApiModelProperty(value = "The type of the UserBM", name = "bmUsertype", dataType = "String",
             example = "AdminBM", required = true, allowableValues = "AdminBM; AdminEnterprise; Employe")
     UserBMType bmUsertype;//AdminEnterprise, AdminBM, Employe
     @Valid

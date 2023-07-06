@@ -30,8 +30,8 @@ public class ProductDto {
             example = "name")
     String prodName;
     @Size(max = 300, message = "The product name size must be at most 300 characters")
-    @ApiModelProperty(value = "The description of the product in the pointofsale", name = "prodDescription", dataType = "String",
-            example = "details about the product")
+    @ApiModelProperty(value = "The description of the product in the pointofsale", name = "prodDescription",
+            dataType = "String", example = "details about the product")
     String prodDescription;
     @Size(max = 100, message = "The product alias size must at most 10 characters")
     @ApiModelProperty(value = "Another names for the product", name = "prodAlias", dataType = "String",

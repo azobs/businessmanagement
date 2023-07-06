@@ -16,7 +16,7 @@ public class ProviderCapsuleAccountDto {
     @ApiModelProperty(value = "The Id of the ProviderCapsuleAccountDto in the DB", name = "id", dataType = "Long")
     Long id;
     @NotNull(message = "The number of capsule in the account cannot be null")
-    @ApiModelProperty(value = "The number of cover in the account", name = "pcsaNumber", dataType = "BigDecimal")
+    @ApiModelProperty(value = "The number of cover in the account", name = "pcsaNumber", dataType = "String")
     BigDecimal pcsaNumber;
     /******************************
      * Relation between entities  *

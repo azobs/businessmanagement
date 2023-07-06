@@ -17,7 +17,7 @@ public class PosDamageAccountDto {
     Long id;
     @NotNull(message = "The number of damage product cannot be null")
     @PositiveOrZero(message = "The number of damage product must be positive ou null")
-    @ApiModelProperty(value = "The number of damage for an article", name = "pdaNumber", dataType = "BigDecimal")
+    @ApiModelProperty(value = "The number of damage for an article", name = "pdaNumber", dataType = "String")
     BigDecimal pdaNumber;
 
     /******************************

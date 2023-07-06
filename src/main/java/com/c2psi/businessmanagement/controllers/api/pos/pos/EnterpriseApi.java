@@ -189,7 +189,7 @@ public interface EnterpriseApi {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Return the turnover of an enterprise between 02 dates",
             notes = "This method is used to return the turnover realize in an enterprise between 02 dates",
-            response = BigDecimal.class)
+            response = String.class)
     @ApiResponses(value={
             @ApiResponse(code=200, message="The turnover of the  Enterprise calsulate successfully")
     })
@@ -231,7 +231,7 @@ public interface EnterpriseApi {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Return the total cash of an enterprise between 02 dates",
             notes = "This method is used to return the total cash available in an enterprise",
-            response = BigDecimal.class)
+            response = String.class)
     @ApiResponses(value={
             @ApiResponse(code=200, message="The total cash of the  Enterprise calculate successfully")
     })
@@ -244,7 +244,7 @@ public interface EnterpriseApi {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Return the total number of Damage product of an enterprise",
             notes = "This method is used to return the total number of damage product available in an enterprise",
-            response = BigDecimal.class)
+            response = String.class)
     @ApiResponses(value={
             @ApiResponse(code=200, message="The total number of damage of the  Enterprise calculate successfully")
     })
@@ -258,7 +258,7 @@ public interface EnterpriseApi {
     @ApiOperation(value = "Return the total number of Damage product for a particular article of an enterprise",
             notes = "This method is used to return the total number of damage product of a particular article" +
                     " available in an enterprise",
-            response = BigDecimal.class)
+            response = String.class)
     @ApiResponses(value={
             @ApiResponse(code=200, message="The total number of damage of a particular article in an  " +
                     " Enterprise calculate successfully")
@@ -275,7 +275,7 @@ public interface EnterpriseApi {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Return the total number of cover product of an enterprise",
             notes = "This method is used to return the total number of cover product available in an enterprise",
-            response = BigDecimal.class)
+            response = String.class)
     @ApiResponses(value={
             @ApiResponse(code=200, message="The total number of cover of the  Enterprise calculate successfully")
     })
@@ -289,7 +289,7 @@ public interface EnterpriseApi {
     @ApiOperation(value = "Return the total number of cover product for a particular article of an enterprise",
             notes = "This method is used to return the total number of cover product of a particular article" +
                     " available in an enterprise",
-            response = BigDecimal.class)
+            response = String.class)
     @ApiResponses(value={
             @ApiResponse(code=200, message="The total number of cover of a particular article in an  " +
                     " Enterprise calculate successfully")
@@ -306,7 +306,7 @@ public interface EnterpriseApi {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Return the total number of packaging of an enterprise",
             notes = "This method is used to return the total number of packaging available in an enterprise",
-            response = BigDecimal.class)
+            response = String.class)
     @ApiResponses(value={
             @ApiResponse(code=200, message="The total number of packaging of the  Enterprise calculate successfully")
     })
@@ -320,7 +320,7 @@ public interface EnterpriseApi {
     @ApiOperation(value = "Return the total number of packaging for a particular provider of an enterprise",
             notes = "This method is used to return the total number of packaging  of a particular provider" +
                     " available in an enterprise",
-            response = BigDecimal.class)
+            response = String.class)
     @ApiResponses(value={
             @ApiResponse(code=200, message="The total number of packaging of a particular provider in an  " +
                     " Enterprise calculate successfully")

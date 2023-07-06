@@ -21,7 +21,7 @@ public class ProviderCashOperationDto {
     OperationDto pcoOperationDto;
     @NotNull(message = "The amount in mvt in the operation cannot be null")
     @Positive(message = "The amount in mvt in the operation must be positive")
-    @ApiModelProperty(value = "The amount in mouvement in the operation ", name = "pcoAmountinmvt", dataType = "BigDecimal")
+    @ApiModelProperty(value = "The amount in mouvement in the operation ", name = "pcoAmountinmvt", dataType = "String")
     BigDecimal pcoAmountinmvt;
     /******************************
      * Relation between entities  *

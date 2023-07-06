@@ -174,7 +174,7 @@ public interface UnitApi {
     @GetMapping(value = APP_ROOT+"/unitconversion/convert/{quantity}/{from}/{to}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "convertTo", notes = "convert a quantity from one unit to another",
-            response = BigDecimal.class)
+            response = String.class)
     @ApiResponses(value={
             @ApiResponse(code=200, message="The quantity in the new Unit"),
             @ApiResponse(code=404, message="Error faced during the converting process")

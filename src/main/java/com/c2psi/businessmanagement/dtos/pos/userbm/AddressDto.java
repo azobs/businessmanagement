@@ -1,6 +1,7 @@
 package com.c2psi.businessmanagement.dtos.pos.userbm;
 
 import com.c2psi.businessmanagement.models.Address;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
@@ -12,6 +13,7 @@ import javax.validation.constraints.NotNull;
 
 @Data
 @Builder
+@ApiModel
 public class AddressDto {
     @NotNull(message = "The phone number 1 cannot be null")
     @NotEmpty(message = "The phone number 1 cannot be empty value")
