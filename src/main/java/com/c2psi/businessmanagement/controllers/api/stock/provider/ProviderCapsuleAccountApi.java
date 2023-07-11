@@ -16,15 +16,16 @@ import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+
+import static com.c2psi.businessmanagement.utils.stock.provider.ProviderCapsuleAccountApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/procapsuleaccount")
+@Api(PROVIDERCAPSULEACCOUNT_ENDPOINT)
 public interface ProviderCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/procapsuleaccount/create",
+    @PostMapping(value = CREATE_PROVIDERCAPSULEACCOUNT_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveProviderCapsuleAccount",
@@ -41,7 +42,7 @@ public interface ProviderCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/procapsuleaccount/id/{procapaccId}",
+    @GetMapping(value = FIND_PROVIDERCAPSULEACCOUNT_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findProviderCapsuleAccountById", notes = "Search in the DB a providercapsuleaccount by its Id",
             response = ProviderCapsuleAccountDto.class)
@@ -56,7 +57,7 @@ public interface ProviderCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/procapsuleaccount/provider/article/{providerId}/{artId}",
+    @GetMapping(value = FIND_PROVIDERCAPSULEACCOUNT_OF_ARTICLE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findProviderCapsuleAccountofArticleinPos", notes = "Search in the DB a providercapsuleaccount " +
             "for an article a provider in a DB",
@@ -75,7 +76,7 @@ public interface ProviderCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/procapsuleaccount/all/{providerId}",
+    @GetMapping(value = FIND_ALL_PROVIDERCAPSULEACCOUNT_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllProviderCapsuleAccountinPos", notes = "Find all capsule account in pos",
             responseContainer = "List<ProviderCapsuleAccountDto>")
@@ -90,7 +91,7 @@ public interface ProviderCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/procapsuleaccount/page/{providerId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_PROVIDERCAPSULEACCOUNT_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageProviderCapsuleAccountinPos", notes = "Find all capsule account in pos",
             responseContainer = "Page<ProviderCapsuleAccountDto>")
@@ -107,7 +108,7 @@ public interface ProviderCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/procapsuleaccount/operation/create",
+    @PostMapping(value = CREATE_PROVIDERCAPSULE_OPERATION_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveCapsuleOperation",
@@ -124,7 +125,7 @@ public interface ProviderCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/procapsuleaccount/operation/update",
+    @PutMapping(value = UPDATE_PROVIDERCAPSULE_OPERATION_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateProviderCapsuleOperation",
@@ -141,7 +142,7 @@ public interface ProviderCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/procapsuleaccount/operation/delete/{procapopId}",
+    @DeleteMapping(value = DELETE_PROVIDERCAPSULE_OPERATION_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteProviderCapsuleOperationById",
             notes = "This method is used to delete a ProviderCapsuleOperation saved in the DB", response = Boolean.class)
@@ -155,7 +156,7 @@ public interface ProviderCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/procapsuleaccount/operation/all/{procapaccId}",
+    @GetMapping(value = FIND_ALL_PROVIDERCAPSULE_OPERATION_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllProviderCapsuleOperation", notes = "Find all capsule account operation in pos",
             responseContainer = "Page<ProviderCapsuleOperationDto>")
@@ -170,7 +171,7 @@ public interface ProviderCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/procapsuleaccount/operation/page/{procapaccId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_PROVIDERCAPSULE_OPERATION_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageProviderCapsuleOperation", notes = "Find all capsule account operation in pos page by page",
             responseContainer = "Page<ProviderCapsuleOperationDto>")
@@ -187,7 +188,7 @@ public interface ProviderCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/procapsuleaccount/operation/type/all/{procapaccId}/{optype}",
+    @GetMapping(value = FIND_ALL_PROVIDERCAPSULE_OPERATION_OF_TYPE_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllProviderCapsuleOperationofType", notes = "Find all capsule account operation in pos",
             responseContainer = "List<ProviderCapsuleOperationDto>")
@@ -205,7 +206,7 @@ public interface ProviderCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/procapsuleaccount/operation/type/page/{procapaccId}/{optype}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_PROVIDERCAPSULE_OPERATION_OF_TYPE_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageProviderCapsuleOperationofType", notes = "Find all capsule account operation in pos page by page",
             responseContainer = "Page<ProviderCapsuleOperationDto>")
@@ -225,7 +226,7 @@ public interface ProviderCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/procapsuleaccount/operation/all/between/{procapaccId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_PROVIDERCAPSULE_OPERATION_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllProviderCapsuleOperationBetween", notes = "Find all capsule account operation in pos between",
             responseContainer = "List<ProviderCapsuleOperationDto>")
@@ -246,7 +247,7 @@ public interface ProviderCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/procapsuleaccount/operation/page/between/{procapaccId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_PROVIDERCAPSULE_OPERATION_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageProviderCapsuleOperationBetween", notes = "Find page capsule account operation in pos between",
             responseContainer = "Page<ProviderCapsuleOperationDto>")
@@ -269,7 +270,7 @@ public interface ProviderCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/procapsuleaccount/operation/type/all/between/{procapaccId}/{optype}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_PROVIDERCAPSULE_OPERATION_OF_TYPE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllProviderCapsuleOperationofTypeBetween", notes = "Find all capsule account operation in pos between",
             responseContainer = "List<ProviderCapsuleOperationDto>")
@@ -293,7 +294,7 @@ public interface ProviderCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/procapsuleaccount/operation/type/page/between/{procapaccId}/{optype}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_PROVIDERCAPSULE_OPERATION_OF_TYPE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageProviderCapsuleOperationofTypeBetween", notes = "Find all capsule account operation page by page in pos between",
             responseContainer = "Page<ProviderCapsuleOperationDto>")

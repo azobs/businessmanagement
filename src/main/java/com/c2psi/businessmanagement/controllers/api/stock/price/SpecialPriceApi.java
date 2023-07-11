@@ -13,14 +13,14 @@ import javax.validation.constraints.NotNull;
 
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+import static com.c2psi.businessmanagement.utils.stock.price.SpecialPriceApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/article/bprice/special")
+@Api(SPECIALPRICE_ENDPOINT)
 public interface SpecialPriceApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/article/bprice/special/create",
+    @PostMapping(value = CREATE_SPECIALPRICE_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveSpecialPrice",
@@ -37,7 +37,7 @@ public interface SpecialPriceApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/article/bprice/special/update",
+    @PutMapping(value = UPDATE_SPECIALPRICE_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateSpecialPrice",
@@ -54,7 +54,7 @@ public interface SpecialPriceApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/article/bprice/special/id/{spId}",
+    @GetMapping(value = FIND_SPECIALPRICE_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findSpecialPriceById", notes = "Search in the DB a specialprice by its Id",
             response = SpecialPriceDto.class)
@@ -69,7 +69,7 @@ public interface SpecialPriceApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/article/bprice/special/all/{bpId}",
+    @GetMapping(value = FIND_ALL_SPECIALPRICE_OF_BASEPRICE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllSpecialpriceofBaseprice", notes = "Search in the DB all specialprice associate to a baseprice",
             responseContainer = "List<SpecialPriceDto>")
@@ -84,7 +84,7 @@ public interface SpecialPriceApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/article/bprice/special/page/{bpId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_SPECIALPRICE_OF_BASEPRICE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageSpecialpriceofBaseprice", notes = "Search in the DB all specialprice associate to a baseprice page by page",
             responseContainer = "Page<SpecialPriceDto>")
@@ -101,7 +101,7 @@ public interface SpecialPriceApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/article/bprice/special/article/all/{artId}",
+    @GetMapping(value = FIND_ALL_SPECIALPRICE_OF_ARTICLE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllSpecialpriceofArticle", notes = "Search in the DB all specialprice associate to a article",
             responseContainer = "List<SpecialPriceDto>")
@@ -116,7 +116,7 @@ public interface SpecialPriceApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/article/bprice/special/article/page/{artId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_SPECIALPRICE_OF_ARTICLE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageSpecialpriceofArticle", notes = "Search in the DB all specialprice associate to a article page by page",
             responseContainer = "Page<SpecialPriceDto>")
@@ -133,7 +133,7 @@ public interface SpecialPriceApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/article/bprice/special/delete/id/{spId}",
+    @DeleteMapping(value = DELETE_SPECIALPRICE_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteSpecialPriceById",
             notes = "This method is used to delete a specialprice saved in the DB", response = Boolean.class)

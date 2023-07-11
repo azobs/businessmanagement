@@ -18,14 +18,15 @@ import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+
+import static com.c2psi.businessmanagement.utils.client.command.CommandApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/command")
+@Api(COMMAND_ENDPOINT)
 public interface CommandApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/command/create",
+    @PostMapping(value = CREATE_COMMAND_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveCommand",
@@ -42,7 +43,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/command/update",
+    @PutMapping(value = UPDATE_COMMAND_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateCommand",
@@ -59,7 +60,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/saleInvoice/{cmdId}/{saleInvoiceId}/{cmdStatus}",
+    @GetMapping(value = SET_SALEINVOICE_FOR_COMMANDSTATUS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "setSaleInvoice", notes = "Assign an invoice to command",
             response = CommandDto.class)
@@ -80,7 +81,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/assignToDelivery/{cmdId}/{deliveryId}",
+    @GetMapping(value = ASSIGN_COMMAND_TO_DELIVERY_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "assignCommandToDelivery", notes = "Assign an invoice to command",
             response = CommandDto.class)
@@ -98,7 +99,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/removeToDelivery/{cmdId}",
+    @GetMapping(value = RESET_DELIVERY_OF_COMMAND_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "resetDeliveryofCommand", notes = "Assign an invoice to command",
             response = CommandDto.class)
@@ -113,7 +114,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/state/{cmdId}/{commandState}",
+    @GetMapping(value = SWITCH_COMMANDSTATE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "switchCommandStateTo", notes = "Switch command state",
             response = CommandDto.class)
@@ -131,7 +132,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/id/{cmdId}",
+    @GetMapping(value = FIND_COMMAND_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findCommandById", notes = "Find a command by its id",
             response = CommandDto.class)
@@ -146,7 +147,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/code/{cmdCode}/{posId}",
+    @GetMapping(value = FIND_COMMAND_BY_CODE_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findCommandByCodeinPos", notes = "Find a command by its code in Pointofsale",
             response = CommandDto.class)
@@ -164,7 +165,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/command/delete/id/{cmdId}",
+    @DeleteMapping(value = DELETE_COMMAND_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteCommandById",
             notes = "This method is used to delete the command saved in the DB", response = Boolean.class)
@@ -178,7 +179,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/all/{posId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosBetween", notes = "Find all command in a Pos",
             responseContainer = "List<CommandDto>")
@@ -199,7 +200,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/page/{posId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosBetween", notes = "Find all command in a Pos page by page",
             responseContainer = "Page<CommandDto>")
@@ -222,7 +223,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/state/all/{posId}/{commandState}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_IN_POS_OF_COMMANDSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofcmdStateBetween", notes = "Find all command in a Pos",
             responseContainer = "List<CommandDto>")
@@ -246,7 +247,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/state/page/{posId}/{commandState}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_IN_POS_OF_COMMANDSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofcmdStateBetween", notes = "Find all command in a Pos page by page",
             responseContainer = "Page<CommandDto>")
@@ -272,7 +273,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/type/all/{posId}/{commandType}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_IN_POS_OF_COMMANDTYPE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofcmdTypeBetween", notes = "Find all command in a Pos",
             responseContainer = "List<CommandDto>")
@@ -296,7 +297,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/type/page/{posId}/{commandType}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_IN_POS_OF_COMMANDTYPE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofcmdTypeBetween", notes = "Find all command in a Pos page by page",
             responseContainer = "Page<CommandDto>")
@@ -322,7 +323,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/status/all/{posId}/{commandStatus}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_IN_POS_OF_COMMANDSTATUS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofcmdTypeBetween", notes = "Find all command in a Pos",
             responseContainer = "List<CommandDto>")
@@ -346,7 +347,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/status/page/{posId}/{commandStatus}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_IN_POS_OF_COMMANDSTATUS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofcmdTypeBetween", notes = "Find all command in a Pos page by page",
             responseContainer = "Page<CommandDto>")
@@ -372,7 +373,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/deliveryState/all/{posId}/{deliveryState}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_IN_POS_OF_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofcmdDeliveryStateBetween", notes = "Find all command in a Pos",
             responseContainer = "List<CommandDto>")
@@ -396,8 +397,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/deliveryState/page/{posId}/{deliveryState}/{from}/{to}/{pagenum}/" +
-            "{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_IN_POS_OF_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofcmdDeliveryStateBetween", notes = "Find all command in a Pos page by page",
             responseContainer = "Page<CommandDto>")
@@ -423,7 +423,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/state/type/all/{posId}/{commandState}/{commandType}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_IN_POS_OF_COMMANDSTATE_COMMANDTYPE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofcmdStateAndcmdTypeBetween", notes = "Find all command in a Pos",
             responseContainer = "List<CommandDto>")
@@ -450,8 +450,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/state/type/page/{posId}/{commandState}/{commandType}/{from}/{to}/" +
-            "{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_IN_POS_OF_COMMANDSTATE_COMMANDTYPE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofcmdStateAndcmdTypeBetween", notes = "Find all command in a Pos page by page",
             responseContainer = "Page<CommandDto>")
@@ -480,7 +479,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/state/status/all/{posId}/{commandState}/{commandStatus}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_IN_POS_OF_COMMANDSTATE_COMMANDSTATUS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofcmdStateAndcmdStatusBetween", notes = "Find all command in a Pos",
             responseContainer = "List<CommandDto>")
@@ -507,8 +506,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/state/status/page/{posId}/{commandState}/{commandStatus}/{from}/{to}/" +
-            "{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_IN_POS_OF_COMMANDSTATE_COMMANDSTATUS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofcmdStateAndcmdStatusBetween", notes = "Find all command in a Pos page by page",
             responseContainer = "Page<CommandDto>")
@@ -537,8 +535,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/state/deliveryState/all/{posId}/{commandState}/{deliveryState}/{from}/" +
-            "{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_IN_POS_OF_COMMANDSTATE_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofcmdStateAndcmdDeliveryStateBetween", notes = "Find all command in a Pos",
             responseContainer = "List<CommandDto>")
@@ -565,8 +562,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/state/deliveryState/page/{posId}/{commandState}/{deliveryState}/{from}" +
-            "/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_IN_POS_OF_COMMANDSTATE_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofcmdStateAndcmdDeliveryStateBetween", notes = "Find all command in a Pos",
             responseContainer = "Page<CommandDto>")
@@ -595,7 +591,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/type/status/all/{posId}/{commandType}/{commandStatus}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_IN_POS_OF_COMMANDTYPE_COMMANDSTATUS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofcmdTypeAndcmdStatusBetween", notes = "Find all command in a Pos",
             responseContainer = "List<CommandDto>")
@@ -622,8 +618,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/type/status/all/{posId}/{commandType}/{commandStatus}/{from}/{to}/" +
-            "{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_IN_POS_OF_COMMANDTYPE_COMMANDSTATUS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofcmdTypeAndcmdStatusBetween", notes = "Find all command in a Pos",
             responseContainer = "Page<CommandDto>")
@@ -652,8 +647,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/type/deliveryState/all/{posId}/{commandType}/{deliveryState}/{from}/" +
-            "{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_IN_POS_OF_COMMANDTYPE_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofcmdTypeAndcmdDeliveryStateBetween", notes = "Find all command in a Pos",
             responseContainer = "List<CommandDto>")
@@ -680,8 +674,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/type/deliveryState/page/{posId}/{commandType}/{deliveryState}/{from}/" +
-            "{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_IN_POS_OF_COMMANDTYPE_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofcmdTypeAndcmdDeliveryStateBetween", notes = "Find all command in a Pos page by page",
             responseContainer = "Page<CommandDto>")
@@ -710,8 +703,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/state/type/status/all/{posId}/{commandState}/{commandType}/" +
-            "{commandStatus}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_IN_POS_OF_COMMANDSTATE_COMMANDTYPE_COMMANDSTATUS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofcmdStateAndcmdTypeAndcmdStatusBetween",
             notes = "Find all command in a Pos",
@@ -742,8 +734,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/state/type/status/all/{posId}/{commandState}/{commandType}/" +
-            "{commandStatus}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_IN_POS_OF_COMMANDSTATE_COMMANDTYPE_COMMANDSTATUS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofcmdStateAndcmdTypeAndcmdStatusBetween",
             notes = "Find all command in a Pos",
@@ -776,8 +767,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/state/type/deliveryState/all/{posId}/{commandState}/{commandType}/" +
-            "{deliveryState}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_IN_POS_OF_COMMANDSTATE_COMMANDTYPE_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofcmdStateAndcmdTypeAndcmdDeliveryStateBetween",
             notes = "Find all command in a Pos",
@@ -808,8 +798,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/state/type/deliveryState/page/{posId}/{commandState}/{commandType}/" +
-            "{deliveryState}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_IN_POS_OF_COMMANDSTATE_COMMANDTYPE_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofcmdStateAndcmdTypeAndcmdDeliveryStateBetween",
             notes = "Find all command in a Pos",
@@ -842,8 +831,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/state/status/deliveryState/all/{posId}/{commandState}/{commandStatus}/" +
-            "{deliveryState}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_IN_POS_OF_COMMANDSTATE_COMMANDSTATUS_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofcmdStateAndcmdStatusAndcmdDeliveryStateBetween",
             notes = "Find all command in a Pos",
@@ -874,8 +862,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/state/status/deliveryState/page/{posId}/{commandState}/{commandStatus}/" +
-            "{deliveryState}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_IN_POS_OF_COMMANDSTATE_COMMANDSTATUS_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofcmdStateAndcmdStatusAndcmdDeliveryStateBetween",
             notes = "Find all command in a Pos",
@@ -908,8 +895,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/state/type/status/deliveryState/all/{posId}/{commandState}/" +
-            "{commandType}/{commandStatus}/{deliveryState}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_IN_POS_OF_COMMANDSTATE_COMMANDTYPE_COMMANDSTATUS_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofcmdStateAndcmdTypeAndcmdStatusAndcmdDeliveryStateBetween",
             notes = "Find all command in a Pos",
@@ -943,8 +929,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/state/type/status/deliveryState/page/{posId}/{commandState}/" +
-            "{commandType}/{commandStatus}/{deliveryState}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_IN_POS_OF_COMMANDSTATE_COMMANDTYPE_COMMANDSTATUS_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofcmdStateAndcmdTypeAndcmdStatusAndcmdDeliveryStateBetween",
             notes = "Find all command in a Pos",
@@ -980,7 +965,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/all/{posId}/{clientId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_OF_CLIENT_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofClientBetween",
             notes = "Find all command in a Pos",
@@ -1005,7 +990,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/page/{posId}/{clientId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_CLIENT_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofClientBetween",
             notes = "Find all command in a Pos",
@@ -1032,66 +1017,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/type/all/{posId}/{clientId}/{commandType}/{from}/{to}",
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "findAllCommandinPosofClientAndcmdTypeBetween",
-            notes = "Find all command in a Pos",
-            responseContainer = "List<CommandDto>")
-    @ApiResponses(value={
-            @ApiResponse(code=200, message="The command list is successfully found"),
-            @ApiResponse(code=404, message="Error faced during the finding process")
-    })
-    ResponseEntity findAllCommandinPosofClientAndcmdTypeBetween(
-            @ApiParam(name = "posId", type = "Long", required = true,
-                    value="Id of the concerned Pos", example = "1")
-            @NotNull @PathVariable("posId") Long posId,
-            @ApiParam(name = "clientId", type = "Long", required = true,
-                    value="Id of the concerned Client", example = "1")
-            @NotNull @PathVariable("clientId") Long clientId,
-            @ApiParam(name = "commandType", type = "CommandType", required = true,
-                    value="commandType concerned", example = "Standard")
-            @NotNull @PathVariable("commandType") CommandType commandType,
-            @ApiParam(name = "from", type = "Instant", required = true,
-                    value="The date from which to search")
-            @NotNull @PathVariable("from") Instant startDate,
-            @ApiParam(name = "to", type = "Instant", required = true,
-                    value="The date to which to search")
-            @NotNull @PathVariable("to") Instant endDate);
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    @GetMapping(value = APP_ROOT+"/command/pos/client/type/page/{posId}/{clientId}/{commandType}/{from}/{to}/" +
-            "{pagenum}/{pagesize}",
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "findPageCommandinPosofClientAndcmdTypeBetween",
-            notes = "Find all command in a Pos",
-            responseContainer = "Page<CommandDto>")
-    @ApiResponses(value={
-            @ApiResponse(code=200, message="The command page is successfully found"),
-            @ApiResponse(code=404, message="Error faced during the finding process")
-    })
-    ResponseEntity findPageCommandinPosofClientAndcmdTypeBetween(
-            @ApiParam(name = "posId", type = "Long", required = true,
-                    value="Id of the concerned Pos", example = "1")
-            @NotNull @PathVariable("posId") Long posId,
-            @ApiParam(name = "clientId", type = "Long", required = true,
-                    value="Id of the concerned Client", example = "1")
-            @NotNull @PathVariable("clientId") Long clientId,
-            @ApiParam(name = "commandType", type = "CommandType", required = true,
-                    value="commandType concerned", example = "Standard")
-            @NotNull @PathVariable("commandType") CommandType commandType,
-            @ApiParam(name = "from", type = "Instant", required = true,
-                    value="The date from which to search")
-            @NotNull @PathVariable("from") Instant startDate,
-            @ApiParam(name = "to", type = "Instant", required = true,
-                    value="The date to which to search")
-            @NotNull @PathVariable("to") Instant endDate,
-            @PathVariable(name = "pagenum", required = false) Optional<Integer> optpagenum,
-            @PathVariable(name = "pagesize", required = false) Optional<Integer> optpagesize);
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    @GetMapping(value = APP_ROOT+"/command/pos/client/state/all/{posId}/{clientId}/{commandState}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_OF_CLIENT_IN_POS_OF_COMMANDSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofClientAndcmdStateBetween",
             notes = "Find all command in a Pos",
@@ -1119,8 +1045,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/state/page/{posId}/{clientId}/{commandState}/{from}/{to}/" +
-            "{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_CLIENT_IN_POS_OF_COMMANDSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofClientAndcmdStateBetween",
             notes = "Find all command in a Pos",
@@ -1150,7 +1075,66 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/status/all/{posId}/{clientId}/{commandStatus}/{from}/{to}",
+
+    @GetMapping(value = FIND_ALL_COMMAND_OF_CLIENT_IN_POS_OF_COMMANDTYPE_BETWEEN_ENDPOINT,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "findAllCommandinPosofClientAndcmdTypeBetween",
+            notes = "Find all command in a Pos",
+            responseContainer = "List<CommandDto>")
+    @ApiResponses(value={
+            @ApiResponse(code=200, message="The command list is successfully found"),
+            @ApiResponse(code=404, message="Error faced during the finding process")
+    })
+    ResponseEntity findAllCommandinPosofClientAndcmdTypeBetween(
+            @ApiParam(name = "posId", type = "Long", required = true,
+                    value="Id of the concerned Pos", example = "1")
+            @NotNull @PathVariable("posId") Long posId,
+            @ApiParam(name = "clientId", type = "Long", required = true,
+                    value="Id of the concerned Client", example = "1")
+            @NotNull @PathVariable("clientId") Long clientId,
+            @ApiParam(name = "commandType", type = "CommandType", required = true,
+                    value="commandType concerned", example = "Standard")
+            @NotNull @PathVariable("commandType") CommandType commandType,
+            @ApiParam(name = "from", type = "Instant", required = true,
+                    value="The date from which to search")
+            @NotNull @PathVariable("from") Instant startDate,
+            @ApiParam(name = "to", type = "Instant", required = true,
+                    value="The date to which to search")
+            @NotNull @PathVariable("to") Instant endDate);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_CLIENT_IN_POS_OF_COMMANDTYPE_BETWEEN_ENDPOINT,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "findPageCommandinPosofClientAndcmdTypeBetween",
+            notes = "Find all command in a Pos",
+            responseContainer = "Page<CommandDto>")
+    @ApiResponses(value={
+            @ApiResponse(code=200, message="The command page is successfully found"),
+            @ApiResponse(code=404, message="Error faced during the finding process")
+    })
+    ResponseEntity findPageCommandinPosofClientAndcmdTypeBetween(
+            @ApiParam(name = "posId", type = "Long", required = true,
+                    value="Id of the concerned Pos", example = "1")
+            @NotNull @PathVariable("posId") Long posId,
+            @ApiParam(name = "clientId", type = "Long", required = true,
+                    value="Id of the concerned Client", example = "1")
+            @NotNull @PathVariable("clientId") Long clientId,
+            @ApiParam(name = "commandType", type = "CommandType", required = true,
+                    value="commandType concerned", example = "Standard")
+            @NotNull @PathVariable("commandType") CommandType commandType,
+            @ApiParam(name = "from", type = "Instant", required = true,
+                    value="The date from which to search")
+            @NotNull @PathVariable("from") Instant startDate,
+            @ApiParam(name = "to", type = "Instant", required = true,
+                    value="The date to which to search")
+            @NotNull @PathVariable("to") Instant endDate,
+            @PathVariable(name = "pagenum", required = false) Optional<Integer> optpagenum,
+            @PathVariable(name = "pagesize", required = false) Optional<Integer> optpagesize);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @GetMapping(value = FIND_ALL_COMMAND_OF_CLIENT_IN_POS_OF_COMMANDSTATUS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofClientAndcmdStatusBetween",
             notes = "Find all command in a Pos",
@@ -1178,8 +1162,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/status/page/{posId}/{clientId}/{commandStatus}/{from}/{to}/" +
-            "{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_CLIENT_IN_POS_OF_COMMANDSTATUS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofClientAndcmdStatusBetween",
             notes = "Find all command in a Pos",
@@ -1209,7 +1192,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/deliveryState/all/{posId}/{clientId}/{deliveryState}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_OF_CLIENT_IN_POS_OF_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofClientAndcmdDeliveryStateBetween",
             notes = "Find all command in a Pos",
@@ -1237,8 +1220,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/deliveryState/page/{posId}/{clientId}/{deliveryState}/{from}/" +
-            "{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_CLIENT_IN_POS_OF_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofClientAndcmdDeliveryStateBetween",
             notes = "Find all command in a Pos",
@@ -1268,8 +1250,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/type/status/all/{posId}/{clientId}/{commandType}/{commandStatus}" +
-            "/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_OF_CLIENT_IN_POS_OF_COMMANDTYPE_COMMANDSTATUS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofClientAndcmdTypeAndcmdStatusBetween",
             notes = "Find all command in a Pos",
@@ -1300,8 +1281,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/type/status/page/{posId}/{clientId}/{commandType}/" +
-            "{commandStatus}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_CLIENT_IN_POS_OF_COMMANDTYPE_COMMANDSTATUS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofClientAndcmdTypeAndcmdStatusBetween",
             notes = "Find all command in a Pos",
@@ -1334,8 +1314,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/type/deliveryState/all/{posId}/{clientId}/{commandType}/" +
-            "{deliveryState}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_OF_CLIENT_IN_POS_OF_COMMANDTYPE_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofClientAndcmdTypeAndcmdDeliveryStateBetween",
             notes = "Find all command in a Pos",
@@ -1366,8 +1345,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/type/deliveryState/page/{posId}/{clientId}/{commandType}/" +
-            "{deliveryState}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_CLIENT_IN_POS_OF_COMMANDTYPE_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofClientAndcmdTypeAndcmdDeliveryStateBetween",
             notes = "Find all command in a Pos",
@@ -1400,8 +1378,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/type/state/status/all/{posId}/{clientId}/{commandType}/" +
-            "{commandState}/{commandStatus}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_OF_CLIENT_IN_POS_OF_COMMANDTYPE_COMMANDSTATE_COMMANDSTATUS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofClientAndcmdTypeAndcmdStateAndcmdStatusBetween",
             notes = "Find all command in a Pos",
@@ -1435,8 +1412,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/type/state/status/page/{posId}/{clientId}/{commandType}/" +
-            "{commandState}/{commandStatus}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_CLIENT_IN_POS_OF_COMMANDTYPE_COMMANDSTATE_COMMANDSTATUS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofClientAndcmdTypeAndcmdStateAndcmdStatusBetween",
             notes = "Find all command in a Pos",
@@ -1472,8 +1448,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/type/state/deliveryState/all/{posId}/{clientId}/{commandType}/" +
-            "{commandState}/{deliveryState}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_OF_CLIENT_IN_POS_OF_COMMANDTYPE_COMMANDSTATE_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofClientAndcmdTypeAndcmdStateAndcmdDeliveryStateBetween",
             notes = "Find all command in a Pos",
@@ -1507,8 +1482,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/type/state/deliveryState/page/{posId}/{clientId}/{commandType}/" +
-            "{commandState}/{deliveryState}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_CLIENT_IN_POS_OF_COMMANDTYPE_COMMANDSTATE_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofClientAndcmdTypeAndcmdStateAndcmdDeliveryStateBetween",
             notes = "Find all command in a Pos",
@@ -1544,8 +1518,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/type/state/status/deliveryState/all/{posId}/{clientId}/" +
-            "{commandType}/{commandState}/{commandStatus}/{deliveryState}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_OF_CLIENT_IN_POS_OF_COMMANDTYPE_COMMANDSTATE_COMMANDSTATUS_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofClientAndcmdTypeAndcmdStateAndcmdStatusAndcmdDeliveryStateBetween",
             notes = "Find all command in a Pos",
@@ -1582,8 +1555,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/type/state/status/deliveryState/page/{posId}/{clientId}/" +
-            "{commandType}/{commandState}/{commandStatus}/{deliveryState}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_CLIENT_IN_POS_OF_COMMANDTYPE_COMMANDSTATE_COMMANDSTATUS_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofClientAndcmdTypeAndcmdStatusAndcmdDeliveryStateBetween",
             notes = "Find all command in a Pos",
@@ -1622,7 +1594,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/userbm/all/{posId}/{userbmId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_OF_USERBM_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofUserbmBetween",
             notes = "Find all command in a Pos",
@@ -1647,7 +1619,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/userbm/page/{posId}/{userbmId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_USERBM_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofUserbmBetween",
             notes = "Find all command in a Pos",
@@ -1674,7 +1646,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/userbm/type/all/{posId}/{userbmId}/{commandType}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_OF_USERBM_IN_POS_OF_COMMANDTYPE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofUserbmAndcmdTypeBetween",
             notes = "Find all command in a Pos",
@@ -1702,7 +1674,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/userbm/type/page/{posId}/{userbmId}/{commandType}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_USERBM_IN_POS_OF_COMMANDTYPE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofUserbmAndcmdTypeBetween",
             notes = "Find all command in a Pos",
@@ -1732,7 +1704,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/userbm/state/all/{posId}/{userbmId}/{commandState}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_OF_USERBM_IN_POS_OF_COMMANDSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofUserbmAndcmdStateBetween",
             notes = "Find all command in a Pos",
@@ -1760,8 +1732,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/userbm/state/page/{posId}/{userbmId}/{commandState}/{from}/{to}/" +
-            "{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_USERBM_IN_POS_OF_COMMANDSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofUserbmAndcmdStateBetween",
             notes = "Find all command in a Pos",
@@ -1791,7 +1762,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/userbm/status/all/{posId}/{userbmId}/{commandStatus}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_OF_USERBM_IN_POS_OF_COMMANDSTATUS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofUserbmAndcmdStatusBetween",
             notes = "Find all command in a Pos",
@@ -1819,8 +1790,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/userbm/status/page/{posId}/{userbmId}/{commandStatus}/{from}/{to}/" +
-            "{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_USERBM_IN_POS_OF_COMMANDSTATUS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofUserbmAndcmdStatusBetween",
             notes = "Find all command in a Pos",
@@ -1850,7 +1820,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/userbm/deliveryState/all/{posId}/{userbmId}/{deliveryState}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_OF_USERBM_IN_POS_OF_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofUserbmAndcmdDeliveryStateBetween",
             notes = "Find all command in a Pos",
@@ -1878,8 +1848,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/userbm/deliveryState/page/{posId}/{userbmId}/{deliveryState}/{from}/" +
-            "{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_USERBM_IN_POS_OF_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofUserbmAndcmdDeliveryStateBetween",
             notes = "Find all command in a Pos",
@@ -1909,8 +1878,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/userbm/type/state/all/{posId}/{userbmId}/{commandType}/{commandState}/" +
-            "{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_OF_USERBM_IN_POS_OF_COMMANDTYPE_COMMANDSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofUserbmAndcmdTypeAndcmdStateBetween",
             notes = "Find all command in a Pos",
@@ -1941,8 +1909,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/userbm/type/state/page/{posId}/{userbmId}/{commandType}/" +
-            "{commandState}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_USERBM_IN_POS_OF_COMMANDTYPE_COMMANDSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofUserbmAndcmdTypeAndcmdStateBetween",
             notes = "Find all command in a Pos",
@@ -1975,8 +1942,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/userbm/type/status/all/{posId}/{userbmId}/{commandType}/" +
-            "{commandStatus}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_OF_USERBM_IN_POS_OF_COMMANDTYPE_COMMANDSTATUS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofUserbmAndcmdTypeAndcmdStatusBetween",
             notes = "Find all command in a Pos",
@@ -2007,8 +1973,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/userbm/type/status/page/{posId}/{userbmId}/{commandType}/" +
-            "{commandStatus}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_USERBM_IN_POS_OF_COMMANDTYPE_COMMANDSTATUS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofUserbmAndcmdTypeAndcmdStatusBetween",
             notes = "Find all command in a Pos",
@@ -2041,8 +2006,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/userbm/type/deliveryState/all/{posId}/{userbmId}/{commandType}/" +
-            "{deliveryState}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_OF_USERBM_IN_POS_OF_COMMANDTYPE_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofUserbmAndcmdTypeAndcmdDeliveryStateBetween",
             notes = "Find all command in a Pos",
@@ -2073,8 +2037,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/userbm/type/deliveryState/page/{posId}/{userbmId}/{commandType}/" +
-            "{deliveryState}/{from}/{to}",
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_USERBM_IN_POS_OF_COMMANDTYPE_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofUserbmAndcmdTypeAndcmdDeliveryStateBetween",
             notes = "Find all command in a Pos",
@@ -2107,8 +2070,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/userbm/type/state/status/all/{posId}/{userbmId}/{commandType}/" +
-            "{commandState}/{commandStatus}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_OF_USERBM_IN_POS_OF_COMMANDTYPE_COMMANDSTATE_COMMANDSTATUS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofUserbmAndcmdTypeAndcmdStateAndcmdStatusBetween",
             notes = "Find all command in a Pos",
@@ -2142,8 +2104,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/userbm/type/state/status/page/{posId}/{userbmId}/{commandType}/" +
-            "{commandState}/{commandStatus}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_USERBM_IN_POS_OF_COMMANDTYPE_COMMANDSTATE_COMMANDSTATUS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofUserbmAndcmdTypeAndcmdStateAndcmdStatusBetween",
             notes = "Find all command in a Pos",
@@ -2179,8 +2140,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/userbm/type/state/deliveryState/all/{posId}/{userbmId}/{commandType}/" +
-            "{commandState}/{deliveryState}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_OF_USERBM_IN_POS_OF_COMMANDTYPE_COMMANDSTATE_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofUserbmAndcmdTypeAndcmdStateAndcmdDeliveryStateBetween",
             notes = "Find all command in a Pos",
@@ -2214,8 +2174,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/userbm/type/state/deliveryState/page/{posId}/{userbmId}/{commandType}/" +
-            "{commandState}/{deliveryState}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_USERBM_IN_POS_OF_COMMANDTYPE_COMMANDSTATE_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofUserbmAndcmdTypeAndcmdStateAndcmdDeliveryStateBetween",
             notes = "Find all command in a Pos",
@@ -2251,8 +2210,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/userbm/type/status/deliveryState/all/{posId}/{userbmId}/{commandType}/" +
-            "{commandState}/{commandStatus}/{deliveryState}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_OF_USERBM_IN_POS_OF_COMMANDTYPE_COMMANDSTATUS_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofUserbmAndcmdTypeAndcmdStatusAndcmdDeliveryStateBetween",
             notes = "Find all command in a Pos",
@@ -2286,8 +2244,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/userbm/type/status/deliveryState/page/{posId}/{userbmId}/{commandType}/" +
-            "{commandStatus}/{deliveryState}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_USERBM_IN_POS_OF_COMMANDTYPE_COMMANDSTATUS_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofUserbmAndcmdTypeAndcmdStatusAndcmdDeliveryStateBetween",
             notes = "Find all command in a Pos",
@@ -2323,8 +2280,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/userbm/type/state/status/deliveryState/all/{posId}/{userbmId}/" +
-            "{commandType}/{commandStatus}/{deliveryState}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_OF_USERBM_IN_POS_OF_COMMANDTYPE_COMMANDSTATE_COMMANDSTATUS_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofUserbmAndcmdTypeAndcmdStateAndcmdStatusAndcmdDeliveryStateBetween",
             notes = "Find all command in a Pos",
@@ -2361,8 +2317,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/userbm/type/state/status/deliveryState/page/{posId}/{userbmId}/" +
-            "{commandType}/{commandState}/{commandStatus}/{deliveryState}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_USERBM_IN_POS_OF_COMMANDTYPE_COMMANDSTATE_COMMANDSTATUS_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofUserbmAndcmdTypeAndcmdStateAndcmdStatusAndcmdDeliveryStateBetween",
             notes = "Find all command in a Pos",
@@ -2401,7 +2356,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/userbm/all/{posId}/{clientId}/{userbmId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_OF_CLIENT_AND_USERBM_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofClientforUserbmBetween",
             notes = "Find all command in a Pos",
@@ -2429,8 +2384,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/userbm/page/{posId}/{clientId}/{userbmId}/{from}/{to}/" +
-            "{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_CLIENT_AND_USERBM_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofClientforUserbmBetween",
             notes = "Find all command in a Pos",
@@ -2460,7 +2414,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/userbm/type/all/{posId}/{clientId}/{userbmId}/{commandType}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_OF_CLIENT_AND_USERBM_IN_POS_OF_COMMANDTYPE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofClientAndUserbmAndcmdTypeBetween",
             notes = "Find all command in a Pos",
@@ -2491,8 +2445,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/userbm/type/page/{posId}/{clientId}/{userbmId}/{commandType}/" +
-            "{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_CLIENT_AND_USERBM_IN_POS_OF_COMMANDTYPE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofClientAndUserbmAndcmdTypeBetween",
             notes = "Find all command in a Pos",
@@ -2525,8 +2478,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/userbm/state/all/{posId}/{clientId}/{userbmId}/{commandState}/" +
-            "{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_OF_CLIENT_AND_USERBM_IN_POS_OF_COMMANDSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofClientAndUserbmAndcmdStateBetween",
             notes = "Find all command in a Pos",
@@ -2557,8 +2509,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/userbm/state/page/{posId}/{clientId}/{userbmId}/{commandState}/" +
-            "{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_CLIENT_AND_USERBM_IN_POS_OF_COMMANDSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofClientAndUserbmAndcmdStateBetween",
             notes = "Find all command in a Pos",
@@ -2591,8 +2542,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/userbm/status/all/{posId}/{clientId}/{userbmId}/{commandStatus}/" +
-            "{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_OF_CLIENT_AND_USERBM_IN_POS_OF_COMMANDSTATUS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofClientAndUserbmAndcmdStatusBetween",
             notes = "Find all command in a Pos",
@@ -2623,8 +2573,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/userbm/status/page/{posId}/{clientId}/{userbmId}/{commandStatus}/" +
-            "{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_CLIENT_AND_USERBM_IN_POS_OF_COMMANDSTATUS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofClientAndUserbmAndcmdStatusBetween",
             notes = "Find all command in a Pos",
@@ -2657,8 +2606,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/userbm/deliveryState/all/{posId}/{clientId}/{userbmId}/" +
-            "{deliveryState}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_OF_CLIENT_AND_USERBM_IN_POS_OF_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofClientAndUserbmAndcmdDeliveryStateBetween",
             notes = "Find all command in a Pos",
@@ -2689,8 +2637,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/userbm/deliveryState/page/{posId}/{clientId}/{userbmId}/" +
-            "{deliveryState}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_CLIENT_AND_USERBM_IN_POS_OF_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofClientAndUserbmAndcmdDeliveryStateBetween",
             notes = "Find all command in a Pos",
@@ -2723,8 +2670,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/userbm/type/state/all/{posId}/{clientId}/{userbmId}/" +
-            "{commandType}/{commandState}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_OF_CLIENT_AND_USERBM_IN_POS_OF_COMMANDTYPE_COMMANDSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofClientAndUserbmAndcmdTypeAndcmdStateBetween",
             notes = "Find all command in a Pos",
@@ -2758,8 +2704,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/userbm/type/state/page/{posId}/{clientId}/{userbmId}/" +
-            "{commandType}/{commandState}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_CLIENT_AND_USERBM_IN_POS_OF_COMMANDTYPE_COMMANDSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofClientAndUserbmAndcmdTypeAndcmdStateBetween",
             notes = "Find all command in a Pos",
@@ -2795,8 +2740,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/userbm/type/status/all/{posId}/{clientId}/{userbmId}/" +
-            "{commandType}/{commandStatus}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_OF_CLIENT_AND_USERBM_IN_POS_OF_COMMANDTYPE_COMMANDSTATUS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofClientAndUserbmAndcmdTypeAndcmdStatusBetween",
             notes = "Find all command in a Pos",
@@ -2830,8 +2774,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/userbm/type/status/page/{posId}/{clientId}/{userbmId}/" +
-            "{commandType}/{commandState}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_CLIENT_AND_USERBM_IN_POS_OF_COMMANDTYPE_COMMANDSTATUS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofClientAndUserbmAndcmdTypeAndcmdStatusBetween",
             notes = "Find all command in a Pos",
@@ -2867,8 +2810,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/userbm/type/deliveryState/all/{posId}/{clientId}/{userbmId}/" +
-            "{commandType}/{deliveryState}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_OF_CLIENT_AND_USERBM_IN_POS_OF_COMMANDTYPE_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofClientAndUserbmAndcmdTypeAndcmdDeliveryStateBetween",
             notes = "Find all command in a Pos",
@@ -2902,8 +2844,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/userbm/type/deliveryState/page/{posId}/{clientId}/{userbmId}/" +
-            "{commandType}/{deliveryState}/{from}/{to}",
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_CLIENT_AND_USERBM_IN_POS_OF_COMMANDTYPE_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofClientAndUserbmAndcmdTypeAndcmdDeliveryStateBetween",
             notes = "Find all command in a Pos",
@@ -2939,8 +2880,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/userbm/type/state/status/all/{posId}/{clientId}/{userbmId}/" +
-            "{commandType}/{commandState}/{commandStatus}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_OF_CLIENT_AND_USERBM_IN_POS_OF_COMMANDTYPE_COMMANDSTATE_COMMANDSTATUS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofClientAndUserbmAndcmdTypeAndcmdStateAndcmdStatusBetween",
             notes = "Find all command in a Pos",
@@ -2977,8 +2917,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/userbm/type/state/status/page/{posId}/{clientId}/{userbmId}/" +
-            "{commandType}/{commandState}/{commandStatus}/{from}/{to}",
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_CLIENT_AND_USERBM_IN_POS_OF_COMMANDTYPE_COMMANDSTATE_COMMANDSTATUS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofClientAndUserbmAndcmdTypeAndcmdStateAndcmdStatusBetween",
             notes = "Find all command in a Pos",
@@ -3017,8 +2956,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/userbm/type/state/deliveryState/all/{posId}/{clientId}/{userbmId}/" +
-            "{commandType}/{commandState}/{deliveryState}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_OF_CLIENT_AND_USERBM_IN_POS_OF_COMMANDTYPE_COMMANDSTATE_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofClientAndUserbmAndcmdTypeAndcmdStateAndcmdDeliveryStateBetween",
             notes = "Find all command in a Pos",
@@ -3055,8 +2993,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/userbm/type/state/deliveryState/page/{posId}/{clientId}/{userbmId}/" +
-            "{commandType}/{commandState}/{deliveryState}/{from}/{to}",
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_CLIENT_AND_USERBM_IN_POS_OF_COMMANDTYPE_COMMANDSTATE_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofClientAndUserbmAndcmdTypeAndcmdStateAndcmdDeliveryStateBetween",
             notes = "Find all command in a Pos",
@@ -3095,8 +3032,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/userbm/type/status/deliveryState/all/{posId}/{clientId}/{userbmId}/" +
-            "{commandType}/{commandStatus}/{deliveryState}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_OF_CLIENT_AND_USERBM_IN_POS_OF_COMMANDTYPE_COMMANDSTATUS_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofClientAndUserbmAndcmdTypeAndcmdStatusAndcmdDeliveryStateBetween",
             notes = "Find all command in a Pos",
@@ -3133,8 +3069,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/userbm/type/status/deliveryState/page/{posId}/{clientId}/{userbmId}/" +
-            "{commandType}/{commandStatus}/{deliveryState}/{from}/{to}",
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_CLIENT_AND_USERBM_IN_POS_OF_COMMANDTYPE_COMMANDSTATUS_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofClientAndUserbmAndcmdTypeAndcmdStatusAndcmdDeliveryStateBetween",
             notes = "Find all command in a Pos",
@@ -3173,8 +3108,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/userbm/type/state/status/deliveryState/all/{posId}/{clientId}/{userbmId}/" +
-            "{commandType}/{commandState}/{commandStatus}/{deliveryState}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_COMMAND_OF_CLIENT_AND_USERBM_IN_POS_OF_COMMANDTYPE_COMMANDSTATE_COMMANDSTATUS_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandinPosofClientAndUserbmAndcmdTypeAndcmdStateAndcmdStatusAndcmdDeliveryStateBetween",
             notes = "Find all command in a Pos",
@@ -3214,8 +3148,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/client/userbm/type/state/status/deliveryState/page/{posId}/{clientId}/{userbmId}/" +
-            "{commandType}/{commandState}/{commandStatus}/{deliveryState}/{from}/{to}",
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_CLIENT_AND_USERBM_IN_POS_OF_COMMANDTYPE_COMMANDSTATE_COMMANDSTATUS_COMMANDDELIVERYSTATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandinPosofClientAndUserbmAndcmdTypeAndcmdStateAndcmdStatusAndcmdDeliveryStateBetween",
             notes = "Find all command in a Pos",
@@ -3257,7 +3190,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/loading/all/{loadingId}/{posId}",
+    @GetMapping(value = FIND_ALL_COMMAND_OF_LOADING_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCommandofLoadinginPos",
             notes = "Find all command in a Pos",
@@ -3276,7 +3209,7 @@ public interface CommandApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/command/pos/loading/page/{loadingId}/{posId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_COMMAND_OF_LOADING_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCommandofLoadinginPos",
             notes = "Find all command in a Pos",

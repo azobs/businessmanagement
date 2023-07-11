@@ -1,7 +1,6 @@
 package com.c2psi.businessmanagement.controllers.api.pos.pos;
 
 import com.c2psi.businessmanagement.Enumerations.OperationType;
-import com.c2psi.businessmanagement.dtos.client.client.ClientCashOperationDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PosCashAccountDto;
 import com.c2psi.businessmanagement.dtos.pos.pos.PosCashOperationDto;
@@ -22,15 +21,15 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+import static com.c2psi.businessmanagement.utils.pos.pos.PointofsaleApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/pos")
+@Api(POS_ENDPOINT)
 public interface PointofsaleApi {
 
     ///////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pos/turnover/{posId}/{startDate}/{endDate}",
+    @GetMapping(value = GET_POS_TURNOVER_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "getTurnover", notes = "Compute the turnover of a pointofsale between 02 dates",
             response = String.class)
@@ -49,7 +48,7 @@ public interface PointofsaleApi {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pos/employes/{posId}",
+    @GetMapping(value = FIND_ALL_EMPLOYE_OF_POS,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllEmployeofPos", notes = "List of all the employe of a pointofsale",
             responseContainer = "List<UserBMDto>")
@@ -64,7 +63,7 @@ public interface PointofsaleApi {
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pos/providers/{posId}",
+    @GetMapping(value = FIND_ALL_PROVIDER_OF_POS,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllProviderofPos", notes = "List of all the provider of a pointofsale",
             responseContainer = "List<ProviderDto>")
@@ -79,7 +78,7 @@ public interface PointofsaleApi {
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pos/totalcash/{posId}",
+    @GetMapping(value = GET_POS_TOTALCASH_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "getTotalCashofPos", notes = "The total cash of a pointofsale",
             response = String.class)
@@ -94,7 +93,7 @@ public interface PointofsaleApi {
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pos/damage/{posId}",
+    @GetMapping(value = GET_POS_NUMBER_OF_DAMAGE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "getNumberofDamageofPos", notes = "The total damage for articles in a pointofsale",
             response = String.class)
@@ -109,7 +108,7 @@ public interface PointofsaleApi {
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pos/damage/{posId}/{artId}",
+    @GetMapping(value = GET_POS_NUMBER_OF_DAMAGE_OF_ARTICLE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "getNumberofDamageofPos", notes = "The total damage of an article in a pointofsale",
             response = String.class)
@@ -127,7 +126,7 @@ public interface PointofsaleApi {
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pos/cover/{posId}",
+    @GetMapping(value = GET_POS_NUMBER_OF_CAPSULE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "getNumberofCapsuleofPos", notes = "The total cover for articles in a pointofsale",
             response = String.class)
@@ -142,7 +141,7 @@ public interface PointofsaleApi {
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pos/cover/{posId}/{artId}",
+    @GetMapping(value = GET_POS_NUMBER_OF_CAPSULE_OF_ARTICLE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "getNumberofCapsuleofPos", notes = "The total cover of an article in a pointofsale",
             response = String.class)
@@ -160,7 +159,7 @@ public interface PointofsaleApi {
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pos/packaging/{posId}",
+    @GetMapping(value = GET_POS_NUMBER_OF_PACKAGING_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "getNumberofPackagingofPos", notes = "The total packaging in a pointofsale",
             response = String.class)
@@ -175,7 +174,7 @@ public interface PointofsaleApi {
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pos/packaging/{posId}/{providerId}",
+    @GetMapping(value = GET_POS_NUMBER_OF_PACKAGING_OF_PROVIDER_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "getNumberofPackagingofPos", notes = "The total packaging of a provider in a pointofsale",
             response = String.class)
@@ -194,7 +193,7 @@ public interface PointofsaleApi {
     //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    @PostMapping(value = APP_ROOT+"/pos/create",
+    @PostMapping(value = CREATE_POS,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create or Persist a pointofsale in the DB",
@@ -211,7 +210,7 @@ public interface PointofsaleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/pos/update",
+    @PutMapping(value = UPDATE_POS,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Update or Modify a pointofsale in the DB",
@@ -228,7 +227,7 @@ public interface PointofsaleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pos/{posId}",
+    @GetMapping(value = FIND_POS_BY_ID,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPointofsaleById", notes = "Search in the DB a pointofsale by its Id",
             response = PointofsaleDto.class)
@@ -243,7 +242,7 @@ public interface PointofsaleApi {
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/pos/delete/id/{posId}",
+    @DeleteMapping(value = DELETE_POS_BY_ID,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deletePosById",
             notes = "This method is used to delete a pointofsale saved in the DB", response = Boolean.class)
@@ -257,7 +256,7 @@ public interface PointofsaleApi {
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/pos/delete/name/{posName}/{entId}",
+    @DeleteMapping(value = DELETE_POS_IN_ENTERPRISE_BY_NAME,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deletePosInEnterpriseByName",
             notes = "This method is used to delete a pointofsale saved in the DB", response = Boolean.class)
@@ -274,7 +273,7 @@ public interface PointofsaleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pos/currencies/{posId}",
+    @GetMapping(value = LIST_OF_CONVERTIBLE_CURRENCY,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "listofConvertibleCurrency", notes = "List of all convertible currency with the default " +
             "currency of the pointofsale",
@@ -290,7 +289,7 @@ public interface PointofsaleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pos/currency/{posId}",
+    @GetMapping(value = GET_POS_DEFAULT_CURRENCY,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "getDefaultCurrency", notes = "The default currency of the pointofsale",
             response = CurrencyDto.class)
@@ -305,7 +304,7 @@ public interface PointofsaleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/pos/cash/operation/create",
+    @PostMapping(value = CREATE_POS_CASH_OPERATION,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveCashOperation",
@@ -322,7 +321,7 @@ public interface PointofsaleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/pos/cash/delete/id/{pcaId}",
+    @DeleteMapping(value = DELETE_POS_CASH_ACCOUNT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deletePosCashAccountById",
             notes = "This method is used to delete a PosCashAccount of a pointofsale saved in the DB",
@@ -337,7 +336,7 @@ public interface PointofsaleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pos/cash/id/{pcaId}",
+    @GetMapping(value = FIND_POS_CASH_ACCOUNT_BY_ID,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPosCashAccountById", notes = "Find the PosCashAccount by Id",
             response = PosCashAccountDto.class)
@@ -352,7 +351,7 @@ public interface PointofsaleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/pos/cash/operation/update",
+    @PutMapping(value = UPDATE_POS_CASH_OPERATION,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updatePosCashOperation",
@@ -369,7 +368,7 @@ public interface PointofsaleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/pos/cash/operation/delete/{pcopId}",
+    @DeleteMapping(value = DELETE_POS_CASH_OPERATION_BY_ID,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deletePosCashOperationById",
             notes = "This method is used to delete a posCashOperation saved in the DB", response = Boolean.class)
@@ -383,7 +382,7 @@ public interface PointofsaleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pos/cash/operation/id/{pcopId}",
+    @GetMapping(value = FIND_POS_CASH_OPERATION_BY_ID,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPosCashOperationById", notes = "Search in the DB a poscashoperation by its Id",
             response = PosCashOperationDto.class)
@@ -398,7 +397,7 @@ public interface PointofsaleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pos/cash/operation/all/{pcopId}",
+    @GetMapping(value = FIND_ALL_POS_CASH_OPERATION,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllPosCashOperation", notes = "Search in the DB a poscashoperation the list " +
             "of operation",
@@ -414,7 +413,7 @@ public interface PointofsaleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pos/cash/operation/all/{pcaId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_POS_CASH_OPERATION,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPagePosCashOperation", notes = "Search in the DB a poscashoperation the list of " +
             "operation",
@@ -432,7 +431,7 @@ public interface PointofsaleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pos/cash/operation/all/between/{pcaId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_POS_CASH_OPERATION_BETWEEN,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllPosCashOperationBetween", notes = "Search in the DB a poscashoperation " +
             "the list of operation",
@@ -454,7 +453,7 @@ public interface PointofsaleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pos/cash/operation/page/between/{pcaId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_POS_CASH_OPERATION_BETWEEN,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllPosCashOperationBetween", notes = "Search in the DB a poscashoperation " +
             "the list of operation",
@@ -478,7 +477,7 @@ public interface PointofsaleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pos/cash/operation/type/all/between/{pcaId}/{opType}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_POS_CASH_OPERATION_OF_TYPE_BETWEEN,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllPosCashOperationofTypeBetween", notes = "Search in the DB a poscashoperation the " +
             "list of operation",
@@ -503,7 +502,7 @@ public interface PointofsaleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pos/cash/operation/type/page/between/{pcaId}/{opType}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_POS_CASH_OPERATION_OF_TYPE_BETWEEN,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPagePosCashOperationofTypeBetween", notes = "Search in the DB a poscashoperation the " +
             "list of operation",

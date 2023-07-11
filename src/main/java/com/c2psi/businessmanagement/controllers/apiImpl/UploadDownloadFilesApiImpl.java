@@ -24,7 +24,7 @@ public class UploadDownloadFilesApiImpl implements UploadDownloadFilesApi {
     }
 
     @Override
-    public ResponseEntity uploadFile(MultipartFile file) {
+    public ResponseEntity personsUploadFile(MultipartFile file) {
         log.info("uploadFile execution");
         Map<String, Object> map = new LinkedHashMap<>();
         String message = "";

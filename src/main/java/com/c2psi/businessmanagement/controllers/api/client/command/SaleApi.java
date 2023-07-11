@@ -14,14 +14,15 @@ import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+
+import static com.c2psi.businessmanagement.utils.client.command.SaleApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/sale")
+@Api(SALE_ENDPOINT)
 public interface SaleApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/sale/create",
+    @PostMapping(value = CREATE_SALE_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveSale",
@@ -38,7 +39,7 @@ public interface SaleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/sale/update",
+    @PutMapping(value = UPDATE_SALE_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateSale",
@@ -55,7 +56,7 @@ public interface SaleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/sale/id/{saleId}",
+    @GetMapping(value = FIND_SALE_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findSaleById", notes = "Search a Sale by id",
             response = SaleDto.class)
@@ -70,7 +71,7 @@ public interface SaleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/sale/command/{cmdId}/{artId}",
+    @GetMapping(value = FIND_SALE_IN_COMMAND_FOR_ARTICLE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findSaleinCommandaboutArticle", notes = "Search a Sale in Command about an article",
             response = SaleDto.class)
@@ -88,7 +89,7 @@ public interface SaleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/sale/delete/id/{saleId}",
+    @DeleteMapping(value = DELETE_SALE_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteSaleById",
             notes = "This method is used to delete the sale saved in the DB", response = Boolean.class)
@@ -102,7 +103,7 @@ public interface SaleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/sale/command/all/{cmdId}",
+    @GetMapping(value = FIND_ALL_SALE_IN_COMMAND_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllSaleofCommand", notes = "find all sale in a command",
             responseContainer = "List<SaleDto>")
@@ -117,7 +118,7 @@ public interface SaleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/sale/command/page/{cmdId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_SALE_IN_COMMAND_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageSaleofCommand", notes = "find all sale in a command page by page",
             responseContainer = "Page<SaleDto>")
@@ -134,7 +135,7 @@ public interface SaleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/sale/article/between/all/{artId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_SALE_OF_ARTICLE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllSaleonArticleBetween", notes = "find all sale in a command",
             responseContainer = "List<SaleDto>")
@@ -155,7 +156,7 @@ public interface SaleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/sale/article/between/page/{artId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_SALE_OF_ARTICLE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageSaleonArticleBetween", notes = "find all sale in a command page by page",
             responseContainer = "Page<SaleDto>")

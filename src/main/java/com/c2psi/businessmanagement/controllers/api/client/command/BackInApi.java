@@ -15,14 +15,14 @@ import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+import static com.c2psi.businessmanagement.utils.client.command.BackInApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/backin")
+@Api(BACKIN_ENDPOINT)
 public interface BackInApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/backin/create",
+    @PostMapping(value = CREATE_BACKIN_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveBackIn",
@@ -39,7 +39,7 @@ public interface BackInApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/backin/update",
+    @PutMapping(value = UPDATE_BACKIN_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateBackIn",
@@ -56,7 +56,7 @@ public interface BackInApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/backin/id/{backinId}",
+    @GetMapping(value = FIND_BACKIN_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findBackInById", notes = "Search a Backin by id",
             response = BackInDto.class)
@@ -71,7 +71,7 @@ public interface BackInApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/backin/command/{cmdId}",
+    @GetMapping(value = FIND_BACKIN_OF_COMMAND_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findBackInofCommand", notes = "Search a Backin of command",
             response = BackInDto.class)
@@ -86,7 +86,7 @@ public interface BackInApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/backin/pos/all/{posId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_BACKIN_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllBackIninPosBetween", notes = "find all Backin in pointofsale between 02 dates",
             responseContainer = "List<BackInDto>")
@@ -107,7 +107,7 @@ public interface BackInApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/backin/pos/page/{posId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_BACKIN_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageBackIninPosBetween", notes = "find all Backin in pointofsale between 02 dates page by page",
             responseContainer = "Page<BackInDto>")
@@ -130,7 +130,7 @@ public interface BackInApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/backin/delete/id/{backinId}",
+    @DeleteMapping(value = DELETE_BACKIN_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteBackInById",
             notes = "This method is used to delete the backIn saved in the DB", response = Boolean.class)
@@ -144,7 +144,7 @@ public interface BackInApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/backin/details/create",
+    @PostMapping(value = CREATE_BACKINDETAILS_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveBackInDetails",
@@ -161,7 +161,7 @@ public interface BackInApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/backin/details/update",
+    @PutMapping(value = UPDATE_BACKINDETAILS_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateBackInDetails",
@@ -178,7 +178,7 @@ public interface BackInApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/backin/details/id/{backInDetailsId}",
+    @GetMapping(value = FIND_BACKINDETAILS_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findBackInDetailsById", notes = "Search a BackinDetails by id",
             response = BackInDetailsDto.class)
@@ -193,7 +193,7 @@ public interface BackInApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/backin/details/article/{artId}/{backinId}",
+    @GetMapping(value = FIND_BACKINDETAILS_OF_ARTICLE_IN_BACKIN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findBackInDetailsofArticleinBackIn", notes = "Search a Backin details of command",
             response = BackInDto.class)
@@ -211,7 +211,7 @@ public interface BackInApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/backin/details/all/{backInId}",
+    @GetMapping(value = FIND_ALL_BACKINDETAILS_OF_BACKIN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllBackInDetailsofBackIn", notes = "Search a BackinDetails by id",
             responseContainer = "List<BackInDetailsDto>")
@@ -226,7 +226,7 @@ public interface BackInApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/backin/details/page/{backInId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_BACKINDETAILS_OF_BACKIN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageBackInDetailsofBackIn", notes = "Search a BackinDetails by id",
             responseContainer = "Page<BackInDetailsDto>")
@@ -243,7 +243,7 @@ public interface BackInApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/backin/details/delete/id/{backInDetailsId}",
+    @DeleteMapping(value = DELETE_BACKINDETAILS_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteBackInDetailsById",
             notes = "This method is used to delete the backInDetails saved in the DB", response = Boolean.class)

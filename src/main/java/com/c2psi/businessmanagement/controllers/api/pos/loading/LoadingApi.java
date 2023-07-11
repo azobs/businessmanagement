@@ -16,14 +16,14 @@ import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+import static com.c2psi.businessmanagement.utils.pos.loading.LoadingApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/loading")
+@Api(LOADING_ENDPOINT)
 public interface LoadingApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/loading/create",
+    @PostMapping(value = CREATE_LOADING_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveLoading",
@@ -40,7 +40,7 @@ public interface LoadingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/loading/update",
+    @PutMapping(value = UPDATE_LOADING_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateLoading",
@@ -57,7 +57,7 @@ public interface LoadingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/loading/id/{loadingId}",
+    @GetMapping(value = FIND_LOADIND_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findLoadingById", notes = "Search a Loading by id",
             response = LoadingDto.class)
@@ -72,7 +72,7 @@ public interface LoadingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/loading/pos/code/{loadingCode}/{posId}",
+    @GetMapping(value = FIND_LOADING_BY_CODE_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findLoadingByCodeinPos", notes = "Search a Loading by code in Pos",
             response = LoadingDto.class)
@@ -90,7 +90,7 @@ public interface LoadingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/loading/pos/all/{posId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_LOADING_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllLoadinginPosBetween", notes = "Search all Loading in Pos between",
             responseContainer = "List<LoadingDto>")
@@ -111,7 +111,7 @@ public interface LoadingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/loading/pos/page/{posId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_LOADING_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageLoadinginPosBetween", notes = "Search all Loading in Pos between page by page",
             responseContainer = "Page<LoadingDto>")
@@ -134,7 +134,7 @@ public interface LoadingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/loading/pos/userbm/manager/all/{posId}/{userbmId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_LOADING_OF_USERBMMANAGER_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllLoadingofUserbmManagerinPosBetween", notes = "Search all Loading in Pos between",
             responseContainer = "List<LoadingDto>")
@@ -158,7 +158,7 @@ public interface LoadingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/loading/pos/userbm/manager/page/{posId}/{userbmId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_LOADING_OF_USERBMMANAGER_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageLoadingofUserbmManagerinPosBetween", notes = "Search all Loading in Pos between",
             responseContainer = "Page<LoadingDto>")
@@ -184,7 +184,7 @@ public interface LoadingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/loading/pos/userbm/saler/all/{posId}/{userbmId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_LOADING_OF_USERBMSALER_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllLoadingofUserbmSalerinPosBetween", notes = "Search all Loading in Pos between",
             responseContainer = "List<LoadingDto>")
@@ -208,7 +208,7 @@ public interface LoadingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/loading/pos/userbm/saler/page/{posId}/{userbmId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_LOADING_OF_USERBMSALER_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageLoadingofUserbmSalerinPosBetween", notes = "Search all Loading in Pos between",
             responseContainer = "Page<LoadingDto>")
@@ -234,7 +234,7 @@ public interface LoadingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/loading/pos/userbm/manager/saler/all/{posId}/{userbmId_m}/{userbmId_s}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_LOADING_OF_USERBMMANAGER_AND_SALER_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllLoadingofUserbmManagerandSalerinPosBetween", notes = "Search all Loading in Pos between",
             responseContainer = "List<LoadingDto>")
@@ -261,7 +261,7 @@ public interface LoadingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/loading/pos/userbm/manager/saler/page/{posId}/{userbmId_m}/{userbmId_s}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_LOADING_OF_USERBMMANAGER_AND_SALER_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageLoadingofUserbmManagerandSalerinPosBetween", notes = "Search all Loading in Pos between",
             responseContainer = "Page<LoadingDto>")
@@ -290,7 +290,7 @@ public interface LoadingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/loading/delete/id/{loadingId}",
+    @DeleteMapping(value = DELETE_LOADING_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteLoadingById",
             notes = "This method is used to delete the loading saved in the DB", response = Boolean.class)
@@ -304,7 +304,7 @@ public interface LoadingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/loading/details/create",
+    @PostMapping(value = CREATE_LOADINGDETAILS_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveLoadingDetails",
@@ -321,7 +321,7 @@ public interface LoadingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/loading/details/update",
+    @PutMapping(value = UPDATE_LOADINGDETAILS_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateLoadingDetails",
@@ -338,7 +338,7 @@ public interface LoadingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/loading/details/id/{ldId}",
+    @GetMapping(value = FIND_LOADINGDETAILS_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findLoadingDetailsById", notes = "Search a LoadingDetails by id",
             response = LoadingDetailsDto.class)
@@ -353,7 +353,7 @@ public interface LoadingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/loading/details/article/{artId}/{loadingId}",
+    @GetMapping(value = FIND_LOADINGDETAILS_OF_ARTICLE_IN_LOADING_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findLoadingDetailsofArticleinLoading", notes = "Search a LoadingDetails for article",
             response = LoadingDetailsDto.class)
@@ -371,7 +371,7 @@ public interface LoadingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/loading/details/all/{loadingId}",
+    @GetMapping(value = FIND_ALL_LOADINGDETAILS_IN_LOADING_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllLoadingDetailsinLoading", notes = "Search a LoadingDetails list of loading ",
             responseContainer = "List<LoadingDetailsDto>")
@@ -386,7 +386,7 @@ public interface LoadingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/loading/details/page/{loadingId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_LOADINGDETAILS_IN_LOADING_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageLoadingDetailsinLoading", notes = "Search a LoadingDetails page of loading ",
             responseContainer = "Page<LoadingDetailsDto>")
@@ -403,7 +403,7 @@ public interface LoadingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/loading/details/delete/id/{ldId}",
+    @DeleteMapping(value = DELETE_LOADINGDETAILS_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteLoadingDetailsById",
             notes = "This method is used to delete the loading details saved in the DB", response = Boolean.class)
@@ -417,7 +417,7 @@ public interface LoadingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/loading/packing/details/create",
+    @PostMapping(value = CREATE_PACKINGDETAILS_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "savePackingDetails",
@@ -434,7 +434,7 @@ public interface LoadingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/loading/packing/details/update",
+    @PutMapping(value = UPDATE_PACKINGDETAILS_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updatePackingDetails",
@@ -451,7 +451,7 @@ public interface LoadingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/loading/packing/details/id/{pdId}",
+    @GetMapping(value = FIND_PACKINGDETAILS_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPackingDetailsById", notes = "Search a PackingDetails by id",
             response = PackingDetailsDto.class)
@@ -466,7 +466,7 @@ public interface LoadingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/loading/packing/details/packaging/{packagingId}/{loadingId}",
+    @GetMapping(value = FIND_PACKINGDETAILS_OF_ARTICLE_IN_LOADING_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPackingDetailsofArticleinLoading", notes = "Search a PackingDetails by id",
             response = PackingDetailsDto.class)
@@ -484,7 +484,7 @@ public interface LoadingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/loading/packing/details/all/{loadingId}",
+    @GetMapping(value = FIND_ALL_PACKINGDETAILS_IN_LOADING_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllPackingDetailsinLoading", notes = "Search a PackingDetails list of loading ",
             responseContainer = "List<PackingDetailsDto>")
@@ -499,7 +499,7 @@ public interface LoadingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/loading/packing/details/page/{loadingId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_PACKINGDETAILS_IN_LOADING_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPagePackingDetailsinLoading", notes = "Search a PackingDetails page of loading ",
             responseContainer = "Page<PackingDetailsDto>")
@@ -516,7 +516,7 @@ public interface LoadingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/loading/packing/details/delete/id/{pdId}",
+    @DeleteMapping(value = DELETE_PACKINGDETAILS_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deletePackingDetailsById",
             notes = "This method is used to delete the packing details saved in the DB", response = Boolean.class)

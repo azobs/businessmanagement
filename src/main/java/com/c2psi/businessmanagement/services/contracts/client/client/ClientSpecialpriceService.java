@@ -19,9 +19,6 @@ public interface ClientSpecialpriceService {
     Boolean isClientSpecialpriceofArticleforClientExist(Long articleId, Long clientId);
     //Retrouver le prix special associe a un client pour un article donne
     ClientSpecialpriceDto findClientSpecialpriceofArticleforClient(Long articleId, Long clientId);
-    //Faire la liste des prix speciaux d'un article puis page par page
-    List<ClientSpecialpriceDto> findAllSpecialpriceofArticle(Long articleId);
-    Page<ClientSpecialpriceDto> findPageSpecialpriceofArticle(Long articleId, int pagenum, int pagesize);
     //Faire la liste des prix speciaux associe a un client puis page par page
     List<ClientSpecialpriceDto> findAllSpecialpriceofClient(Long clientId);
     Page<ClientSpecialpriceDto> findPageSpecialpriceofClient(Long clientId, int pagenum, int pagesize);

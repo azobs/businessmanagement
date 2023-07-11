@@ -19,4 +19,7 @@ public interface CapsuleArrivalService {
     List<CapsuleArrivalDto> findAllCapsuleArrivalinSicapsBetween(Long sicapsId, Instant startDate, Instant endDate);
     Page<CapsuleArrivalDto> findPageCapsuleArrivalinSicapsBetween(Long sicapsId, Instant startDate, Instant endDate,
                                                                   int pagenum, int pagesize);
+    List<CapsuleArrivalDto> findAllCapsuleArrivalinPosBetween(Long posId, Instant startDate, Instant endDate);
+    Page<CapsuleArrivalDto> findPageCapsuleArrivalinPosBetween(Long posId, Instant startDate, Instant endDate,
+                                                                  int pagenum, int pagesize);
 }

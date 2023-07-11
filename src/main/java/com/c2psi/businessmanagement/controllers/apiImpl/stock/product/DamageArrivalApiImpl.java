@@ -189,4 +189,39 @@ public class DamageArrivalApiImpl implements DamageArrivalApi {
         map.put("cause", "RAS");
         return new ResponseEntity(map, HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity findAllDamageArrivalinPosBetween(Long posId, Instant startDate, Instant endDate) {
+        Map<String, Object> map = new LinkedHashMap<>();
+        List<DamageArrivalDto> damageArrivalDtoList = damageArrivalService.findAllDamageArrivalinPosBetween(
+                posId, startDate, endDate);
+        log.info("The method findAllDamageArrivalinPosBetween is being executed");
+
+        map.clear();
+        map.put("status", HttpStatus.OK);
+        map.put("message", "Damage Arrival list found successfully ");
+        map.put("data", damageArrivalDtoList);
+        map.put("cause", "RAS");
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity findPageDamageArrivalinPosBetween(Long posId, Instant startDate, Instant endDate,
+                                                            Optional<Integer> optpagenum,
+                                                            Optional<Integer> optpagesize) {
+        int pagenum = optpagenum.isPresent()?optpagenum.get():0;
+        int pagesize = optpagesize.isPresent()?optpagesize.get():1;
+
+        Map<String, Object> map = new LinkedHashMap<>();
+        Page<DamageArrivalDto> damageArrivalDtoPage = damageArrivalService.findPageDamageArrivalinPosBetween(
+                posId, startDate, endDate, pagenum, pagesize);
+        log.info("The method findPageDamageArrivalinPosBetween is being executed");
+
+        map.clear();
+        map.put("status", HttpStatus.OK);
+        map.put("message", "Damage Arrival page found successfully ");
+        map.put("data", damageArrivalDtoPage);
+        map.put("cause", "RAS");
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
 }

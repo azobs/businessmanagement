@@ -190,4 +190,39 @@ public class CapsuleArrivalApiImpl implements CapsuleArrivalApi {
         map.put("cause", "RAS");
         return new ResponseEntity(map, HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity findAllCapsuleArrivalinPosBetween(Long posId, Instant startDate, Instant endDate) {
+        Map<String, Object> map = new LinkedHashMap<>();
+        List<CapsuleArrivalDto> capsuleArrivalDtoList = capsuleArrivalService.findAllCapsuleArrivalinPosBetween(
+                posId, startDate, endDate);
+        log.info("The method findAllCapsuleArrivalinPosBetween is being executed");
+        //return null;
+        map.clear();
+        map.put("status", HttpStatus.OK);
+        map.put("message", "Capsule Arrival list found successfully ");
+        map.put("data", capsuleArrivalDtoList);
+        map.put("cause", "RAS");
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity findPageCapsuleArrivalinPosBetween(Long posId, Instant startDate, Instant endDate,
+                                                             Optional<Integer> optpagenum,
+                                                             Optional<Integer> optpagesize) {
+        Map<String, Object> map = new LinkedHashMap<>();
+        int pagenum = optpagenum.isPresent()?optpagenum.get():0;
+        int pagesize = optpagesize.isPresent()?optpagesize.get():1;
+
+        Page<CapsuleArrivalDto> capsuleArrivalDtoPage = capsuleArrivalService.findPageCapsuleArrivalinPosBetween(
+                posId, startDate, endDate, pagenum, pagesize);
+        log.info("The method findPageCapsuleArrivalinPosBetween is being executed");
+        //return null;
+        map.clear();
+        map.put("status", HttpStatus.OK);
+        map.put("message", "Capsule Arrival page found successfully ");
+        map.put("data", capsuleArrivalDtoPage);
+        map.put("cause", "RAS");
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
 }

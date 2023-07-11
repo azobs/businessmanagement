@@ -17,14 +17,14 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+import static com.c2psi.businessmanagement.utils.stock.product.UnitApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/unit")
+@Api(UNIT_ENDPOINT)
 public interface UnitApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/unit/create",
+    @PostMapping(value = CREATE_UNIT_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveUnit",
@@ -41,7 +41,7 @@ public interface UnitApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/unit/update",
+    @PutMapping(value = UPDATE_UNIT_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateUnit",
@@ -58,7 +58,7 @@ public interface UnitApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/unit/id/{unitId}",
+    @GetMapping(value = FIND_UNIT_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findUnitById", notes = "Search in the DB a Unit by its Id",
             response = UnitDto.class)
@@ -73,7 +73,7 @@ public interface UnitApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/unit/name/{unitName}/{posId}",
+    @GetMapping(value = FIND_UNIT_BY_NAME_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findUnitByUnitnameAndPos", notes = "Search in the DB a Unit by its name",
             response = UnitDto.class)
@@ -91,7 +91,7 @@ public interface UnitApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/unit/all/pos/{posId}",
+    @GetMapping(value = FIND_ALL_UNIT_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllUnitInPos", notes = "Search the unit list in the DB ",
             responseContainer = "List<UnitDto>")
@@ -106,7 +106,7 @@ public interface UnitApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/unit/page/pos/{posId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_UNIT_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageUnitInPos", notes = "Search the unit list in the DB ",
             responseContainer = "Page<UnitDto>")
@@ -123,7 +123,7 @@ public interface UnitApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/unit/delete/id/{unitId}",
+    @DeleteMapping(value = DELETE_UNIT_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteUnitById",
             notes = "This method is used to delete an unit saved in the DB", response = Boolean.class)
@@ -137,7 +137,7 @@ public interface UnitApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/unitconversion/create",
+    @PostMapping(value = CREATE_UNITCONVERSION_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveUnitConversion",
@@ -154,7 +154,7 @@ public interface UnitApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/unitconversion/update",
+    @PutMapping(value = UPDATE_UNITCONVERSION_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateUnitConversion",
@@ -171,7 +171,7 @@ public interface UnitApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/unitconversion/convert/{quantity}/{from}/{to}",
+    @GetMapping(value = CONVERTTO_UNIT_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "convertTo", notes = "convert a quantity from one unit to another",
             response = String.class)
@@ -192,7 +192,7 @@ public interface UnitApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/unitconversion/id/{unitconvId}",
+    @GetMapping(value = FIND_UNITCONVERSION_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findUnitConversionById", notes = "find a conversion rule by its id",
             response = UnitConversionDto.class)
@@ -207,7 +207,7 @@ public interface UnitApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/unitconversion/rule/{from}/{to}",
+    @GetMapping(value = FIND_CONVERSIONRULE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findConversionRuleBetween", notes = "find a conversion rule ",
             response = UnitConversionDto.class)
@@ -225,7 +225,7 @@ public interface UnitApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/unitconversion/rules/{from}",
+    @GetMapping(value = FIND_ALL_CONVERTIBLE_UNIT_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "listofConvertibleUnitWith", notes = "Search the unit list in the DB ",
             responseContainer = "List<UnitDto>")
@@ -240,7 +240,7 @@ public interface UnitApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/unitconversion/delete/id/{unitconvId}",
+    @DeleteMapping(value = DELETE_UNITCONVERSION_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteUnitById",
             notes = "This method is used to delete an unit saved in the DB", response = Boolean.class)

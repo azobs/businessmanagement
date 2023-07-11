@@ -329,44 +329,6 @@ public class ClientSpecialpriceServiceImpl implements ClientSpecialpriceService 
     }
 
     @Override
-    public List<ClientSpecialpriceDto> findAllSpecialpriceofArticle(Long articleId) {
-
-        if(articleId == null){
-            log.error("There articleId passed as argument is null and the method can't be executed");
-            throw new NullArgumentException("L'argument articleId passe en argument est null ");
-        }
-
-        Optional<List<ClientSpecialprice>> optionalClientSpecialpriceList = clientSpecialpriceRepository.
-                findAllSpecialpriceofArticle(articleId);
-        if(!optionalClientSpecialpriceList.isPresent()){
-            log.error("There is no specialprice assigned for the article with the id {} passed as argument", articleId);
-            throw new EntityNotFoundException("Aucun specialprice assigne a l'article precise en argument ",
-                    ErrorCode.CLIENTSPECIALPRICE_NOT_FOUND);
-        }
-
-        return optionalClientSpecialpriceList.get().stream().map(ClientSpecialpriceDto::fromEntity).collect(Collectors.toList());
-    }
-
-    @Override
-    public Page<ClientSpecialpriceDto> findPageSpecialpriceofArticle(Long articleId, int pagenum, int pagesize) {
-
-        if(articleId == null){
-            log.error("There articleId passed as argument is null and the method can't be executed");
-            throw new NullArgumentException("L'argument articleId passe en argument est null ");
-        }
-
-        Optional<Page<ClientSpecialprice>> optionalClientSpecialpricePage = clientSpecialpriceRepository.
-                findPageSpecialpriceofArticle(articleId, PageRequest.of(pagenum, pagesize));
-        if(!optionalClientSpecialpricePage.isPresent()){
-            log.error("There is no specialprice assigned for the article with the id {} passed as argument", articleId);
-            throw new EntityNotFoundException("Aucun specialprice assigne a l'article precise en argument ",
-                    ErrorCode.CLIENTSPECIALPRICE_NOT_FOUND);
-        }
-
-        return optionalClientSpecialpricePage.get().map(ClientSpecialpriceDto::fromEntity);
-    }
-
-    @Override
     public List<ClientSpecialpriceDto> findAllSpecialpriceofClient(Long clientId) {
         if(clientId == null){
             log.error("There clientId passed as argument is null and the method can't be executed");
@@ -410,10 +372,14 @@ public class ClientSpecialpriceServiceImpl implements ClientSpecialpriceService 
             throw new NullArgumentException("L'argument de la methode ne saurait etre null");
         }
 
-        List<ClientSpecialpriceDto> clientSpecialpriceDtoList = this.findAllSpecialpriceofArticle(articleId);
+        Optional<List<ClientSpecialprice>> optionalClientSpecialpriceList = clientSpecialpriceRepository.findAllSpecialpriceofArticle(articleId);
+        if(!optionalClientSpecialpriceList.isPresent()){
+            log.error("No article with the precise article Id {}", articleId);
+            throw new EntityNotFoundException("Aucun article avec l'Id passe en argument", ErrorCode.ARTICLE_NOT_FOUND);
+        }
         List<ClientDto> clientDtoList = new ArrayList<>();
-        for(ClientSpecialpriceDto clientSpecialpriceDto: clientSpecialpriceDtoList){
-            clientDtoList.add(clientSpecialpriceDto.getCltSpClientDto());
+        for(ClientSpecialprice clientSpecialprice: optionalClientSpecialpriceList.get()){
+            clientDtoList.add(ClientDto.fromEntity(clientSpecialprice.getCltSpClient()));
         }
 
         return clientDtoList;

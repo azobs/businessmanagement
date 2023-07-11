@@ -15,14 +15,14 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+import static com.c2psi.businessmanagement.utils.stock.product.PackagingApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/packaging")
+@Api(PACKAGING_ENDPOINT)
 public interface PackagingApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/packaging/create",
+    @PostMapping(value = CREATE_PACKAGING_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "savePackaging",
@@ -39,7 +39,7 @@ public interface PackagingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/packaging/update",
+    @PutMapping(value = UPDATE_PACKAGING_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updatePackaging",
@@ -56,7 +56,7 @@ public interface PackagingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/packaging/id/{packagingId}",
+    @GetMapping(value = FIND_PACKAGING_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPackagingById", notes = "Search in the DB a packaging by its Id",
             response = FormatDto.class)
@@ -71,7 +71,7 @@ public interface PackagingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/packaging/attributes/{packLabel}/{packFirstColor}/{providerId}/{posId}",
+    @GetMapping(value = FIND_PACKAGING_BY_ATTRIBUTES_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPackagingByAttributes", notes = "Search in the DB a packaging by its parameters",
             response = PackagingDto.class)
@@ -95,7 +95,7 @@ public interface PackagingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/packaging/all/{posId}",
+    @GetMapping(value = FIND_ALL_PACKAGING_OF_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllPackagingofPos", notes = "Search all packaging in pos in the DB ",
             responseContainer = "List<PackagingDto>")
@@ -110,7 +110,7 @@ public interface PackagingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/packaging/page/{posId}",
+    @GetMapping(value = FIND_PAGE_PACKAGING_OF_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPagePackagingofPos", notes = "Search all packaging in pos in the DB page by page",
             responseContainer = "Page<PackagingDto>")
@@ -127,7 +127,7 @@ public interface PackagingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/packaging/provider/all/{providerId}/{posId}",
+    @GetMapping(value = FIND_ALL_PACKAGING_OF_PROVIDER_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllPackagingofProviderinPos", notes = "Search all packaging in pos in the DB ",
             responseContainer = "List<PackagingDto>")
@@ -145,7 +145,7 @@ public interface PackagingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/packaging/provider/page/{providerId}/{posId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_PACKAGING_OF_PROVIDER_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPagePackagingofProviderinPos", notes = "Search all packaging in pos for a provider page by page",
             responseContainer = "Page<PackagingDto>")
@@ -165,7 +165,7 @@ public interface PackagingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/packaging/consigne/{packagingId}/{amountToConvert}",
+    @GetMapping(value = CONVERT_CASH_TO_PACKAGING_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "convertCashToPackaging", notes = "Convert an amount of money in packaging",
             responseContainer = "BigDecimal")
@@ -183,7 +183,7 @@ public interface PackagingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/packaging/deconsigne/{packagingId}/{numberToConvert}",
+    @GetMapping(value = CONVERT_PACKAGING_TO_CASH_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "convertPackagingToCash", notes = "Convert a number of packaging to money",
             responseContainer = "BigDecimal")
@@ -201,7 +201,7 @@ public interface PackagingApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/format/delete/id/{packagingId}",
+    @DeleteMapping(value = DELETE_PACKAGING_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deletePackagingById",
             notes = "This method is used to delete a packaging saved in the DB", response = Boolean.class)

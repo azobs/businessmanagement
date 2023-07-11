@@ -13,14 +13,14 @@ import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+import static com.c2psi.businessmanagement.utils.client.command.SaleInvoiceDamageApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/saleInvoiceDamage")
+@Api(SALEINVOICEDAMAGE_ENDPOINT)
 public interface SaleInvoiceDamageApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/saleInvoiceDamage/create",
+    @PostMapping(value = CREATE_SALEINVOICEDAMAGE_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveSaleInvoiceDamage",
@@ -37,7 +37,7 @@ public interface SaleInvoiceDamageApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/saleInvoiceDamage/update",
+    @PutMapping(value = UPDATE_SALEINVOICEDAMAGE_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateSaleInvoiceDamage",
@@ -54,7 +54,7 @@ public interface SaleInvoiceDamageApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/saleInvoiceDamage/delete/id/{saleiDamageId}",
+    @DeleteMapping(value = DELETE_SALEINVOICEDAMAGE_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteSaleInvoiceDamageById",
             notes = "This method is used to delete the saleInvoiceDamage saved in the DB", response = Boolean.class)
@@ -68,7 +68,7 @@ public interface SaleInvoiceDamageApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceDamage/id/{saleiDamageId}",
+    @GetMapping(value = FIND_SALEINVOICEDAMAGE_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findSaleInvoiceDamageById", notes = "Search a saleinvoiceDamage by id",
             response = SaleInvoiceDamageDto.class)
@@ -83,7 +83,7 @@ public interface SaleInvoiceDamageApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceDamage/pos/code/{saleiDamageCode}/{posId}",
+    @GetMapping(value = FIND_SALEINVOICEDAMAGE_BY_CODE_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findSaleInvoiceDamageByCode", notes = "Search a saleinvoiceDamage by code in Pointofsale",
             response = SaleInvoiceDamageDto.class)
@@ -101,7 +101,7 @@ public interface SaleInvoiceDamageApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceDamage/all/between/{from}/{to}",
+    @GetMapping(value = FIND_ALL_SALEINVOICEDAMAGE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllSaleiDamageBetween", notes = "Search a saleinvoiceDamage list between 02 dates",
             responseContainer = "List<SaleInvoiceDamageDto>")
@@ -119,7 +119,7 @@ public interface SaleInvoiceDamageApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceDamage/page/between/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_SALEINVOICEDAMAGE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageSaleiDamageBetween", notes = "Search a saleinvoiceDamage list between 02 dates page by page",
             responseContainer = "Page<SaleInvoiceDamageDto>")
@@ -139,7 +139,7 @@ public interface SaleInvoiceDamageApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceDamage/client/all/between/{clientId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_SALEINVOICEDAMAGE_OF_CLIENT_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllSaleiDamageofClientBetween", notes = "Search a saleinvoiceDamage list for a client " +
             "between 02 dates",
@@ -161,7 +161,7 @@ public interface SaleInvoiceDamageApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceDamage/client/page/between/{clientId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_SALEINVOICEDAMAGE_OF_CLIENT_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageSaleiDamageofClientBetween", notes = "Search a saleinvoiceDamage page for a client " +
             "between 02 dates",
@@ -185,7 +185,7 @@ public interface SaleInvoiceDamageApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceDamage/userbm/all/between/{userbmId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_SALEINVOICEDAMAGE_OF_USERBM_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllSaleiDamageofUserbmBetween", notes = "Search a saleinvoiceDamage list for a UserBM " +
             "between 02 dates",
@@ -207,7 +207,7 @@ public interface SaleInvoiceDamageApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceDamage/userbm/page/between/{userbmId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_SALEINVOICEDAMAGE_OF_USERBM_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageSaleiDamageofUserbmBetween", notes = "Search a saleinvoiceDamage page for a userbm " +
             "between 02 dates",
@@ -231,7 +231,7 @@ public interface SaleInvoiceDamageApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceDamage/pos/all/between/{posId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_SALEINVOICEDAMAGE_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllSaleiDamageofUserbmBetween", notes = "Search a saleinvoiceDamage list in Pos" +
             "between 02 dates",
@@ -253,7 +253,7 @@ public interface SaleInvoiceDamageApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceDamage/pos/page/between/{posId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_SALEINVOICEDAMAGE_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageSaleiDamageinPosBetween", notes = "Search a saleinvoiceDamage page for a userbm " +
             "between 02 dates",
@@ -277,7 +277,7 @@ public interface SaleInvoiceDamageApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceDamage/pos/userbm/all/between/{userbmId}/{posId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_SALEINVOICEDAMAGE_OF_USERBM_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllSaleiDamageofUserbminPosBetween", notes = "Search a saleinvoiceDamage list in Pos" +
             "between 02 dates for a UserBM",
@@ -302,7 +302,7 @@ public interface SaleInvoiceDamageApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceDamage/pos/userbm/page/between/{userbmId}/{posId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_SALEINVOICEDAMAGE_OF_USERBM_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageSaleiDamageofUserbminPosBetween", notes = "Search a saleinvoiceDamage page in Pos" +
             "between 02 dates for a UserBM",
@@ -329,7 +329,7 @@ public interface SaleInvoiceDamageApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceDamage/pos/client/all/between/{clientId}/{posId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_SALEINVOICEDAMAGE_OF_CLIENT_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllSaleiDamageofClientinPosBetween", notes = "Search a saleinvoiceDamage list in Pos" +
             "between 02 dates for a client",
@@ -354,7 +354,7 @@ public interface SaleInvoiceDamageApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceDamage/pos/client/page/between/{clientId}/{posId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_SALEINVOICEDAMAGE_OF_CLIENT_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageSaleiDamageofClientinPosBetween", notes = "Search a saleinvoiceDamage page in Pos" +
             "between 02 dates for a client",
@@ -381,7 +381,7 @@ public interface SaleInvoiceDamageApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceDamage/client/userbm/all/between/{clientId}/{userbmId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_SALEINVOICEDAMAGE_FOR_USERBM_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllSaleiDamageofClientforUserbmBetween", notes = "Search a saleinvoiceDamage list for a client" +
             "between 02 dates saved by a user",
@@ -406,7 +406,7 @@ public interface SaleInvoiceDamageApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceDamage/client/userbm/all/between/{clientId}/{userbmId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_SALEINVOICEDAMAGE_FOR_USERBM_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageSaleiDamageofClientforUserbmBetween", notes = "Search a saleinvoiceDamage page for a client" +
             "between 02 dates saved by a user",
@@ -433,7 +433,7 @@ public interface SaleInvoiceDamageApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceDamage/pos/client/userbm/all/between/{clientId}/{userbmId}/{posId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_SALEINVOICEDAMAGE_FOR_USERBM_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllSaleiDamageofClientforUserbminPosBetween", notes = "Search a saleinvoiceDamage list for a client" +
             "between 02 dates saved by a user in a pointofsale",
@@ -461,7 +461,7 @@ public interface SaleInvoiceDamageApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceDamage/pos/client/userbm/all/between/{clientId}/{userbmId}/{posId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_SALEINVOICEDAMAGE_FOR_USERBM_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageSaleiDamageofClientforUserbminPosBetween", notes = "Search a saleinvoiceDamage page for a client" +
             "between 02 dates saved by a user in a pointofsale",

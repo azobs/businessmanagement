@@ -14,14 +14,14 @@ import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+import static com.c2psi.businessmanagement.utils.stock.product.SupplyInvoiceCashApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/supplyInvoiceCash")
+@Api(SUPPLYINVOICECASH_ENDPOINT)
 public interface SupplyInvoiceCashApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/supplyInvoiceCash/create",
+    @PostMapping(value = CREATE_SUPPLYINVOICECASH_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveSupplyInvoiceCash",
@@ -38,7 +38,7 @@ public interface SupplyInvoiceCashApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/supplyInvoiceCash/update",
+    @PutMapping(value = UPDATE_SUPPLYINVOICECASH_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveSupplyInvoiceCash",
@@ -55,7 +55,7 @@ public interface SupplyInvoiceCashApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/supplyInvoiceCash/delete/id/{sicashId}",
+    @DeleteMapping(value = DELETE_SUPPLYINVOICECASH_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteSupplyInvoiceCashById",
             notes = "This method is used to delete the supplyInvoiceCash saved in the DB", response = Boolean.class)
@@ -69,7 +69,7 @@ public interface SupplyInvoiceCashApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/supplyInvoiceCash/id/{sicashId}",
+    @GetMapping(value = FIND_SUPPLYINVOICECASH_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findSupplyInvoiceCashById", notes = "Search a supplyinvoicecash in a pointofsale",
             response = SupplyInvoiceCashDto.class)
@@ -84,7 +84,7 @@ public interface SupplyInvoiceCashApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/supplyInvoiceCash/code/pos/{sicashCode}/{posId}",
+    @GetMapping(value = FIND_SUPPLYINVOICECASH_BY_CODE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findSupplyInvoiceCashByCode", notes = "Search a supplyinvoicecash in a pointofsale",
             response = SupplyInvoiceCashDto.class)
@@ -102,7 +102,7 @@ public interface SupplyInvoiceCashApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/supplyInvoiceCash/pos/all/{posId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_SUPPLYINVOICECASH_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllSupplyInvoiceCashBetween", notes = "Search all supplyinvoicecash in a pointofsale between 02 date",
             responseContainer = "List<SupplyInvoiceCashDto>")
@@ -123,7 +123,7 @@ public interface SupplyInvoiceCashApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/supplyInvoiceCash/pos/page/{posId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_SUPPLYINVOICECASH_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageSupplyInvoiceCashBetween", notes = "Search all supplyinvoicecash in a pointofsale " +
             "between 02 date page by page",
@@ -147,7 +147,7 @@ public interface SupplyInvoiceCashApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/supplyInvoiceCash/pos/userbm/all/{posId}/{userbmId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_SUPPLYINVOICECASH_OF_USERBM_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllSupplyInvoiceCashofUserbmBetween", notes = "Search all supplyinvoicecash in a pointofsale " +
             "between 02 date of a Userbm",
@@ -172,7 +172,7 @@ public interface SupplyInvoiceCashApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/supplyInvoiceCash/pos/userbm/page/{posId}/{userbmId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_SUPPLYINVOICECASH_OF_USERBM_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageSupplyInvoiceCashofUserbmBetween", notes = "Search all supplyinvoicecash in a pointofsale " +
             "between 02 date of a Userbm page by page",
@@ -199,7 +199,7 @@ public interface SupplyInvoiceCashApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/supplyInvoiceCash/pos/provider/all/{posId}/{providerId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_SUPPLYINVOICECASH_OF_PROVIDER_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllSupplyInvoiceCashofProviderBetween", notes = "Search all supplyinvoicecash in a pointofsale " +
             "between 02 date of a provider",
@@ -224,7 +224,7 @@ public interface SupplyInvoiceCashApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/supplyInvoiceCash/pos/provider/page/{posId}/{providerId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_SUPPLYINVOICECASH_OF_PROVIDER_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageSupplyInvoiceCashofProviderBetween", notes = "Search all supplyinvoicecash in a pointofsale " +
             "between 02 date of a provider page by page",
@@ -251,7 +251,7 @@ public interface SupplyInvoiceCashApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/supplyInvoiceCash/pos/userbm/provider/all/{posId}/{providerId}/{userbmId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_SUPPLYINVOICECASH_OF_PROVIDER_AND_USERBM_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllSupplyInvoiceCashofProviderAndUserbmBetween", notes = "Search all supplyinvoicecash in a pointofsale " +
             "between 02 date of a provider saved by a userbm",
@@ -279,7 +279,7 @@ public interface SupplyInvoiceCashApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/supplyInvoiceCash/pos/userbm/provider/page/{posId}/{providerId}/{userbmId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_SUPPLYINVOICECASH_OF_PROVIDER_AND_USERBM_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageSupplyInvoiceCashofProviderAndUserbmBetween", notes = "Search all supplyinvoicecash in a pointofsale " +
             "between 02 date of a provider saved by a userbm page by page",

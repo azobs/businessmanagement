@@ -25,4 +25,11 @@ public interface CapsuleArrivalRepository
     Optional<List<CapsuleArrival>> findAllCapsArrivalinSicapsBetween(Long sicapsId, Instant startDate, Instant endDate);
     @Query("SELECT capsa FROM CapsuleArrival capsa WHERE capsa.capsaSicaps.id=:sicapsId AND (capsa.capsaArrivalEntryDate>=:startDate AND capsa.capsaArrivalEntryDate<=:endDate) ORDER BY capsa.capsaArt.artName ASC ")
     Optional<Page<CapsuleArrival>> findPageCapsArrivalinSicapsBetween(Long sicapsId, Instant startDate, Instant endDate, Pageable pageable);
+
+    @Query("SELECT capsa FROM CapsuleArrival capsa WHERE capsa.capsaSicaps.sicapsPosId=:posId AND (capsa.capsaArrivalEntryDate>=:startDate AND capsa.capsaArrivalEntryDate<=:endDate) ORDER BY capsa.capsaArt.artName ASC ")
+    Optional<List<CapsuleArrival>> findAllCapsArrivalinPosBetween(Long posId, Instant startDate, Instant endDate);
+    @Query("SELECT capsa FROM CapsuleArrival capsa WHERE capsa.capsaSicaps.sicapsPosId=:posId AND (capsa.capsaArrivalEntryDate>=:startDate AND capsa.capsaArrivalEntryDate<=:endDate) ORDER BY capsa.capsaArt.artName ASC ")
+    Optional<Page<CapsuleArrival>> findPageCapsArrivalinPosBetween(Long posId, Instant startDate, Instant endDate, Pageable pageable);
+
+
 }

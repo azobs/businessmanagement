@@ -17,14 +17,14 @@ import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+import static com.c2psi.businessmanagement.utils.pos.pos.PosPackagingAccountApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/pospackagingaccount")
+@Api(POS_PACKAGING_ACCOUNT_ENDPOINT)
 public interface PosPackagingAccountApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/ppspackagingaccount/create",
+    @PostMapping(value = CREATE_POS_PACKAGING_ACCOUNT_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "savePosPackagingAccount",
@@ -41,7 +41,7 @@ public interface PosPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pospackagingaccount/id/{pospackaccId}",
+    @GetMapping(value = FIND_POS_PACKAGING_ACCOUNT_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPosPackagingAccountById", notes = "Search in the DB a pospackagingaccount by its Id",
             response = PosPackagingAccountDto.class)
@@ -56,7 +56,7 @@ public interface PosPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pospackagingaccount/packaging/provider/{packagingId}/{posId}",
+    @GetMapping(value = FIND_POS_PACKAGING_ACCOUNT_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPosPackagingAccount", notes = "Search in the DB a pospackagingaccount by its attributes",
             response = PosPackagingAccountDto.class)
@@ -74,7 +74,7 @@ public interface PosPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pospackagingaccount/all/{posId}",
+    @GetMapping(value = FIND_ALL_PACKAGING_ACCOUNT_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllPackagingAccountofPos", notes = "Find all packaging account in pos",
             responseContainer = "List<PosPackagingAccountDto>")
@@ -89,7 +89,7 @@ public interface PosPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pospackagingaccount/page/{posId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_PACKAGING_ACCOUNT_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPagePackagingAccountofPos", notes = "Find all packaging account in pos page by page",
             responseContainer = "Page<PosPackagingAccountDto>")
@@ -106,7 +106,7 @@ public interface PosPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/pospackagingaccount/delete/{pospackId}",
+    @DeleteMapping(value = DELETE_POS_PACKAGING_ACCOUNT_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deletePosPackagingAccountById",
             notes = "This method is used to delete a PosPackagingOperation saved in the DB", response = Boolean.class)
@@ -120,7 +120,7 @@ public interface PosPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/pospackagingaccount/operation/create",
+    @PostMapping(value = CREATE_POS_PACKAGING_OPERATION_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "savePackagingOperation",
@@ -137,7 +137,7 @@ public interface PosPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/pospackagingaccount/operation/update",
+    @PutMapping(value = UPDATE_POS_PACKAGING_OPERATION_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updatePosPackagingOperation",
@@ -154,7 +154,7 @@ public interface PosPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/pospackagingaccount/operation/delete/{pospackopId}",
+    @DeleteMapping(value = DELETE_POS_PACKAGING_OPERATION_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deletePosPackagingOperationById",
             notes = "This method is used to delete a PosPackagingOperation saved in the DB", response = Boolean.class)
@@ -168,7 +168,7 @@ public interface PosPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pospackagingaccount/operation/all/{pospackaccId}",
+    @GetMapping(value = FIND_ALL_POS_PACKAGING_OPERATION_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllPosPackagingOperation", notes = "Find all packaging account operation in pos",
             responseContainer = "List<PosPackagingOperationDto>")
@@ -183,7 +183,7 @@ public interface PosPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pospackagingaccount/operation/page/{pospackaccId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_POS_PACKAGING_OPERATION_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPagePosPackagingOperation", notes = "Find all packaging account operation in pos page by page",
             responseContainer = "Page<PosPackagingOperationDto>")
@@ -200,7 +200,7 @@ public interface PosPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pospackagingaccount/operation/type/all/{pospackaccId}/{opType}",
+    @GetMapping(value = FIND_ALL_POS_PACKAGING_OPERATION_OF_TYPE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllPosPackagingOperationofType", notes = "Find all packaging account operation in pos for a " +
             "certain types",
@@ -219,7 +219,7 @@ public interface PosPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pospackagingaccount/operation/type/page/{pospackaccId}/{opType}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_POS_PACKAGING_OPERATION_OF_TYPE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPagePosPackagingOperationofType", notes = "Find all packaging account operation in pos for a " +
             "certain types page by page",
@@ -240,7 +240,7 @@ public interface PosPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pospackagingaccount/operation/all/between/{pospackaccId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_POS_PACKAGING_OPERATION_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllPosPackagingOperationBetween", notes = "Find all packaging account operation in pos between",
             responseContainer = "List<PosPackagingOperationDto>")
@@ -261,7 +261,7 @@ public interface PosPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pospackagingaccount/operation/all/between/{pospackaccId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_POS_PACKAGING_OPERATION_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPagePosPackagingOperationBetween", notes = "Find all packaging account operation in pos between",
             responseContainer = "Page<PosPackagingOperationDto>")
@@ -284,7 +284,7 @@ public interface PosPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pospackagingaccount/operation/type/all/between/{pospackaccId}/{optype}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_POS_PACKAGING_OPERATION_OF_TYPE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllPosPackagingOperationofTypeBetween", notes = "Find all packaging account operation in pos between",
             responseContainer = "List<PosPackagingOperationDto>")
@@ -308,7 +308,7 @@ public interface PosPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pospackagingaccount/operation/type/page/between/{pospackaccId}/{optype}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_POS_PACKAGING_OPERATION_OF_TYPE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPagePosPackagingOperationofTypeBetween", notes = "Find all packaging account operation in pos between",
             responseContainer = "Page<PosPackagingOperationDto>")

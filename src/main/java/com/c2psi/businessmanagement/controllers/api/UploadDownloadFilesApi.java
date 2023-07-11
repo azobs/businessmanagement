@@ -1,27 +1,23 @@
 package com.c2psi.businessmanagement.controllers.api;
 
-import com.c2psi.businessmanagement.dtos.stock.price.BasePriceDto;
 import io.swagger.annotations.*;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+import static com.c2psi.businessmanagement.utils.Constants.*;
 
 @Validated
-@Api(APP_ROOT+"/resources")
+@Api(IMAGE_UPLOAD_ENDPOINT)
 public interface UploadDownloadFilesApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/resources/upload/persons",
+    @PostMapping(value = PERSONS_IMAGE_UPLOAD_ENDPOINT,
             consumes = { MediaType.MULTIPART_FORM_DATA_VALUE },
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "uploadFile",
@@ -31,7 +27,7 @@ public interface UploadDownloadFilesApi {
             @ApiResponse(code=200, message="Object BasePrice added successfully"),
             @ApiResponse(code=400, message="Object BasePrice is not valid during the saving process")
     })
-    ResponseEntity uploadFile(
+    ResponseEntity personsUploadFile(
             @ApiParam(name = "file", type = "MultipartFile ", required = true,
                     value="The JSON object that represent the file to upload")
             @RequestPart("file") @NotNull MultipartFile file);

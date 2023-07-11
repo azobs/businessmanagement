@@ -15,14 +15,14 @@ import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+import static com.c2psi.businessmanagement.utils.stock.product.CashArrivalApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/cashArrival")
+@Api(CASHARRIVAL_ENDPOINT)
 public interface CashArrivalApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/cashArrival/create",
+    @PostMapping(value = CREATE_CASHARRIVAL_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveCashArrival",
@@ -39,7 +39,7 @@ public interface CashArrivalApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/cashArrival/update",
+    @PutMapping(value = UPDATE_CASHARRIVAL_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateCashArrival",
@@ -56,7 +56,7 @@ public interface CashArrivalApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/cashArrival/delete/id/{cashaId}",
+    @DeleteMapping(value = DELETE_CASHARRIVAL_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteCashArrivalById",
             notes = "This method is used to delete the cashArrival saved in the DB", response = Boolean.class)
@@ -70,7 +70,7 @@ public interface CashArrivalApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/cashArrival/id/{cashaId}",
+    @GetMapping(value = FIND_CASHARRIVAL_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findCashArrivalById", notes = "Search a cashArrival in a pointofsale",
             response = CashArrivalDto.class)
@@ -85,7 +85,7 @@ public interface CashArrivalApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/cashArrival/article/{artId}/{sicashId}",
+    @GetMapping(value = FIND_CASHARRIVAL_OF_ARTICLE_IN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findCashArrivalofArticleinSicash", notes = "Search a cashArrival in a pointofsale",
             response = CashArrivalDto.class)
@@ -103,7 +103,7 @@ public interface CashArrivalApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/cashArrival/all/{sicashId}",
+    @GetMapping(value = FIND_ALL_CASHARRIVAL_IN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCashArrivalinSicash", notes = "Search all cashArrival in a pointofsale on a supply " +
             "invoice cash",
@@ -119,7 +119,7 @@ public interface CashArrivalApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/cashArrival/all/{sicashId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_CASHARRIVAL_IN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCashArrivalinSicash", notes = "Search all cashArrival in a pointofsale on a supply " +
             "invoice cash page by page",
@@ -137,7 +137,7 @@ public interface CashArrivalApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/cashArrival/all/type/{arrivalType}/{sicashId}",
+    @GetMapping(value = FIND_ALL_CASHARRIVAL_OF_TYPE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCashArrivalofCashArrivalTypeinSicash", notes = "Search all cashArrival in a pointofsale on a supply " +
             "invoice cash",
@@ -156,7 +156,7 @@ public interface CashArrivalApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/cashArrival/page/type/{arrivalType}/{sicashId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_CASHARRIVAL_OF_TYPE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCashArrivalofCashArrivalTypeinSicash", notes = "Search all cashArrival in a pointofsale on a supply " +
             "invoice cash page by page",
@@ -177,7 +177,7 @@ public interface CashArrivalApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/cashArrival/all/between/{sicashId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_CASHARRIVAL_IN_SICASH_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCashArrivalinSicashBetween", notes = "Search all cashArrival in a pointofsale on a supply " +
             "invoice cash",
@@ -199,7 +199,7 @@ public interface CashArrivalApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/cashArrival/page/between/{sicashId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_CASHARRIVAL_IN_SICASH_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCashArrivalinSicashBetween", notes = "Search all cashArrival in a pointofsale on a supply " +
             "invoice cash page by page",
@@ -223,7 +223,7 @@ public interface CashArrivalApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/cashArrival/all/type/between/{arrivalType}/{sicashId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_CASHARRIVAL_OF_TYPE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCashArrivalofCashArrivalTypeinSicashBetween", notes = "Search all cashArrival in a pointofsale on a supply " +
             "invoice cash",
@@ -248,7 +248,7 @@ public interface CashArrivalApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/cashArrival/page/type/between/{arrivalType}/{sicashId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_CASHARRIVAL_OF_TYPE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCashArrivalofCashArrivalTypeinSicashBetween", notes = "Search all cashArrival in a pointofsale on a supply " +
             "invoice cash page by page",
@@ -275,6 +275,52 @@ public interface CashArrivalApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+    @GetMapping(value = FIND_ALL_CASHARRIVAL_IN_POS_BETWEEN_ENDPOINT,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "findAllCashArrivalinPosBetween", notes = "Search all cashArrival in a pointofsale " +
+            "between 02 dates",
+            responseContainer = "List<CashArrivalDto>")
+    @ApiResponses(value={
+            @ApiResponse(code=200, message="The CashArrivalDto list found successfully"),
+            @ApiResponse(code=404, message="Error faced during the finding process")
+    })
+    ResponseEntity findAllCashArrivalinPosBetween(
+            @ApiParam(name = "posId", type = "Long", required = true,
+                    value="Id of the concerned Pos", example = "1")
+            @NotNull @PathVariable("posd") Long posId,
+            @ApiParam(name = "from", type = "Instant", required = true,
+                    value="The date from which to search")
+            @NotNull @PathVariable("from") Instant startDate,
+            @ApiParam(name = "to", type = "Instant", required = true,
+                    value="The date to which to search")
+            @NotNull @PathVariable("to") Instant endDate);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @GetMapping(value = FIND_PAGE_CASHARRIVAL_IN_POS_BETWEEN_ENDPOINT,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "findPageCashArrivalinPosBetween", notes = "Search all cashArrival in a pointofsale  " +
+            "between 02 dates page by page",
+            responseContainer = "Page<CashArrivalDto>")
+    @ApiResponses(value={
+            @ApiResponse(code=200, message="The CashArrivalDto page found successfully"),
+            @ApiResponse(code=404, message="Error faced during the finding process")
+    })
+    ResponseEntity findPageCashArrivalinPosBetween(
+            @ApiParam(name = "posId", type = "Long", required = true,
+                    value="Id of the concerned Pos", example = "1")
+            @NotNull @PathVariable("posId") Long posId,
+            @ApiParam(name = "from", type = "Instant", required = true,
+                    value="The date from which to search")
+            @NotNull @PathVariable("from") Instant startDate,
+            @ApiParam(name = "to", type = "Instant", required = true,
+                    value="The date to which to search")
+            @NotNull @PathVariable("to") Instant endDate,
+            @PathVariable(name = "pagenum", required = false) Optional<Integer> optpagenum,
+            @PathVariable(name = "pagesize", required = false) Optional<Integer> optpagesize);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 

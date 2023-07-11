@@ -30,4 +30,8 @@ public interface CashArrivalService {
                                                                             Instant startDate, Instant endDate,
                                                                              int pagenum, int pagesize);
 
+    List<CashArrivalDto> findAllCashArrivalinPosBetween(Long posId, Instant startDate, Instant endDate);
+    Page<CashArrivalDto> findPageCashArrivalinPosBetween(Long posId, Instant startDate, Instant endDate,
+                                                            int pagenum, int pagesize);
+
 }

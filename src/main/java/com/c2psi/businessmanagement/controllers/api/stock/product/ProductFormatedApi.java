@@ -13,14 +13,15 @@ import javax.validation.constraints.NotNull;
 
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+
+import static com.c2psi.businessmanagement.utils.stock.product.ProductFormatedApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/productformated")
+@Api(PRODUCTFORMATED_ENDPOINT)
 public interface ProductFormatedApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/productformated/create",
+    @PostMapping(value = CREATE_PRODUCTFORMATED_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveProductFormated",
@@ -37,7 +38,7 @@ public interface ProductFormatedApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/productformated/update",
+    @PutMapping(value = UPDATE_PRODUCTFORMATED_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateProductFormated",
@@ -54,7 +55,7 @@ public interface ProductFormatedApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/productformated/id/{pfId}",
+    @GetMapping(value = FIND_PRODUCTFORMATED_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findProductFormatedById", notes = "Search in the DB a productformated by its Id",
             response = ProductFormatedDto.class)
@@ -69,7 +70,7 @@ public interface ProductFormatedApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/productformated/pf/{productId}/{formatId}",
+    @GetMapping(value = FIND_PRODUCTFORMATED_BY_PRODUCT_AND_FORMAT_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findProductFormatedByProductIdAndFormatId", notes = "Search in the DB a productformated by its Id",
             response = ProductFormatedDto.class)
@@ -87,7 +88,7 @@ public interface ProductFormatedApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/productformated/all/{posId}",
+    @GetMapping(value = FIND_ALL_PRODUCTFORMATED_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllProductFormatedInPos", notes = "Search all productformated in pointofsale",
             responseContainer = "List<ProductFormatedDto>")
@@ -102,7 +103,7 @@ public interface ProductFormatedApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/productformated/page/{posId}",
+    @GetMapping(value = FIND_PAGE_PRODUCTFORMATED_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageProductFormatedInPos", notes = "Search all productformated in pointofsale page by page",
             responseContainer = "Page<ProductFormatedDto>")
@@ -119,7 +120,7 @@ public interface ProductFormatedApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/productformated/delete/id/{pfId}",
+    @DeleteMapping(value = DELETE_PRODUCTFORMATED_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteProductFormatedById",
             notes = "This method is used to delete a productformated saved in the DB", response = Boolean.class)

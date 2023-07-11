@@ -33,4 +33,11 @@ public interface CashArrivalRepository extends JpaRepository<CashArrival, Long> 
     Optional<List<CashArrival>> findAllCashArrivalofCashArrivalTypeinSicashBetween(CashArrivalType cashArrivalType,  Long sicashId, Instant startDate, Instant endDate);
     @Query("SELECT casha FROM CashArrival casha WHERE casha.cashaSicash.id=:sicashId AND casha.cashaArrivaltype=:cashArrivalType AND (casha.cashaArrivalEntryDate>=:startDate AND casha.cashaArrivalEntryDate<=:endDate) ORDER BY casha.cashaArt.artName ASC ")
     Optional<Page<CashArrival>> findPageCashArrivalofCashArrivalTypeinSicashBetween(CashArrivalType cashArrivalType,  Long sicashId, Instant startDate, Instant endDate, Pageable pageable);
+
+    @Query("SELECT casha FROM CashArrival casha WHERE casha.cashaSicash.sicashPosId=:posId AND (casha.cashaArrivalEntryDate>=:startDate AND casha.cashaArrivalEntryDate<=:endDate) ORDER BY casha.cashaArt.artName ASC ")
+    Optional<List<CashArrival>> findAllCashArrivalinPosBetween(Long posId, Instant startDate, Instant endDate);
+    @Query("SELECT casha FROM CashArrival casha WHERE casha.cashaSicash.sicashPosId=:posId AND (casha.cashaArrivalEntryDate>=:startDate AND casha.cashaArrivalEntryDate<=:endDate) ORDER BY casha.cashaArt.artName ASC ")
+    Optional<Page<CashArrival>> findPageCashArrivalinPosBetween(Long posId, Instant startDate, Instant endDate, Pageable pageable);
+
+
 }

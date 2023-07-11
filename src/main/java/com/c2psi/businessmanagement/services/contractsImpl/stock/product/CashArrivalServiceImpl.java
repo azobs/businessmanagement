@@ -490,4 +490,43 @@ public class CashArrivalServiceImpl implements CashArrivalService {
 
         return cashArrivalPage.map(CashArrivalDto::fromEntity);
     }
+
+    @Override
+    public List<CashArrivalDto> findAllCashArrivalinPosBetween(Long posId, Instant startDate, Instant endDate) {
+        if(posId == null){
+            log.error("The method can't be running on null posId argument");
+            throw new NullArgumentException("La methode ne peut s'executer sur un argument posId null");
+        }
+
+        Optional<List<CashArrival>> optionalCashArrivalList = cashArrivalRepository.findAllCashArrivalinPosBetween(
+                posId, startDate, endDate);
+        if(!optionalCashArrivalList.isPresent()){
+            log.error("There is no pos in DB with the precised id {}", posId);
+            throw new EntityNotFoundException("Aucun pos n'existe avec l'id envoye ",
+                    ErrorCode.POINTOFSALE_NOT_FOUND);
+        }
+        List<CashArrival> cashArrivalList = optionalCashArrivalList.get();
+
+        return cashArrivalList.stream().map(CashArrivalDto::fromEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<CashArrivalDto> findPageCashArrivalinPosBetween(Long posId, Instant startDate, Instant endDate,
+                                                                int pagenum, int pagesize) {
+        if(posId == null){
+            log.error("The method can't be running on null posId argument");
+            throw new NullArgumentException("La methode ne peut s'executer sur un argument posId null");
+        }
+
+        Optional<Page<CashArrival>> optionalCashArrivalPage = cashArrivalRepository.findPageCashArrivalinPosBetween(
+                posId, startDate, endDate, PageRequest.of(pagenum, pagesize));
+        if(!optionalCashArrivalPage.isPresent()){
+            log.error("There is no pos in DB with the precised id {}", posId);
+            throw new EntityNotFoundException("Aucun pos n'existe avec l'id envoye ",
+                    ErrorCode.POINTOFSALE_NOT_FOUND);
+        }
+        Page<CashArrival> cashArrivalPage = optionalCashArrivalPage.get();
+
+        return cashArrivalPage.map(CashArrivalDto::fromEntity);
+    }
 }

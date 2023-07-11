@@ -267,4 +267,40 @@ public class CashArrivalApiImpl implements CashArrivalApi {
         map.put("cause", "RAS");
         return new ResponseEntity(map, HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity findAllCashArrivalinPosBetween(Long posId, Instant startDate, Instant endDate) {
+        Map<String, Object> map = new LinkedHashMap<>();
+        //return null;
+        List<CashArrivalDto> cashArrivalDtoList = cashArrivalService.findAllCashArrivalinPosBetween(
+                posId, startDate, endDate);
+        log.info("The method findAllCashArrivalinPosBetween is being executed");
+        //return null;
+        map.clear();
+        map.put("status", HttpStatus.OK);
+        map.put("message", "Cash Arrival list found successfully ");
+        map.put("data", cashArrivalDtoList);
+        map.put("cause", "RAS");
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity findPageCashArrivalinPosBetween(Long posId, Instant startDate, Instant endDate,
+                                                          Optional<Integer> optpagenum,
+                                                          Optional<Integer> optpagesize) {
+        Map<String, Object> map = new LinkedHashMap<>();
+        int pagenum = optpagenum.isPresent()?optpagenum.get():0;
+        int pagesize = optpagesize.isPresent()?optpagesize.get():1;
+        //return null;
+        Page<CashArrivalDto> cashArrivalDtoPage = cashArrivalService.findPageCashArrivalinPosBetween(posId,
+                startDate, endDate, pagenum, pagesize);
+        log.info("The method findPageCashArrivalinPosBetween is being executed");
+        //return null;
+        map.clear();
+        map.put("status", HttpStatus.OK);
+        map.put("message", "Cash Arrival page found successfully ");
+        map.put("data", cashArrivalDtoPage);
+        map.put("cause", "RAS");
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
 }

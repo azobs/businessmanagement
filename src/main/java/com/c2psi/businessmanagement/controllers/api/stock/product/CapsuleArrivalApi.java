@@ -14,14 +14,14 @@ import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+import static com.c2psi.businessmanagement.utils.stock.product.CapsuleArrivalApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/capsuleArrival")
+@Api(CAPSULEARRIVAL_ENDPOINT)
 public interface CapsuleArrivalApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/capsuleArrival/create",
+    @PostMapping(value = CREATE_CAPSULEARRIVAL_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveCapsuleArrival",
@@ -38,7 +38,7 @@ public interface CapsuleArrivalApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/capsuleArrival/update",
+    @PutMapping(value = UPDATE_CAPSULEARRIVAL_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateCapsuleArrival",
@@ -55,7 +55,7 @@ public interface CapsuleArrivalApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/capsuleArrival/delete/id/{capsaId}",
+    @DeleteMapping(value = DELETE_CAPSULEARRIVAL_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteCapsuleArrivalById",
             notes = "This method is used to delete the capsArrival saved in the DB", response = Boolean.class)
@@ -69,7 +69,7 @@ public interface CapsuleArrivalApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/capsuleArrival/id/{capsaId}",
+    @GetMapping(value = FIND_CAPSULEARRIVAL_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findcapsuleArrivalById", notes = "Search a capsuleArrival in a pointofsale",
             response = CapsuleArrivalDto.class)
@@ -84,7 +84,7 @@ public interface CapsuleArrivalApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/capsuleArrival/article/{artId}/{sicapsId}",
+    @GetMapping(value = FIND_CAPSULEARRIVAL_OF_ARTICLE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findCapsuleArrivalofArticleinSicapsule", notes = "Search a capsuleArrival in a pointofsale",
             response = CapsuleArrivalDto.class)
@@ -102,7 +102,7 @@ public interface CapsuleArrivalApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/capsuleArrival/all/{sicapsId}",
+    @GetMapping(value = FIND_ALL_CAPSULEARRIVAL_IN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllcapsuleArrivalinSicapsule", notes = "Search all capsuleArrival in a pointofsale on a supply " +
             "invoice capsule",
@@ -118,7 +118,7 @@ public interface CapsuleArrivalApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/capsuleArrival/all/{sicapsId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_CAPSULEARRIVAL_IN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCapsuleArrivalinSicapsule", notes = "Search all capsuleArrival in a pointofsale on a supply " +
             "invoice capsule page by page",
@@ -136,7 +136,7 @@ public interface CapsuleArrivalApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/capsuleArrival/all/between/{sicapsId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_CAPSULEARRIVAL_IN_SICAPS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCapsuleArrivalinSicapsuleBetween", notes = "Search all capsuleArrival in a pointofsale on a supply " +
             "invoice capsule",
@@ -158,7 +158,7 @@ public interface CapsuleArrivalApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/capsuleArrival/page/between/{sicapsId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_CAPSULEARRIVAL_IN_SICAPS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPagecapsuleArrivalinSicapsuleBetween", notes = "Search all capsuleArrival in a pointofsale on a supply " +
             "invoice capsule page by page",
@@ -171,6 +171,52 @@ public interface CapsuleArrivalApi {
             @ApiParam(name = "sicapsId", type = "Long", required = true,
                     value="Id of the concerned SupplyInvoicecapsule", example = "1")
             @NotNull @PathVariable("sicapsId") Long sicapsId,
+            @ApiParam(name = "from", type = "Instant", required = true,
+                    value="The date from which to search")
+            @NotNull @PathVariable("from") Instant startDate,
+            @ApiParam(name = "to", type = "Instant", required = true,
+                    value="The date to which to search")
+            @NotNull @PathVariable("to") Instant endDate,
+            @PathVariable(name = "pagenum", required = false) Optional<Integer> optpagenum,
+            @PathVariable(name = "pagesize", required = false) Optional<Integer> optpagesize);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @GetMapping(value = FIND_ALL_CAPSULEARRIVAL_IN_POS_BETWEEN_ENDPOINT,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "findAllCapsuleArrivalinPosBetween", notes = "Search all capsuleArrival in a pointofsale  " +
+            "in pointofsale between 02 dates",
+            responseContainer = "List<CapsuleArrivalDto>")
+    @ApiResponses(value={
+            @ApiResponse(code=200, message="The capsuleArrivalDto list found successfully"),
+            @ApiResponse(code=404, message="Error faced during the finding process")
+    })
+    ResponseEntity findAllCapsuleArrivalinPosBetween(
+            @ApiParam(name = "posId", type = "Long", required = true,
+                    value="Id of the concerned Pointofsale", example = "1")
+            @NotNull @PathVariable("posId") Long posId,
+            @ApiParam(name = "from", type = "Instant", required = true,
+                    value="The date from which to search")
+            @NotNull @PathVariable("from") Instant startDate,
+            @ApiParam(name = "to", type = "Instant", required = true,
+                    value="The date to which to search")
+            @NotNull @PathVariable("to") Instant endDate);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @GetMapping(value = FIND_PAGE_CAPSULEARRIVAL_IN_POS_BETWEEN_ENDPOINT,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "findPagecapsuleArrivalinPosBetween", notes = "Search all capsuleArrival in a pointofsale " +
+            "between 02 date page by page",
+            responseContainer = "Page<CapsuleArrivalDto>")
+    @ApiResponses(value={
+            @ApiResponse(code=200, message="The capsuleArrivalDto page found successfully"),
+            @ApiResponse(code=404, message="Error faced during the finding process")
+    })
+    ResponseEntity findPageCapsuleArrivalinPosBetween(
+            @ApiParam(name = "posId", type = "Long", required = true,
+                    value="Id of the concerned Pointofsale", example = "1")
+            @NotNull @PathVariable("posId") Long posId,
             @ApiParam(name = "from", type = "Instant", required = true,
                     value="The date from which to search")
             @NotNull @PathVariable("from") Instant startDate,

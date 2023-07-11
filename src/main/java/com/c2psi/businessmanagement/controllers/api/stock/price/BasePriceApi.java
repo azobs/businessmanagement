@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+import static com.c2psi.businessmanagement.utils.stock.price.BasePriceApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/article/bprice")
+@Api(BASEPRICE_ENDPOINT)
 public interface BasePriceApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/article/bprice/create",
+    @PostMapping(value = CREATE_BASEPRICE_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveBasePrice",
@@ -35,7 +35,7 @@ public interface BasePriceApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/article/bprice/update",
+    @PutMapping(value = UPDATE_BASEPRICE_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateBasePrice",
@@ -52,7 +52,7 @@ public interface BasePriceApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/article/bprice/id/{bpId}",
+    @GetMapping(value = FIND_BASEPRICE_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findBasePriceById", notes = "Search in the DB a baseprice by its Id",
             response = BasePriceDto.class)
@@ -67,7 +67,7 @@ public interface BasePriceApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/article/bprice/delete/id/{bpId}",
+    @DeleteMapping(value = DELETE_BASEPRICE_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteBasePriceById",
             notes = "This method is used to delete a baseprice saved in the DB", response = Boolean.class)

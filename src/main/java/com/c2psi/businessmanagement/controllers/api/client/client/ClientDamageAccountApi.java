@@ -16,14 +16,15 @@ import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+import static com.c2psi.businessmanagement.utils.client.client.ClientDamageAccountConstant.*;
+
 
 @Validated
-@Api(APP_ROOT+"/clientdamageaccount")
+@Api(CLIENT_DAMAGE_ENDPOINT)
 public interface ClientDamageAccountApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/clientdamageaccount/create",
+    @PostMapping(value = CREATE_CLIENT_DAMAGE_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveClientDamageAccount",
@@ -40,7 +41,7 @@ public interface ClientDamageAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/clientdamageaccount/id/{cltdamaccId}",
+    @GetMapping(value = FIND_CLIENT_DAMAGE_ACCOUNT_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findClientDamageAccountById", notes = "Search in the DB a clientDamageaccount by its Id",
             response = ClientDamageAccountDto.class)
@@ -55,7 +56,7 @@ public interface ClientDamageAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/clientdamageaccount/client/article/{clientId}/{artId}",
+    @GetMapping(value = FIND_CLIENT_DAMAGE_ACCOUNT_OF_ARTICLE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findClientDamageAccountofArticleinPos", notes = "Search in the DB a clientDamageaccount " +
             "for an article a client in a DB",
@@ -74,7 +75,7 @@ public interface ClientDamageAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/clientdamageaccount/all/{clientId}",
+    @GetMapping(value = FIND_ALL_CLIENT_DAMAGE_ACCOUNT_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllClientdamageAccountinPos", notes = "Find all damage account in pos",
             responseContainer = "List<ClientDamageAccountDto>")
@@ -89,7 +90,7 @@ public interface ClientDamageAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/clientdamageaccount/page/{clientId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_CLIENT_DAMAGE_ACCOUNT_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageClientDamageAccountinPos", notes = "Find all Damage account in pos",
             responseContainer = "Page<ClientDamageAccountDto>")
@@ -106,7 +107,7 @@ public interface ClientDamageAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/clientdamageaccount/operation/create",
+    @PostMapping(value = CREATE_CLIENT_DAMAGE_ACCOUNT_OPERATION_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveDamageOperation",
@@ -123,7 +124,7 @@ public interface ClientDamageAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/clientdamageaccount/operation/update",
+    @PutMapping(value = UPDATE_CLIENT_DAMAGE_ACCOUNT_OPERATION_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateClientDamageOperation",
@@ -140,7 +141,7 @@ public interface ClientDamageAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/clientdamageaccount/operation/delete/{cltdamopId}",
+    @DeleteMapping(value = DELETE_CLIENT_DAMAGE_ACCOUNT_OPERATION_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteClientDamageOperationById",
             notes = "This method is used to delete a ClientDamageOperation saved in the DB", response = Boolean.class)
@@ -154,7 +155,7 @@ public interface ClientDamageAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/clientdamageaccount/operation/all/{cltdamaccId}",
+    @GetMapping(value = FIND_ALL_CLIENT_DAMAGE_ACCOUNT_OPERATION_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllClientDamageOperation", notes = "Find all Damage account operation in pos",
             responseContainer = "Page<ClientDamageOperationDto>")
@@ -169,7 +170,7 @@ public interface ClientDamageAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/clientdamageaccount/operation/page/{cltdamaccId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_CLIENT_DAMAGE_ACCOUNT_OPERATION_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageClientDamageOperation", notes = "Find all Damage account operation in pos page by page",
             responseContainer = "Page<ClientDamageOperationDto>")
@@ -186,7 +187,7 @@ public interface ClientDamageAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/clientdamageaccount/operation/type/all/{cltdamaccId}/{optype}",
+    @GetMapping(value = FIND_ALL_CLIENT_DAMAGE_ACCOUNT_OPERATION_OF_TYPE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllClientDamageOperationofType", notes = "Find all Damage account operation in pos",
             responseContainer = "List<ClientDamageOperationDto>")
@@ -204,7 +205,7 @@ public interface ClientDamageAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/clientDamageaccount/operation/type/page/{cltdamaccId}/{optype}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_CLIENT_DAMAGE_ACCOUNT_OPERATION_OF_TYPE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageClientDamageOperationofType", notes = "Find all Damage account operation in pos page by page",
             responseContainer = "Page<ClientDamageOperationDto>")
@@ -224,7 +225,7 @@ public interface ClientDamageAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/clientDamageaccount/operation/all/between/{cltdamaccId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_CLIENT_DAMAGE_ACCOUNT_OPERATION_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllClientDamageOperationBetween", notes = "Find all Damage account operation in pos between",
             responseContainer = "List<ClientDamageOperationDto>")
@@ -245,7 +246,7 @@ public interface ClientDamageAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/clientDamageaccount/operation/page/between/{cltdamaccId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_CLIENT_DAMAGE_ACCOUNT_OPERATION_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageClientDamageOperationBetween", notes = "Find page Damage account operation in pos between",
             responseContainer = "Page<ClientDamageOperationDto>")
@@ -268,7 +269,7 @@ public interface ClientDamageAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/clientDamageaccount/operation/type/all/between/{cltdamaccId}/{optype}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_CLIENT_DAMAGE_ACCOUNT_OPERATION_OF_TYPE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllClientDamageOperationofTypeBetween", notes = "Find all Damage account operation in pos between",
             responseContainer = "List<ClientDamageOperationDto>")
@@ -292,7 +293,7 @@ public interface ClientDamageAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/clientDamageaccount/operation/type/page/between/{cltdamaccId}/{optype}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_CLIENT_DAMAGE_ACCOUNT_OPERATION_OF_TYPE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageClientDamageOperationofTypeBetween", notes = "Find all Damage account operation page by page in pos between",
             responseContainer = "Page<ClientDamageOperationDto>")

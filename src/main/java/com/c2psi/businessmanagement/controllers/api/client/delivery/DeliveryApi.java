@@ -16,14 +16,14 @@ import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+import static com.c2psi.businessmanagement.utils.client.delivery.DeliveryApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/delivery")
+@Api(DELIVERY_ENDPOINT)
 public interface DeliveryApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/delivery/create",
+    @PostMapping(value = CREATE_DELIVERY_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveDelivery",
@@ -40,7 +40,7 @@ public interface DeliveryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/delivery/update",
+    @PutMapping(value = UPDATE_DELIVERY_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateDelivery",
@@ -57,7 +57,7 @@ public interface DeliveryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/delivery/id/{deliveryId}",
+    @GetMapping(value = FIND_DELIVERY_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findDeliveryById", notes = "Search a Delivery by id",
             response = DeliveryDto.class)
@@ -72,7 +72,7 @@ public interface DeliveryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/delivery/pos/code/{deliveryCode}/{posId}",
+    @GetMapping(value = FIND_DELIVERY_BY_CODE_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findDeliveryByCodeinPos", notes = "Search a Delivery by code in Pointofsale",
             response = DeliveryDto.class)
@@ -90,7 +90,7 @@ public interface DeliveryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/delivery/delete/id/{deliveryId}",
+    @DeleteMapping(value = DELETE_DELIVERY_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteDeliveryById",
             notes = "This method is used to delete the delivery saved in the DB", response = Boolean.class)
@@ -104,7 +104,7 @@ public interface DeliveryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/delivery/pos/all/{posId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_DELIVERY_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllDeliveryinPosBetween", notes = "Search all Delivery by in Pointofsale between 02 dates",
             responseContainer = "List<DeliveryDto>")
@@ -125,7 +125,7 @@ public interface DeliveryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/delivery/pos/page/{posId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_DELIVERY_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageDeliveryinPosBetween", notes = "Search all Delivery by in Pointofsale between 02 dates" +
             "page by page",
@@ -149,7 +149,7 @@ public interface DeliveryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/delivery/pos/state/all/{deliveryState}/{posId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_DELIVERY_IN_POS_WITH_STATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllDeliveryinPoswithStateBetween", notes = "Search all Delivery by in Pointofsale between 02 dates",
             responseContainer = "List<DeliveryDto>")
@@ -173,7 +173,7 @@ public interface DeliveryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/delivery/pos/state/page/{deliveryState}/{posId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_DELIVERY_IN_POS_WITH_STATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageDeliveryinPoswithStateBetween", notes = "Search all Delivery by in Pointofsale " +
             "between 02 dates page by page",
@@ -200,7 +200,7 @@ public interface DeliveryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/delivery/pos/userbm/all/{posId}/{userbmId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_DELIVERY_IN_POS_FOR_USERBM_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllDeliveryinPosforUserbmBetween", notes = "Search all Delivery by in Pointofsale " +
             "between 02 dates for UserBM",
@@ -225,7 +225,7 @@ public interface DeliveryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/delivery/pos/userbm/page/{posId}/{userbmId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_DELIVERY_IN_POS_FOR_USERBM_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageDeliveryinPosforUserbmBetween", notes = "Search all Delivery by in Pointofsale " +
             "between 02 dates for UserBM page by page",
@@ -252,7 +252,7 @@ public interface DeliveryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/delivery/pos/userbm/state/all/{deliveryState}/{posId}/{userbmId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_DELIVERY_IN_POS_FOR_USERBM_WITH_STATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllDeliveryinPosforUserbmwithStateBetween", notes = "Search all Delivery in Pointofsale " +
             "between 02 dates for UserBM with deliveryState",
@@ -280,7 +280,7 @@ public interface DeliveryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/delivery/pos/userbm/state/page/{deliveryState}/{posId}/{userbmId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_DELIVERY_IN_POS_FOR_USERBM_WITH_STATE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageDeliveryinPosforUserbmwithStateBetween", notes = "Search all Delivery in Pointofsale " +
             "between 02 dates for UserBM with deliveryState page by page",
@@ -310,7 +310,7 @@ public interface DeliveryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/delivery/details/create",
+    @PostMapping(value = CREATE_DELIVERYDETAILS_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveDeliveryDetails",
@@ -327,7 +327,7 @@ public interface DeliveryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/delivery/details/update",
+    @PutMapping(value = UPDATE_DELIVERYDETAILS_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateDeliveryDetails",
@@ -344,7 +344,7 @@ public interface DeliveryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/delivery/details/id/{ddId}",
+    @GetMapping(value = FIND_DELIVERYDETAILS_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findDeliveryDetailsById", notes = "Search a DeliveryDetails details by id",
             response = DeliveryDetailsDto.class)
@@ -359,7 +359,7 @@ public interface DeliveryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/delivery/details/packaging/pos/{packagingId}/{deliveryId}",
+    @GetMapping(value = FIND_DELIVERYDETAILS_IN_DELIVERY_WITH_PACKAGING_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findDeliveryDetailsinDeliverywithPackaging", notes = "Search a DeliveryDetails details by details",
             response = DeliveryDetailsDto.class)
@@ -377,7 +377,7 @@ public interface DeliveryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/delivery/details/delete/id/{ddId}",
+    @DeleteMapping(value = DELETE_DELIVERYDETAILS_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteDeliveryDetailsById",
             notes = "This method is used to delete the delivery details saved in the DB", response = Boolean.class)
@@ -391,7 +391,7 @@ public interface DeliveryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/delivery/details/all/{deliveryId}",
+    @GetMapping(value = FIND_ALL_DELIVERYDETAILS_IN_DELIVERY_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllDeliveryDetailsinDelivery", notes = "Search a DeliveryDetails list in a delivery",
             responseContainer = "List<DeliveryDetailsDto>")
@@ -406,7 +406,7 @@ public interface DeliveryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/delivery/details/page/{deliveryId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_DELIVERYDETAILS_IN_DELIVERY_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageDeliveryDetailsinDelivery", notes = "Search a DeliveryDetails page in a delivery",
             responseContainer = "Page<DeliveryDetailsDto>")

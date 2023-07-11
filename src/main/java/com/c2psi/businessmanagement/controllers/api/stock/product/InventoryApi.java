@@ -15,14 +15,14 @@ import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+import static com.c2psi.businessmanagement.utils.stock.product.InventoryApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/inventory")
+@Api(INVENTORY_ENDPOINT)
 public interface InventoryApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/inventory/create",
+    @PostMapping(value = CREATE_INVENTORY_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveInventory",
@@ -39,7 +39,7 @@ public interface InventoryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/inventory/update",
+    @PutMapping(value = UPDATE_INVENTORY_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateInventory",
@@ -56,7 +56,7 @@ public interface InventoryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/inventory/id/{invId}",
+    @GetMapping(value = FIND_INVENTORY_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findInventoryById", notes = "Search in the DB an inventory by its Id",
             response = InventoryDto.class)
@@ -71,7 +71,7 @@ public interface InventoryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/inventory/pos/code/{invCode}/{posId}",
+    @GetMapping(value = FIND_INVENTORY_BY_CODE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findInventoryByCodeinPos", notes = "Search in the DB an inventory by its code in Pos",
             response = InventoryDto.class)
@@ -89,7 +89,7 @@ public interface InventoryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/inventory/pos/all/{posId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_INVENTORY_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllInventoryinPosBetween", notes = "Search in the DB an inventory list by between " +
             "02 dates in Pos",
@@ -111,7 +111,7 @@ public interface InventoryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/inventory/pos/page/{posId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_INVENTORY_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageInventoryinPosBetween", notes = "Search in the DB an inventory list by between " +
             "02 dates in Pos page by page",
@@ -135,7 +135,7 @@ public interface InventoryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/inventory/delete/id/{invId}",
+    @DeleteMapping(value = DELETE_INVENTORY_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteInventoryById",
             notes = "This method is used to delete the Inventory saved in the DB", response = Boolean.class)
@@ -149,7 +149,7 @@ public interface InventoryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/inventory/line/create",
+    @PostMapping(value = CREATE_INVENTORYLINE_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveInventoryLine",
@@ -166,7 +166,7 @@ public interface InventoryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/inventory/line/update",
+    @PutMapping(value = UPDATE_INVENTORYLINE_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateInventoryLine",
@@ -183,7 +183,7 @@ public interface InventoryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/inventory/line/id/{invLineId}",
+    @GetMapping(value = FIND_INVENTORYLINE_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findInventoryLineById", notes = "Search in the DB an inventory line by its Id",
             response = InventoryLineDto.class)
@@ -198,7 +198,7 @@ public interface InventoryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/inventory/line/article/{invId}/{artId}",
+    @GetMapping(value = FIND_INVENTORYLINE_BY_ARTICLE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findInventoryLineByArticleinInv", notes = "Search in the DB an inventory line of an article " +
             "in an inventory",
@@ -217,7 +217,7 @@ public interface InventoryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/inventory/line/delete/id/{invLineId}",
+    @DeleteMapping(value = DELETE_INVENTORYLINE_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteInventoryLineById",
             notes = "This method is used to delete the InventoryLine saved in the DB", response = Boolean.class)
@@ -231,7 +231,7 @@ public interface InventoryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/inventory/line/all/{invId}",
+    @GetMapping(value = FIND_ALL_INVENTORYLINE_OF_INVENTORY_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllInventorylineofInv", notes = "Search in the DB an inventory line list in an inventory ",
             responseContainer = "List<InventoryLineDto>")
@@ -246,7 +246,7 @@ public interface InventoryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/inventory/line/page/{invId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_INVENTORYLINE_OF_INVENTORY_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageInventorylineofInv", notes = "Search in the DB an inventory line list in an inventory " +
             "page by page",

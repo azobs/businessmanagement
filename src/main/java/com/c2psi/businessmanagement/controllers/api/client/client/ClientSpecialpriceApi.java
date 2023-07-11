@@ -14,14 +14,14 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+import static com.c2psi.businessmanagement.utils.client.client.ClientSpecialPriceApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/clientspecialprice")
+@Api(CLIENT_SPECIAL_PRICE_ENDPOINT)
 public interface ClientSpecialpriceApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT + "/clientspecialprice/create",
+    @PostMapping(value = CREATE_CLIENT_SPECIAL_PRICE,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveClientSpecialprice",
@@ -38,7 +38,7 @@ public interface ClientSpecialpriceApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT + "/clientspecialprice/update",
+    @PutMapping(value = UPDATE_CLIENT_SPECIAL_PRICE,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateClientSpecialprice",
@@ -55,7 +55,7 @@ public interface ClientSpecialpriceApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT + "/clientspecialprice/id/{cltspepriceId}",
+    @GetMapping(value = FIND_CLIENT_SPECIAL_PRICE_BY_ID,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findClientPackagingAccountById", notes = "Search in the DB a clientspecialprice by its Id",
             response = ClientSpecialpriceDto.class)
@@ -70,7 +70,7 @@ public interface ClientSpecialpriceApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT + "/clientspecialprice/of/{articleId}/{clientId}",
+    @GetMapping(value = FIND_CLIENT_SPECIAL_PRICE_OF_ARTICLE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findClientSpecialpriceofArticleforClient", notes = "Search in the DB a clientspecialprice " +
             "of a client for an article",
@@ -89,39 +89,7 @@ public interface ClientSpecialpriceApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT + "/clientspecialprice/article/all/{articleId}",
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "findAllSpecialpriceofArticle", notes = "find all special price of an article",
-            responseContainer = "List<ClientSpecialpriceDto>")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "The special price list of an article found successfully"),
-            @ApiResponse(code = 404, message = "Error faced during the finding process")
-    })
-    ResponseEntity findAllSpecialpriceofArticle(
-            @ApiParam(name = "articleId", type = "Long", required = true,
-                    value = "Id of the concerned ArticleDto", example = "1")
-            @NotNull @PathVariable("articleId") Long articleId);
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    @GetMapping(value = APP_ROOT + "/clientspecialprice/article/page/{articleId}/{pagenum}/{pagesize}",
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "findPageSpecialpriceofArticle", notes = "find all special price of an article page by page",
-            responseContainer = "Page<ClientSpecialpriceDto>")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "The special price page of an article found successfully"),
-            @ApiResponse(code = 404, message = "Error faced during the finding process")
-    })
-    ResponseEntity findPageSpecialpriceofArticle(
-            @ApiParam(name = "articleId", type = "Long", required = true,
-                    value = "Id of the concerned ArticleDto", example = "1")
-            @NotNull @PathVariable("articleId") Long articleId,
-            @PathVariable(name = "pagenum", required = false) Optional<Integer> optpagenum,
-            @PathVariable(name = "pagesize", required = false) Optional<Integer> optpagesize);
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    @GetMapping(value = APP_ROOT + "/clientspecialprice/client/all/{clientId}",
+    @GetMapping(value = FIND_ALL_SPECIAL_PRICE_OF_CLIENT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllSpecialpriceofClient", notes = "find all special price of a client",
             responseContainer = "List<ClientSpecialpriceDto>")
@@ -136,7 +104,7 @@ public interface ClientSpecialpriceApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT + "/clientspecialprice/client/page/{clientId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_SPECIAL_PRICE_OF_CLIENT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageSpecialpriceofClient", notes = "find all special price of a client page by page",
             responseContainer = "Page<ClientSpecialpriceDto>")
@@ -153,7 +121,7 @@ public interface ClientSpecialpriceApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT + "/clientspecialprice/client/article/all/{articleId}",
+    @GetMapping(value = FIND_ALL_CLIENT_WITH_SPECIAL_PRICE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllClientWithSpecialpriceonArticle", notes = "find all client with special price on an article",
             responseContainer = "List<ClientDto>")
@@ -168,7 +136,7 @@ public interface ClientSpecialpriceApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT + "/clientspecialprice/client/article/page/{articleId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_CLIENT_WITH_SPECIAL_PRICE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllClientWithSpecialpriceonArticle", notes = "find all client with special price on an " +
             "article page by page",
@@ -186,7 +154,7 @@ public interface ClientSpecialpriceApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT + "/clientspecialprice/client/article/price/{clientId}/{articleId}/{qteCommand}",
+    @GetMapping(value = GET_EFFECTIVE_SPECIAL_PRICE_TO_APPLIED,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "getEffectiveSpecialPriceToApplied", notes = "get effective special price to apply",
             responseContainer = "BigDecimal")
@@ -208,7 +176,7 @@ public interface ClientSpecialpriceApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT + "/clientspecialprice/article/price/{articleId}/{qteCommand}",
+    @GetMapping(value = GET_COMMON_EFFECTIVE_SPECIAL_PRICE_TO_APPLIED,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "getCommonEffectivePriceToApplied", notes = "get effective price to apply",
             responseContainer = "BigDecimal")
@@ -227,7 +195,7 @@ public interface ClientSpecialpriceApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT + "/clientspecialprice/delete/{cltspepriceId}",
+    @DeleteMapping(value = DELETE_CLIENT_SPECIAL_PRICE_BY_ID,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteClientSpecialprice",
             notes = "This method is used to delete a ClientSpecialPrice saved in the DB", response = Boolean.class)

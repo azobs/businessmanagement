@@ -18,14 +18,15 @@ import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+
+import static com.c2psi.businessmanagement.utils.stock.provider.ProviderApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/provider")
+@Api(PROVIDER_ENDPOINT)
 public interface ProviderApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/provider/create",
+    @PostMapping(value = CREATE_PROVIDER_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveProvider",
@@ -42,7 +43,7 @@ public interface ProviderApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/provider/update",
+    @PutMapping(value = UPDATE_PROVIDER_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateProvider",
@@ -59,7 +60,7 @@ public interface ProviderApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/provider/id/{providerId}",
+    @GetMapping(value = FIND_PROVIDER_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findProviderById", notes = "Search in the DB a provider by its Id",
             response = ProviderDto.class)
@@ -74,7 +75,7 @@ public interface ProviderApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/provider/name/{providerName}/{posId}",
+    @GetMapping(value = FIND_PROVIDER_BY_NAME_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findProviderByNameofPos", notes = "Search in the DB a provider by its name and pos",
             response = ProviderDto.class)
@@ -92,7 +93,7 @@ public interface ProviderApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/provider/all/{posId}",
+    @GetMapping(value = FIND_ALL_PROVIDER_OF_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllProviderofPos", notes = "Search the list of provider of a pointofsale",
             responseContainer = "List<ProviderDto>")
@@ -107,7 +108,7 @@ public interface ProviderApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/provider/page/{posId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_PROVIDER_OF_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageProviderofPos", notes = "Search the list of provider of a pointofsale page by page",
             responseContainer = "Page<ProviderDto>")
@@ -124,7 +125,7 @@ public interface ProviderApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/provider/delete/id/{providerId}",
+    @DeleteMapping(value = DELETE_PROVIDER_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteProviderById",
             notes = "This method is used to delete a provider saved in the DB", response = Boolean.class)
@@ -138,7 +139,7 @@ public interface ProviderApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/provider/cash/operation/create",
+    @PostMapping(value = CREATE_PROVIDER_CASH_OPERATION_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveCashOperation",
@@ -155,7 +156,7 @@ public interface ProviderApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/provider/cash/create",
+    @PostMapping(value = CREATE_PROVIDER_CASH_ACCOUNT_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveProviderCashAccount",
@@ -173,7 +174,7 @@ public interface ProviderApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    @GetMapping(value = APP_ROOT+"/provider/cash/id/{pcaId}",
+    @GetMapping(value = FIND_PROVIDER_CASH_ACCOUNT_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findProviderCashAccountById", notes = "Search in the DB a providercashaccount by its Id",
             response = ProviderCashAccountDto.class)
@@ -189,7 +190,7 @@ public interface ProviderApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    @DeleteMapping(value = APP_ROOT+"/provider/cash/delete/{pcaId}",
+    @DeleteMapping(value = DELETE_PROVIDER_CASH_ACCOUNT_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteProviderCashAccountById",
             notes = "This method is used to delete a providerCashAccount saved in the DB", response = Boolean.class)
@@ -203,7 +204,7 @@ public interface ProviderApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/provider/cash/operation/update",
+    @PutMapping(value = UPDATE_PROVIDER_CASH_OPERATION_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateProviderCashOperation",
@@ -220,7 +221,7 @@ public interface ProviderApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/provider/cash/operation/delete/{procopId}",
+    @DeleteMapping(value = DELETE_PROVIDER_CASH_OPERATION_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteProviderCashOperationById",
             notes = "This method is used to delete a providerCashOperation saved in the DB", response = Boolean.class)
@@ -234,7 +235,7 @@ public interface ProviderApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/provider/cash/operation/id/{procopId}",
+    @GetMapping(value = FIND_PROVIDER_CASH_OPERATION_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findProviderCashOperationById", notes = "Search in the DB a providercashoperation by its Id",
             response = ProviderCashOperationDto.class)
@@ -249,7 +250,7 @@ public interface ProviderApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pos/cash/operation/all/{procaId}",
+    @GetMapping(value = FIND_ALL_PROVIDER_CASH_OPERATION_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllProviderCashOperation", notes = "Search in the DB a providercashoperation the list " +
             "of operation",
@@ -265,7 +266,7 @@ public interface ProviderApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/provider/cash/operation/all/{procaId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_PROVIDER_CASH_OPERATION_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageProviderCashOperation", notes = "Search in the DB a providercashoperation the list of " +
             "operation",
@@ -283,7 +284,7 @@ public interface ProviderApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/provider/cash/operation/all/between/{procaId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_PROVIDER_CASH_OPERATION_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllProviderCashOperationBetween", notes = "Search in the DB a providercashoperation " +
             "the list of operation",
@@ -305,7 +306,7 @@ public interface ProviderApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/provider/cash/operation/page/between/{procaId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_PROVIDER_CASH_OPERATION_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllProviderCashOperationBetween", notes = "Search in the DB a providercashoperation " +
             "the list of operation",
@@ -329,7 +330,7 @@ public interface ProviderApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/provider/cash/operation/type/all/between/{procaId}/{opType}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_PROVIDER_CASH_OPERATION_OFTYPE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllProviderCashOperationofTypeBetween", notes = "Search in the DB a providercashoperation the " +
             "list of operation",
@@ -354,7 +355,7 @@ public interface ProviderApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/provider/cash/operation/type/page/between/{procaId}/{opType}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_PROVIDER_CASH_OPERATION_OFTYPE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageProviderCashOperationofTypeBetween", notes = "Search in the DB a providercashoperation the " +
             "list of operation",

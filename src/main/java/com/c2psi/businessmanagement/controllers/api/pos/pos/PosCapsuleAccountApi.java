@@ -16,14 +16,14 @@ import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+import static com.c2psi.businessmanagement.utils.pos.pos.PosCapsuleAccountApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/poscapsuleaccount")
+@Api(POS_CAPSULE_ACCOUNT_ENDPOINT)
 public interface PosCapsuleAccountApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/pcapacc/create",
+    @PostMapping(value = CREATE_POS_CAPSULE_ACCOUNT_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "savePosCapsuleAccount",
@@ -40,7 +40,7 @@ public interface PosCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pcapacc/id/{pcapaccId}",
+    @GetMapping(value = FIND_POS_CAPSULE_ACCOUNT_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPosCapsuleAccountById", notes = "Search in the DB a poscapsuleaccount by its Id",
             response = PosCapsuleAccountDto.class)
@@ -55,7 +55,7 @@ public interface PosCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pcapacc/art/pos/{artId}/{posId}",
+    @GetMapping(value = FIND_POS_CAPSULE_ACCOUNT_OF_ARTICLE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPosCapsuleAccountofArticleInPos", notes = "Search in the DB a poscapsuleaccount by its data",
             response = PosCapsuleAccountDto.class)
@@ -73,7 +73,7 @@ public interface PosCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pcapacc/all/pos/{posId}",
+    @GetMapping(value = FIND_ALL_CAPSULE_ACCOUNT_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCapsuleAccountInPos", notes = "Find all capsule account in pos",
             responseContainer = "List<PosCapsuleAccountDto>")
@@ -88,7 +88,7 @@ public interface PosCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pcapacc/page/pos/{posId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_CAPSULE_ACCOUNT_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCapsuleAccountInPos", notes = "Find all capsule account in pos page by page",
             responseContainer = "Page<PosCapsuleAccountDto>")
@@ -105,7 +105,7 @@ public interface PosCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pcapacc/all/art/{artId}",
+    @GetMapping(value = FIND_ALL_CAPSULE_ACCOUNT_OF_ARTICLE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCapsuleAccountofArticle", notes = "Find all capsule account of article",
             responseContainer = "List<PosCapsuleAccountDto>")
@@ -120,7 +120,7 @@ public interface PosCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pcapacc/all/art/{artId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_CAPSULE_ACCOUNT_OF_ARTICLE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCapsuleAccountofArticle", notes = "Find all capsule account of article page by page",
             responseContainer = "Page<PosCapsuleAccountDto>")
@@ -137,7 +137,7 @@ public interface PosCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/pcapacc/delete/id/{pcapaccId}",
+    @DeleteMapping(value = DELETE_POS_CAPSULE_ACCOUNT_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deletePosCapsuleAccountById",
             notes = "This method is used to delete poscapsuleaccount saved in the DB", response = Boolean.class)
@@ -151,7 +151,7 @@ public interface PosCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/pcapacc/operation/create",
+    @PostMapping(value = CREATE_POS_CAPSULE_OPERATION_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveCapsuleOperation",
@@ -168,7 +168,7 @@ public interface PosCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping (value = APP_ROOT+"/pcapacc/operation/create",
+    @PutMapping (value = UPDATE_POS_CAPSULE_OPERATION_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updatePosCapsuleOperation",
@@ -185,7 +185,7 @@ public interface PosCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/pcapacc/operation/delete/id/{pcapopId}",
+    @DeleteMapping(value = DELETE_POS_CAPSULE_OPERATION_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deletePosCapsuleOperationById",
             notes = "This method is used to delete poscapsuleoperation saved in the DB", response = Boolean.class)
@@ -199,7 +199,7 @@ public interface PosCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pcapacc/operation/all/{pcapopId}",
+    @GetMapping(value = FIND_ALL_POS_CAPSULE_OPERATION_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllPosCapsuleOperation", notes = "Find all capsule operation on an account",
             responseContainer = "List<PosCapsuleOperationDto>")
@@ -214,7 +214,7 @@ public interface PosCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pcapacc/operation/type/{pcapopId}/{optype}",
+    @GetMapping(value = FIND_ALL_POS_CAPSULE_OPERATION_OF_TYPE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllPosCapsuleOperationofType", notes = "Find all capsule operation of type on an account",
             responseContainer = "List<PosCapsuleOperationDto>")
@@ -232,7 +232,7 @@ public interface PosCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pcapacc/operation/page/{pcapopId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_POS_CAPSULE_OPERATION_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPagePosCapsuleOperation", notes = "Find all capsule operation on an account page by page",
             responseContainer = "Page<PosCapsuleOperationDto>")
@@ -249,7 +249,7 @@ public interface PosCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pcapacc/operation/page/type/{pcapopId}/{optype}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_POS_CAPSULE_OPERATION_OF_TYPE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPagePosCapsuleOperationofType", notes = "Find all capsule operation of type on an account page by page",
             responseContainer = "Page<PosCapsuleOperationDto>")
@@ -269,7 +269,7 @@ public interface PosCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pcapacc/operation/all/between/{pcapopId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_POS_CAPSULE_OPERATION_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllPosCapsuleOperationBetween", notes = "Find all capsule operation on an account between",
             responseContainer = "List<PosCapsuleOperationDto>")
@@ -290,7 +290,7 @@ public interface PosCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pcapacc/operation/page/between/{pcapopId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_POS_CAPSULE_OPERATION_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPagePosCapsuleOperationBetween", notes = "Find all capsule operation on an account page by page between",
             responseContainer = "Page<PosCapsuleOperationDto>")
@@ -313,7 +313,7 @@ public interface PosCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pcapacc/operation/type/between/{pcapopId}/{optype}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_POS_CAPSULE_OPERATION_OF_TYPE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllPosCapsuleOperationofTypeBetween", notes = "Find all capsule operation of type on an account",
             responseContainer = "List<PosCapsuleOperationDto>")
@@ -337,7 +337,7 @@ public interface PosCapsuleAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pcapacc/operation/type/between/{pcapopId}/{optype}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_POS_CAPSULE_OPERATION_OF_TYPE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPagePosCapsuleOperationofTypeBetween", notes = "Find all Capsule operation of type on an account page by page",
             responseContainer = "Page<PosCapsuleOperationDto>")

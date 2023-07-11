@@ -13,12 +13,13 @@ import javax.validation.constraints.NotNull;
 
 import java.util.List;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+
+import static com.c2psi.businessmanagement.utils.pos.userbm.UserBMRoleApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/userbmrole")
+@Api(USERBMROLE_ENDPOINT)
 public interface UserBMRoleApi {
-    @PostMapping(value = APP_ROOT+"/userbmrole/create",
+    @PostMapping(value = CREATE_USERBMROLE_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Assign a role to a userbm in the system",
@@ -33,7 +34,7 @@ public interface UserBMRoleApi {
                     required = true)
             @Valid @RequestBody UserBMRoleDto userBMRoleDto, BindingResult bindingResult);
 
-    @GetMapping(value = APP_ROOT+"/userbmrole/{iduserBMRole}",
+    @GetMapping(value = FIND_USERBMROLE_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find userbmrole by id",
             notes = "This method is used to find a userbmrole in the DB by its id",
@@ -46,7 +47,7 @@ public interface UserBMRoleApi {
             @ApiParam(name = "idUserBMRole", type = "Long", value="The Id of the userbmrole", required = true, example = "1")
             @NotNull @PathVariable("idUserBMRole") Long idUserBMRole);
 
-    @GetMapping(value = APP_ROOT+"/userbmrole/{userbmDtoId}/{roleDtoId}",
+    @GetMapping(value = FIND_USERBMROLE_BY_USERBM_AND_ROLE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find userbmrole by userbmid and roleid",
             notes = "This method is used to find a userbmrole in the DB by knowing the userbmid and the roleid",
@@ -61,7 +62,7 @@ public interface UserBMRoleApi {
             @ApiParam(name = "roleDtoId", type = "Long", value="The Id of the role", required = true, example = "1")
             @NotNull @PathVariable("roleDtoId") Long roleDtoId);
 
-    @GetMapping(value = APP_ROOT+"/userbmrole/all",
+    @GetMapping(value = FIND_ALL_USERBMROLE_OF_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find all userbmrole registered",
             notes = "This method is used to find all userbmrole in DB",
@@ -74,7 +75,7 @@ public interface UserBMRoleApi {
             @ApiParam(name = "posId", type = "Long", value="The Id of the Pointofsale", required = true, example = "1")
             @NotNull @PathVariable("posId") Long posId);// throws BMException;
 
-    @DeleteMapping(value = APP_ROOT+"/userbmrole/delete/{userbmroleId}",
+    @DeleteMapping(value = DELETE_USERBMROLE_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Delete a role in DB by id",
             notes = "This method is used to delete a userbmrole saved in the DB", response = Boolean.class)

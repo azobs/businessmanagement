@@ -17,14 +17,14 @@ import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+import static com.c2psi.businessmanagement.utils.client.client.DiversApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/divers")
+@Api(DIVERS_ENDPOINT)
 public interface DiversApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/divers/create",
+    @PostMapping(value = CREATE_DIVERS_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveDivers",
@@ -41,7 +41,7 @@ public interface DiversApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/divers/update",
+    @PutMapping(value = UPDATE_DIVERS_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateDivers",
@@ -58,7 +58,7 @@ public interface DiversApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/divers/id/{diversId}",
+    @GetMapping(value = FIND_DIVERS_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findDiversById", notes = "Search in the DB a divers by its Id",
             response = DiversDto.class)
@@ -73,7 +73,7 @@ public interface DiversApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/divers/email/{diversEmail}",
+    @GetMapping(value = FIND_DIVERS_BY_EMAIL_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findDiversById", notes = "Search in the DB a divers by its Id",
             response = DiversDto.class)
@@ -88,7 +88,7 @@ public interface DiversApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/divers/pos/all/{posId}",
+    @GetMapping(value = FIND_ALL_DIVERS_OF_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllDiversofPos", notes = "Find all divers in a Pos",
             responseContainer = "List<DiversDto>")
@@ -103,7 +103,7 @@ public interface DiversApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/divers/pos/page/{posId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_DIVERS_OF_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageDiversofPos", notes = "Find all divers in a Pos page by page",
             responseContainer = "Page<DiversDto>")
@@ -120,7 +120,7 @@ public interface DiversApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/divers/name/pos/all/{diversName}/{posId}",
+    @GetMapping(value = FIND_ALL_DIVERS_BY_NAME_OF_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllDiversByNameinPos", notes = "Find all divers in a Pos",
             responseContainer = "List<DiversDto>")
@@ -138,7 +138,7 @@ public interface DiversApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/divers/name/pos/page/{diversName}/{posId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_DIVERS_BY_NAME_OF_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageDiversByNameinPos", notes = "Find all divers in a Pos page by page",
             responseContainer = "Page<DiversDto>")
@@ -158,7 +158,7 @@ public interface DiversApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/divers/delete/id/{diversId}",
+    @DeleteMapping(value = DELETE_DIVERS_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteDiversById",
             notes = "This method is used to delete a divers saved in the DB", response = Boolean.class)
@@ -172,7 +172,7 @@ public interface DiversApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/divers/cash/operation/create",
+    @PostMapping(value = CREATE_DIVERS_CASH_OPERATION_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveCashOperation",
@@ -182,14 +182,14 @@ public interface DiversApi {
             @ApiResponse(code=200, message="Object Divers cash operation added successfully"),
             @ApiResponse(code=400, message="Object Divers cash operation is not valid during the saving process")
     })
-    ResponseEntity saveCashOperation(
+    ResponseEntity saveDiversCashOperation(
             @ApiParam(name = "diversCashOperationDto", type = "DiversCashOperationDto", required = true,
                     value="The JSON object that represent the Divers cash operation to save")
             @Valid @RequestBody DiversCashOperationDto diversCashOperationDto, BindingResult bindingResult);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/divers/cash/operation/create",
+    @PostMapping(value = CREATE_DIVERS_CASH_ACCOUNT_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveDiversCashAccount",
@@ -206,7 +206,7 @@ public interface DiversApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/diverscashaccount/delete/id/{dcaId}",
+    @DeleteMapping(value = DELETE_DIVERS_CASH_ACCOUNT_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteDiversCashAccountById",
             notes = "This method is used to delete a divers cash account saved in the DB", response = Boolean.class)
@@ -220,7 +220,7 @@ public interface DiversApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/diverscashaccount/id/{dcaId}",
+    @GetMapping(value = FIND_DIVERS_CASH_ACCOUNT_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findDiversCashAccountById", notes = "Find all divers in a Pos",
             responseContainer = "List<DiversDto>")
@@ -235,7 +235,7 @@ public interface DiversApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/diverscashaccount/pos/{posId}",
+    @GetMapping(value = FIND_DIVERS_CASH_ACCOUNT_OF_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findDiversCashAccountofPosIfExistOrCreate", notes = "Find divers cash account of pos",
             response = DiversCashAccountDto.class)
@@ -250,7 +250,7 @@ public interface DiversApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/divers/cash/operation/update",
+    @PutMapping(value = UPDATE_DIVERS_CASH_OPERATION_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateDiversCashOperation",
@@ -267,7 +267,7 @@ public interface DiversApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/divers/cash/operation/delete/id/{dcaopId}",
+    @DeleteMapping(value = DELETE_DIVERS_CASH_OPERATION_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteDiversCashOperationById",
             notes = "This method is used to delete a divers cash operation saved in the DB", response = Boolean.class)
@@ -281,7 +281,7 @@ public interface DiversApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/divers/cash/operation/id/{dcaopId}",
+    @GetMapping(value = FIND_DIVERS_CASH_OPERATION_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findDiversCashOperationById", notes = "Find divers cash account of pos",
             response = DiversCashOperationDto.class)
@@ -296,7 +296,7 @@ public interface DiversApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/divers/cash/operation/all/{dcaopId}",
+    @GetMapping(value = FIND_ALL_DIVERS_CASH_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllDiversCashOperation", notes = "Find all divers cash operation of pos",
             responseContainer = "List<DiversCashOperationDto>")
@@ -311,7 +311,7 @@ public interface DiversApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/divers/cash/operation/page/{dcaopId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_DIVERS_CASH_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageDiversCashOperation", notes = "Find all divers cash operation of pos page by page",
             responseContainer = "Page<DiversCashOperationDto>")
@@ -328,7 +328,51 @@ public interface DiversApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/divers/cash/operation/type/all/{dcaopId}/{opType}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_DIVERS_CASH_OPERATION_ENDPOINT,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "findAllDiversCashOperationofTypeBetween", notes = "Find all divers cash operation of pos",
+            responseContainer = "List<DiversCashOperationDto>")
+    @ApiResponses(value={
+            @ApiResponse(code=200, message="List of divers cash operation of a pointofsale found successfully"),
+            @ApiResponse(code=404, message="Error faced during the finding process")
+    })
+    ResponseEntity findAllDiversCashOperationBetween(
+            @ApiParam(name = "dcaopId", type = "Long", required = true,
+                    value="Id of the concerned diverscashoperation", example = "1")
+            @NotNull @PathVariable("dcaopId") Long dcaopId,
+            @ApiParam(name = "from", type = "Instant", required = true,
+                    value="The date from which to search")
+            @NotNull @PathVariable("from") Instant startDate,
+            @ApiParam(name = "to", type = "Instant", required = true,
+                    value="The date to which to search")
+            @NotNull @PathVariable("to") Instant endDate);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @GetMapping(value = FIND_PAGE_DIVERS_CASH_OPERATION_ENDPOINT,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "findAllDiversCashOperationofTypeBetween", notes = "Find all divers cash operation of pos",
+            responseContainer = "List<DiversCashOperationDto>")
+    @ApiResponses(value={
+            @ApiResponse(code=200, message="List of divers cash operation of a pointofsale found successfully"),
+            @ApiResponse(code=404, message="Error faced during the finding process")
+    })
+    ResponseEntity findPageDiversCashOperationBetween(
+            @ApiParam(name = "dcaopId", type = "Long", required = true,
+                    value="Id of the concerned diverscashoperation", example = "1")
+            @NotNull @PathVariable("dcaopId") Long dcaopId,
+            @ApiParam(name = "from", type = "Instant", required = true,
+                    value="The date from which to search")
+            @NotNull @PathVariable("from") Instant startDate,
+            @ApiParam(name = "to", type = "Instant", required = true,
+                    value="The date to which to search")
+            @NotNull @PathVariable("to") Instant endDate,
+            @PathVariable(name = "pagenum", required = false) Optional<Integer> optpagenum,
+            @PathVariable(name = "pagesize", required = false) Optional<Integer> optpagesize);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @GetMapping(value = FIND_ALL_DIVERS_CASH_OPERATION_OF_TYPE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllDiversCashOperationofTypeBetween", notes = "Find all divers cash operation of pos",
             responseContainer = "List<DiversCashOperationDto>")
@@ -352,7 +396,7 @@ public interface DiversApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/divers/cash/operation/type/page/{dcaopId}/{opType}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_DIVERS_CASH_OPERATION_OF_TYPE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageDiversCashOperationofTypeBetween", notes = "Find all divers cash operation of pos",
             responseContainer = "Page<DiversCashOperationDto>")

@@ -15,12 +15,12 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+import static com.c2psi.businessmanagement.utils.pos.pos.EnterpriseApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/enterprise")
+@Api(ENTERPRISE_ENDPOINT)
 public interface EnterpriseApi {
-    @PostMapping(value = APP_ROOT+"/enterprise/create",
+    @PostMapping(value = CREATE_ENTERPRISE_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create or Persist an enterprise in the DB",
@@ -35,7 +35,7 @@ public interface EnterpriseApi {
                     value="The JSON object that represent the enterprise to save")
             @Valid @RequestBody EnterpriseDto entDto, BindingResult bindingResult);
 
-    @PutMapping(value = APP_ROOT+"/enterprise/update",
+    @PutMapping(value = UPDATE_ENTERPRISE_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Update an enterprise in the DB",
@@ -68,7 +68,7 @@ public interface EnterpriseApi {
                     value="Id of the UserBM which will be set as admin of the enterprise", example = "1")
             @NotNull @RequestBody Long userBMAdminId);*/
 
-    @PutMapping(value = APP_ROOT+"/enterprise/setAdmin",
+    @PutMapping(value = SET_ADMIN_ENTERPRISE_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Change the user admin of an enterprise",
@@ -83,7 +83,7 @@ public interface EnterpriseApi {
                     value="Id's of enterprise and Userbm ")
             @Valid @RequestBody EnterpriseDto enterpriseDto, BindingResult bindingResult);
 
-    @GetMapping(value = APP_ROOT+"/enterprise/{enterpriseId}",
+    @GetMapping(value = FIND_ENTERPRISE_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find enterprise by id",
             notes = "This method is used to find an enterprise in the DB by its id",
@@ -97,7 +97,7 @@ public interface EnterpriseApi {
                     value="Id of the enterprise found", example = "1")
             @NotNull @PathVariable("enterpriseId") Long enterpriseId);
 
-    @GetMapping(value = APP_ROOT+"/enterprise/name/{entName}",
+    @GetMapping(value = FIND_ENTERPRISE_BY_NAME_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find enterprise by entName",
             notes = "This method is used to find an enterprise in the DB by its entName",
@@ -111,7 +111,7 @@ public interface EnterpriseApi {
                     value="Name of the enterprise found", example = "Name")
             @NotNull @NotEmpty @NotBlank @PathVariable("entName") String entName);
 
-    @GetMapping(value = APP_ROOT+"/enterprise/niu/{entNiu}",
+    @GetMapping(value = FIND_ENTERPRISE_BY_NIU_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find enterprise by entNiu",
             notes = "This method is used to find an enterprise in the DB by its entNiu",
@@ -125,7 +125,7 @@ public interface EnterpriseApi {
                     value="Niu of the enterprise found", example = "Niu")
             @NotNull @NotEmpty @NotBlank @PathVariable("entNiu") String entNiu);
 
-    @DeleteMapping(value = APP_ROOT+"/enterprise/delete/{entId}",
+    @DeleteMapping(value = DELETE_ENTERPRISE_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Delete an enterprise in DB by id",
             notes = "This method is used to delete an enterprise saved in the DB",
@@ -138,7 +138,7 @@ public interface EnterpriseApi {
                     value="Id of the enterprise which will be deleted", example = "1")
             @NotNull @PathVariable("entId") Long entId);
 
-    @DeleteMapping(value = APP_ROOT+"/enterprise/delete/name/{entName}",
+    @DeleteMapping(value = DELETE_ENTERPRISE_BY_NAME_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Delete an enterprise in DB by Name",
             notes = "This method is used to delete an enterprise saved in the DB", response = Boolean.class)
@@ -150,7 +150,7 @@ public interface EnterpriseApi {
                     value="Name of the enterprise which will be deleted", example = "Name")
             @NotNull @NotEmpty @NotBlank @PathVariable("entName") String entName);
 
-    @DeleteMapping(value = APP_ROOT+"/enterprise/delete/niu/{entNiu}",
+    @DeleteMapping(value = DELETE_ENTERPRISE_BY_NIU_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Delete an enterprise in DB by Niu",
             notes = "This method is used to delete an enterprise saved in the DB", response = Boolean.class)
@@ -162,7 +162,7 @@ public interface EnterpriseApi {
                     value="Niu of the enterprise which will be deleted", example = "Niu")
             @NotNull @NotEmpty @NotBlank @PathVariable("entNiu") String entNiu);
 
-    @GetMapping(value = APP_ROOT+"/enterprise/all",
+    @GetMapping(value = FIND_ALL_ENTERPRISE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find all enterprise",
             notes = "This method is used to find all enterprise in DB",
@@ -172,7 +172,7 @@ public interface EnterpriseApi {
     })
     ResponseEntity findAllEnterprise();
 
-    @GetMapping(value = APP_ROOT+"/enterprise/allPointofsale/{entId}",
+    @GetMapping(value = FIND_ALL_POINTOFSALE_OF_ENTERPRISE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find all Point of sale of an enterprise",
             notes = "This method is used to find all point of sale of an enterprise in DB",
@@ -185,7 +185,7 @@ public interface EnterpriseApi {
                     value="Id of the enterprise for which list of pointofsale is found", example = "1")
             @NotNull @PathVariable("entId") Long entId);
 
-    @GetMapping(value = APP_ROOT+"/enterprise/getTurnover/{entId}/{startDate}/{endDate}",
+    @GetMapping(value = GET_ENTERPRISE_TURNOVER_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Return the turnover of an enterprise between 02 dates",
             notes = "This method is used to return the turnover realize in an enterprise between 02 dates",
@@ -204,7 +204,7 @@ public interface EnterpriseApi {
                     value="The maximum date from which the calculation going to stop")
             @PathVariable("endDate") Date endDate);
 
-    @GetMapping(value = APP_ROOT+"/enterprise/allEmploye/{entId}",
+    @GetMapping(value = FIND_ALL_EMPLOYE_OF_ENTERPRISE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find all UserBM of an enterprise",
             notes = "This method is used to find all UserBM of an enterprise in DB",
@@ -227,7 +227,7 @@ public interface EnterpriseApi {
     })
     ResponseEntity<List<ProviderDto>> findAllProviderofEnterprise (@PathVariable("entId") Long entId);*/
 
-    @GetMapping(value = APP_ROOT+"/enterprise/getTotalCash/{entId}",
+    @GetMapping(value = GET_ENTERPRISE_TOTAL_CASH_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Return the total cash of an enterprise between 02 dates",
             notes = "This method is used to return the total cash available in an enterprise",
@@ -240,7 +240,7 @@ public interface EnterpriseApi {
                     value="Id of the enterprise for which the total cash is found", example = "1")
             @NotNull @PathVariable("entId") Long entId);
 
-    @GetMapping(value = APP_ROOT+"/enterprise/getNumberofDamage/{entId}",
+    @GetMapping(value = GET_ENTERPRISE_NUMBER_OF_DAMAGE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Return the total number of Damage product of an enterprise",
             notes = "This method is used to return the total number of damage product available in an enterprise",
@@ -253,7 +253,7 @@ public interface EnterpriseApi {
                     value="Id of the enterprise for which the number of damage is found", example = "1")
             @NotNull @PathVariable("entId") Long entId);
 
-    @GetMapping(value = APP_ROOT+"/enterprise/getNumberofDamage/{entId}/{artId}",
+    @GetMapping(value = GET_ENTERPRISE_NUMBER_OF_DAMAGE_OF_ARTICLE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Return the total number of Damage product for a particular article of an enterprise",
             notes = "This method is used to return the total number of damage product of a particular article" +
@@ -271,7 +271,7 @@ public interface EnterpriseApi {
                     value="Id of the article for which the number of damage is found", example = "1")
             @NotNull @PathVariable("artId") Long artId);
 
-    @GetMapping(value = APP_ROOT+"/enterprise/getNumberofCover/{entId}",
+    @GetMapping(value = GET_ENTERPRISE_NUMBER_OF_CAPSULE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Return the total number of cover product of an enterprise",
             notes = "This method is used to return the total number of cover product available in an enterprise",
@@ -284,7 +284,7 @@ public interface EnterpriseApi {
                     value="Id of the enterprise for which the number of cover is found", example = "1")
             @NotNull @PathVariable("entId") Long entId);
 
-    @GetMapping(value = APP_ROOT+"/enterprise/getNumberofCover/{entId}/{artId}",
+    @GetMapping(value = GET_ENTERPRISE_NUMBER_OF_CAPSULE_OF_ARTICLE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Return the total number of cover product for a particular article of an enterprise",
             notes = "This method is used to return the total number of cover product of a particular article" +
@@ -302,7 +302,7 @@ public interface EnterpriseApi {
                     value="Id of the article for which the number of cover is found", example = "1")
             @NotNull @PathVariable("artId") Long artId);
 
-    @GetMapping(value = APP_ROOT+"/enterprise/getNumberofPackaging/{entId}",
+    @GetMapping(value = GET_ENTERPRISE_NUMBER_OF_PACKAGING_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Return the total number of packaging of an enterprise",
             notes = "This method is used to return the total number of packaging available in an enterprise",
@@ -315,7 +315,7 @@ public interface EnterpriseApi {
                     value="Id of the enterprise for which the number of packaging is found", example = "1")
             @NotNull @PathVariable("entId") Long entId);
 
-    @GetMapping(value = APP_ROOT+"/enterprise/getNumberofCover/{entId}/{providerId}",
+    @GetMapping(value = GET_ENTERPRISE_NUMBER_OF_PACKAGING_OF_PROVIDER_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Return the total number of packaging for a particular provider of an enterprise",
             notes = "This method is used to return the total number of packaging  of a particular provider" +

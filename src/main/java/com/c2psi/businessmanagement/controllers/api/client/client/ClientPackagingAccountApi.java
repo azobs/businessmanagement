@@ -16,14 +16,15 @@ import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+import static com.c2psi.businessmanagement.utils.client.client.ClientPackagingAccountConstant.*;
+
 
 @Validated
-@Api(APP_ROOT+"/clientpackagingaccount")
+@Api(CLIENT_PACKAGING_ENDPOINT)
 public interface ClientPackagingAccountApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/clientpackagingaccount/create",
+    @PostMapping(value = CREATE_CLIENT_PACKAGING_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveClientPackagingAccount",
@@ -40,7 +41,7 @@ public interface ClientPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/clientpackagingaccount/id/{cltpackaccId}",
+    @GetMapping(value = FIND_CLIENT_PACKAGING_ACCOUNT_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findClientPackagingAccountById", notes = "Search in the DB a clientpackagingaccount by its Id",
             response = ClientPackagingAccountDto.class)
@@ -55,7 +56,7 @@ public interface ClientPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/clientpackagingaccount/client/packaging/{clientId}/{packagingId}",
+    @GetMapping(value = FIND_CLIENT_PACKAGING_ACCOUNT_OF_PACKAGING_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findClientPackagingAccountofArticleinPos", notes = "Search in the DB a clientpackagingaccount " +
             "for an article a client in a DB",
@@ -74,7 +75,7 @@ public interface ClientPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/clientpackagingaccount/all/{posId}",
+    @GetMapping(value = FIND_ALL_CLIENT_PACKAGING_ACCOUNT_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllClientPackagingAccountinPos", notes = "Find all packaging account in pos",
             responseContainer = "List<ClientPackagingAccountDto>")
@@ -89,7 +90,7 @@ public interface ClientPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/clientpackagingaccount/page/{posId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_CLIENT_PACKAGING_ACCOUNT_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageClientPackagingAccountinPos", notes = "Find page packaging account in pos",
             responseContainer = "Page<ClientPackagingAccountDto>")
@@ -106,7 +107,7 @@ public interface ClientPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/clientpackagingaccount/all/{clientId}",
+    @GetMapping(value = FIND_ALL_CLIENT_PACKAGING_ACCOUNT_OF_CLIENT_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllClientPackagingAccountinPos", notes = "Find all packaging account of client",
             responseContainer = "List<ClientPackagingAccountDto>")
@@ -121,7 +122,7 @@ public interface ClientPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/clientpackagingaccount/page/{clientId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_CLIENT_PACKAGING_ACCOUNT_OF_CLIENT_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageClientPackagingAccountinPos", notes = "Find all packaging account of client page by page",
             responseContainer = "Page<ClientPackagingAccountDto>")
@@ -138,7 +139,7 @@ public interface ClientPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/clientpackagingaccount/operation/create",
+    @PostMapping(value = CREATE_CLIENT_PACKAGING_ACCOUNT_OPERATION_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "savePackagingOperation",
@@ -155,7 +156,7 @@ public interface ClientPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/clientpackagingaccount/delete/{cltpackaccId}",
+    @DeleteMapping(value = DELETE_CLIENT_PACKAGING_ACCOUNT_BY_ID,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteClientPackagingAccountById",
             notes = "This method is used to delete a ClientPackagingAccount saved in the DB", response = Boolean.class)
@@ -169,7 +170,7 @@ public interface ClientPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/clientpackagingaccount/operation/update",
+    @PutMapping(value = UPDATE_CLIENT_PACKAGING_ACCOUNT_OPERATION_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateClientPackagingOperation",
@@ -186,7 +187,7 @@ public interface ClientPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/clientpackagingaccount/operation/delete/{cltpackopId}",
+    @DeleteMapping(value = DELETE_CLIENT_PACKAGING_ACCOUNT_OPERATION_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteClientPackagingOperationById",
             notes = "This method is used to delete a ClientPackagingOperation saved in the DB", response = Boolean.class)
@@ -200,7 +201,7 @@ public interface ClientPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/clientpackagingaccount/operation/all/{cltpackaccId}",
+    @GetMapping(value = FIND_ALL_CLIENT_PACKAGING_ACCOUNT_OPERATION_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllClientPackagingOperation", notes = "Find all packaging account operation in pos",
             responseContainer = "Page<ClientPackagingOperationDto>")
@@ -215,7 +216,7 @@ public interface ClientPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/clientpackagingaccount/operation/page/{cltpackaccId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_CLIENT_PACKAGING_ACCOUNT_OPERATION_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageClientPackagingOperation", notes = "Find all packaging account operation in pos page by page",
             responseContainer = "Page<ClientPackagingOperationDto>")
@@ -232,7 +233,7 @@ public interface ClientPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/clientpackagingaccount/operation/type/all/{cltpackaccId}/{optype}",
+    @GetMapping(value = FIND_ALL_CLIENT_PACKAGING_ACCOUNT_OPERATION_OF_TYPE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllClientPackagingOperationofType", notes = "Find all packaging account operation in pos",
             responseContainer = "List<ClientPackagingOperationDto>")
@@ -250,7 +251,7 @@ public interface ClientPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/clientpackagingaccount/operation/type/page/{cltpackaccId}/{optype}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_CLIENT_PACKAGING_ACCOUNT_OPERATION_OF_TYPE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageClientPackagingOperationofType", notes = "Find all packaging account operation in pos page by page",
             responseContainer = "Page<ClientPackagingOperationDto>")
@@ -270,7 +271,7 @@ public interface ClientPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/clientpackagingaccount/operation/all/between/{cltpackaccId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_CLIENT_PACKAGING_ACCOUNT_OPERATION_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllClientPackagingOperationBetween", notes = "Find all Packaging account operation in pos between",
             responseContainer = "List<ClientPackagingOperationDto>")
@@ -291,7 +292,7 @@ public interface ClientPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/clientpackagingaccount/operation/page/between/{cltpackaccId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_CLIENT_PACKAGING_ACCOUNT_OPERATION_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageClientPackagingOperationBetween", notes = "Find page Packaging account operation in pos between",
             responseContainer = "Page<ClientPackagingOperationDto>")
@@ -314,7 +315,7 @@ public interface ClientPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/clientpackagingaccount/operation/type/all/between/{cltpackaccId}/{optype}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_CLIENT_PACKAGING_ACCOUNT_OPERATION_OF_TYPE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllClientPackagingOperationofTypeBetween", notes = "Find all Packaging account operation in pos between",
             responseContainer = "List<ClientPackagingOperationDto>")
@@ -338,7 +339,7 @@ public interface ClientPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/clientpackagingaccount/operation/type/page/between/{cltpackaccId}/{optype}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_CLIENT_PACKAGING_ACCOUNT_OPERATION_OF_TYPE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageClientPackagingOperationofTypeBetween", notes = "Find all Packaging account operation page by page in pos between",
             responseContainer = "Page<ClientPackagingOperationDto>")

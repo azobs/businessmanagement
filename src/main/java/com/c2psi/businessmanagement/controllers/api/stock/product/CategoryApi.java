@@ -15,14 +15,14 @@ import javax.validation.constraints.NotNull;
 
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+import static com.c2psi.businessmanagement.utils.stock.product.CategoryApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/category")
+@Api(CATEGORY_ENDPOINT)
 public interface CategoryApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/category/create",
+    @PostMapping(value = CREATE_CATEGORY_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create or Persist a category of a Pos in the DB",
@@ -39,7 +39,7 @@ public interface CategoryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/category/update",
+    @PutMapping(value = UPDATE_CATEGORY_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Update or Modify a category sent",
@@ -56,7 +56,7 @@ public interface CategoryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/category/{catId}",
+    @GetMapping(value = FIND_CATEGORY_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findCategoryById", notes = "Search in the DB a category by its Id",
             response = CategoryDto.class)
@@ -71,7 +71,7 @@ public interface CategoryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/category/parents/{catId}",
+    @GetMapping(value = FIND_ASCENDANT_CATEGORY_OF_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAscandantCategoryof", notes = "List of all category parents of the catageory sent by " +
             "its Id",
@@ -87,7 +87,7 @@ public interface CategoryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/category/parent/{catId}",
+    @GetMapping(value = FIND_CATEGORY_PARENT_OF_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findCategoryParentof", notes = "List of all category parents of the catageory sent by " +
             "its Id",
@@ -103,7 +103,7 @@ public interface CategoryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/category/children/{catId}",
+    @GetMapping(value = FIND_CHILD_CATEGORY_OF_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findChildCategoryOf", notes = "List of all category child of the catageory sent by " +
             "its Id",
@@ -119,7 +119,7 @@ public interface CategoryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/category/all/pos/{posId}",
+    @GetMapping(value = FIND_ALL_CATEGORY_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllCategoryInPointofsale", notes = "List of all category in the pointofsale sent by " +
             "its Id",
@@ -135,7 +135,7 @@ public interface CategoryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/category/page/pos/{posId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_CATEGORY_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCategoryInPointofsale", notes = "List of all category in the pointofsale sent by " +
             "its Id",
@@ -153,7 +153,7 @@ public interface CategoryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/category/page/pos/catname/{posId}/{sample}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_CATEGORY_CONTANING_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageCategoryInPointofsale", notes = "List of all category in the pointofsale sent by " +
             "its Id",
@@ -173,7 +173,7 @@ public interface CategoryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/cat/delete/id/{catId}",
+    @DeleteMapping(value = DELETE_CATEGORY_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteCategoryById",
             notes = "This method is used to delete a category saved in the DB", response = Boolean.class)
@@ -187,7 +187,7 @@ public interface CategoryApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/pos/delete/code/{catCode}/{posId}",
+    @DeleteMapping(value = DELETE_CATEGORY_BY_CODE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteCategoryByCatCode",
             notes = "This method is used to delete a pointofsale saved in the DB", response = Boolean.class)

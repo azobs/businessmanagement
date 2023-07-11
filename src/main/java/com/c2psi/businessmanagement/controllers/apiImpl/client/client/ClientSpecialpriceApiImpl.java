@@ -110,39 +110,6 @@ public class ClientSpecialpriceApiImpl implements ClientSpecialpriceApi {
     }
 
     @Override
-    public ResponseEntity findAllSpecialpriceofArticle(Long articleId) {
-        Map<String, Object> map = new LinkedHashMap<>();
-        List<ClientSpecialpriceDto> clientspecialPriceDtoList = clientSpecialpriceService.findAllSpecialpriceofArticle(articleId);
-        log.info("The method findAllSpecialpriceofArticle is being executed");
-
-        map.clear();
-        map.put("status", HttpStatus.OK);
-        map.put("message", "ClientSpecialprice list found successfully");
-        map.put("data", clientspecialPriceDtoList);
-        map.put("cause", "La liste des prix special du client a ete retrouve avec success");
-        return new ResponseEntity(map, HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity findPageSpecialpriceofArticle(Long articleId, Optional<Integer> optpagenum,
-                                                        Optional<Integer> optpagesize) {
-        Map<String, Object> map = new LinkedHashMap<>();
-        int pagenum = optpagenum.isPresent()?optpagenum.get():0;
-        int pagesize = optpagesize.isPresent()?optpagesize.get():1;
-
-        Page<ClientSpecialpriceDto> clientspecialPriceDtoPage = clientSpecialpriceService.
-                findPageSpecialpriceofArticle(articleId, pagenum, pagesize);
-        log.info("The method findPageSpecialpriceofArticle is being executed");
-
-        map.clear();
-        map.put("status", HttpStatus.OK);
-        map.put("message", "ClientSpecialprice page found successfully");
-        map.put("data", clientspecialPriceDtoPage);
-        map.put("cause", "La liste des prix speciaux du client a ete retrouve avec success");
-        return new ResponseEntity(map, HttpStatus.OK);
-    }
-
-    @Override
     public ResponseEntity findAllSpecialpriceofClient(Long clientId) {
         Map<String, Object> map = new LinkedHashMap<>();
 

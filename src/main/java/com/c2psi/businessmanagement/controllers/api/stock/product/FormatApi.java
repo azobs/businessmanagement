@@ -16,14 +16,14 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+import static com.c2psi.businessmanagement.utils.stock.product.FormatApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/format")
+@Api(FORMAT_ENDPOINT)
 public interface FormatApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/format/create",
+    @PostMapping(value = CREATE_FORMAT_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveFormat",
@@ -40,7 +40,7 @@ public interface FormatApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/format/update",
+    @PutMapping(value = UPDATE_FORMAT_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateFormat",
@@ -57,7 +57,7 @@ public interface FormatApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/format/{formatId}",
+    @GetMapping(value = FIND_FORMAT_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findFormatById", notes = "Search in the DB a format by its Id",
             response = FormatDto.class)
@@ -72,7 +72,7 @@ public interface FormatApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/format/pos/{posId}/{formatName}/{formatCapacity}",
+    @GetMapping(value = FIND_FORMAT_BY_FULLCHARACTERISTICS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findFormatInPointofsaleByFullcharacteristic", notes = "Search in the DB a format by its characteristics",
             response = FormatDto.class)
@@ -93,7 +93,7 @@ public interface FormatApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/format/all/pos/{posId}",
+    @GetMapping(value = FIND_ALL_FORMAT_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllFormatInPos", notes = "Search all the format in a pointofsale",
             responseContainer = "List<FormatDto>")
@@ -108,7 +108,7 @@ public interface FormatApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/format/page/pos/{posId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_FORMAT_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageFormatInPos", notes = "Search all the format in a pointofsale",
             responseContainer = "Page<FormatDto>")
@@ -125,7 +125,7 @@ public interface FormatApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/format/delete/id/{formatId}",
+    @DeleteMapping(value = DELETE_FORMAT_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteFormatById",
             notes = "This method is used to delete a format saved in the DB", response = Boolean.class)

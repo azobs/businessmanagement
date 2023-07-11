@@ -14,14 +14,14 @@ import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+import static com.c2psi.businessmanagement.utils.stock.product.SupplyInvoiceDamageApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/supplyInvoiceDamage")
+@Api(SUPPLYINVOICEDAMAGE_ENDPOINT)
 public interface SupplyInvoiceDamageApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/supplyInvoiceDamage/create",
+    @PostMapping(value = CREATE_SUPPLYINVOICEDAMAGE_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveSupplyInvoiceDamage",
@@ -38,7 +38,7 @@ public interface SupplyInvoiceDamageApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/supplyInvoiceDamage/update",
+    @PutMapping(value = UPDATE_SUPPLYINVOICEDAMAGE_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveSupplyInvoiceDamage",
@@ -55,7 +55,7 @@ public interface SupplyInvoiceDamageApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/supplyInvoiceDamage/delete/id/{sidamId}",
+    @DeleteMapping(value = DELETE_SUPPLYINVOICEDAMAGE_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteSupplyInvoiceDamageById",
             notes = "This method is used to delete the supplyInvoiceDamage saved in the DB", response = Boolean.class)
@@ -69,7 +69,7 @@ public interface SupplyInvoiceDamageApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/supplyInvoiceDamage/id/{sidamId}",
+    @GetMapping(value = FIND_SUPPLYINVOICEDAMAGE_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findSupplyInvoiceDamageById", notes = "Search a supplyinvoiceDamage in a pointofsale",
             response = SupplyInvoiceDamageDto.class)
@@ -84,7 +84,7 @@ public interface SupplyInvoiceDamageApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/supplyInvoiceDamage/code/pos/{sidamCode}/{posId}",
+    @GetMapping(value = FIND_SUPPLYINVOICEDAMAGE_BY_CODE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findSupplyInvoiceDamageByCode", notes = "Search a supplyinvoiceDamage in a pointofsale",
             response = SupplyInvoiceDamageDto.class)
@@ -102,7 +102,7 @@ public interface SupplyInvoiceDamageApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/supplyInvoiceDamage/pos/all/{posId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_SUPPLYINVOICEDAMAGE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllSupplyInvoiceDamageBetween", notes = "Search all supplyinvoiceDamage in a pointofsale between 02 date",
             responseContainer = "List<SupplyInvoiceDamageDto>")
@@ -123,7 +123,7 @@ public interface SupplyInvoiceDamageApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/supplyInvoiceDamage/pos/page/{posId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_SUPPLYINVOICEDAMAGE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageSupplyInvoiceDamageBetween", notes = "Search all supplyinvoiceDamage in a pointofsale " +
             "between 02 date page by page",
@@ -147,7 +147,7 @@ public interface SupplyInvoiceDamageApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/supplyInvoiceDamage/pos/userbm/all/{posId}/{userbmId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_SUPPLYINVOICEDAMAGE_OF_USERBM_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllSupplyInvoiceDamageofUserbmBetween", notes = "Search all supplyinvoiceDamage in a pointofsale " +
             "between 02 date of a Userbm",
@@ -172,7 +172,7 @@ public interface SupplyInvoiceDamageApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/supplyInvoiceDamage/pos/userbm/page/{posId}/{userbmId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_SUPPLYINVOICEDAMAGE_OF_USERBM_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageSupplyInvoiceDamageofUserbmBetween", notes = "Search all supplyinvoiceDamage in a pointofsale " +
             "between 02 date of a Userbm page by page",
@@ -199,7 +199,7 @@ public interface SupplyInvoiceDamageApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/supplyInvoiceDamage/pos/provider/all/{posId}/{providerId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_SUPPLYINVOICEDAMAGE_OF_PROVIDER_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllSupplyInvoiceDamageofProviderBetween", notes = "Search all supplyinvoiceDamage in a pointofsale " +
             "between 02 date of a provider",
@@ -224,7 +224,7 @@ public interface SupplyInvoiceDamageApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/supplyInvoiceDamage/pos/provider/page/{posId}/{providerId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_SUPPLYINVOICEDAMAGE_OF_PROVIDER_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageSupplyInvoiceDamageofProviderBetween", notes = "Search all supplyinvoiceDamage in a pointofsale " +
             "between 02 date of a provider page by page",
@@ -251,7 +251,7 @@ public interface SupplyInvoiceDamageApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/supplyInvoiceDamage/pos/userbm/provider/all/{posId}/{providerId}/{userbmId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_SUPPLYINVOICEDAMAGE_OF_PROVIDER_AND_USERBM_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllSupplyInvoiceDamageofProviderAndUserbmBetween", notes = "Search all supplyinvoiceDamage in a pointofsale " +
             "between 02 date of a provider saved by a userbm",
@@ -279,7 +279,7 @@ public interface SupplyInvoiceDamageApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/supplyInvoiceDamage/pos/userbm/provider/page/{posId}/{providerId}/{userbmId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_SUPPLYINVOICEDAMAGE_OF_PROVIDER_AND_USERBM_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageSupplyInvoiceDamageofProviderAndUserbmBetween", notes = "Search all supplyinvoiceDamage in a pointofsale " +
             "between 02 date of a provider saved by a userbm page by page",

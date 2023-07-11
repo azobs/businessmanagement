@@ -381,4 +381,43 @@ public class CapsuleArrivalServiceImpl implements CapsuleArrivalService {
 
         return capsuleArrivalPage.map(CapsuleArrivalDto::fromEntity);
     }
+
+    @Override
+    public List<CapsuleArrivalDto> findAllCapsuleArrivalinPosBetween(Long posId, Instant startDate, Instant endDate) {
+        if(posId == null){
+            log.error("The method can't be running on null posId argument");
+            throw new NullArgumentException("La methode ne peut s'executer sur un argument posId null");
+        }
+
+        Optional<List<CapsuleArrival>> optionalCapsArrivalList = capsuleArrivalRepository.findAllCapsArrivalinPosBetween(
+                posId, startDate, endDate);
+        if(!optionalCapsArrivalList.isPresent()){
+            log.error("There is no Pos in DB with the precised id {}", posId);
+            throw new EntityNotFoundException("Aucun Pos n'existe avec l'id envoye ",
+                    ErrorCode.POINTOFSALE_NOT_FOUND);
+        }
+        List<CapsuleArrival> capsuleArrivalList = optionalCapsArrivalList.get();
+
+        return capsuleArrivalList.stream().map(CapsuleArrivalDto::fromEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<CapsuleArrivalDto> findPageCapsuleArrivalinPosBetween(Long posId, Instant startDate, Instant endDate,
+                                                                      int pagenum, int pagesize) {
+        if(posId == null){
+            log.error("The method can't be running on null posId argument");
+            throw new NullArgumentException("La methode ne peut s'executer sur un argument posId null");
+        }
+
+        Optional<Page<CapsuleArrival>> optionalCapsArrivalPage = capsuleArrivalRepository.findPageCapsArrivalinPosBetween(
+                posId, startDate, endDate, PageRequest.of(pagenum, pagesize));
+        if(!optionalCapsArrivalPage.isPresent()){
+            log.error("There is no Pos in DB with the precised id {}", posId);
+            throw new EntityNotFoundException("Aucun Pos n'existe avec l'id envoye ",
+                    ErrorCode.POINTOFSALE_NOT_FOUND);
+        }
+        Page<CapsuleArrival> capsuleArrivalPage = optionalCapsArrivalPage.get();
+
+        return capsuleArrivalPage.map(CapsuleArrivalDto::fromEntity);
+    }
 }

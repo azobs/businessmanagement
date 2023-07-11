@@ -20,4 +20,7 @@ public interface DamageArrivalService {
     List<DamageArrivalDto> findAllDamageArrivalinSidamBetween(Long sidamId, Instant startDate, Instant endDate);
     Page<DamageArrivalDto> findPageDamageArrivalinSidamBetween(Long sidamId, Instant startDate, Instant endDate,
                                                                   int pagenum, int pagesize);
+    List<DamageArrivalDto> findAllDamageArrivalinPosBetween(Long posId, Instant startDate, Instant endDate);
+    Page<DamageArrivalDto> findPageDamageArrivalinPosBetween(Long posId, Instant startDate, Instant endDate,
+                                                               int pagenum, int pagesize);
 }

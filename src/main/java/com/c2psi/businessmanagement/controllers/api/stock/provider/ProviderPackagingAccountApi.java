@@ -16,14 +16,14 @@ import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+import static com.c2psi.businessmanagement.utils.stock.provider.ProviderPackagingAccountApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/propackagingaccount")
+@Api(PROVIDERPACKAGINGACCOUNT_ENDPOINT)
 public interface ProviderPackagingAccountApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/propackagingaccount/create",
+    @PostMapping(value = CREATE_PROVIDERPACKAGINGACCOUNT_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveProviderPackagingAccount",
@@ -40,7 +40,7 @@ public interface ProviderPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/propackagingaccount/id/{propackaccId}",
+    @GetMapping(value = FIND_PROVIDERPACKAGINGACCOUNT_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findProviderPackagingAccountById", notes = "Search in the DB a providerpackagingaccount by its Id",
             response = ProviderPackagingAccountDto.class)
@@ -55,7 +55,7 @@ public interface ProviderPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/propackagingaccount/packaging/provider/{packagingId}/{providerId}",
+    @GetMapping(value = FIND_PROVIDERPACKAGINGACCOUNT_OF_PROVIDER_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findProviderPackagingAccount", notes = "Search in the DB a providerpackagingaccount by its attributes",
             response = ProviderPackagingAccountDto.class)
@@ -73,7 +73,7 @@ public interface ProviderPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/propackagingaccount/all/{providerId}",
+    @GetMapping(value = FIND_ALL_PROVIDERPACKAGINGACCOUNT_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllPackagingAccountofProvider", notes = "Find all packaging account in pos",
             responseContainer = "List<ProviderPackagingAccountDto>")
@@ -88,7 +88,7 @@ public interface ProviderPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/propackagingaccount/page/{providerId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_PROVIDERPACKAGINGACCOUNT_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPagePackagingAccountofProvider", notes = "Find all packaging account in pos page by page",
             responseContainer = "Page<ProviderPackagingAccountDto>")
@@ -105,7 +105,7 @@ public interface ProviderPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/propackagingaccount/delete/{propackId}",
+    @DeleteMapping(value = DELETE_PROVIDERPACKAGINGACCOUNT_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteProviderPackagingAccountById",
             notes = "This method is used to delete a ProviderPackagingOperation saved in the DB", response = Boolean.class)
@@ -119,7 +119,7 @@ public interface ProviderPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/propackagingaccount/operation/create",
+    @PostMapping(value = CREATE_PROVIDERPACKAGING_OPERATION_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "savePackagingOperation",
@@ -136,7 +136,7 @@ public interface ProviderPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/propackagingaccount/operation/update",
+    @PutMapping(value = UPDATE_PROVIDERPACKAGING_OPERATION_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateProviderPackagingOperation",
@@ -153,7 +153,7 @@ public interface ProviderPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/propackagingaccount/operation/delete/{propackopId}",
+    @DeleteMapping(value = DELETE_PROVIDERPACKAGING_OPERATION_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteProviderPackagingOperationById",
             notes = "This method is used to delete a ProviderPackagingOperation saved in the DB", response = Boolean.class)
@@ -167,7 +167,7 @@ public interface ProviderPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/propackagingaccount/operation/all/{propackaccId}",
+    @GetMapping(value = FIND_ALL_PROVIDERPACKAGING_OPERATION_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllProviderPackagingOperation", notes = "Find all packaging account operation in pos",
             responseContainer = "List<ProviderPackagingOperationDto>")
@@ -182,7 +182,7 @@ public interface ProviderPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/propackagingaccount/operation/page/{propackaccId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_PROVIDERPACKAGING_OPERATION_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageProviderPackagingOperation", notes = "Find all packaging account operation in pos page by page",
             responseContainer = "Page<ProviderPackagingOperationDto>")
@@ -199,7 +199,7 @@ public interface ProviderPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/propackagingaccount/operation/type/all/{propackaccId}/{opType}",
+    @GetMapping(value = FIND_ALL_PROVIDERPACKAGING_OPERATION_OF_TYPE_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllProviderPackagingOperationofType", notes = "Find all packaging account operation in pos for a " +
             "certain types",
@@ -218,7 +218,7 @@ public interface ProviderPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/propackagingaccount/operation/type/page/{propackaccId}/{opType}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_PROVIDERPACKAGING_OPERATION_OF_TYPE_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageProviderPackagingOperationofType", notes = "Find all packaging account operation in pos for a " +
             "certain types page by page",
@@ -239,7 +239,7 @@ public interface ProviderPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/propackagingaccount/operation/all/between/{propackaccId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_PROVIDERPACKAGING_OPERATION_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllProviderPackagingOperationBetween", notes = "Find all packaging account operation in pos between",
             responseContainer = "List<ProviderPackagingOperationDto>")
@@ -260,7 +260,7 @@ public interface ProviderPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/propackagingaccount/operation/all/between/{propackaccId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_PROVIDERPACKAGING_OPERATION_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageProviderPackagingOperationBetween", notes = "Find all packaging account operation in pos between",
             responseContainer = "Page<ProviderPackagingOperationDto>")
@@ -283,7 +283,7 @@ public interface ProviderPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/propackagingaccount/operation/type/all/between/{propackaccId}/{optype}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_PROVIDERPACKAGING_OPERATION_OF_TYPE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllProviderPackagingOperationofTypeBetween", notes = "Find all packaging account operation in pos between",
             responseContainer = "List<ProviderPackagingOperationDto>")
@@ -307,7 +307,7 @@ public interface ProviderPackagingAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/propackagingaccount/operation/type/page/between/{propackaccId}/{optype}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_PROVIDERPACKAGING_OPERATION_OF_TYPE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageProviderPackagingOperationofTypeBetween", notes = "Find all packaging account operation in pos between",
             responseContainer = "Page<ProviderPackagingOperationDto>")

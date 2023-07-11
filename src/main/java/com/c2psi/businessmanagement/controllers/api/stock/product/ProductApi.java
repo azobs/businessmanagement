@@ -15,14 +15,14 @@ import javax.validation.constraints.NotNull;
 
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+import static com.c2psi.businessmanagement.utils.stock.product.ProductApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/product")
+@Api(PRODUCT_ENDPOINT)
 public interface ProductApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/product/create",
+    @PostMapping(value = CREATE_PRODUCT_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveProduct",
@@ -39,7 +39,7 @@ public interface ProductApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/product/update",
+    @PutMapping(value = UPDATE_PRODUCT_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateProduct",
@@ -56,7 +56,7 @@ public interface ProductApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/product/id/{prodId}",
+    @GetMapping(value = FIND_PRODUCT_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findProductById", notes = "Search in the DB a product by its Id",
             response = ProductDto.class)
@@ -71,7 +71,7 @@ public interface ProductApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/product/code/{prodCode}/{posId}",
+    @GetMapping(value = FIND_PRODUCT_BY_CODE_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findProductByProductCodeInPos", notes = "Search in the DB a category by its code and posId",
             response = ProductDto.class)
@@ -89,7 +89,7 @@ public interface ProductApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/product/all/pos/{posId}",
+    @GetMapping(value = FIND_ALL_PRODUCT_IN_POS,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllProductInPos", notes = "Search all the product in a pointofsale",
             responseContainer = "List<ProductDto>")
@@ -104,7 +104,7 @@ public interface ProductApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/product/all/cat/{catId}",
+    @GetMapping(value = FIND_ALL_PRODUCT_OF_CATEGORY,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllProductOfCategory", notes = "Search all the product in a category",
             responseContainer = "List<ProductDto>")
@@ -119,7 +119,7 @@ public interface ProductApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/product/page/pos/{posId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_PRODUCT_IN_POS,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageofProductInPos", notes = "Search all the product in a pointofsale page by page",
             responseContainer = "Page<ProductDto>")
@@ -136,7 +136,7 @@ public interface ProductApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/product/page/cat/{catId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_PRODUCT_OF_CATEGORY,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageOfProductOfCategory", notes = "Search all products in a category page by page",
             responseContainer = "Page<ProductDto>")
@@ -153,7 +153,7 @@ public interface ProductApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/product/page/pos/{posId}/{sample}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_PRODUCT_CONTAINING,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findProductByProdCodeInPosContaining", notes = "Search all products in a category page by page",
             responseContainer = "Page<ProductDto>")
@@ -172,7 +172,7 @@ public interface ProductApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/product/delete/id/{prodId}",
+    @DeleteMapping(value = DELETE_PRODUCT_BY_ID,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteProductById",
             notes = "This method is used to delete a product saved in the DB", response = Boolean.class)

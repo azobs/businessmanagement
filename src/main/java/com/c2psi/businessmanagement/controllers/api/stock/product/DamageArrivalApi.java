@@ -14,14 +14,14 @@ import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+import static com.c2psi.businessmanagement.utils.stock.product.DamageArrivalApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/damageArrival")
+@Api(DAMAGEARRIVAL_ENDPOINT)
 public interface DamageArrivalApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/damageArrival/create",
+    @PostMapping(value = CREATE_DAMAGEARRIVAL_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveDamageArrival",
@@ -38,7 +38,7 @@ public interface DamageArrivalApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/damageArrival/update",
+    @PutMapping(value = UPDATE_DAMAGEARRIVAL_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateDamageArrival",
@@ -55,7 +55,7 @@ public interface DamageArrivalApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/damageArrival/delete/id/{damaId}",
+    @DeleteMapping(value = DELETE_DAMAGEARRIVAL_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteDamageArrivalById",
             notes = "This method is used to delete the capsArrival saved in the DB", response = Boolean.class)
@@ -69,7 +69,7 @@ public interface DamageArrivalApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/damageArrival/id/{damaId}",
+    @GetMapping(value = FIND_DAMAGEARRIVAL_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findDamageArrivalById", notes = "Search a DamageArrival in a pointofsale",
             response = DamageArrivalDto.class)
@@ -84,7 +84,7 @@ public interface DamageArrivalApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/damageArrival/article/{artId}/{sidamId}",
+    @GetMapping(value = FIND_DAMAGEARRIVAL_OF_ARTICLE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findDamageArrivalofArticleinSiDam", notes = "Search a DamageArrival in a pointofsale",
             response = DamageArrivalDto.class)
@@ -102,7 +102,7 @@ public interface DamageArrivalApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/damageArrival/all/{sidamId}",
+    @GetMapping(value = FIND_ALL_DAMAGEERRIVAL_IN_SIDAM_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllDamageArrivalinSiDam", notes = "Search all DamageArrival in a pointofsale on a supply " +
             "invoice Damage",
@@ -118,7 +118,7 @@ public interface DamageArrivalApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/damageArrival/all/{sidamId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_DAMAGEERRIVAL_IN_SIDAM_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllDamageArrivalinSidam", notes = "Search all DamageArrival in a pointofsale on a supply " +
             "invoice Damage page by page",
@@ -136,7 +136,7 @@ public interface DamageArrivalApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/damageArrival/all/between/{sidamId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_DAMAGEERRIVAL_IN_SIDAM_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllDamageArrivalinSiDamageBetween", notes = "Search all DamageArrival in a pointofsale on a supply " +
             "invoice Damage",
@@ -158,7 +158,7 @@ public interface DamageArrivalApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/damageArrival/page/between/{sidamId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_DAMAGEERRIVAL_IN_SIDAM_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageDamageArrivalinSiDamageBetween", notes = "Search all DamageArrival in a pointofsale on a supply " +
             "invoice Damage page by page",
@@ -171,6 +171,52 @@ public interface DamageArrivalApi {
             @ApiParam(name = "sidamId", type = "Long", required = true,
                     value="Id of the concerned SupplyInvoiceDamage", example = "1")
             @NotNull @PathVariable("sidamId") Long sidamId,
+            @ApiParam(name = "from", type = "Instant", required = true,
+                    value="The date from which to search")
+            @NotNull @PathVariable("from") Instant startDate,
+            @ApiParam(name = "to", type = "Instant", required = true,
+                    value="The date to which to search")
+            @NotNull @PathVariable("to") Instant endDate,
+            @PathVariable(name = "pagenum", required = false) Optional<Integer> optpagenum,
+            @PathVariable(name = "pagesize", required = false) Optional<Integer> optpagesize);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @GetMapping(value = FIND_ALL_DAMAGEERRIVAL_IN_POS_BETWEEN_ENDPOINT,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "findAllDamageArrivalinPosBetween", notes = "Search all DamageArrival in a pointofsale  " +
+            "between 02 dates",
+            responseContainer = "List<DamageArrivalDto>")
+    @ApiResponses(value={
+            @ApiResponse(code=200, message="The DamageArrivalDto list found successfully"),
+            @ApiResponse(code=404, message="Error faced during the finding process")
+    })
+    ResponseEntity findAllDamageArrivalinPosBetween(
+            @ApiParam(name = "posId", type = "Long", required = true,
+                    value="Id of the concerned Pointofsale", example = "1")
+            @NotNull @PathVariable("posId") Long posId,
+            @ApiParam(name = "from", type = "Instant", required = true,
+                    value="The date from which to search")
+            @NotNull @PathVariable("from") Instant startDate,
+            @ApiParam(name = "to", type = "Instant", required = true,
+                    value="The date to which to search")
+            @NotNull @PathVariable("to") Instant endDate);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @GetMapping(value = FIND_PAGE_DAMAGEERRIVAL_IN_POS_BETWEEN_ENDPOINT,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "findPageDamageArrivalinSiPosBetween", notes = "Search all DamageArrival in a pointofsale  " +
+            " page by page between 02 dates",
+            responseContainer = "Page<DamageArrivalDto>")
+    @ApiResponses(value={
+            @ApiResponse(code=200, message="The DamageArrivalDto page found successfully"),
+            @ApiResponse(code=404, message="Error faced during the finding process")
+    })
+    ResponseEntity findPageDamageArrivalinPosBetween(
+            @ApiParam(name = "posId", type = "Long", required = true,
+                    value="Id of the concerned Pointofsale", example = "1")
+            @NotNull @PathVariable("posId") Long posId,
             @ApiParam(name = "from", type = "Instant", required = true,
                     value="The date from which to search")
             @NotNull @PathVariable("from") Instant startDate,

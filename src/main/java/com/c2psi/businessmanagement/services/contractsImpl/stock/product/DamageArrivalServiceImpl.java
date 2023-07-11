@@ -382,4 +382,43 @@ public class DamageArrivalServiceImpl implements DamageArrivalService {
 
         return damageArrivalPage.map(DamageArrivalDto::fromEntity);
     }
+
+    @Override
+    public List<DamageArrivalDto> findAllDamageArrivalinPosBetween(Long posId, Instant startDate, Instant endDate) {
+        if(posId == null){
+            log.error("The method can't be running on null posId argument");
+            throw new NullArgumentException("La methode ne peut s'executer sur un argument posId null");
+        }
+
+        Optional<List<DamageArrival>> optionalDamArrivalList = damageArrivalRepository.findAllDamArrivalinPosBetween(
+                posId, startDate, endDate);
+        if(!optionalDamArrivalList.isPresent()){
+            log.error("There is no pos in DB with the precised id {}", posId);
+            throw new EntityNotFoundException("Aucun pointofsale n'existe avec l'id envoye ",
+                    ErrorCode.POINTOFSALE_NOT_FOUND);
+        }
+        List<DamageArrival> damageArrivalList = optionalDamArrivalList.get();
+
+        return damageArrivalList.stream().map(DamageArrivalDto::fromEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<DamageArrivalDto> findPageDamageArrivalinPosBetween(Long posId, Instant startDate, Instant endDate,
+                                                                    int pagenum, int pagesize) {
+        if(posId == null){
+            log.error("The method can't be running on null posId argument");
+            throw new NullArgumentException("La methode ne peut s'executer sur un argument posId null");
+        }
+
+        Optional<Page<DamageArrival>> optionalDamArrivalPage = damageArrivalRepository.findPageDamArrivalinPosBetween(
+                posId, startDate, endDate, PageRequest.of(pagenum, pagesize));
+        if(!optionalDamArrivalPage.isPresent()){
+            log.error("There is no pos in DB with the precised id {}", posId);
+            throw new EntityNotFoundException("Aucun pointofsale n'existe avec l'id envoye ",
+                    ErrorCode.POINTOFSALE_NOT_FOUND);
+        }
+        Page<DamageArrival> damageArrivalPage = optionalDamArrivalPage.get();
+
+        return damageArrivalPage.map(DamageArrivalDto::fromEntity);
+    }
 }

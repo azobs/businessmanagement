@@ -29,8 +29,10 @@ public class LoadingDto {
     @NotNull(message = "The amount expected for a loading cannot be null")
     @Positive(message = "The total amount expected must be positive")
     BigDecimal loadTotalamountexpected;
-    @PositiveOrZero(message = "The total amount expected must be positive or null")
+    @PositiveOrZero(message = "The total amount really paid after selling must be positive or null")
     BigDecimal loadTotalamountpaid;
+    @PositiveOrZero(message = "The total amount of remise must be positive or null")
+    BigDecimal loadRemise;
     String loadSalereport;
     String loadComment;
 

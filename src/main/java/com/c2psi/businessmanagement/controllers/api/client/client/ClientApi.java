@@ -17,14 +17,14 @@ import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+import static com.c2psi.businessmanagement.utils.client.client.ClientApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/client")
+@Api(CLIENT_ENDPOINT)
 public interface ClientApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/client/create",
+    @PostMapping(value = CREATE_CLIENT_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveClient",
@@ -41,7 +41,7 @@ public interface ClientApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/client/update",
+    @PutMapping(value = UPDATE_CLIENT_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateClient",
@@ -58,7 +58,7 @@ public interface ClientApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/client/id/{clientId}",
+    @GetMapping(value = FIND_CLIENT_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findClientById", notes = "Search in the DB a client by its Id",
             response = ClientDto.class)
@@ -73,7 +73,7 @@ public interface ClientApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/client/name/{clientName}/{clientOthername}/{posId}",
+    @GetMapping(value = FIND_CLIENT_BY_NAME_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findClientByNameofPos", notes = "Search in the DB a client by its name and pos",
             response = ClientDto.class)
@@ -94,7 +94,7 @@ public interface ClientApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/client/cni/{clientCni}/{posId}",
+    @GetMapping(value = FIND_CLIENT_BY_CNI_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findClientByCniofPos", notes = "Search in the DB a client by its cni number and pos",
             response = ClientDto.class)
@@ -112,7 +112,7 @@ public interface ClientApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/client/email/{clientEmail}",
+    @GetMapping(value = FIND_CLIENT_BY_EMAIL_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findClientByEmail", notes = "Search in the DB a client by its email address",
             response = ClientDto.class)
@@ -127,7 +127,7 @@ public interface ClientApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/client/all/{posId}",
+    @GetMapping(value = FIND_ALL_CLIENT_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllClientofPos", notes = "Search the list of client of a pointofsale",
             responseContainer = "List<ClientDto>")
@@ -142,7 +142,7 @@ public interface ClientApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/client/page/{posId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_CLIENT_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageClientofPos", notes = "Search the list of client of a pointofsale page by page",
             responseContainer = "Page<ClientDto>")
@@ -159,7 +159,7 @@ public interface ClientApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/client/delete/id/{clientId}",
+    @DeleteMapping(value = DELETE_CLIENT_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteClientById",
             notes = "This method is used to delete a client saved in the DB", response = Boolean.class)
@@ -173,7 +173,7 @@ public interface ClientApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/client/cash/operation/create",
+    @PostMapping(value = CREATE_CLIENT_CASH_OPERATION_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveCashOperation",
@@ -190,7 +190,7 @@ public interface ClientApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/client/cash/create",
+    @PostMapping(value = CREATE_CLIENT_CASH_ACCOUNT_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveClientCashAccount",
@@ -207,7 +207,7 @@ public interface ClientApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/client/cash/id/{ccaId}",
+    @GetMapping(value = FIND_CLIENT_CASH_ACCOUNT_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findClientCashAccountById", notes = "Search in the DB a clientcashaccount by its Id",
             response = ClientCashAccountDto.class)
@@ -222,7 +222,7 @@ public interface ClientApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/client/cash/delete/{ccaId}",
+    @DeleteMapping(value = DELETE_CLIENT_CASH_ACCOUNT_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteClientCashAccountById",
             notes = "This method is used to delete a clientCashAccount saved in the DB", response = Boolean.class)
@@ -236,7 +236,7 @@ public interface ClientApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/client/cash/operation/update",
+    @PutMapping(value = UPDATE_CLIENT_CASH_OPERATION_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateClientCashOperation",
@@ -253,7 +253,7 @@ public interface ClientApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/client/cash/operation/delete/{ccaopId}",
+    @DeleteMapping(value = DELETE_CLIENT_CASH_OPERATION_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteClientCashOperationById",
             notes = "This method is used to delete a clientCashOperation saved in the DB", response = Boolean.class)
@@ -267,7 +267,7 @@ public interface ClientApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/client/cash/operation/id/{ccaopId}",
+    @GetMapping(value = FIND_CLIENT_CASH_OPERATION_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findClientCashOperationById", notes = "Search in the DB a clientcashoperation by its Id",
             response = ClientCashOperationDto.class)
@@ -282,7 +282,7 @@ public interface ClientApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/client/cash/operation/all/{ccaId}",
+    @GetMapping(value = FIND_ALL_CLIENT_CASH_OPERATION_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllClientCashOperation", notes = "Search in the DB a clientcashoperation the list " +
             "of operation",
@@ -298,7 +298,7 @@ public interface ClientApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/client/cash/operation/all/{ccaId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_CLIENT_CASH_OPERATION_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageClientCashOperation", notes = "Search in the DB a clientcashoperation the list of " +
             "operation",
@@ -316,7 +316,7 @@ public interface ClientApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/client/cash/operation/all/between/{ccaId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_CLIENT_CASH_OPERATION_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllClientCashOperationBetween", notes = "Search in the DB a clientcashoperation " +
             "the list of operation",
@@ -338,7 +338,7 @@ public interface ClientApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/client/cash/operation/page/between/{ccaId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_CLIENT_CASH_OPERATION_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllClientCashOperationBetween", notes = "Search in the DB a clientcashoperation " +
             "the list of operation",
@@ -362,7 +362,7 @@ public interface ClientApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/client/cash/operation/type/all/between/{ccaId}/{opType}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_CLIENT_CASH_OPERATION_OF_TYPE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllClientCashOperationofTypeBetween", notes = "Search in the DB a clientcashoperation the " +
             "list of operation",
@@ -387,7 +387,7 @@ public interface ClientApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/client/cash/operation/type/page/between/{ccaId}/{opType}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_CLIENT_CASH_OPERATION_OF_TYPE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageClientCashOperationofTypeBetween", notes = "Search in the DB a clientcashoperation the " +
             "list of operation",

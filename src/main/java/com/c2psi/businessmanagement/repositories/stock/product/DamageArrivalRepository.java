@@ -23,4 +23,9 @@ public interface DamageArrivalRepository extends JpaRepository<DamageArrival, Lo
     Optional<List<DamageArrival>> findAllDamArrivalinSidamBetween(Long siDamId, Instant startDate, Instant endDate);
     @Query("SELECT dama FROM DamageArrival dama WHERE dama.damaSidam.id=:siDamId AND (dama.damaArrivalEntryDate>=:startDate AND dama.damaArrivalEntryDate<=:endDate) ORDER BY dama.damaArt.artName ASC ")
     Optional<Page<DamageArrival>> findPageDamArrivalinSidamBetween(Long siDamId, Instant startDate, Instant endDate, Pageable pageable);
+
+    @Query("SELECT dama FROM DamageArrival dama WHERE dama.damaSidam.sidamPosId=:posId AND (dama.damaArrivalEntryDate>=:startDate AND dama.damaArrivalEntryDate<=:endDate) ORDER BY dama.damaArt.artName ASC ")
+    Optional<List<DamageArrival>> findAllDamArrivalinPosBetween(Long posId, Instant startDate, Instant endDate);
+    @Query("SELECT dama FROM DamageArrival dama WHERE dama.damaSidam.sidamPosId=:posId AND (dama.damaArrivalEntryDate>=:startDate AND dama.damaArrivalEntryDate<=:endDate) ORDER BY dama.damaArt.artName ASC ")
+    Optional<Page<DamageArrival>> findPageDamArrivalinPosBetween(Long posId, Instant startDate, Instant endDate, Pageable pageable);
 }

@@ -16,14 +16,14 @@ import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+import static com.c2psi.businessmanagement.utils.pos.pos.PosDamageAccountApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/posdamageaccount")
+@Api(POS_DAMAGE_ACCOUNT_ENDPOINT)
 public interface PosDamageAccountApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/pdamacc/create",
+    @PostMapping(value = CREATE_POS_DAMAGE_ACCOUNT_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "savePosDamageAccount",
@@ -40,7 +40,7 @@ public interface PosDamageAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pdamacc/id/{pdamaccId}",
+    @GetMapping(value = FIND_POS_DAMAGE_ACCOUNT_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPosDamageAccountById", notes = "Search in the DB a poscapsuleaccount by its Id",
             response = PosDamageAccountDto.class)
@@ -55,7 +55,7 @@ public interface PosDamageAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pdamacc/art/pos/{artId}/{posId}",
+    @GetMapping(value = FIND_POS_DAMAGE_ACCOUNT_OF_ARTICLE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPosDamageAccountofArticleInPos", notes = "Search in the DB a posdamageaccount by its Id",
             response = PosDamageAccountDto.class)
@@ -73,7 +73,7 @@ public interface PosDamageAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pdamacc/all/pos/{posId}",
+    @GetMapping(value = FIND_ALL_DAMAGE_ACCOUNT_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllDamageAccountInPos", notes = "Find all damage account in pos",
             responseContainer = "List<PosDamageAccountDto>")
@@ -88,7 +88,7 @@ public interface PosDamageAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pdamacc/page/pos/{posId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_DAMAGE_ACCOUNT_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageDamageAccountInPos", notes = "Find all damage account in pos page by page",
             responseContainer = "Page<PosDamageAccountDto>")
@@ -105,7 +105,7 @@ public interface PosDamageAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pdamacc/all/art/{artId}",
+    @GetMapping(value = FIND_ALL_DAMAGE_ACCOUNT_OF_ARTICLE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllDamageAccountofArticle", notes = "Find all damage account of article",
             responseContainer = "List<PosDamageAccountDto>")
@@ -120,7 +120,7 @@ public interface PosDamageAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pdamacc/all/art/{artId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_DAMAGE_ACCOUNT_OF_ARTICLE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageDamageAccountofArticle", notes = "Find all damage account of article page by page",
             responseContainer = "Page<PosDamageAccountDto>")
@@ -137,7 +137,7 @@ public interface PosDamageAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/pdamacc/delete/id/{pdamaccId}",
+    @DeleteMapping(value = DELETE_POS_DAMAGE_ACCOUNT_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deletePosDamageAccountById",
             notes = "This method is used to delete posdamageaccount saved in the DB", response = Boolean.class)
@@ -151,7 +151,7 @@ public interface PosDamageAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/pdamacc/operation/create",
+    @PostMapping(value = CREATE_POS_DAMAGE_OPERATION_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveDamageOperation",
@@ -168,7 +168,7 @@ public interface PosDamageAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping (value = APP_ROOT+"/pdamacc/operation/create",
+    @PutMapping (value = UPDATE_POS_DAMAGE_OPERATION_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updatePosDamageOperation",
@@ -185,7 +185,7 @@ public interface PosDamageAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/pdamacc/operation/delete/id/{pdamopId}",
+    @DeleteMapping(value = DELETE_POS_DAMAGE_OPERATION_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deletePosDamageOperationById",
             notes = "This method is used to delete posdamageoperation saved in the DB", response = Boolean.class)
@@ -199,7 +199,7 @@ public interface PosDamageAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pdamacc/operation/all/{pdamopId}",
+    @GetMapping(value = FIND_ALL_POS_DAMAGE_OPERATION_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllPosDamageOperation", notes = "Find all damage operation on an account",
             responseContainer = "List<PosDamageOperationDto>")
@@ -214,7 +214,7 @@ public interface PosDamageAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pdamacc/operation/type/{pdamopId}/{optype}",
+    @GetMapping(value = FIND_ALL_POS_DAMAGE_OPERATION_OF_TYPE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllPosDamageOperationofType", notes = "Find all damage operation of type on an account",
             responseContainer = "List<PosDamageOperationDto>")
@@ -232,7 +232,7 @@ public interface PosDamageAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pdamacc/operation/page/{pdamopId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_POS_DAMAGE_OPERATION_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPagePosDamageOperation", notes = "Find all damage operation on an account page by page",
             responseContainer = "Page<PosDamageOperationDto>")
@@ -249,7 +249,7 @@ public interface PosDamageAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pdamacc/operation/page/type/{pdamopId}/{optype}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_POS_DAMAGE_OPERATION_OF_TYPE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPagePosDamageOperationofType", notes = "Find all damage operation of type on an account page by page",
             responseContainer = "Page<PosDamageOperationDto>")
@@ -269,7 +269,7 @@ public interface PosDamageAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pdamacc/operation/all/between/{pdamopId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_POS_DAMAGE_OPERATION_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllPosDamageOperationBetween", notes = "Find all damage operation on an account between",
             responseContainer = "List<PosDamageOperationDto>")
@@ -290,7 +290,7 @@ public interface PosDamageAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pdamacc/operation/page/between/{pdamopId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_POS_DAMAGE_OPERATION_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPagePosDamageOperationBetween", notes = "Find all damage operation on an account page by page between",
             responseContainer = "Page<PosDamageOperationDto>")
@@ -313,7 +313,7 @@ public interface PosDamageAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pdamacc/operation/type/between/{pdamopId}/{optype}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_POS_DAMAGE_OPERATION_OF_TYPE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllPosDamageOperationofTypeBetween", notes = "Find all damage operation of type on an account",
             responseContainer = "List<PosDamageOperationDto>")
@@ -337,7 +337,7 @@ public interface PosDamageAccountApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/pdamacc/operation/type/between/{pdamopId}/{optype}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_POS_DAMAGE_OPERATION_OF_TYPE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPagePosDamageOperationofType", notes = "Find all damage operation of type on an account page by page",
             responseContainer = "Page<PosDamageOperationDto>")

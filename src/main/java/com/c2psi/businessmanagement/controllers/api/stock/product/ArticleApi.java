@@ -14,15 +14,15 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+import static com.c2psi.businessmanagement.utils.stock.product.ArticleApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/article")
+@Api(ARTICLE_ENDPOINT)
 public interface ArticleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/article/all/pos/{posId}",
+    @GetMapping(value = FIND_ALL_ARTICLE_OF_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllArticleofPos", notes = "Search all articles in a pointofsale",
             responseContainer = "List<ArticleDto>")
@@ -39,7 +39,7 @@ public interface ArticleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/article/all/pos/creationDate/{posId}",
+    @GetMapping(value = FIND_ALL_ARTICLE_OF_POS_ORDERBY_CREATIONDATE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllArticleofPos", notes = "Search all articles in a pointofsale order by creation date",
             responseContainer = "List<ArticleDto>")
@@ -54,7 +54,7 @@ public interface ArticleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/article/page/pos/{posId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_ARTICLE_OF_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageArticleofPos", notes = "Search all articles in a pointofsale page by page",
             responseContainer = "Page<ArticleDto>")
@@ -71,7 +71,7 @@ public interface ArticleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/article/page/pos/creationDate/{posId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_ARTICLE_OF_POS_ORDERBY_CREATIONDATE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageArticleofPos", notes = "Search all articles in a pointofsale order by creation date page by page",
             responseContainer = "Page<ArticleDto>")
@@ -88,7 +88,7 @@ public interface ArticleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/article/all/cat/{catId}",
+    @GetMapping(value = FIND_ALL_ARTICLE_OF_CATEGORY_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllArticleofCat", notes = "Search all articles in a category",
             responseContainer = "List<ArticleDto>")
@@ -103,7 +103,7 @@ public interface ArticleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/article/page/cat/{catId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_ARTICLE_OF_CATEGORY_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageArticleofCat", notes = "Search all articles in a category page by page",
             responseContainer = "Page<ArticleDto>")
@@ -120,7 +120,7 @@ public interface ArticleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/article/create",
+    @PostMapping(value = CREATE_ARTICLE_ENDPOINT_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveArticle",
@@ -137,7 +137,7 @@ public interface ArticleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/article/update",
+    @PutMapping(value = UPDATE_ARTICLE_ENDPOINT_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateArticle",
@@ -154,7 +154,7 @@ public interface ArticleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/article/update/stock",
+    @PutMapping(value = FIX_QUANTITY_OF_ARTICLE_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "fixQuantityofArticle",
@@ -171,7 +171,7 @@ public interface ArticleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/article/update/unit",
+    @PutMapping(value = UPDATE_UNIT_OF_ARTICLE_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateUnitofArticle",
@@ -188,7 +188,7 @@ public interface ArticleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/article/update/bprice",
+    @PutMapping(value = UPDATE_BASEPRICE_OF_ARTICLE_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateBasePriceofArticle",
@@ -205,7 +205,7 @@ public interface ArticleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/article/id/{artId}",
+    @GetMapping(value = FIND_ARTICLE_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findArticleById", notes = "Search in the DB an article by its Id",
             response = ArticleDto.class)
@@ -220,7 +220,7 @@ public interface ArticleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/article/code/{artCode}/{posId}",
+    @GetMapping(value = FIND_ARTICLE_BY_CODE_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findArticleByCodeInPos", notes = "Search in the DB an article by its Code and PosId",
             response = ArticleDto.class)
@@ -238,7 +238,7 @@ public interface ArticleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/article/all/pos/provider/{posId}/{providerId}",
+    @GetMapping(value = FIND_ALL_ARTICLE_OF_PROVIDER_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllArticleofProviderInPos", notes = "Search in the DB all articles of a provider in Pos",
             responseContainer = "List<ArticleDto>")
@@ -256,7 +256,7 @@ public interface ArticleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/article/page/pos/provider/{posId}/{providerId}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_ARTICLE_OF_PROVIDER_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageofArticleofProviderInPos", notes = "Search in the DB all articles of a provider in Pos page by page",
             responseContainer = "Page<ArticleDto>")
@@ -276,7 +276,7 @@ public interface ArticleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/article/name/page/{posId}/{sample}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_ARTICLE_CONTANING_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageofArticleofProviderInPos", notes = "Search in the DB all articles of a provider in Pos page by page",
             responseContainer = "Page<ArticleDto>")
@@ -311,7 +311,7 @@ public interface ArticleApi {
                     value="Quantity to add", example = "0")
             @NotNull @PathVariable("quantity") BigDecimal quantity);*/
 
-    @PutMapping(value = APP_ROOT+"/article/update/add",
+    @PutMapping(value = ADD_QUANTITY_OF_ARTICLE_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "addQuantityofArticle",
@@ -346,7 +346,7 @@ public interface ArticleApi {
                     value="Quantity to add", example = "0")
             @NotNull @PathVariable("quantity") BigDecimal quantity);*/
 
-    @PutMapping(value = APP_ROOT+"/article/update/reduce",
+    @PutMapping(value = REDUCE_QUANTITY_OF_ARTICLE_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "reduceQuantityofArticle",
@@ -379,7 +379,7 @@ public interface ArticleApi {
                     value="Quantity to add", example = "0")
             @NotNull @PathVariable("quantity") BigDecimal quantity);*/
 
-    @PutMapping(value = APP_ROOT+"/article/damage/update/add",
+    @PutMapping(value = ADD_DAMAGE_ARTICLE_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "addDamageArticleof",
@@ -412,7 +412,7 @@ public interface ArticleApi {
                     value="Quantity to add", example = "0")
             @NotNull @PathVariable("quantity") BigDecimal quantity);*/
 
-    @PutMapping(value = APP_ROOT+"/article/damage/update/reduce",
+    @PutMapping(value = REDUCE_DAMAGE_ARTICLE_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "reduceDamageArticle",
@@ -429,7 +429,7 @@ public interface ArticleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/article/price/{artId}/{quantity}",
+    @GetMapping(value = GET_COMMON_EFFECTIVE_PRICE_TO_APPLIED_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "getCommonEffectivePriceToApplied", notes = "Get the effective price to applied according to the quantity command",
             response = String.class)
@@ -447,7 +447,7 @@ public interface ArticleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/article/delete/id/{artId}",
+    @DeleteMapping(value = DELETE_ARTICLE_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteArticleById",
             notes = "This method is used to delete an article saved in the DB", response = Boolean.class)

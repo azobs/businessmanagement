@@ -14,14 +14,14 @@ import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+import static com.c2psi.businessmanagement.utils.client.command.SaleInvoiceCapsuleApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/saleInvoiceCapsule")
+@Api(SALEINVOICECAPSULE_ENDPOINT)
 public interface SaleInvoiceCapsuleApi {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PostMapping(value = APP_ROOT+"/saleInvoiceCapsule/create",
+    @PostMapping(value = CREATE_SALEINVOICECAPSULE_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "saveSaleInvoiceCapsule",
@@ -38,7 +38,7 @@ public interface SaleInvoiceCapsuleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/saleInvoiceCapsule/update",
+    @PutMapping(value = UPDATE_SALEINVOICECAPSULE_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "updateSaleInvoiceCapsule",
@@ -55,7 +55,7 @@ public interface SaleInvoiceCapsuleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/saleInvoiceCapsule/delete/id/{saleiCapsuleId}",
+    @DeleteMapping(value = DELETE_SALEINVOICECAPSULE_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "deleteSaleInvoiceCapsuleById",
             notes = "This method is used to delete the saleInvoiceCapsule saved in the DB", response = Boolean.class)
@@ -69,7 +69,7 @@ public interface SaleInvoiceCapsuleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceCapsule/id/{saleiCapsuleId}",
+    @GetMapping(value = FIND_SALEINVOICECAPSULE_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findSaleInvoiceCapsuleById", notes = "Search a saleinvoiceCapsule by id",
             response = SaleInvoiceCapsuleDto.class)
@@ -84,7 +84,7 @@ public interface SaleInvoiceCapsuleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceCapsule/pos/code/{saleiCapsuleCode}/{posId}",
+    @GetMapping(value = FIND_SALEINVOICECAPSULE_BY_CODE_IN_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findSaleInvoiceCapsuleByCode", notes = "Search a saleinvoiceCapsule by code in Pointofsale",
             response = SaleInvoiceCapsuleDto.class)
@@ -102,7 +102,7 @@ public interface SaleInvoiceCapsuleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceCapsule/all/between/{from}/{to}",
+    @GetMapping(value = FIND_ALL_SALEINVOICECAPSULE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllSaleiCapsuleBetween", notes = "Search a saleinvoiceCapsule list between 02 dates",
             responseContainer = "List<SaleInvoiceCapsuleDto>")
@@ -120,7 +120,7 @@ public interface SaleInvoiceCapsuleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceCapsule/page/between/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_SALEINVOICECAPSULE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageSaleiCapsuleBetween", notes = "Search a saleinvoiceCapsule list between 02 dates page by page",
             responseContainer = "Page<SaleInvoiceCapsuleDto>")
@@ -140,7 +140,7 @@ public interface SaleInvoiceCapsuleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceCapsule/client/all/between/{clientId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_SALEINVOICECAPSULE_OF_CLIENT_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllSaleiCapsuleofClientBetween", notes = "Search a saleinvoiceCapsule list for a client " +
             "between 02 dates",
@@ -162,7 +162,7 @@ public interface SaleInvoiceCapsuleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceCapsule/client/page/between/{clientId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_SALEINVOICECAPSULE_OF_CLIENT_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageSaleiCapsuleofClientBetween", notes = "Search a saleinvoiceCapsule page for a client " +
             "between 02 dates",
@@ -186,7 +186,7 @@ public interface SaleInvoiceCapsuleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceCapsule/userbm/all/between/{userbmId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_SALEINVOICECAPSULE_OF_USERBM_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllSaleiCapsuleofUserbmBetween", notes = "Search a saleinvoiceCapsule list for a UserBM " +
             "between 02 dates",
@@ -208,7 +208,7 @@ public interface SaleInvoiceCapsuleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceCapsule/userbm/page/between/{userbmId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_SALEINVOICECAPSULE_OF_USERBM_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageSaleiCapsuleofUserbmBetween", notes = "Search a saleinvoiceCapsule page for a userbm " +
             "between 02 dates",
@@ -232,7 +232,7 @@ public interface SaleInvoiceCapsuleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceCapsule/pos/all/between/{posId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_SALEINVOICECAPSULE_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllSaleiCapsuleofUserbmBetween", notes = "Search a saleinvoiceCapsule list in Pos" +
             "between 02 dates",
@@ -254,7 +254,7 @@ public interface SaleInvoiceCapsuleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceCapsule/pos/page/between/{posId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_SALEINVOICECAPSULE_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageSaleiCapsuleinPosBetween", notes = "Search a saleinvoiceCapsule page for a userbm " +
             "between 02 dates",
@@ -278,7 +278,7 @@ public interface SaleInvoiceCapsuleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceCapsule/pos/userbm/all/between/{userbmId}/{posId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_SALEINVOICECAPSULE_OF_USERBM_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllSaleiCapsuleofUserbminPosBetween", notes = "Search a saleinvoiceCapsule list in Pos" +
             "between 02 dates for a UserBM",
@@ -303,7 +303,7 @@ public interface SaleInvoiceCapsuleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceCapsule/pos/userbm/page/between/{userbmId}/{posId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_SALEINVOICECAPSULE_OF_USERBM_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageSaleiCapsuleofUserbminPosBetween", notes = "Search a saleinvoiceCapsule page in Pos" +
             "between 02 dates for a UserBM",
@@ -330,7 +330,7 @@ public interface SaleInvoiceCapsuleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceCapsule/pos/client/all/between/{clientId}/{posId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_SALEINVOICECAPSULE_OF_CLIENT_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllSaleiCapsuleofClientinPosBetween", notes = "Search a saleinvoiceCapsule list in Pos" +
             "between 02 dates for a client",
@@ -355,7 +355,7 @@ public interface SaleInvoiceCapsuleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceCapsule/pos/client/page/between/{clientId}/{posId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_SALEINVOICECAPSULE_OF_CLIENT_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageSaleiCapsuleofClientinPosBetween", notes = "Search a saleinvoiceCapsule page in Pos" +
             "between 02 dates for a client",
@@ -382,7 +382,7 @@ public interface SaleInvoiceCapsuleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceCapsule/client/userbm/all/between/{clientId}/{userbmId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_SALEINVOICECAPSULE_FOR_USERBM_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllSaleiCapsuleofClientforUserbmBetween", notes = "Search a saleinvoiceCapsule list for a client" +
             "between 02 dates saved by a user",
@@ -407,7 +407,7 @@ public interface SaleInvoiceCapsuleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceCapsule/client/userbm/all/between/{clientId}/{userbmId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_SALEINVOICECAPSULE_FOR_USERBM_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageSaleiCapsuleofClientforUserbmBetween", notes = "Search a saleinvoiceCapsule page for a client" +
             "between 02 dates saved by a user",
@@ -434,7 +434,7 @@ public interface SaleInvoiceCapsuleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceCapsule/pos/client/userbm/all/between/{clientId}/{userbmId}/{posId}/{from}/{to}",
+    @GetMapping(value = FIND_ALL_SALEINVOICECAPSULE_FOR_USERBM_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllSaleiCapsuleofClientforUserbminPosBetween", notes = "Search a saleinvoiceCapsule list for a client" +
             "between 02 dates saved by a user in a pointofsale",
@@ -462,7 +462,7 @@ public interface SaleInvoiceCapsuleApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/saleInvoiceCapsule/pos/client/userbm/all/between/{clientId}/{userbmId}/{posId}/{from}/{to}/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_SALEINVOICECAPSULE_FOR_USERBM_IN_POS_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageSaleiCapsuleofClientforUserbminPosBetween", notes = "Search a saleinvoiceCapsule page for a client" +
             "between 02 dates saved by a user in a pointofsale",

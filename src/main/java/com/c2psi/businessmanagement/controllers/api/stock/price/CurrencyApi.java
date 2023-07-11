@@ -17,13 +17,14 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+
+import static com.c2psi.businessmanagement.utils.stock.price.CurrencyApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/currency")
+@Api(CURRENCY_ENDPOINT)
 public interface CurrencyApi {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    @PostMapping(value = APP_ROOT+"/currency/create",
+    @PostMapping(value = CREATE_CURRENCY_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create or Persist a currency in the DB for the whole system",
@@ -40,7 +41,7 @@ public interface CurrencyApi {
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/currency/update",
+    @PutMapping(value = UPDATE_CURRENCY_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Update a currency which is already saved in the DB",
@@ -57,7 +58,7 @@ public interface CurrencyApi {
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/currency/{currencyId}",
+    @GetMapping(value = FIND_CURRENCY_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find currency by id",
             notes = "This method is used to find a currency in the DB by its id",
@@ -73,7 +74,7 @@ public interface CurrencyApi {
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/currency/fullname/{currencyName}/{currencyShortname}",
+    @GetMapping(value = FIND_CURRENCY_BY_FULLNAME_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find currency by id",
             notes = "This method is used to find a currency in the DB by its id",
@@ -92,7 +93,7 @@ public interface CurrencyApi {
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/currency/all",
+    @GetMapping(value = FIND_ALL_CURRENCY_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find all currency in the system",
             notes = "This method is used to find all currency in DB",
@@ -104,7 +105,7 @@ public interface CurrencyApi {
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/currency/page/{pagenum}/{pagesize}",
+    @GetMapping(value = FIND_PAGE_CURRENCY_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find all currency in the system",
             notes = "This method is used to find all currency in DB",
@@ -118,7 +119,7 @@ public interface CurrencyApi {
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/currency/delete/id/{currencyId}",
+    @DeleteMapping(value = DELETE_CURRENCY_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Delete a Currency in DB by id",
             notes = "This method is used to delete a currency saved in the DB", response = Boolean.class)
@@ -134,7 +135,7 @@ public interface CurrencyApi {
     /***************************************************************
      * Consommation du service CurrencyConversionService
      */
-    @PostMapping(value = APP_ROOT+"/currencyconversion/create",
+    @PostMapping(value = CREATE_CURRENCYCONVERSION_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create or Persist a currency conversion in the DB for the whole system",
@@ -151,7 +152,7 @@ public interface CurrencyApi {
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/currencyconversion/update",
+    @PutMapping(value = UPDATE_CURRENCYCONVERSION_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Update or modify a currency conversion in the DB for the whole system",
@@ -168,7 +169,7 @@ public interface CurrencyApi {
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/currencyconversion/convertTo/{amount}/{from}/{to}",
+    @GetMapping(value = CONVERTTO_CURRENCY_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Convert amount ",
             notes = "This method is used to convert an amount from one currency to another",
@@ -190,7 +191,7 @@ public interface CurrencyApi {
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/currencyconversion/id/{currconvId}",
+    @GetMapping(value = FIND_CURRENCYCONVERSION_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find Currency Conversion by Id ",
             notes = "This method is used to find a currency conversion by id",
@@ -206,7 +207,7 @@ public interface CurrencyApi {
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/currencyconversion/link/{from}/{to}",
+    @GetMapping(value = FIND_CURRENCY_CONVERSIONRULE_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Convert amount ",
             notes = "This method is used to convert an amount from one currency to another",
@@ -225,7 +226,7 @@ public interface CurrencyApi {
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/currencyconversion/rules/{from}",
+    @GetMapping(value = FIND_ALL_CONVERTIBLE_CURRENCY_BETWEEN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find all currencyconversion in the system associate with",
             notes = "This method is used to find all currencyconversion in DB link with ",
@@ -240,7 +241,7 @@ public interface CurrencyApi {
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/currencyconversion/delete/id/{currconvId}",
+    @DeleteMapping(value = DELETE_CURRENCYCONVERSION_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Delete a CurrencyConversion in DB by id",
             notes = "This method is used to delete a conversion rule between 02 currencies saved in the DB",
@@ -255,7 +256,7 @@ public interface CurrencyApi {
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/currencyconversion/delete/link/{from}/{to}",
+    @DeleteMapping(value = DELETE_CURRENCYCONVERSION_BY_CURRENCYLINK_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "delete a link between 02 currencies ",
             notes = "This method is used to delete a conversion rule betweem 02 currencies",

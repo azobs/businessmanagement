@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -20,13 +19,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+
+import static com.c2psi.businessmanagement.utils.pos.userbm.UserBMApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/userbm")
+@Api(USERBM_ENDPOINT)
 public interface UserBMApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    @PostMapping(value = APP_ROOT+"/userbm/create",
+    @PostMapping(value = CREATE_USERBM_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create or Persist a user BM in the DB",
@@ -45,7 +45,7 @@ public interface UserBMApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/userbm/update",
+    @PutMapping(value = UPDATE_USERBM_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Update a user BM in the DB",
@@ -63,7 +63,7 @@ public interface UserBMApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/userbm/switchUserBMState",
+    @PutMapping(value = SWITCH_USERBMSTATE_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Switch the UserBM state to another State if the transition is possible",
@@ -81,7 +81,7 @@ public interface UserBMApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @PutMapping(value = APP_ROOT+"/userbm/resetPassword",
+    @PutMapping(value = RESETPASSWORD_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Reset the UserBM password with security",
@@ -99,7 +99,7 @@ public interface UserBMApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = {APP_ROOT+"/userbm/login/{bmLogin}"},
+    @GetMapping(value = FIND_USERBM_BY_LOGIN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find userbm by login",
             notes = "This method is used to find a userbm in the DB by its login",
@@ -115,7 +115,7 @@ public interface UserBMApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/userbm/cni/{bmCni}",
+    @GetMapping(value = FIND_USERBM_BY_CNI_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find userbm by cni number",
             notes = "This method is used to find a userbm in the DB by its cni number",
@@ -131,7 +131,7 @@ public interface UserBMApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/userbm/email/{bmEmail}",
+    @GetMapping(value = FIND_USERBM_BY_EMAIL_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find userbm by email address",
             notes = "This method is used to find a userbm in the DB by its email address",
@@ -147,7 +147,7 @@ public interface UserBMApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/userbm/fullname/{bmName}/{bmSurname}/{bmDob}",
+    @GetMapping(value = FIND_USERBM_BY_FULLNAME_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find userbm by name, surname and date of birth",
             notes = "This method is used to find a userbm in the DB by its name, surname and date of birth",
@@ -170,7 +170,7 @@ public interface UserBMApi {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
-    @GetMapping(value = APP_ROOT+"/userbm/id/{bmId}",
+    @GetMapping(value = FIND_USERBM_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find userbm by id ",
             notes = "This method is used to find a userbm in the DB by its id ",
@@ -185,7 +185,7 @@ public interface UserBMApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/userbm/type/{bmUsertype}",
+    @GetMapping(value = FIND_ALL_USERBM_OF_TYPE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find all userbm of a precised type",
             notes = "This method is used to find all userbm in DB with a precised type",
@@ -201,7 +201,7 @@ public interface UserBMApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/userbm/all",
+    @GetMapping(value = FIND_ALL_USERBM_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find all userbm registered",
             notes = "This method is used to find all userbm in DB",
@@ -214,7 +214,7 @@ public interface UserBMApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = APP_ROOT+"/userbm/pos/{posId}",
+    @GetMapping(value = FIND_ALL_USERBM_OF_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find all userbm registered for a point of sale",
             notes = "This method is used to find all userbm in a point of sale",
@@ -230,7 +230,7 @@ public interface UserBMApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = {APP_ROOT+"/userbm/page/pos/{posId}", APP_ROOT+"/userbm/page/pos/{posId}/{sample}/{pagenum}/{pagesize}"},
+    @GetMapping(value = {FIND_PAGE_USERBM_OF_POS_ENDPOINT},
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find a page of userbm registered in a point of sale that fullname contains",
             notes = "This method is used to find all userbm in a point of sale where fullname contains",
@@ -250,8 +250,8 @@ public interface UserBMApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping(value = {APP_ROOT+"/userbm/page",
-            APP_ROOT+"/userbm/page/{sample}", APP_ROOT+"/userbm/page/{sample}/{pagenum}/{pagesize}" },
+    @GetMapping(value = {FIND_PAGE_USERBM_ENDPOINT,
+            FIND_ALL_USERBM_CONTAINING_SAMPLE_ENDPOINT, FIND_PAGE_USERBM_CONTAINING_SAMPLE_ENDPOINT },
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find a page of userbm registered in the DB that fullname contains",
             notes = "This method is used to find all userbm in the DB where fullname contains sample string",
@@ -267,7 +267,7 @@ public interface UserBMApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/userbm/delete/login/{bmLogin}",
+    @DeleteMapping(value = DELETE_USERBM_BY_LOGIN_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Delete a userbm in DB by login",
             notes = "This method is used to delete a userbm saved in the DB", response = Boolean.class)
@@ -281,7 +281,7 @@ public interface UserBMApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/userbm/delete/cni/{bmCni}",
+    @DeleteMapping(value = DELETE_USERBM_BY_CNI_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Delete a userbm in DB by cni number",
             notes = "This method is used to delete a userbm saved in the DB", response = Boolean.class)
@@ -295,7 +295,7 @@ public interface UserBMApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/userbm/delete/fullname/{bmName}/{bmSurname}/{bmDob}",
+    @DeleteMapping(value = DELETE_USERBM_BY_FULLNAME_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Delete a userbm in DB by Name, Surname and Date of birth",
             notes = "This method is used to delete a userbm saved in the DB", response = Boolean.class)
@@ -315,7 +315,7 @@ public interface UserBMApi {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @DeleteMapping(value = APP_ROOT+"/userbm/delete/id/{bmId}",
+    @DeleteMapping(value = DELETE_USERBM_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Delete a userbm in DB by id",
             notes = "This method is used to delete a userbm saved in the DB", response = Boolean.class)

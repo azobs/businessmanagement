@@ -33,6 +33,8 @@ public class Loading extends AbstractEntity{
     BigDecimal loadTotalamountexpected;
 
     BigDecimal loadTotalamountpaid;
+
+    BigDecimal loadRemise;
     //Where we can add an explanation of what happens during the saling session
     String loadSalereport;
     String loadComment;

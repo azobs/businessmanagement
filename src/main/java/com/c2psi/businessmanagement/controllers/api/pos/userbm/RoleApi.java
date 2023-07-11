@@ -12,12 +12,12 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
+import static com.c2psi.businessmanagement.utils.pos.userbm.RoleApiConstant.*;
 
 @Validated
-@Api(APP_ROOT+"/role")
+@Api(ROLE_ENDPOINT)
 public interface RoleApi {
-    @PostMapping(value = APP_ROOT+"/role/create",
+    @PostMapping(value = CREATE_ROLE_ENDPOINT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create or Persist a role of an enterprise in the DB",
@@ -32,7 +32,7 @@ public interface RoleApi {
                     required = true, allowableValues = "Manager; Saler; Deliver", example = "Manager")
             @Valid @RequestBody RoleDto roleDto, BindingResult bindingResult);
 
-    @GetMapping(value = APP_ROOT+"/role/{idRole}",
+    @GetMapping(value = FIND_ROLE_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find role by id",
             notes = "This method is used to find a role in the DB by its id",
@@ -45,7 +45,7 @@ public interface RoleApi {
             @ApiParam(name = "idRole", type = "Long", value="The Id of the role", required = true, example = "1")
             @NotNull @PathVariable("idRole") Long id);
 
-    @GetMapping(value = APP_ROOT+"/role/{roleName}/{entId}",
+    @GetMapping(value = FIND_ROLE_BY_ROLENAME_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find role by roleName in an enterprise",
             notes = "This method is used to find a role in the DB by its roleName and enterprise",
@@ -60,7 +60,7 @@ public interface RoleApi {
             @ApiParam(name = "entId", type = "Long", value="The enterprise Id", required = true, example = "1")
             @NotNull @PathVariable("entId") Long entId);
 
-    @DeleteMapping(value = APP_ROOT+"/role/delete/{roleId}",
+    @DeleteMapping(value = DELETE_ROLE_BY_ID_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Delete a role in DB by id",
             notes = "This method is used to delete a role saved in the DB", response = Boolean.class)
@@ -70,7 +70,7 @@ public interface RoleApi {
     ResponseEntity deleteRoleById(@ApiParam(name = "roleId", type = "Long", value="The role Id", required = true, example = "1")
                            @NotNull @PathVariable("roleId") Long id);
 
-    @DeleteMapping(value = APP_ROOT+"/role/delete/{roleName}/{entId}",
+    @DeleteMapping(value = DELETE_ROLE_BY_ROLENAME_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Delete a particular role in an enterprise",
             notes = "This method is used to delete a role saved for an enterprise", response = Boolean.class)
@@ -83,7 +83,7 @@ public interface RoleApi {
             @ApiParam(name = "entId", type = "Long", value="The enterprise Id", required = true, example = "1")
             @NotNull @PathVariable("entId") Long entId);
 
-    @GetMapping(value = APP_ROOT+"/role/all/ent/{entId}",
+    @GetMapping(value = FIND_ALL_ROLE_OF_ENTERPRISE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find all role of an enterprise",
             notes = "This method is used to find all role saved for an enterprise",
@@ -95,7 +95,7 @@ public interface RoleApi {
             @ApiParam(name = "entId", type = "Long", value="The enterprise Id", required = true, example = "1")
             @NotNull @PathVariable("entId") Long entId);
 
-    @GetMapping(value = APP_ROOT+"/role/all/userbm/{userbmId}",
+    @GetMapping(value = FIND_ALL_ROLE_OF_USERBM_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Find all role of a particular user",
             notes = "This method is used to find all role set to a particular user",
