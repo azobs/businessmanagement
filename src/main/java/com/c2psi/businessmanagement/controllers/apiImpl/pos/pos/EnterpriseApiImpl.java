@@ -67,11 +67,20 @@ public class EnterpriseApiImpl implements EnterpriseApi {
             return ResponseEntity.badRequest().body(map);
         }
 
-        UserBMDto userBMDtoAdminofEntSave = userBMService.saveUserBM(entDto.getEntAdminDto());
+        UserBMDto userBMDtoAdminofEntSaved = userBMService.saveUserBM(entDto.getEntAdminDto());
 
-        entDto.setEntAdminDto(userBMDtoAdminofEntSave);
+        entDto.setEntAdminDto(userBMDtoAdminofEntSaved);
 
         EnterpriseDto enterpriseDtoSaved = entService.saveEnterprise(entDto);
+
+        /*******************************************************************************
+         * Une fois l'utilisateur qui sera Admin de l'entreprise enregistre il faut
+         * set l'idEnterprise de cet utilisateur. Car un userBM qui est admin d'une
+         * entreprise doit porter l'id de l'entreprise quil administre
+         */
+        UserBMDto userBMDtoAdminofEntToUpdate = userBMDtoAdminofEntSaved;
+        userBMDtoAdminofEntToUpdate.setBmEnterpriseId(enterpriseDtoSaved.getId());
+        UserBMDto userBMDtoAdminofEntUpdated = userBMService.updateUserBM(userBMDtoAdminofEntToUpdate);
 
         /***********************************************************************
          * Une fois l'entreprise enregistre il faut donc ajouter le role PGD a
@@ -101,7 +110,7 @@ public class EnterpriseApiImpl implements EnterpriseApi {
          */
         UserBMRoleDto userBMRoleDtoToSave = UserBMRoleDto.builder()
                 .userbmroleRoleDto(roleDtoSaved)
-                .userbmroleUserbmDto(userBMDtoAdminofEntSave)
+                .userbmroleUserbmDto(userBMDtoAdminofEntUpdated)
                 .userbmroleAttributionDate(new Date().toInstant())
                 .build();
 

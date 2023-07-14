@@ -1,6 +1,7 @@
 package com.c2psi.businessmanagement.services.contractsImpl;
 
 import com.c2psi.businessmanagement.BMGlobalArguments;
+import com.c2psi.businessmanagement.exceptions.BMException;
 import com.c2psi.businessmanagement.services.contracts.UploadDownloadFilesService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class UploadDownloadFilesServiceImpl implements UploadDownloadFilesServic
     public String save(MultipartFile file) {
         log.info("save method execution");
         try {
-            log.info("save method execution in try section");
+            log.info("File upload save method execution in try section");
             Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()));
             /************************************************************************************
              * Run the gabage collector to avoid any TomCat exception like UncheckedIOException
@@ -52,7 +53,7 @@ public class UploadDownloadFilesServiceImpl implements UploadDownloadFilesServic
                 return file.getOriginalFilename();
             }
             log.error("Un autre type d'exception est lance {}", e.getMessage());
-            throw new RuntimeException(e.getMessage());
+            throw new BMException(e.getMessage());
         }
     }
 

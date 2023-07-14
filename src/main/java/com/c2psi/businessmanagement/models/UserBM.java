@@ -67,4 +67,5 @@ public class UserBM extends AbstractEntity {
     @JoinColumn(name = "pos_id", referencedColumnName = "id")
     Pointofsale bmPos;*/
     Long bmPosId;
+    Long bmEnterpriseId;
 }

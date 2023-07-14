@@ -14,7 +14,7 @@ public interface PosPackagingAccountApiConstant {
     String UPDATE_POS_PACKAGING_OPERATION_ENDPOINT = APP_ROOT+"/pospackagingaccount/operation/update";
     String DELETE_POS_PACKAGING_OPERATION_BY_ID_ENDPOINT = APP_ROOT+"/pospackagingaccount/operation/delete/{pospackopId}";
     String FIND_ALL_POS_PACKAGING_OPERATION_ENDPOINT = APP_ROOT+"/pospackagingaccount/operation/all/{pospackaccId}";
-    String FIND_PAGE_POS_PACKAGING_OPERATION_ENDPOINT = APP_ROOT+"/pospackagingaccount/operation/all/{pospackaccId}";
+    String FIND_PAGE_POS_PACKAGING_OPERATION_ENDPOINT = APP_ROOT+"/pospackagingaccount/operation/page/{pospackaccId}";
     String FIND_ALL_POS_PACKAGING_OPERATION_OF_TYPE_ENDPOINT = APP_ROOT+"/pospackagingaccount/operation/type/all/" +
             "{pospackaccId}/{opType}";
     String FIND_PAGE_POS_PACKAGING_OPERATION_OF_TYPE_ENDPOINT = APP_ROOT+"/pospackagingaccount/operation/type/page/" +

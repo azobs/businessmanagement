@@ -73,11 +73,10 @@ public class RoleServiceImpl  implements RoleService {
             case Saler: roleName = RoleType.Saler.name();
             case Storekeeper: roleName = RoleType.Storekeeper.name();
         }*/
-        Boolean isRoleExistInEnterprise = this.isRoleExistInEnterpriseWithRoleName(role_dto.getRoleName(),
-                EnterpriseDto.toEntity(role_dto.getRoleEntDto()));
+        //Boolean isRoleExist = this.isRoleExistWithRoleName(role_dto.getRoleName());
         //System.out.println("Apres appel a isRoleExistInEnterprise "+isRoleExistInEnterprise);
-        if(isRoleExistInEnterprise){
-            throw new DuplicateEntityException("Un role de ce type a deja ete cree pour l'entreprise ",
+        if(isRoleExistWithRolename(role_dto.getRoleName())){
+            throw new DuplicateEntityException("Ce role existe deja dans la BD ",
                     ErrorCode.ROLE_DUPLICATED);
         }
 
@@ -88,8 +87,8 @@ public class RoleServiceImpl  implements RoleService {
         );
     }
 
-    Boolean isRoleExistInEnterpriseWithId(Long id){
-        Optional<Role> optionalRole = roleRepository.findById(id);
+    Boolean isRoleExistWithRolename(RoleType roleName){
+        Optional<Role> optionalRole = roleRepository.findRoleByRoleName(roleName);
         if(optionalRole.isPresent()){
             return true;
         }
@@ -127,6 +126,14 @@ public class RoleServiceImpl  implements RoleService {
         return false;
     }
 
+    Boolean isRoleExistWithRoleName(RoleType roleName){
+        Optional<Role> optionalRole = roleRepository.findRoleByRoleName(roleName);
+        if(optionalRole.isPresent()){
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public RoleDto findRoleByRolename(RoleType roleName, Long entId) {
         if(roleName == null || entId == null){
@@ -157,6 +164,38 @@ public class RoleServiceImpl  implements RoleService {
                         +" n'a été trouve dans la BDD pour l'entreprise "+
                         EnterpriseDto.toEntity(EnterpriseDto.fromEntity(ent.get())).getEntName(),
                         ErrorCode.ROLE_NOT_FOUND));*/
+    }
+
+    @Override
+    public RoleDto findRoleByRolename(RoleType roleName) {
+        if(roleName == null){
+            //!StringUtils.hasLength(roleName)
+            log.error("Role name is null");
+            throw new NullArgumentException("Le roleName passe a la methode est null");
+        }
+
+        Optional<Role> optionalRole = roleRepository.findRoleByRoleName(roleName);
+
+        if(optionalRole.isPresent()){
+            return RoleDto.fromEntity(optionalRole.get());
+        }
+        else{
+            throw new EntityNotFoundException("Aucun role avec le nom "+roleName
+                    +" n'a ete trouve dans la BDD ", ErrorCode.ROLE_NOT_FOUND);
+        }
+    }
+
+    @Override
+    public Optional<RoleDto> isRoleByRolenameExist(RoleType roleName) {
+        if(roleName == null){
+            //!StringUtils.hasLength(roleName)
+            log.error("Role name is null");
+            throw new NullArgumentException("Le roleName passe a la methode est null");
+        }
+
+        Optional<Role> optionalRole = roleRepository.findRoleByRoleName(roleName);
+
+        return optionalRole.isPresent()?Optional.ofNullable(RoleDto.fromEntity(optionalRole.get())):null;
     }
 
     @Override

@@ -1,8 +1,16 @@
 package com.c2psi.businessmanagement.controllers.apiImpl.pos.userbm;
 
+import com.c2psi.businessmanagement.Enumerations.RoleType;
 import com.c2psi.businessmanagement.Enumerations.UserBMType;
 import com.c2psi.businessmanagement.controllers.api.pos.userbm.UserBMApi;
+import com.c2psi.businessmanagement.dtos.pos.pos.EnterpriseDto;
+import com.c2psi.businessmanagement.dtos.pos.userbm.RoleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
+import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMRoleDto;
+import com.c2psi.businessmanagement.exceptions.EntityNotFoundException;
+import com.c2psi.businessmanagement.services.contracts.pos.pos.EnterpriseService;
+import com.c2psi.businessmanagement.services.contracts.pos.userbm.RoleService;
+import com.c2psi.businessmanagement.services.contracts.pos.userbm.UserBMRoleService;
 import com.c2psi.businessmanagement.services.contracts.pos.userbm.UserBMService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +29,17 @@ import java.util.*;
 @Slf4j
 public class UserBMApiImpl implements UserBMApi {
     private UserBMService userBMService;
+    private RoleService roleService;
+    private UserBMRoleService userBMRoleService;
+    private EnterpriseService enterpriseService;
 
     @Autowired
-    public UserBMApiImpl(UserBMService userBMService1){
+    public UserBMApiImpl(UserBMService userBMService1, RoleService roleService, UserBMRoleService userBMRoleService,
+                         EnterpriseService enterpriseService){
         this.userBMService = userBMService1;
+        this.roleService = roleService;
+        this.userBMRoleService = userBMRoleService;
+        this.enterpriseService = enterpriseService;
     }
 
     @Override
@@ -45,54 +60,68 @@ public class UserBMApiImpl implements UserBMApi {
             return ResponseEntity.badRequest().body(map);
         }
 
-        /**********************************************************
-         * Un UserBM contient une fois son adresse donc pas besoin
-         * d'enregistrer separrement l'adresse du UserBM.
-         * Que ce soit le userBM d'un Pos ou pas
+        /********************************************************
+         * Si le UserBM est un ADMIN ou un ADMIN_ENTERPRISE alors
+         * il faut enregistrer les roles respectifs
          */
+        Optional<RoleDto> optionalRoleDtoToAssign = Optional.ofNullable(null);
+        if(userBMDto.getBmUsertype().equals(UserBMType.AdminBM)){
+            /********************************************************
+             * Alors il faut enregistrer ou recuperer le role ADMIN
+             * car il sera attribue au UserBM qu'on va ajouter
+             */
+            try{
+                optionalRoleDtoToAssign = Optional.ofNullable(roleService.findRoleByRolename(RoleType.ADMIN));
+            }
+            catch (EntityNotFoundException e){
+                /*********************************************
+                 * Si il n'existe pas alors il faut le creer *
+                 *********************************************/
+                RoleDto roleDtoToSave = RoleDto.builder()
+                        .roleName(RoleType.ADMIN)
+                        .roleAlias("ROLE_ADMINBM")
+                        .roleDescription("Role permettant d'avoir le droit de configurer l'application et la gerer ")
+                        .roleEntDto(null)
+                        .build();
 
+                optionalRoleDtoToAssign = Optional.ofNullable(roleService.saveRole(roleDtoToSave));
+            }
+        }
+        else if(userBMDto.getBmUsertype().equals(UserBMType.AdminEnterprise)){
+            /*******************************************************************
+             * Alors il faut enregistrer ou recuperer le role ADMIN_ENTERPRISE
+             * car il sera attribue au UserBM qu'on va ajouter
+             */
+            try{
+                optionalRoleDtoToAssign = Optional.ofNullable(roleService.findRoleByRolename(RoleType.ADMIN_ENTERPRISE));
+            }
+            catch (EntityNotFoundException e) {
+                /*********************************************
+                 * Si il n'existe pas alors il faut le creer *
+                 *********************************************/
+                RoleDto roleDtoToSave = RoleDto.builder()
+                        .roleName(RoleType.ADMIN_ENTERPRISE)
+                        .roleAlias("ROLE_ADMIN_ENTERPRISE")
+                        .roleDescription("Role permettant d'avoir le droit de gerer les employes et les taches dans une " +
+                                "entreprise")
+                        .roleEntDto(null)
+                        .build();
 
-
-        UserBMDto userBMDtoSaved = userBMService.saveUserBM(userBMDto);
-        log.info("Entity UserBM saved successfully {} ", userBMDtoSaved);
-
-        /***************************************************************
-         * Une fois le UserBM saved, il faut maintenant renommer la photo
-         * dans le dossier des uploads avec son ID. En fait si la photo a ete Uploade c'est que
-         * c'est le nom de la photo qui est en BD et meme dans le dossier
-         * des upload. on va donc renommer ce fichier avec l'id car dans les
-         * prochain chargement
-         */
-
-        //return new ResponseEntity(userBMDtoSaved, HttpStatus.CREATED);
-        map.clear();
-        map.put("status", HttpStatus.CREATED);
-        map.put("message", "UserBM created successfully ");
-        map.put("data", userBMDtoSaved);
-        map.put("cause", "RAS");
-        return new ResponseEntity(map, HttpStatus.CREATED);
-    }
-
-    //@Override
-    public ResponseEntity saveUserBM(UserBMDto userBMDto, BindingResult bindingResult,
-                                                MultipartFile filephotoPers) {
-        Map<String, Object> map = new LinkedHashMap<>();
-
-        if (bindingResult.hasErrors()) {
-            log.info("Error during the pre-validation of the model passed in argument {} " +
-                    "and the report errors are {}", userBMDto, bindingResult);
-            //return ResponseEntity.badRequest().body(bindingResult.toString());
-            map.clear();
-            map.put("status", HttpStatus.BAD_REQUEST);
-            map.put("message", "Some data are not validated");
-            map.put("data", bindingResult);
-            map.put("cause", "Erreur de validation des donnees dans la requete envoyee");
-            //return ResponseEntity.ok(map);
-            return ResponseEntity.badRequest().body(map);
+                optionalRoleDtoToAssign = Optional.ofNullable(roleService.saveRole(roleDtoToSave));
+            }
         }
 
-        /***********************************************************************
-         * Il faut voir si l'image a ete uploader et si c'est le cas
+        if(!optionalRoleDtoToAssign.isPresent()){
+            map.clear();
+            map.put("status", HttpStatus.SERVICE_UNAVAILABLE);
+            map.put("message", "Service de creation des roles indisponible");
+            map.put("data", "Erreur inconnue lors de la creation du role a assigner au UserBM");
+            map.put("cause", "Service de creation des roles indisponible");
+            return new ResponseEntity(map, HttpStatus.SERVICE_UNAVAILABLE);
+        }
+        /*****************************************************************************
+         * Si on est a ce niveau alors le role qu'il faut au UserBM a bien ete cree.
+         * On ajoute donc le UserBM en BD.
          */
 
         /**********************************************************
@@ -104,14 +133,42 @@ public class UserBMApiImpl implements UserBMApi {
         UserBMDto userBMDtoSaved = userBMService.saveUserBM(userBMDto);
         log.info("Entity UserBM saved successfully {} ", userBMDtoSaved);
 
-        //return new ResponseEntity(userBMDtoSaved, HttpStatus.CREATED);
-        map.clear();
-        map.put("status", HttpStatus.CREATED);
-        map.put("message", "UserBM created successfully ");
-        map.put("data", userBMDtoSaved);
-        map.put("cause", "RAS");
-        return new ResponseEntity(map, HttpStatus.CREATED);
+        /****************************************************************
+         * On doit donc l'associer le role qu'il lui faut
+         */
+
+        UserBMRoleDto userBMRoleDtoToSave = UserBMRoleDto.builder()
+                .userbmroleRoleDto(optionalRoleDtoToAssign.get())
+                .userbmroleUserbmDto(userBMDtoSaved)
+                .userbmroleAttributionDate(new Date().toInstant())
+                .build();
+
+        UserBMRoleDto userBMRoleDtoSaved = userBMRoleService.saveUserBMRole(userBMRoleDtoToSave);
+
+        if(Optional.ofNullable(userBMRoleDtoSaved).isPresent()){
+            map.clear();
+            map.put("status", HttpStatus.CREATED);
+            map.put("message", "UserBM created successfully with his role");
+            map.put("data", userBMDtoSaved);
+            map.put("cause", "RAS");
+            return new ResponseEntity(map, HttpStatus.CREATED);
+        }
+
+        if(userBMDtoSaved.getBmUsertype().equals(UserBMType.Employe)){
+            map.clear();
+            map.put("status", HttpStatus.CREATED);
+            map.put("message", "UserBM created successfully without any role. An AdminEnterprise must assign him a role");
+            map.put("data", userBMDtoSaved);
+            map.put("cause", "RAS");
+            return new ResponseEntity(map, HttpStatus.CREATED);
+        }
+        /****
+         * Si on arrive ici et qu'on retourne ce null alors il y a eu probleme sur le
+         * type de userbm qui n'a ete ni ADMINBM ni ADMIN_ENTERPRISE ni EMPLOYE
+         */
+        return null;
     }
+
 
     @Override
     public ResponseEntity updateUserBM(UserBMDto userBMDto, BindingResult bindingResult){

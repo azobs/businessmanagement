@@ -4,6 +4,7 @@ import io.swagger.annotations.*;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,11 +22,11 @@ public interface UploadDownloadFilesApi {
             consumes = { MediaType.MULTIPART_FORM_DATA_VALUE },
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "uploadFile",
-            notes = "This method is used to save a base price for articles in the DB",
+            notes = "This method is used to upload a photos of a person",
             response = String.class)
     @ApiResponses(value={
-            @ApiResponse(code=200, message="Object BasePrice added successfully"),
-            @ApiResponse(code=400, message="Object BasePrice is not valid during the saving process")
+            @ApiResponse(code=200, message="Object Image uploaded successfully"),
+            @ApiResponse(code=400, message="Object Image can't be uploaded ")
     })
     ResponseEntity personsUploadFile(
             @ApiParam(name = "file", type = "MultipartFile ", required = true,
@@ -33,5 +34,15 @@ public interface UploadDownloadFilesApi {
             @RequestPart("file") @NotNull MultipartFile file);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    @GetMapping(value = TEST_ENDPOINT,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "test", notes = "test", response = String.class)
+    @ApiResponses(value={
+            @ApiResponse(code=200, message="Test executed successfully"),
+            @ApiResponse(code=404, message="Error faced during the test process")
+    })
+    ResponseEntity test();
 
 }

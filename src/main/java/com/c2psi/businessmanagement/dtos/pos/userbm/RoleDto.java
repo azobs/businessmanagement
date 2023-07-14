@@ -19,7 +19,11 @@ public class RoleDto {
     @Size(min = 2, max = 20, message = "The rolealias size must be between 2 and 20 characters")
     String roleAlias;
     String roleDescription;
-    @NotNull(message = "Each role must belonging to an enterprise")
+    /*******************************************************************
+     * @NotNull(message = "Each role must belonging to an enterprise")
+     * L'entreprise peut etre null au cas ou le role est un role de
+     * la plateforme comme ADMIN
+     */
     EnterpriseDto roleEntDto;
     /***********************************
      * Mapping method development:   ***

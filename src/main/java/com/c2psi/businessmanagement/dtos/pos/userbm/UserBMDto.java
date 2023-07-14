@@ -87,8 +87,11 @@ public class UserBMDto {
 
     //PointofsaleDto bmPosDto;
     @ApiModelProperty(value = "The id of the pointofsale if the UserBM is an employee", name = "bmPosId",
-            dataType = "Long")
+            dataType = "Long",example = "0")
     Long bmPosId;
+    @ApiModelProperty(value = "The id of the enterprise if the UserBM is an adminEnterprise", name = "bmEnterpriseId",
+            dataType = "Long",example = "0")
+    Long bmEnterpriseId;
     /*@JsonIgnore
     List<UserBMRoleDto> userBMRoleDtoList;*/
     /***********************************
@@ -114,6 +117,7 @@ public class UserBMDto {
                 .bmAddressDto(AddressDto.fromEntity(userBM.getBmAddress()))
                 //.bmPosDto(PointofsaleDto.fromEntity(userBM.getBmPos()))
                 .bmPosId(userBM.getBmPosId())
+                .bmEnterpriseId(userBM.getBmEnterpriseId())
 
                 .build();
     }
@@ -135,6 +139,7 @@ public class UserBMDto {
         userBM.setBmAddress(AddressDto.toEntity(userBMDto.getBmAddressDto()));
         //userBM.setBmPos(PointofsaleDto.toEntity(userBMDto.getBmPosDto()));
         userBM.setBmPosId(userBMDto.getBmPosId());
+        userBM.setBmEnterpriseId(userBMDto.getBmEnterpriseId());
 
         return userBM;
     }

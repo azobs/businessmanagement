@@ -70,7 +70,7 @@ public class UserBMRoleServiceImpl implements UserBMRoleService {
         Optional<UserBM> optionalUserBM = userBMRepository.findUserBMById(userbmRoleDto.getUserbmroleUserbmDto().getId());
         if(!optionalUserBM.isPresent()){
             log.error("The userBM associated don't exist in the DataBase");
-            throw new InvalidEntityException("Le userbm associe n'existe pas dans la BD ", ErrorCode.USERBMROLE_NOT_VALID);
+            throw new InvalidEntityException("Le userbm associe n'existe pas dans la BD ", ErrorCode.USERBM_NOT_FOUND);
         }
 
         UserBM userAssociate = optionalUserBM.get();
@@ -89,24 +89,25 @@ public class UserBMRoleServiceImpl implements UserBMRoleService {
         Optional<Role> optionalRole = roleRepository.findRoleById(userbmRoleDto.getUserbmroleRoleDto().getId());
         if(!optionalUserBM.isPresent()){
             log.error("The role associated don't exist in the DataBase");
-            throw new InvalidEntityException("Le role associe n'existe pas dans la BD ", ErrorCode.USERBMROLE_NOT_VALID);
+            throw new InvalidEntityException("Le role associe n'existe pas dans la BD ", ErrorCode.ROLE_NOT_FOUND);
         }
         Role roleAssociate = optionalRole.get();
 
         if(userAssociate.getBmUsertype().equals(UserBMType.AdminBM)){
-            log.error("It is not possible to assign another role to an AdminBM");
-            throw new InvalidEntityException("On ne peut associe a un AdminBM que le role Admin sur la plateforme " +
-                    "et il la directement de part son type dans la BD", ErrorCode.USERBMROLE_NOT_VALID);
-        } else if (userAssociate.getBmUsertype().equals(UserBMType.AdminEnterprise)) {
-            if(!roleAssociate.getRoleName().equals(RoleType.Pdg)){
-                log.error("It is not possible to assign another role than Pdg to an AdminEnterprise");
-                throw new InvalidEntityException("On ne peut associe a un AdminEnterprise que le role Pdg sur la plateforme"
+            if(!roleAssociate.getRoleName().equals(RoleType.ADMIN)){
+                log.error("It is not possible to assign another role than ADMIN to an AdminBM");
+                throw new InvalidEntityException("On ne peut associe a un AdminBM que le role ADMIN sur la plateforme"
                         , ErrorCode.USERBMROLE_NOT_VALID);
             }
-
+        } else if (userAssociate.getBmUsertype().equals(UserBMType.AdminEnterprise)) {
+            if(!roleAssociate.getRoleName().equals(RoleType.ADMIN_ENTERPRISE)){
+                log.error("It is not possible to assign another role than ADMIN_ENTERPRISE to an AdminEnterprise");
+                throw new InvalidEntityException("On ne peut associe a un AdminEnterprise que le role ADMIN_ENTERPRISE" +
+                        " sur la plateforme", ErrorCode.USERBMROLE_NOT_VALID);
+            }
         } else{
-            /*******
-             *Ceci signifie que le UserBM est forcement associe a un point de vente.
+            /**********************************************************************************
+             * Ceci signifie que le UserBM est forcement associe a un point de vente.
              * IL faut donc se rassurer que le role et le user sont dans la meme entreprise
              */
             if(userAssociate.getBmPosId() == null){

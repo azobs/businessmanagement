@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -95,42 +96,62 @@ public class UserBMServiceImpl implements UserBMService {
         se rassurer que le pointde vente est fixé pour cet employe.
          */
         UserBMType userBMType = userBMDto.getBmUsertype();
-        /*
+        /*****
          *Si userBMType est different de AdminBM ou AdminEnterprise alors on ne peut ajouter le user
          *que si pos_id n'est pas null
          */
-        if(!userBMType.equals(UserBMType.AdminBM) &&
-                !userBMType.equals(UserBMType.AdminEnterprise)){
-            /*
-            * Ceci signifie que le userbm qu'on veut enregistrer est un Employe et par conséquent il faut
-            * que son point de vente soit précise.
-             */
+
+        if(userBMType.equals(UserBMType.AdminBM)){
+            userBMDto.setBmPosId(Long.valueOf(0));
+            userBMDto.setBmEnterpriseId(Long.valueOf(0));
+
+        }
+
+        if(userBMType.equals(UserBMType.AdminEnterprise)){
+            if(!Optional.ofNullable(userBMDto.getBmEnterpriseId()).isPresent()){
+                log.error("The Id of the entreprise link with the UserBM to save cannot be null");
+                throw new InvalidEntityException("L'id de l'entreprise lie au UserBm quon enregistre ne peut etre null",
+                        ErrorCode.USERBM_NOT_VALID);
+            }
+            else{
+                Optional<Enterprise> optionalEnterprise = entRepository.findEnterpriseById(userBMDto.getBmEnterpriseId());
+                if(!optionalEnterprise.isPresent()){
+                    log.error("The enterprise proposed for the userbm must exist in the DB. ");
+                    throw new InvalidEntityException("L'enterprise précisé pour le UserBM n'existe " +
+                            "pas dans la BD", ErrorCode.ENTERPRISE_NOT_FOUND);
+                }
+                /******
+                 * Ici on est sur que l'entreprise existe avec l'id envoye
+                 * On va donc set le Pointofsale a 0
+                 */
+                userBMDto.setBmEnterpriseId(Long.valueOf(0));
+            }
+        }
+
+        if(userBMType.equals(UserBMType.Employe)){
             if(!Optional.ofNullable(userBMDto.getBmPosId()).isPresent()){
-                log.error("A userbm which is not AdminBM nor AdminEnterprise must be link to a point of sale. " +
-                        " he cannot be registered if he is not link with its pointofsale");
+                log.error("The Id of the Pointofsale can't be null because he must be link with a Pointofsale");
                 throw new InvalidEntityException("Le USERBM n'est pas valide. Il devrait etre " +
                         "lie a un point de vente existant", ErrorCode.USERBM_NOT_VALID);
             }
-            else{
-                /*
-                *Ici ca veut dire que point of sale a ete precise. Dans ce cas avant d'ajouter il faut se
-                * rassurer qu'il (le point de vente precise) existe vraiment dans la base de données auquel
-                * cas il faudra signaler une erreur
-                 */
-                Optional<Pointofsale> optionalPos = posRepository.findPointofsaleById(
-                        userBMDto.getBmPosId());
-                if(!optionalPos.isPresent()){
-                    log.error("The pointofsale proposed for the userbm must exist in the DB. ");
-                    throw new InvalidEntityException("Le Point de vente précisé pour le UserBM n'existe " +
-                            "pas dans la BD", ErrorCode.USERBM_NOT_VALID);
-                }
-                
+            Optional<Pointofsale> optionalPos = posRepository.findPointofsaleById(
+                    userBMDto.getBmPosId());
+            if(!optionalPos.isPresent()){
+                log.error("The pointofsale proposed for the userbm must exist in the DB. ");
+                throw new InvalidEntityException("Le Point de vente précisé pour le UserBM n'existe " +
+                        "pas dans la BD", ErrorCode.POINTOFSALE_NOT_FOUND);
             }
+            /*****
+             *Ici on est sur que le pointofsale existe avec l'id envoye
+             */
         }
+
+
         /***********************************************************************************
          * Il faut chiffrer le mot de pass avant de le save dans la base de donnee
          */
-        Pbkdf2PasswordEncoder p = Pbkdf2PasswordEncoder.defaultsForSpringSecurity_v5_8();
+        //Pbkdf2PasswordEncoder p = Pbkdf2PasswordEncoder.defaultsForSpringSecurity_v5_8();
+        BCryptPasswordEncoder p = new BCryptPasswordEncoder();
         String passToEncoded = "myPassword";
         String passEncoded = p.encode(passToEncoded);
         Boolean matches = p.matches("myPassword", passEncoded);
@@ -140,12 +161,14 @@ public class UserBMServiceImpl implements UserBMService {
         userBMDto.setBmRepassword(p.encode(userBMDto.getBmRepassword()));
 
 
+
+
         log.info("After all verification on the UserBMDto sent in the request, the record can be done: " +
                 "{} ", userBMDto);
+        UserBM userBMSaved = userBMRepository.save(UserBMDto.toEntity(userBMDto));
+
         return UserBMDto.fromEntity(
-                userBMRepository.save(
-                        UserBMDto.toEntity(userBMDto)
-                )
+                userBMSaved
         );
     }
 
@@ -233,6 +256,68 @@ public class UserBMServiceImpl implements UserBMService {
             userBMToUpdate.getBmAddress().setPays(userBMDto.getBmAddressDto().getPays());
             userBMToUpdate.getBmAddress().setLocalisation(userBMDto.getBmAddressDto().getLocalisation());
         }
+
+
+        /*********************************************************************************
+         * On peut aussi dans la requete vouloir fixer ou modifier le pointofsale d'un
+         * UserBM
+         */
+        if(Optional.ofNullable(userBMDto.getBmPosId()).isPresent()){
+            if(Optional.ofNullable(userBMToUpdate.getBmPosId()).isPresent()){
+                if(!userBMToUpdate.getBmPosId().equals(userBMDto.getBmPosId())){
+                    /********************************************************************************
+                     * Alors on verifie que le nouveau pointofsale indique existe vraiment en BD
+                     */
+                    Optional<Pointofsale> optionalPointofsale = posRepository.findPointofsaleById(userBMDto.getBmPosId());
+                    if(!optionalPointofsale.isPresent()){
+                        log.error("The new Pointofsale precised is not in the DB");
+                        throw new EntityNotFoundException("Aucun Pointofsale n'existe avec l'Id precise dans la requete ",
+                                ErrorCode.POINTOFSALE_NOT_FOUND);
+                    }
+                    /******************************************************************
+                     * A ce niveau on est sur que le nouveau Pos precise existe en BD
+                     * donc on fait la modification
+                     */
+                    userBMToUpdate.setBmPosId(userBMDto.getBmPosId());
+                    userBMToUpdate.setBmEnterpriseId(optionalPointofsale.get().getPosEnterprise().getId());
+                }
+            }
+            /**********************************************************************************
+             * Si on est ici alors aucun Pointofsale n'etait encore precise pour le UserBM
+             * et on peut donc set un pos sans souci
+             */
+            userBMToUpdate.setBmPosId(userBMDto.getBmPosId());
+        }
+
+        /*********************************************************************************
+         * On peut aussi dans la requete vouloir fixer ou modifier l'enterprise d'un
+         * UserBM uniquement lorsque celui ci est un AdminEnterprise
+         */
+        if(Optional.ofNullable(userBMDto.getBmEnterpriseId()).isPresent()){
+            if(Optional.ofNullable(userBMToUpdate.getBmEnterpriseId()).isPresent()){
+                if(!userBMToUpdate.getBmEnterpriseId().equals(userBMDto.getBmEnterpriseId())){
+                    log.error("It is not possible to modify the enterpriseId of an User");
+                    throw new InvalidEntityException("Il n'est pas possible de modifier l'id Enterprise " +
+                            "d'un User quand il est deja fixe", ErrorCode.USERBM_NOT_VALID);
+                }
+            }
+            else{
+                /*****
+                 * Ceci signifie que l"idEnterprise n'etait pas encore fixe
+                 * et si c'est le cas alors on doit verifier que le UserBM
+                 * est un AdminEnterprise sinon on peut pas le fixer direct
+                 * ainsi. il est fixer automatiquement lors de la fixation
+                 * du Pointofsale
+                 */
+                if(userBMToUpdate.getBmUsertype().equals(UserBMType.AdminEnterprise)){
+                    /***
+                     * Alors on peut set le IdEnterprise sans souci
+                     */
+                    userBMToUpdate.setBmEnterpriseId(userBMDto.getBmEnterpriseId());
+                }
+            }
+        }
+
 
         /*
         Tout est deja verifie donc on doit normalement effectue les modification du reste des parametre

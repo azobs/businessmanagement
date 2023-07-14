@@ -28,29 +28,7 @@ public class RoleValidator {
             errors.add("--Le parametre a valider ne peut etre null--");
         }
         else{
-            if(!Optional.ofNullable(roleDto.getRoleEntDto()).isPresent()){
-                errors.add("--Chaque role doit appartenir a une entreprise--");
-            }
-            if (Optional.ofNullable(roleDto.getRoleAlias()).isPresent()){
-                if (!StringUtils.hasLength(roleDto.getRoleAlias())) {
-                    errors.add("--L'alias du role ne peut etre vide--");
-                }
-            }
-            int isnullable=0;
-            if(!Optional.ofNullable(roleDto.getRoleName()).isPresent()){
-                errors.add("--Le nom du role doit etre precise--");
-                isnullable=1;
-            }
-            if(isnullable == 0){
-                if(!roleDto.getRoleName().equals(RoleType.Deliver) &&
-                        !roleDto.getRoleName().equals(RoleType.Dg) &&
-                        !roleDto.getRoleName().equals(RoleType.Manager) &&
-                        !roleDto.getRoleName().equals(RoleType.Pdg) &&
-                        !roleDto.getRoleName().equals(RoleType.Saler) &&
-                        !roleDto.getRoleName().equals(RoleType.Storekeeper)){
-                    errors.add("--Le role specifie n'est pas pris en compte par le système--");
-                }
-            }
+
             //On teste les annotations
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             Validator validator = factory.getValidator();
@@ -62,6 +40,25 @@ public class RoleValidator {
                 /*System.out.println(contraintes.getRootBeanClass().getSimpleName()+
                         "." + contraintes.getPropertyPath() + " " + contraintes.getMessage());*/
                     errors.add(contraintes.getMessage());
+                }
+            }
+
+            if(!roleDto.getRoleName().equals(RoleType.ADMIN)){
+                /***********************************************************************************
+                 * Si le role indique est different de ADMIN alors l'Id enterprise ne peut etre null
+                 */
+                if(!Optional.ofNullable(roleDto.getRoleEntDto()).isPresent()){
+                    errors.add("--Chaque role doit appartenir a une entreprise--");
+                }
+
+                if(!roleDto.getRoleName().equals(RoleType.Deliver) &&
+                        !roleDto.getRoleName().equals(RoleType.Dg) &&
+                        !roleDto.getRoleName().equals(RoleType.Manager) &&
+                        !roleDto.getRoleName().equals(RoleType.Pdg) &&
+                        !roleDto.getRoleName().equals(RoleType.Saler) &&
+                        !roleDto.getRoleName().equals(RoleType.Storekeeper) &&
+                        !roleDto.getRoleName().equals(RoleType.ADMIN_ENTERPRISE)){
+                    errors.add("--Le role specifie n'est pas pris en compte par le systeme--");
                 }
             }
         }

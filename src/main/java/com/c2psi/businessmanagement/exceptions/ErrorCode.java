@@ -2,7 +2,8 @@ package com.c2psi.businessmanagement.exceptions;
 
 
 public enum ErrorCode {
-
+    AUTHENTICATION_ERROR(0),
+    ZEROROLE_ERROR(1),
     ADRESS_NOT_FOUND(100),
     ARTICLE_NOT_FOUND(200),
     ARTICLE_NOT_VALID(201),

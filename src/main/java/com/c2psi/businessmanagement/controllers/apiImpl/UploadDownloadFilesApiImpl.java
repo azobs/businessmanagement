@@ -53,4 +53,15 @@ public class UploadDownloadFilesApiImpl implements UploadDownloadFilesApi {
         }
         //return null;
     }
+
+    @Override
+    public ResponseEntity test() {
+        Map<String, Object> map = new LinkedHashMap<>();
+        map.clear();
+        map.put("status", HttpStatus.OK);
+        map.put("message", "Nothing");
+        map.put("data", "Just a test ");
+        map.put("cause", "Nothing");
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
 }

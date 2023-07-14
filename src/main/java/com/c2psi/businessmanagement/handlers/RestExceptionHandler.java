@@ -4,6 +4,8 @@ import com.c2psi.businessmanagement.exceptions.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
@@ -180,6 +182,71 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         map.put("cause", "Des parametres sont nuls et l'operation souhaitee ne peut donc etre traitee. Consulter le ErrorDto " +
                 "pour plus de details");
         return new ResponseEntity(map, HttpStatus.NOT_ACCEPTABLE);
+        //return new ResponseEntity<>(errorDto, badRequest);
+    }
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ResponseEntity<ErrorDto> handleException(UsernameNotFoundException exception,
+                                                    WebRequest webRequest){
+        log.info("A InvalidValueException is launch on the server side");
+        final HttpStatus badRequest = HttpStatus.UNAUTHORIZED;
+        final ErrorDto errorDto =  ErrorDto.builder()
+                //.errorCode(exception.getErrorCode())
+                .httpCode(badRequest.value())
+                .message(exception.getMessage())
+                //.errorList(exception.getErrors()!=null?(!exception.getErrors().isEmpty()?exception.getErrors().stream().toList():null):null)
+                .build();
+        Map<String, Object> map = new LinkedHashMap<>();
+        map.clear();
+        map.put("status", HttpStatus.UNAUTHORIZED);
+        map.put("message", "Any user exist with the userToken sent: UNAUTHORIZED");
+        map.put("data", errorDto);
+        map.put("cause", "Aucun utilisateur en BD n'existe avec la chaine de connexion envoye. Elle ne correspond ni " +
+                "a un email ni a un cni number ni a un login");
+        return new ResponseEntity(map, HttpStatus.UNAUTHORIZED);
+        //return new ResponseEntity<>(errorDto, badRequest);
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ErrorDto> handleException(BadCredentialsException exception,
+                                                    WebRequest webRequest){
+        log.info("A BadCredentialsException is launch on the server side");
+        final HttpStatus badRequest = HttpStatus.UNAUTHORIZED;
+        final ErrorDto errorDto =  ErrorDto.builder()
+                //.errorCode(exception.getErrorCode())
+                .httpCode(badRequest.value())
+                .message(exception.getMessage())
+                //.errorList(exception.getErrors()!=null?(!exception.getErrors().isEmpty()?exception.getErrors().stream().toList():null):null)
+                .build();
+        Map<String, Object> map = new LinkedHashMap<>();
+        map.clear();
+        map.put("status", HttpStatus.UNAUTHORIZED);
+        map.put("message", "Username and/or password sent is incorrect: UNAUTHORIZED");
+        map.put("data", errorDto);
+        map.put("cause", "La chaine de connexion et/ou le mot de passe saisi est incorrect");
+        return new ResponseEntity(map, HttpStatus.UNAUTHORIZED);
+        //return new ResponseEntity<>(errorDto, badRequest);
+    }
+
+    //ZeroRoleForUserBMException
+    @ExceptionHandler(ZeroRoleForUserBMException.class)
+    public ResponseEntity<ErrorDto> handleException(ZeroRoleForUserBMException exception,
+                                                    WebRequest webRequest){
+        log.info("A ZeroRoleForUserBMException is launch on the server side");
+        final HttpStatus badRequest = HttpStatus.PRECONDITION_FAILED;
+        final ErrorDto errorDto =  ErrorDto.builder()
+                //.errorCode(exception.getErrorCode())
+                .httpCode(badRequest.value())
+                .message(exception.getMessage())
+                //.errorList(exception.getErrors()!=null?(!exception.getErrors().isEmpty()?exception.getErrors().stream().toList():null):null)
+                .build();
+        Map<String, Object> map = new LinkedHashMap<>();
+        map.clear();
+        map.put("status", HttpStatus.PRECONDITION_FAILED);
+        map.put("message", "The userBM must have roles before being connected. Assign him a set of role and try again");
+        map.put("data", errorDto);
+        map.put("cause", "Le UserBM doit d'abord avoir des roles avant de se connecter");
+        return new ResponseEntity(map, HttpStatus.PRECONDITION_FAILED);
         //return new ResponseEntity<>(errorDto, badRequest);
     }
 

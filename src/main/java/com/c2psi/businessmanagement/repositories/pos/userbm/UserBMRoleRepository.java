@@ -18,6 +18,9 @@ public interface UserBMRoleRepository extends JpaRepository<UserBMRole, Long> {
      */
     List<UserBMRole> findAllByUserbmroleUserbm(UserBM userbm);
 
+    @Query("SELECT ubmr FROM UserBMRole ubmr WHERE ubmr.userbmroleUserbm.id=:userbmId")
+    Optional<List<UserBMRole>> findAllUserBMRoleofUserbm(@Param("userbmId") Long userbmId);
+
     /*********
      * Tous les userbmRole associe à un Role
      * @param role

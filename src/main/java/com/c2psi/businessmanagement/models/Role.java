@@ -12,12 +12,10 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="role",
-        uniqueConstraints = {@UniqueConstraint(
-                columnNames = {"roleName", "ent_id"})})
+@Table(name="role")
 public class Role extends AbstractEntity {
 
-    @Column(nullable = false)
+    @Column(unique = true)
     RoleType roleName;
     String roleAlias;
     String roleDescription;
@@ -25,7 +23,7 @@ public class Role extends AbstractEntity {
     /******************************
      * Relation between entities  *
      * ****************************/
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "ent_id", nullable = false, referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ent_id", referencedColumnName = "id")
     Enterprise roleEnt;
 }
