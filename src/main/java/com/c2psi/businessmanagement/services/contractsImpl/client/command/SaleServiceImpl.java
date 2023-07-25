@@ -90,11 +90,11 @@ public class SaleServiceImpl implements SaleService {
          * Il faut se rassurer que l'article id n'est pas null
          * et dans ce cas quil existe vraiment en BD
          */
-        if(saleDto.getSaleArticleDto().getId() == null){
+        if(saleDto.getSaleXArticleDto().getId() == null){
             log.error("The associate article if cannot be null");
             throw new InvalidEntityException("L'id de Article associe ne peut etre null", ErrorCode.SALE_NOT_VALID);
         }
-        Optional<Article> optionalArticle = articleRepository.findArticleById(saleDto.getSaleArticleDto().getId());
+        Optional<Article> optionalArticle = articleRepository.findArticleById(saleDto.getSaleXArticleDto().getId());
         if(!optionalArticle.isPresent()){
             log.error("The associate article indicated is not in the DB");
             throw new InvalidEntityException("L'article associe au sale est inexistant de la BD",
@@ -105,7 +105,7 @@ public class SaleServiceImpl implements SaleService {
          * Il faut se rassurer que le pointofsale indique est le
          * meme que celui de l'article et que celui du command
          */
-        if(!saleDto.getSalePosId().equals(saleDto.getSaleArticleDto().getArtPosId())){
+        if(!saleDto.getSalePosId().equals(saleDto.getSaleXArticleDto().getArtPosId())){
             log.error("The pointofsale indicated must be the same with the one of the article associated");
             throw new InvalidEntityException("Le pointofsale indique pour le vente doit etre le meme que " +
                     "celui de l'article ", ErrorCode.SALE_NOT_VALID);
@@ -121,7 +121,7 @@ public class SaleServiceImpl implements SaleService {
          * Il faut se rassurer que le sale sera unique c'est a dire
          * quil existe aucun sale pour le meme command et le meme article
          */
-        if(!isSaleUniqueInCommand(saleDto.getSaleCommandDto().getId(), saleDto.getSaleArticleDto().getId())){
+        if(!isSaleUniqueInCommand(saleDto.getSaleCommandDto().getId(), saleDto.getSaleXArticleDto().getId())){
             log.error("There exist in the command indicated a sale for the same article indicated");
             throw new DuplicateEntityException("Il existe deja dans la command indique une vente concernant le " +
                     "meme article ", ErrorCode.SALE_DUPLICATED);
@@ -191,18 +191,18 @@ public class SaleServiceImpl implements SaleService {
          * Si c'est l'article quon veut modifier alors on se
          * rassure de l'unicite du nouveau Sale
          */
-        if(!saleToUpdate.getSaleArticle().getId().equals(saleDto.getSaleArticleDto().getId())){
+        if(!saleToUpdate.getSaleArticle().getId().equals(saleDto.getSaleXArticleDto().getId())){
             /******
              * C 'est donc l'article quon veut update on verifie donc que le nouvel article
              * precise ne vas pas causer un duplicata
              */
-            if(!isSaleUniqueInCommand(saleDto.getSaleCommandDto().getId(), saleDto.getSaleArticleDto().getId())){
+            if(!isSaleUniqueInCommand(saleDto.getSaleCommandDto().getId(), saleDto.getSaleXArticleDto().getId())){
                 log.error("There exist in the command indicated a sale for the same article indicated");
                 throw new DuplicateEntityException("Il existe deja dans la command indique une vente concernant le " +
                         "meme article ", ErrorCode.SALE_DUPLICATED);
             }
             //Ici on est que le nouvel article precise ne va pas causer de duplicata.
-            Optional<Article> optionalnewArticle = articleRepository.findArticleById(saleDto.getSaleArticleDto().getId());
+            Optional<Article> optionalnewArticle = articleRepository.findArticleById(saleDto.getSaleXArticleDto().getId());
             if(!optionalnewArticle.isPresent()){
                 log.error("The new article precised for the sale is not exist in the DB");
                 throw new InvalidEntityException("Le nouvel article precise est inexistant en BD ",

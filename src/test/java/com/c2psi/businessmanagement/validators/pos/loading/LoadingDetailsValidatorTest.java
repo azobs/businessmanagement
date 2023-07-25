@@ -16,7 +16,7 @@ public class LoadingDetailsValidatorTest {
     @Test
     public void validate() {
         LoadingDetailsDto loadingDetailsDtoToValidate = LoadingDetailsDto.builder()
-                .ldArticleDto(ArticleDto.builder().build())
+                .ldXArticleDto(ArticleDto.builder().build())
                 .ldQuantityreturn(BigDecimal.valueOf(12))
                 .ldQuantitytaken(BigDecimal.valueOf(14))
                 .build();
@@ -30,7 +30,7 @@ public class LoadingDetailsValidatorTest {
     @Test
     public void validateNull() {
         LoadingDetailsDto loadingDetailsDtoToValidate = LoadingDetailsDto.builder()
-                .ldArticleDto(ArticleDto.builder().build())
+                .ldXArticleDto(ArticleDto.builder().build())
                 .ldQuantityreturn(BigDecimal.valueOf(12))
                 .ldQuantitytaken(BigDecimal.valueOf(14))
                 .build();
@@ -44,7 +44,7 @@ public class LoadingDetailsValidatorTest {
     @Test
     public void validateNullArticle() {
         LoadingDetailsDto loadingDetailsDtoToValidate = LoadingDetailsDto.builder()
-                .ldArticleDto(null)
+                .ldXArticleDto(null)
                 .ldQuantityreturn(BigDecimal.valueOf(12))
                 .ldQuantitytaken(BigDecimal.valueOf(14))
                 .build();
@@ -59,7 +59,7 @@ public class LoadingDetailsValidatorTest {
     @Test
     public void validateNullQuantity() {
         LoadingDetailsDto loadingDetailsDtoToValidate = LoadingDetailsDto.builder()
-                .ldArticleDto(ArticleDto.builder().build())
+                .ldXArticleDto(ArticleDto.builder().build())
                 .ldQuantityreturn(null)
                 .ldQuantitytaken(null)
                 .build();
@@ -75,7 +75,7 @@ public class LoadingDetailsValidatorTest {
     @Test
     public void validateNegativeorzeroQuantityTaken() {
         LoadingDetailsDto loadingDetailsDtoToValidate = LoadingDetailsDto.builder()
-                .ldArticleDto(ArticleDto.builder().build())
+                .ldXArticleDto(ArticleDto.builder().build())
                 .ldQuantityreturn(BigDecimal.valueOf(12))
                 .ldQuantitytaken(BigDecimal.valueOf(0))
                 .build();
@@ -90,7 +90,7 @@ public class LoadingDetailsValidatorTest {
     @Test
     public void validateNegativeQuantityReturn() {
         LoadingDetailsDto loadingDetailsDtoToValidate = LoadingDetailsDto.builder()
-                .ldArticleDto(ArticleDto.builder().build())
+                .ldXArticleDto(ArticleDto.builder().build())
                 .ldQuantityreturn(BigDecimal.valueOf(-12))
                 .ldQuantitytaken(BigDecimal.valueOf(14))
                 .build();

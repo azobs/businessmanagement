@@ -27,7 +27,7 @@ public class PosDamageAccountValidator {
         }
         else{
             //int isnullable=0;
-            if(!Optional.ofNullable(posdamaccDto.getPdaArticleDto()).isPresent()){
+            if(!Optional.ofNullable(posdamaccDto.getPdaXArticleDto()).isPresent()){
                 errors.add("--L'article associe au compte avarie ne peut etre null--");
                 //isnullable=1;
             }

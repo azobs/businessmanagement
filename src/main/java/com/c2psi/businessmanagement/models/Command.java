@@ -29,6 +29,7 @@ public class Command extends AbstractEntity{
     @Column(nullable = false)
     Instant cmdDate;
 
+    String cmdComment;
     /***
      * Une command a la creation est en etat InEditing. A ce moment il est encore possible de la modifier sans aucune
      * condition
@@ -39,7 +40,7 @@ public class Command extends AbstractEntity{
      *    La livraison dans laquelle la commande se trouve n'est pas encore cloturee (ie pas encore a l'etat finish)
      */
     CommandState cmdState;//InEditing, Edited, PackupUp
-    String cmdComment;
+
 
     CommandType cmdType;//Divers, Standard
 

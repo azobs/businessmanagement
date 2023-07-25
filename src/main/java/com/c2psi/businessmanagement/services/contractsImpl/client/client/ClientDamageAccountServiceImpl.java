@@ -3,8 +3,6 @@ package com.c2psi.businessmanagement.services.contractsImpl.client.client;
 import com.c2psi.businessmanagement.Enumerations.OperationType;
 import com.c2psi.businessmanagement.dtos.client.client.ClientDamageAccountDto;
 import com.c2psi.businessmanagement.dtos.client.client.ClientDamageOperationDto;
-import com.c2psi.businessmanagement.dtos.pos.pos.PosDamageAccountDto;
-import com.c2psi.businessmanagement.dtos.pos.pos.PosDamageOperationDto;
 import com.c2psi.businessmanagement.exceptions.*;
 import com.c2psi.businessmanagement.models.*;
 import com.c2psi.businessmanagement.repositories.client.client.*;
@@ -95,13 +93,13 @@ public class ClientDamageAccountServiceImpl implements ClientDamageAccountServic
         /**********************************************************************
          * Maintenant on va se rassurer de l'existance de l'article en BD
          */
-        if(cdaccDto.getCdaArticleDto().getId() == null){
+        if(cdaccDto.getCdaXArticleDto().getId() == null){
             log.error("The id of the article associated cannot be null");
             throw new InvalidEntityException("Le id du article associe au compte capsule ne peut etre null",
                     ErrorCode.PROVIDERDAMAGEACCOUNT_NOT_VALID);
         }
         //A ce niveau on est sur que le id du article nest pas null
-        Optional<Article> optionalArticle = articleRepository.findArticleById(cdaccDto.getCdaArticleDto().getId());
+        Optional<Article> optionalArticle = articleRepository.findArticleById(cdaccDto.getCdaXArticleDto().getId());
         if(!optionalArticle.isPresent()){
             log.error("The article indicated in the cdaccDto doesn't exist in DB ");
             throw new EntityNotFoundException("Aucun article n'existe avec l'id precise ",
@@ -112,7 +110,7 @@ public class ClientDamageAccountServiceImpl implements ClientDamageAccountServic
          * On verifie qu'aucun compte capsule n'est pas deja creer pour cet article et ce client
          */
         if(isClientDamageAccountofArticleExistinPos(cdaccDto.getCdaClientDto().getId(),
-                cdaccDto.getCdaArticleDto().getId())){
+                cdaccDto.getCdaXArticleDto().getId())){
             log.error("An account for damage has been already created for this article and this client");
             throw new DuplicateEntityException("Un compte damage pour cet article et ce client existe deja " +
                     "en BD ", ErrorCode.CLIENTDAMAGEACCOUNT_DUPLICATED);

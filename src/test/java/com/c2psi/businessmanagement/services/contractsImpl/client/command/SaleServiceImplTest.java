@@ -100,9 +100,9 @@ public class SaleServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         ClientDto clientDtoSaved = usedForTestForClient.saveClient(5, posDtoSaved, clientService);
         assertNotNull(clientDtoSaved);
@@ -116,7 +116,7 @@ public class SaleServiceImplTest {
                 userBMDtoSaved, commandService);
         assertNotNull(commandDtoSaved);
 
-        SaleDto saleDtoSaved = usedForTestForClient.saveSale(0, commandDtoSaved, articleDtoSaved, posDtoSaved,
+        SaleDto saleDtoSaved = usedForTestForClient.saveSale(0, commandDtoSaved, ArticleDtoSaved, posDtoSaved,
                 saleService);
         assertNotNull(saleDtoSaved);
     }
@@ -149,9 +149,9 @@ public class SaleServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         ClientDto clientDtoSaved = usedForTestForClient.saveClient(5, posDtoSaved, clientService);
         assertNotNull(clientDtoSaved);
@@ -165,10 +165,10 @@ public class SaleServiceImplTest {
                 userBMDtoSaved, commandService);
         assertNotNull(commandDtoSaved);
 
-        SaleDto saleDtoSaved = usedForTestForClient.saveSale(0, commandDtoSaved, articleDtoSaved, posDtoSaved,
+        SaleDto saleDtoSaved = usedForTestForClient.saveSale(0, commandDtoSaved, ArticleDtoSaved, posDtoSaved,
                 saleService);
         assertNotNull(saleDtoSaved);
-        SaleDto saleDtoSaved1 = usedForTestForClient.saveSale(10, commandDtoSaved, articleDtoSaved, posDtoSaved,
+        SaleDto saleDtoSaved1 = usedForTestForClient.saveSale(10, commandDtoSaved, ArticleDtoSaved, posDtoSaved,
                 saleService);
         assertNotNull(saleDtoSaved1);
     }
@@ -201,9 +201,9 @@ public class SaleServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         ClientDto clientDtoSaved = usedForTestForClient.saveClient(5, posDtoSaved, clientService);
         assertNotNull(clientDtoSaved);
@@ -217,7 +217,7 @@ public class SaleServiceImplTest {
                 userBMDtoSaved, commandService);
         assertNotNull(commandDtoSaved);
 
-        SaleDto saleDtoSaved = usedForTestForClient.saveSale_Invalid(0, commandDtoSaved, articleDtoSaved, posDtoSaved,
+        SaleDto saleDtoSaved = usedForTestForClient.saveSale_Invalid(0, commandDtoSaved, ArticleDtoSaved, posDtoSaved,
                 saleService);
         assertNotNull(saleDtoSaved);
 
@@ -252,9 +252,9 @@ public class SaleServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         ClientDto clientDtoSaved = usedForTestForClient.saveClient(5, posDtoSaved, clientService);
         assertNotNull(clientDtoSaved);
@@ -268,7 +268,7 @@ public class SaleServiceImplTest {
                 userBMDtoSaved, commandService);
         assertNotNull(commandDtoSaved);
 
-        SaleDto saleDtoSaved = usedForTestForClient.saveSale(0, commandDtoSaved, articleDtoSaved, posDtoSaved,
+        SaleDto saleDtoSaved = usedForTestForClient.saveSale(0, commandDtoSaved, ArticleDtoSaved, posDtoSaved,
                 saleService);
         assertNotNull(saleDtoSaved);
 
@@ -303,9 +303,9 @@ public class SaleServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         ClientDto clientDtoSaved = usedForTestForClient.saveClient(5, posDtoSaved, clientService);
         assertNotNull(clientDtoSaved);
@@ -319,7 +319,7 @@ public class SaleServiceImplTest {
                 userBMDtoSaved, commandService);
         assertNotNull(commandDtoSaved);
 
-        SaleDto saleDtoSaved = usedForTestForClient.saveSale(0, commandDtoSaved, articleDtoSaved, posDtoSaved,
+        SaleDto saleDtoSaved = usedForTestForClient.saveSale(0, commandDtoSaved, ArticleDtoSaved, posDtoSaved,
                 saleService);
         assertNotNull(saleDtoSaved);
 
@@ -353,9 +353,9 @@ public class SaleServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         ClientDto clientDtoSaved = usedForTestForClient.saveClient(5, posDtoSaved, clientService);
         assertNotNull(clientDtoSaved);
@@ -370,7 +370,7 @@ public class SaleServiceImplTest {
         assertNotNull(commandDtoSaved);
         commandDtoSaved.setId(null);
 
-        SaleDto saleDtoSaved = usedForTestForClient.saveSale(0, commandDtoSaved, articleDtoSaved, posDtoSaved,
+        SaleDto saleDtoSaved = usedForTestForClient.saveSale(0, commandDtoSaved, ArticleDtoSaved, posDtoSaved,
                 saleService);
         assertNotNull(saleDtoSaved);
 
@@ -404,9 +404,9 @@ public class SaleServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         ClientDto clientDtoSaved = usedForTestForClient.saveClient(5, posDtoSaved, clientService);
         assertNotNull(clientDtoSaved);
@@ -421,7 +421,7 @@ public class SaleServiceImplTest {
         assertNotNull(commandDtoSaved);
         commandDtoSaved.setId(Long.valueOf(45123698));
 
-        SaleDto saleDtoSaved = usedForTestForClient.saveSale(0, commandDtoSaved, articleDtoSaved, posDtoSaved,
+        SaleDto saleDtoSaved = usedForTestForClient.saveSale(0, commandDtoSaved, ArticleDtoSaved, posDtoSaved,
                 saleService);
         assertNotNull(saleDtoSaved);
 
@@ -455,13 +455,13 @@ public class SaleServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
-        ArticleDto articleDtoSaved1 = usedForTestForProduct.saveArticle(11, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved1 = usedForTestForProduct.saveArticle(11, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved1);
+        assertNotNull(ArticleDtoSaved1);
 
         ClientDto clientDtoSaved = usedForTestForClient.saveClient(5, posDtoSaved, clientService);
         assertNotNull(clientDtoSaved);
@@ -475,18 +475,18 @@ public class SaleServiceImplTest {
                 userBMDtoSaved, commandService);
         assertNotNull(commandDtoSaved);
 
-        SaleDto saleDtoSaved = usedForTestForClient.saveSale(0, commandDtoSaved, articleDtoSaved, posDtoSaved,
+        SaleDto saleDtoSaved = usedForTestForClient.saveSale(0, commandDtoSaved, ArticleDtoSaved, posDtoSaved,
                 saleService);
         assertNotNull(saleDtoSaved);
 
         SaleDto saleDtoFound = saleService.findSaleById(saleDtoSaved.getId());
-        saleDtoFound.setSaleArticleDto(articleDtoSaved1);
+        saleDtoFound.setSaleXArticleDto(ArticleDtoSaved1);
         saleDtoFound.setSaleComment("New Comment");
         saleDtoFound.setSaleFinalprice(BigDecimal.valueOf(7800));
         SaleDto saleDtoUpdated = saleService.updateSale(saleDtoFound);
         assertNotNull(saleDtoUpdated);
         assertEquals("New Comment", saleDtoUpdated.getSaleComment());
-        assertEquals(articleDtoSaved1.getId(), saleDtoUpdated.getSaleArticleDto().getId());
+        assertEquals(ArticleDtoSaved1.getId(), saleDtoUpdated.getSaleXArticleDto().getId());
     }
 
     @Test(expected = InvalidEntityException.class)
@@ -517,13 +517,13 @@ public class SaleServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
-        ArticleDto articleDtoSaved1 = usedForTestForProduct.saveArticle(11, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved1 = usedForTestForProduct.saveArticle(11, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved1);
+        assertNotNull(ArticleDtoSaved1);
 
         ClientDto clientDtoSaved = usedForTestForClient.saveClient(5, posDtoSaved, clientService);
         assertNotNull(clientDtoSaved);
@@ -541,12 +541,12 @@ public class SaleServiceImplTest {
                 userBMDtoSaved, commandService);
         assertNotNull(commandDtoSaved1);
 
-        SaleDto saleDtoSaved = usedForTestForClient.saveSale(0, commandDtoSaved, articleDtoSaved, posDtoSaved,
+        SaleDto saleDtoSaved = usedForTestForClient.saveSale(0, commandDtoSaved, ArticleDtoSaved, posDtoSaved,
                 saleService);
         assertNotNull(saleDtoSaved);
 
-        SaleDto saleDtoFound = saleService.findSaleinCommandaboutArticle(commandDtoSaved.getId(), articleDtoSaved.getId());
-        saleDtoFound.setSaleArticleDto(articleDtoSaved1);
+        SaleDto saleDtoFound = saleService.findSaleinCommandaboutArticle(commandDtoSaved.getId(), ArticleDtoSaved.getId());
+        saleDtoFound.setSaleXArticleDto(ArticleDtoSaved1);
         saleDtoFound.setSaleComment("New Comment");
         saleDtoFound.setSaleFinalprice(BigDecimal.valueOf(7800));
         saleDtoFound.setSaleCommandDto(commandDtoSaved1);
@@ -554,7 +554,7 @@ public class SaleServiceImplTest {
         SaleDto saleDtoUpdated = saleService.updateSale(saleDtoFound);
         assertNotNull(saleDtoUpdated);
         assertEquals("New Comment", saleDtoUpdated.getSaleComment());
-        assertEquals(articleDtoSaved1.getId(), saleDtoUpdated.getSaleArticleDto().getId());
+        assertEquals(ArticleDtoSaved1.getId(), saleDtoUpdated.getSaleXArticleDto().getId());
     }
 
     @Test
@@ -585,13 +585,13 @@ public class SaleServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
-        ArticleDto articleDtoSaved1 = usedForTestForProduct.saveArticle(11, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved1 = usedForTestForProduct.saveArticle(11, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved1);
+        assertNotNull(ArticleDtoSaved1);
 
         ClientDto clientDtoSaved = usedForTestForClient.saveClient(5, posDtoSaved, clientService);
         assertNotNull(clientDtoSaved);
@@ -605,7 +605,7 @@ public class SaleServiceImplTest {
                 userBMDtoSaved, commandService);
         assertNotNull(commandDtoSaved);
 
-        SaleDto saleDtoSaved = usedForTestForClient.saveSale(0, commandDtoSaved, articleDtoSaved, posDtoSaved,
+        SaleDto saleDtoSaved = usedForTestForClient.saveSale(0, commandDtoSaved, ArticleDtoSaved, posDtoSaved,
                 saleService);
         assertNotNull(saleDtoSaved);
 
@@ -640,17 +640,17 @@ public class SaleServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
-        ArticleDto articleDtoSaved1 = usedForTestForProduct.saveArticle(11, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved1 = usedForTestForProduct.saveArticle(11, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved1);
+        assertNotNull(ArticleDtoSaved1);
 
-        ArticleDto articleDtoSaved2 = usedForTestForProduct.saveArticle(15, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved2 = usedForTestForProduct.saveArticle(15, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved2);
+        assertNotNull(ArticleDtoSaved2);
 
         ClientDto clientDtoSaved = usedForTestForClient.saveClient(5, posDtoSaved, clientService);
         assertNotNull(clientDtoSaved);
@@ -668,19 +668,19 @@ public class SaleServiceImplTest {
                 userBMDtoSaved, commandService);
         assertNotNull(commandDtoSaved1);
 
-        SaleDto saleDtoSaved = usedForTestForClient.saveSale(0, commandDtoSaved, articleDtoSaved, posDtoSaved,
+        SaleDto saleDtoSaved = usedForTestForClient.saveSale(0, commandDtoSaved, ArticleDtoSaved, posDtoSaved,
                 saleService);
         assertNotNull(saleDtoSaved);
 
-        SaleDto saleDtoSaved1 = usedForTestForClient.saveSale(1, commandDtoSaved, articleDtoSaved1, posDtoSaved,
+        SaleDto saleDtoSaved1 = usedForTestForClient.saveSale(1, commandDtoSaved, ArticleDtoSaved1, posDtoSaved,
                 saleService);
         assertNotNull(saleDtoSaved1);
 
-        SaleDto saleDtoSaved2 = usedForTestForClient.saveSale(2, commandDtoSaved, articleDtoSaved2, posDtoSaved,
+        SaleDto saleDtoSaved2 = usedForTestForClient.saveSale(2, commandDtoSaved, ArticleDtoSaved2, posDtoSaved,
                 saleService);
         assertNotNull(saleDtoSaved2);
 
-        SaleDto saleDtoSaved3 = usedForTestForClient.saveSale(3, commandDtoSaved1, articleDtoSaved2, posDtoSaved,
+        SaleDto saleDtoSaved3 = usedForTestForClient.saveSale(3, commandDtoSaved1, ArticleDtoSaved2, posDtoSaved,
                 saleService);
         assertNotNull(saleDtoSaved3);
 
@@ -693,11 +693,11 @@ public class SaleServiceImplTest {
         assertNotNull(saleDtoPage);
         assertEquals(2, saleDtoPage.getTotalPages());
         //findAllSaleonArticle
-        List<SaleDto> saleDtoList1 = saleService.findAllSaleonArticle(articleDtoSaved2.getId());
+        List<SaleDto> saleDtoList1 = saleService.findAllSaleonArticle(ArticleDtoSaved2.getId());
         assertNotNull(saleDtoList1);
         assertEquals(2, saleDtoList1.size());
         //findPageSaleonArticle
-        Page<SaleDto> saleDtoPage1 = saleService.findPageSaleonArticle(articleDtoSaved2.getId(), 0, 2);
+        Page<SaleDto> saleDtoPage1 = saleService.findPageSaleonArticle(ArticleDtoSaved2.getId(), 0, 2);
         assertNotNull(saleDtoPage1);
         assertEquals(1, saleDtoPage1.getTotalPages());
 

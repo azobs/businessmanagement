@@ -19,7 +19,7 @@ public class SaleValidatorTest {
     public void validate() {
         SaleDto saleDto = SaleDto.builder()
                 .saleCommandDto(CommandDto.builder().build())
-                .saleArticleDto(ArticleDto.builder().build())
+                .saleXArticleDto(ArticleDto.builder().build())
                 .saleFinalprice(BigDecimal.valueOf(1000))
                 .saleQuantity(BigDecimal.valueOf(10))
                 .saleComment("  ")
@@ -36,7 +36,7 @@ public class SaleValidatorTest {
     public void validateNull() {
         SaleDto saleDto = SaleDto.builder()
                 .saleCommandDto(CommandDto.builder().build())
-                .saleArticleDto(ArticleDto.builder().build())
+                .saleXArticleDto(ArticleDto.builder().build())
                 .saleFinalprice(BigDecimal.valueOf(1000))
                 .saleQuantity(BigDecimal.valueOf(10))
                 .saleComment("  ")
@@ -54,7 +54,7 @@ public class SaleValidatorTest {
     public void validateNullValue() {
         SaleDto saleDto = SaleDto.builder()
                 .saleCommandDto(null)
-                .saleArticleDto(null)
+                .saleXArticleDto(null)
                 .saleFinalprice(null)
                 .saleQuantity(null)
                 .saleComment("  ")
@@ -76,7 +76,7 @@ public class SaleValidatorTest {
     public void validatePositiveValue() {
         SaleDto saleDto = SaleDto.builder()
                 .saleCommandDto(CommandDto.builder().build())
-                .saleArticleDto(ArticleDto.builder().build())
+                .saleXArticleDto(ArticleDto.builder().build())
                 .saleFinalprice(BigDecimal.valueOf(0))
                 .saleQuantity(BigDecimal.valueOf(0))
                 .saleComment("  ")

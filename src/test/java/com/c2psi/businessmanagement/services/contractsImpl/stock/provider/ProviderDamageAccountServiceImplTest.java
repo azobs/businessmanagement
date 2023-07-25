@@ -99,16 +99,16 @@ public class ProviderDamageAccountServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         ProviderDto providerDtoSaved = usedForTestForProvider.saveProvider(0, posDtoSaved, providerService);
         assertNotNull(providerDtoSaved);
         assertNotNull(providerDtoSaved.getProviderCaDto().getId());
         //////////////////
         ProviderDamageAccountDto providerDamageAccountDtoSaved = usedForTestForProvider.saveProviderDamageAccount(10,
-                providerDtoSaved, articleDtoSaved, providerDamageAccountService);
+                providerDtoSaved, ArticleDtoSaved, providerDamageAccountService);
         assertNotNull(providerDamageAccountDtoSaved);
         assertTrue(BigDecimal.valueOf(10).compareTo(providerDamageAccountDtoSaved.getPdaNumber())==0);
     }
@@ -142,16 +142,16 @@ public class ProviderDamageAccountServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         ProviderDto providerDtoSaved = usedForTestForProvider.saveProvider(0, posDtoSaved, providerService);
         assertNotNull(providerDtoSaved);
         assertNotNull(providerDtoSaved.getProviderCaDto().getId());
         //////////////////
         ProviderDamageAccountDto providerDamageAccountDtoSaved = usedForTestForProvider.saveProviderDamageAccount(10,
-                providerDtoSaved, articleDtoSaved, providerDamageAccountService);
+                providerDtoSaved, ArticleDtoSaved, providerDamageAccountService);
         assertNotNull(providerDamageAccountDtoSaved);
         assertTrue(BigDecimal.valueOf(10).compareTo(providerDamageAccountDtoSaved.getPdaNumber())==0);
         //////////////////////

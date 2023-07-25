@@ -28,7 +28,7 @@ public class BackInDetailsDto {
         }
         return BackInDetailsDto.builder()
                 .id(backInDetails.getId())
-                .bidArticleDto(ArticleDto.fromEntity(backInDetails.getBidArticle()))
+                .bidXArticleDto(ArticleDto.fromEntity(backInDetails.getBidArticle()))
                 .bidbiDto(BackInDto.fromEntity(backInDetails.getBidbi()))
                 .bidComment(backInDetails.getBidComment())
                 .bidQuantity(backInDetails.getBidQuantity())
@@ -42,7 +42,7 @@ public class BackInDetailsDto {
         BackInDetails backInDetails = new BackInDetails();
         backInDetails.setId(backInDetailsDto.getId());
         backInDetails.setBidbi(BackInDto.toEntity(backInDetailsDto.getBidbiDto()));
-        backInDetails.setBidArticle(ArticleDto.toEntity(backInDetailsDto.getBidArticleDto()));
+        backInDetails.setBidArticle(ArticleDto.toEntity(backInDetailsDto.getBidXArticleDto()));
         backInDetails.setBidComment(backInDetailsDto.getBidComment());
         backInDetails.setBidQuantity(backInDetailsDto.getBidQuantity());
         return backInDetails;

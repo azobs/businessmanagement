@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,13 +34,13 @@ public class ArticleApiImpl implements ArticleApi {
     public ResponseEntity findAllArticleofPos(Long posId) {
         Map<String, Object> map = new LinkedHashMap<>();
 
-        List<ArticleDto> articleDtoList = articleService.findAllArticleofPos(posId);
+        List<ArticleDto> ArticleDtoList = articleService.findAllArticleofPos(posId);
         log.info("The method findAllArticleofPos is being executed");
         //return ResponseEntity.ok(articleDtoList);
         map.clear();
         map.put("status", HttpStatus.OK);
         map.put("message", "article list in pos found successfully ");
-        map.put("data", articleDtoList);
+        map.put("data", ArticleDtoList);
         map.put("cause", "RAS");
         return new ResponseEntity(map, HttpStatus.OK);
     }
@@ -48,13 +49,13 @@ public class ArticleApiImpl implements ArticleApi {
     public ResponseEntity findAllArticleofPosOrderByCreationDate(Long posId) {
         Map<String, Object> map = new LinkedHashMap<>();
 
-        List<ArticleDto> articleDtoList = articleService.findAllArticleofPosOrderByCreationDate(posId);
+        List<ArticleDto> ArticleDtoList = articleService.findAllArticleofPosOrderByCreationDate(posId);
         log.info("The method findAllArticleofPos is being executed");
         //return ResponseEntity.ok(articleDtoList);
         map.clear();
         map.put("status", HttpStatus.OK);
         map.put("message", "article list in pos found successfully ");
-        map.put("data", articleDtoList);
+        map.put("data", ArticleDtoList);
         map.put("cause", "RAS");
         return new ResponseEntity(map, HttpStatus.OK);
     }
@@ -100,13 +101,13 @@ public class ArticleApiImpl implements ArticleApi {
     @Override
     public ResponseEntity findAllArticleofCat(Long catId) {
         Map<String, Object> map = new LinkedHashMap<>();
-        List<ArticleDto> articleDtoList = articleService.findAllArticleofCat(catId);
+        List<ArticleDto> ArticleDtoList = articleService.findAllArticleofCat(catId);
         log.info("The method findAllArticleofCat is being executed");
         //return ResponseEntity.ok(articleDtoList);
         map.clear();
         map.put("status", HttpStatus.OK);
         map.put("message", "article list in category found successfully ");
-        map.put("data", articleDtoList);
+        map.put("data", ArticleDtoList);
         map.put("cause", "RAS");
         return new ResponseEntity(map, HttpStatus.OK);
     }
@@ -144,13 +145,13 @@ public class ArticleApiImpl implements ArticleApi {
             return ResponseEntity.badRequest().body(map);
         }
 
-        ArticleDto articleDtoSaved = articleService.saveArticle(artDto);
+        ArticleDto ArticleDtoSaved = articleService.saveArticle(artDto);
         log.info("The method saveArticle is being executed");
         //return new ResponseEntity(articleDtoSaved, HttpStatus.CREATED);
         map.clear();
         map.put("status", HttpStatus.CREATED);
         map.put("message", "article created successfully ");
-        map.put("data", articleDtoSaved);
+        map.put("data", ArticleDtoSaved);
         map.put("cause", "RAS");
         return new ResponseEntity(map, HttpStatus.CREATED);
     }
@@ -171,13 +172,13 @@ public class ArticleApiImpl implements ArticleApi {
             return ResponseEntity.badRequest().body(map);
         }
 
-        ArticleDto articleDtoUpdated = articleService.updateArticle(artDto);
+        ArticleDto ArticleDtoUpdated = articleService.updateArticle(artDto);
         log.info("The method updateArticle is being executed");
         //return new ResponseEntity(articleDtoUpdated, HttpStatus.OK);
         map.clear();
         map.put("status", HttpStatus.OK);
         map.put("message", "article updated successfully ");
-        map.put("data", articleDtoUpdated);
+        map.put("data", ArticleDtoUpdated);
         map.put("cause", "RAS");
         return new ResponseEntity(map, HttpStatus.OK);
     }
@@ -198,13 +199,13 @@ public class ArticleApiImpl implements ArticleApi {
             return ResponseEntity.badRequest().body(map);
         }
 
-        ArticleDto articleDtoUpdated = articleService.fixQuantityofArticle(artDto);
+        ArticleDto ArticleDtoUpdated = articleService.fixQuantityofArticle(artDto);
         log.info("The method fixQuantityofArticle is being executed");
         //return new ResponseEntity(articleDtoUpdated, HttpStatus.OK);
         map.clear();
         map.put("status", HttpStatus.OK);
         map.put("message", "article quantity fixed successfully ");
-        map.put("data", articleDtoUpdated);
+        map.put("data", ArticleDtoUpdated);
         map.put("cause", "RAS");
         return new ResponseEntity(map, HttpStatus.OK);
     }
@@ -225,13 +226,13 @@ public class ArticleApiImpl implements ArticleApi {
             return ResponseEntity.badRequest().body(map);
         }
 
-        ArticleDto articleDtoUpdated = articleService.updateUnitofArticle(artDto);
+        ArticleDto ArticleDtoUpdated = articleService.updateUnitofArticle(artDto);
         log.info("The method updateUnitofArticle is being executed");
         //return new ResponseEntity(articleDtoUpdated, HttpStatus.OK);
         map.clear();
         map.put("status", HttpStatus.OK);
         map.put("message", "article unit updated successfully ");
-        map.put("data", articleDtoUpdated);
+        map.put("data", ArticleDtoUpdated);
         map.put("cause", "RAS");
         return new ResponseEntity(map, HttpStatus.OK);
     }
@@ -252,13 +253,13 @@ public class ArticleApiImpl implements ArticleApi {
             return ResponseEntity.badRequest().body(map);
         }
 
-        ArticleDto articleDtoUpdated = articleService.updateBasePriceofArticle(artDto);
+        ArticleDto ArticleDtoUpdated = articleService.updateBasePriceofArticle(artDto);
         log.info("The method updateBasePriceofArticle is being executed");
         //return new ResponseEntity(articleDtoUpdated, HttpStatus.OK);
         map.clear();
         map.put("status", HttpStatus.OK);
         map.put("message", "article baseprice updated successfully ");
-        map.put("data", articleDtoUpdated);
+        map.put("data", ArticleDtoUpdated);
         map.put("cause", "RAS");
         return new ResponseEntity(map, HttpStatus.OK);
     }
@@ -266,13 +267,13 @@ public class ArticleApiImpl implements ArticleApi {
     @Override
     public ResponseEntity findArticleById(Long artId) {
         Map<String, Object> map = new LinkedHashMap<>();
-        ArticleDto articleDtoFound = articleService.findArticleById(artId);
+        ArticleDto ArticleDtoFound = articleService.findArticleById(artId);
         log.info("The method findArticleById is being executed");
         //return ResponseEntity.ok(articleDtoFound);
         map.clear();
         map.put("status", HttpStatus.OK);
         map.put("message", "article found successfully ");
-        map.put("data", articleDtoFound);
+        map.put("data", ArticleDtoFound);
         map.put("cause", "RAS");
         return new ResponseEntity(map, HttpStatus.OK);
     }
@@ -280,13 +281,13 @@ public class ArticleApiImpl implements ArticleApi {
     @Override
     public ResponseEntity findArticleByCodeInPos(String artCode, Long posId) {
         Map<String, Object> map = new LinkedHashMap<>();
-        ArticleDto articleDtoFound = articleService.findArticleByCodeInPos(artCode, posId);
+        ArticleDto ArticleDtoFound = articleService.findArticleByCodeInPos(artCode, posId);
         log.info("The method findArticleByCodeInPos is being executed");
         //return ResponseEntity.ok(articleDtoFound);
         map.clear();
         map.put("status", HttpStatus.OK);
         map.put("message", "article found successfully ");
-        map.put("data", articleDtoFound);
+        map.put("data", ArticleDtoFound);
         map.put("cause", "RAS");
         return new ResponseEntity(map, HttpStatus.OK);
     }
@@ -294,13 +295,13 @@ public class ArticleApiImpl implements ArticleApi {
     @Override
     public ResponseEntity findAllArticleofProviderInPos(Long posId, Long providerId) {
         Map<String, Object> map = new LinkedHashMap<>();
-        List<ArticleDto> articleDtoList = articleService.findAllArticleofProviderInPos(posId, providerId);
+        List<ArticleDto> ArticleDtoList = articleService.findAllArticleofProviderInPos(posId, providerId);
         log.info("The method findAllArticleofProviderInPos is being executed");
         //return ResponseEntity.ok(articleDtoList);
         map.clear();
         map.put("status", HttpStatus.OK);
         map.put("message", "article list of provider found successfully ");
-        map.put("data", articleDtoList);
+        map.put("data", ArticleDtoList);
         map.put("cause", "RAS");
         return new ResponseEntity(map, HttpStatus.OK);
     }
@@ -360,14 +361,16 @@ public class ArticleApiImpl implements ArticleApi {
         /****
          * The quantity in stock of the articleDto sent represent the value to add
          */
-        ArticleDto articleDtoUpdated = articleService.addQuantityofArticle(artDto.getId(),
-                artDto.getArtQuantityinstock());
+//        ArticleDto articleDtoUpdated = articleService.addQuantityofArticle(artDto.getId(),
+//                artDto.getArtQuantityinstock());
+        ArticleDto ArticleDtoUpdated = articleService.addQuantityofArticle(artDto.getId(),
+                new BigDecimal(artDto.getArtQuantityinstock(), new MathContext(2)));
         log.info("The method addQuantityofArticle is being executed");
 
         map.clear();
         map.put("status", HttpStatus.OK);
         map.put("message", "article quantity in stock added successfully ");
-        map.put("data", articleDtoUpdated);
+        map.put("data", ArticleDtoUpdated);
         map.put("cause", "RAS");
         return new ResponseEntity(map, HttpStatus.OK);
     }
@@ -390,14 +393,16 @@ public class ArticleApiImpl implements ArticleApi {
         /****
          * The quantity in stock of the articleDto sent represent the value to reduce
          */
-        ArticleDto articleDtoUpdated = articleService.reduceQuantityofArticle(artDto.getId(),
-                artDto.getArtQuantityinstock());
+//        ArticleDto articleDtoUpdated = articleService.reduceQuantityofArticle(artDto.getId(),
+//                artDto.getArtQuantityinstock());
+        ArticleDto ArticleDtoUpdated = articleService.reduceQuantityofArticle(artDto.getId(),
+                new BigDecimal(artDto.getArtQuantityinstock(), new MathContext(2)));
         log.info("The method reduceQuantityofArticle is being executed");
 
         map.clear();
         map.put("status", HttpStatus.OK);
         map.put("message", "article quantity in stock reduced successfully ");
-        map.put("data", articleDtoUpdated);
+        map.put("data", ArticleDtoUpdated);
         map.put("cause", "RAS");
         return new ResponseEntity(map, HttpStatus.OK);
     }
@@ -421,8 +426,10 @@ public class ArticleApiImpl implements ArticleApi {
          * The quantity in stock of the articleDto sent represent the value of damage article to add
          */
 
+//        ArticleDto articleDamageAccountUpdated = articleService.addDamageArticleof(artDto.getId(),
+//                artDto.getArtQuantityinstock());
         ArticleDto articleDamageAccountUpdated = articleService.addDamageArticleof(artDto.getId(),
-                artDto.getArtQuantityinstock());
+                new BigDecimal(artDto.getArtQuantityinstock(), new MathContext(2)));
         log.info("The method reduceQuantityofArticle is being executed");
         //return null;
         map.clear();
@@ -451,8 +458,10 @@ public class ArticleApiImpl implements ArticleApi {
         /****
          * The quantity in stock of the articleDto sent represent the value of damage article to reduce
          */
+//        ArticleDto articleDamageAccountUpdated = articleService.reduceDamageArticle(artDto.getId(),
+//                artDto.getArtQuantityinstock());
         ArticleDto articleDamageAccountUpdated = articleService.reduceDamageArticle(artDto.getId(),
-                artDto.getArtQuantityinstock());
+                new BigDecimal(artDto.getArtQuantityinstock(), new MathContext(2)));
         log.info("The method reduceQuantityofArticle is being executed");
         //return null;
         map.clear();

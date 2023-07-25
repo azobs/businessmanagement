@@ -18,7 +18,7 @@ public class ProviderDamageAccountValidatorTest {
     public void validate() {
         ProviderDamageAccountDto providerDamageAccountDto = ProviderDamageAccountDto.builder()
                 .pdaProviderDto(ProviderDto.builder().build())
-                .pdaArticleDto(ArticleDto.builder().build())
+                .pdaXArticleDto(ArticleDto.builder().build())
                 .pdaNumber(BigDecimal.valueOf(10))
                 .build();
         List<String> errors = ProviderDamageAccountValidator.validate(providerDamageAccountDto);
@@ -32,7 +32,7 @@ public class ProviderDamageAccountValidatorTest {
     public void validateNull() {
         ProviderDamageAccountDto providerDamageAccountDto = ProviderDamageAccountDto.builder()
                 .pdaProviderDto(ProviderDto.builder().build())
-                .pdaArticleDto(ArticleDto.builder().build())
+                .pdaXArticleDto(ArticleDto.builder().build())
                 .pdaNumber(BigDecimal.valueOf(10))
                 .build();
         List<String> errors = ProviderDamageAccountValidator.validate(null);
@@ -46,7 +46,7 @@ public class ProviderDamageAccountValidatorTest {
     public void validateNullValue() {
         ProviderDamageAccountDto providerDamageAccountDto = ProviderDamageAccountDto.builder()
                 .pdaProviderDto(null)
-                .pdaArticleDto(null)
+                .pdaXArticleDto(null)
                 .pdaNumber(null)
                 .build();
         List<String> errors = ProviderDamageAccountValidator.validate(providerDamageAccountDto);

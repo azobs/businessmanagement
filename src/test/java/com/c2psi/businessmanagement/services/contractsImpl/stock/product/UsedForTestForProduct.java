@@ -189,23 +189,27 @@ public class UsedForTestForProduct {
         Assert.assertNotNull(articleService);
 
 
-        ArticleDto articleDtoToSave = ArticleDto.builder()
+        ArticleDto ArticleDtoToSave = ArticleDto.builder()
                 .artCode("exp65_"+num)
                 .artName("33 Export65_"+num)
                 .artShortname("Export65_"+num)
                 .artDescription("Le supporter numero 1 du football")
-                .artThreshold(BigDecimal.valueOf(5))
-                .artLowLimitSemiWholesale(BigDecimal.valueOf(7))
-                .artLowLimitWholesale(BigDecimal.valueOf(10))
-                .artQuantityinstock(BigDecimal.valueOf(20))
+//                .artThreshold(BigDecimal.valueOf(5))
+//                .artLowLimitSemiWholesale(BigDecimal.valueOf(7))
+//                .artLowLimitWholesale(BigDecimal.valueOf(10))
+//                .artQuantityinstock(BigDecimal.valueOf(20))
+                .artThreshold(BigDecimal.valueOf(5).doubleValue())
+                .artLowLimitSemiWholesale(BigDecimal.valueOf(7).doubleValue())
+                .artLowLimitWholesale(BigDecimal.valueOf(10).doubleValue())
+                .artQuantityinstock(BigDecimal.valueOf(20).doubleValue())
                 .artPfDto(productFormatedDtoSaved)
                 .artUnitDto(unitDtoSaved)
                 .artBpDto(basePriceDtoSaved)
                 .artPosId(pointofsaleDtoSaved.getId())
                 .build();
 
-        ArticleDto articleDtoSaved = articleService.saveArticle(articleDtoToSave);
-        return articleDtoSaved;
+        ArticleDto ArticleDtoSaved = articleService.saveArticle(ArticleDtoToSave);
+        return ArticleDtoSaved;
     }
 
     public ArticleDto saveArticle_NotValid(int num, ProductFormatedDto productFormatedDtoSaved, UnitDto unitDtoSaved,
@@ -218,23 +222,27 @@ public class UsedForTestForProduct {
         Assert.assertNotNull(articleService);
 
 
-        ArticleDto articleDtoToSave = ArticleDto.builder()
+        ArticleDto ArticleDtoToSave = ArticleDto.builder()
                 .artCode(null)
                 .artName("33 Export65_"+num)
                 .artShortname("Export65_"+num)
                 .artDescription("Le supporter numero 1 du football")
-                .artThreshold(BigDecimal.valueOf(5))
-                .artLowLimitSemiWholesale(BigDecimal.valueOf(7))
-                .artLowLimitWholesale(BigDecimal.valueOf(10))
-                .artQuantityinstock(BigDecimal.valueOf(20))
+//                .artThreshold(BigDecimal.valueOf(5))
+//                .artLowLimitSemiWholesale(BigDecimal.valueOf(7))
+//                .artLowLimitWholesale(BigDecimal.valueOf(10))
+//                .artQuantityinstock(BigDecimal.valueOf(20))
+                .artThreshold(BigDecimal.valueOf(5).doubleValue())
+                .artLowLimitSemiWholesale(BigDecimal.valueOf(7).doubleValue())
+                .artLowLimitWholesale(BigDecimal.valueOf(10).doubleValue())
+                .artQuantityinstock(BigDecimal.valueOf(20).doubleValue())
                 .artPfDto(productFormatedDtoSaved)
                 .artUnitDto(unitDtoSaved)
                 .artBpDto(basePriceDtoSaved)
                 .artPosId(pointofsaleDtoSaved.getId())
                 .build();
 
-        ArticleDto articleDtoSaved = articleService.saveArticle(articleDtoToSave);
-        return articleDtoSaved;
+        ArticleDto ArticleDtoSaved = articleService.saveArticle(ArticleDtoToSave);
+        return ArticleDtoSaved;
     }
 
     public PackagingDto savePackaging(int num, ProviderDto providerDtoSaved, PointofsaleDto pointofsaleDtoSaved,
@@ -441,11 +449,11 @@ public class UsedForTestForProduct {
         return supplyInvoiceDamDtoSaved;
     }
 
-    public CashArrivalDto saveCashArrival(int num, ArticleDto articleDtoSaved, SupplyInvoiceCashDto sicashDtoSaved,
+    public CashArrivalDto saveCashArrival(int num, ArticleDto ArticleDtoSaved, SupplyInvoiceCashDto sicashDtoSaved,
                                           CashArrivalService cashArrivalService){
 
         //Assert.assertNotNull(sicashDtoSaved);
-        Assert.assertNotNull(articleDtoSaved);
+        Assert.assertNotNull(ArticleDtoSaved);
         Assert.assertNotNull(cashArrivalService);
 
         CashArrivalDto cashArrivalDtoToSave = CashArrivalDto.builder()
@@ -453,7 +461,7 @@ public class UsedForTestForProduct {
                 .cashaArrivaltype(CashArrivalType.Divers)
                 .cashaDeliveryquantity(BigDecimal.valueOf(15))
                 .cashaArrivalEntryDate(new Date().toInstant())
-                .cashaArtDto(articleDtoSaved)
+                .cashaArtDto(ArticleDtoSaved)
                 .cashaSicashDto(sicashDtoSaved)
                 .build();
 
@@ -461,11 +469,11 @@ public class UsedForTestForProduct {
         return cashArrivalDtoSaved;
     }
 
-    public CashArrivalDto saveCashArrival_NullSicash(int num, ArticleDto articleDtoSaved, SupplyInvoiceCashDto sicashDtoSaved,
-                                          CashArrivalService cashArrivalService){
+    public CashArrivalDto saveCashArrival_NullSicash(int num, ArticleDto ArticleDtoSaved, SupplyInvoiceCashDto sicashDtoSaved,
+                                                     CashArrivalService cashArrivalService){
 
         //Assert.assertNotNull(sicashDtoSaved);
-        Assert.assertNotNull(articleDtoSaved);
+        Assert.assertNotNull(ArticleDtoSaved);
         Assert.assertNotNull(cashArrivalService);
 
         CashArrivalDto cashArrivalDtoToSave = CashArrivalDto.builder()
@@ -473,7 +481,7 @@ public class UsedForTestForProduct {
                 .cashaArrivaltype(CashArrivalType.Divers)
                 .cashaDeliveryquantity(BigDecimal.valueOf(15))
                 .cashaArrivalEntryDate(new Date().toInstant())
-                .cashaArtDto(articleDtoSaved)
+                .cashaArtDto(ArticleDtoSaved)
                 .cashaSicashDto(null)
                 .build();
 
@@ -481,11 +489,11 @@ public class UsedForTestForProduct {
         return cashArrivalDtoSaved;
     }
 
-    public CashArrivalDto saveCashArrival_Invalid(int num, ArticleDto articleDtoSaved, SupplyInvoiceCashDto sicashDtoSaved,
-                                          CashArrivalService cashArrivalService){
+    public CashArrivalDto saveCashArrival_Invalid(int num, ArticleDto ArticleDtoSaved, SupplyInvoiceCashDto sicashDtoSaved,
+                                                  CashArrivalService cashArrivalService){
 
         //Assert.assertNotNull(sicashDtoSaved);
-        Assert.assertNotNull(articleDtoSaved);
+        Assert.assertNotNull(ArticleDtoSaved);
         Assert.assertNotNull(cashArrivalService);
 
         CashArrivalDto cashArrivalDtoToSave = CashArrivalDto.builder()
@@ -493,7 +501,7 @@ public class UsedForTestForProduct {
                 .cashaArrivaltype(null)
                 .cashaDeliveryquantity(BigDecimal.valueOf(15))
                 .cashaArrivalEntryDate(new Date().toInstant())
-                .cashaArtDto(articleDtoSaved)
+                .cashaArtDto(ArticleDtoSaved)
                 .cashaSicashDto(sicashDtoSaved)
                 .build();
 
@@ -501,15 +509,15 @@ public class UsedForTestForProduct {
         return cashArrivalDtoSaved;
     }
 
-    public DamageArrivalDto saveDamageArrival(int num, ArticleDto articleDtoSaved, SupplyInvoiceDamageDto sidamDtoSaved,
-                                          DamageArrivalService damageArrivalService){
+    public DamageArrivalDto saveDamageArrival(int num, ArticleDto ArticleDtoSaved, SupplyInvoiceDamageDto sidamDtoSaved,
+                                              DamageArrivalService damageArrivalService){
 
         //Assert.assertNotNull(sicashDtoSaved);
-        Assert.assertNotNull(articleDtoSaved);
+        Assert.assertNotNull(ArticleDtoSaved);
         Assert.assertNotNull(damageArrivalService);
 
         DamageArrivalDto damageArrivalDtoToSave = DamageArrivalDto.builder()
-                .damaArtDto(articleDtoSaved)
+                .damaArtDto(ArticleDtoSaved)
                 .damaSidamDto(sidamDtoSaved)
                 .damaQuantityartchanged(BigDecimal.valueOf(10))
                 .damaDeliveryquantity(BigDecimal.valueOf(10))
@@ -520,15 +528,15 @@ public class UsedForTestForProduct {
         return damageArrivalDtoSaved;
     }
 
-    public DamageArrivalDto saveDamArrival_NullSidam(int num, ArticleDto articleDtoSaved, SupplyInvoiceDamageDto sidamDtoSaved,
+    public DamageArrivalDto saveDamArrival_NullSidam(int num, ArticleDto ArticleDtoSaved, SupplyInvoiceDamageDto sidamDtoSaved,
                                                      DamageArrivalService damageArrivalService){
 
         //Assert.assertNotNull(sicashDtoSaved);
-        Assert.assertNotNull(articleDtoSaved);
+        Assert.assertNotNull(ArticleDtoSaved);
         Assert.assertNotNull(damageArrivalService);
 
         DamageArrivalDto damageArrivalDtoToSave = DamageArrivalDto.builder()
-                .damaArtDto(articleDtoSaved)
+                .damaArtDto(ArticleDtoSaved)
                 .damaSidamDto(null)
                 .damaQuantityartchanged(BigDecimal.valueOf(10))
                 .damaDeliveryquantity(BigDecimal.valueOf(10))
@@ -539,15 +547,15 @@ public class UsedForTestForProduct {
         return damageArrivalDtoSaved;
     }
 
-    public DamageArrivalDto saveDamageArrival_Invalid(int num, ArticleDto articleDtoSaved, SupplyInvoiceDamageDto sidamDtoSaved,
-                                                  DamageArrivalService damageArrivalService){
+    public DamageArrivalDto saveDamageArrival_Invalid(int num, ArticleDto ArticleDtoSaved, SupplyInvoiceDamageDto sidamDtoSaved,
+                                                      DamageArrivalService damageArrivalService){
 
         //Assert.assertNotNull(sicashDtoSaved);
-        Assert.assertNotNull(articleDtoSaved);
+        Assert.assertNotNull(ArticleDtoSaved);
         Assert.assertNotNull(damageArrivalService);
 
         DamageArrivalDto damageArrivalDtoToSave = DamageArrivalDto.builder()
-                .damaArtDto(articleDtoSaved)
+                .damaArtDto(ArticleDtoSaved)
                 .damaSidamDto(null)
                 .damaQuantityartchanged(null)
                 .damaDeliveryquantity(BigDecimal.valueOf(10))
@@ -558,15 +566,15 @@ public class UsedForTestForProduct {
         return damageArrivalDtoSaved;
     }
 
-    public CapsuleArrivalDto saveCapsuleArrival(int num, ArticleDto articleDtoSaved, SupplyInvoiceCapsuleDto sicapsDtoSaved,
-                                              CapsuleArrivalService capsuleArrivalService){
+    public CapsuleArrivalDto saveCapsuleArrival(int num, ArticleDto ArticleDtoSaved, SupplyInvoiceCapsuleDto sicapsDtoSaved,
+                                                CapsuleArrivalService capsuleArrivalService){
 
         //Assert.assertNotNull(sicashDtoSaved);
-        Assert.assertNotNull(articleDtoSaved);
+        Assert.assertNotNull(ArticleDtoSaved);
         Assert.assertNotNull(capsuleArrivalService);
 
         CapsuleArrivalDto capsuleArrivalDtoToSave = CapsuleArrivalDto.builder()
-                .capsaArtDto(articleDtoSaved)
+                .capsaArtDto(ArticleDtoSaved)
                 .capsaSicapsDto(sicapsDtoSaved)
                 .capsaDeliveryquantity(BigDecimal.valueOf(10))
                 .capsaQuantitycapschanged(BigDecimal.valueOf(10))
@@ -577,15 +585,15 @@ public class UsedForTestForProduct {
         return capsuleArrivalDtoSaved;
     }
 
-    public CapsuleArrivalDto saveCapsArrival_NullSiCaps(int num, ArticleDto articleDtoSaved, SupplyInvoiceCapsuleDto sicapsDtoSaved,
-                                                     CapsuleArrivalService capsuleArrivalService){
+    public CapsuleArrivalDto saveCapsArrival_NullSiCaps(int num, ArticleDto ArticleDtoSaved, SupplyInvoiceCapsuleDto sicapsDtoSaved,
+                                                        CapsuleArrivalService capsuleArrivalService){
 
         //Assert.assertNotNull(sicashDtoSaved);
-        Assert.assertNotNull(articleDtoSaved);
+        Assert.assertNotNull(ArticleDtoSaved);
         Assert.assertNotNull(capsuleArrivalService);
 
         CapsuleArrivalDto capsuleArrivalDtoToSave = CapsuleArrivalDto.builder()
-                .capsaArtDto(articleDtoSaved)
+                .capsaArtDto(ArticleDtoSaved)
                 .capsaSicapsDto(null)
                 .capsaDeliveryquantity(BigDecimal.valueOf(10))
                 .capsaQuantitycapschanged(BigDecimal.valueOf(10))
@@ -596,11 +604,11 @@ public class UsedForTestForProduct {
         return capsuleArrivalDtoSaved;
     }
 
-    public CapsuleArrivalDto saveCapsuleArrival_Invalid(int num, ArticleDto articleDtoSaved, SupplyInvoiceCapsuleDto siCapsDtoSaved,
-                                                      CapsuleArrivalService capsuleArrivalService){
+    public CapsuleArrivalDto saveCapsuleArrival_Invalid(int num, ArticleDto ArticleDtoSaved, SupplyInvoiceCapsuleDto siCapsDtoSaved,
+                                                        CapsuleArrivalService capsuleArrivalService){
 
         //Assert.assertNotNull(sicashDtoSaved);
-        Assert.assertNotNull(articleDtoSaved);
+        Assert.assertNotNull(ArticleDtoSaved);
         Assert.assertNotNull(capsuleArrivalService);
 
         CapsuleArrivalDto capsuleArrivalDtoToSave = CapsuleArrivalDto.builder()
@@ -647,7 +655,7 @@ public class UsedForTestForProduct {
         return inventoryDtoSaved;
     }
 
-    public InventoryLineDto saveInventoryLine(int num, PointofsaleDto pointofsaleDtoSaved, ArticleDto articleDtoSaved,
+    public InventoryLineDto saveInventoryLine(int num, PointofsaleDto pointofsaleDtoSaved, ArticleDto ArticleDtoSaved,
                                               InventoryDto inventoryDtoSaved, InventoryLineService inventoryLineService){
 
         Assert.assertNotNull(inventoryLineService);
@@ -659,14 +667,14 @@ public class UsedForTestForProduct {
                 .invlineRealqteinstock(BigDecimal.valueOf(15))
                 .invlineLogicqteinstock(BigDecimal.valueOf(16))
                 .invlineInvDto(inventoryDtoSaved)
-                .invlineArtDto(articleDtoSaved)
+                .invlineArtDto(ArticleDtoSaved)
                 .build();
 
         InventoryLineDto inventorylineDtoSaved = inventoryLineService.saveInventoryLine(inventoryLineDtoToSave);
         return inventorylineDtoSaved;
     }
 
-    public InventoryLineDto saveInventoryLine_Invalid(int num, PointofsaleDto pointofsaleDtoSaved, ArticleDto articleDtoSaved,
+    public InventoryLineDto saveInventoryLine_Invalid(int num, PointofsaleDto pointofsaleDtoSaved, ArticleDto ArticleDtoSaved,
                                               InventoryDto inventoryDtoSaved, InventoryLineService inventoryLineService){
 
         Assert.assertNotNull(inventoryLineService);
@@ -678,7 +686,7 @@ public class UsedForTestForProduct {
                 .invlineRealqteinstock(BigDecimal.valueOf(15))
                 .invlineLogicqteinstock(BigDecimal.valueOf(16))
                 .invlineInvDto(null)
-                .invlineArtDto(articleDtoSaved)
+                .invlineArtDto(ArticleDtoSaved)
                 .build();
 
         InventoryLineDto inventorylineDtoSaved = inventoryLineService.saveInventoryLine(inventoryLineDtoToSave);

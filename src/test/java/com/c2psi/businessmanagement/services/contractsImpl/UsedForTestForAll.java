@@ -211,14 +211,14 @@ public class UsedForTestForAll {
         return specialPriceDtoSaved;
     }
 
-    public PosCapsuleAccountDto savePosCapsuleAccount(int num, ArticleDto articleDtoSaved, PointofsaleDto pointofsaleDtoSaved,
+    public PosCapsuleAccountDto savePosCapsuleAccount(int num, ArticleDto ArticleDtoSaved, PointofsaleDto pointofsaleDtoSaved,
                                                       PosCapsuleAccountService posCapsuleAccountService){
-        Assert.assertNotNull(articleDtoSaved);
+        Assert.assertNotNull(ArticleDtoSaved);
         Assert.assertNotNull(pointofsaleDtoSaved);
         Assert.assertNotNull(posCapsuleAccountService);
 
         PosCapsuleAccountDto posCapsuleAccountDtoToSave = PosCapsuleAccountDto.builder()
-                .pcsaArticleDto(articleDtoSaved)
+                .pcsaXArticleDto(ArticleDtoSaved)
                 .pcsaPointofsaleId(pointofsaleDtoSaved.getId())
                 .pcsaNumber(BigDecimal.valueOf(0))
                 .build();
@@ -226,14 +226,14 @@ public class UsedForTestForAll {
         return posCapsuleAccountDtoSaved;
     }
 
-    public PosCapsuleAccountDto savePosCapsuleAccount_Invalid(int num, ArticleDto articleDtoSaved, PointofsaleDto pointofsaleDtoSaved,
-                                                      PosCapsuleAccountService posCapsuleAccountService){
-        Assert.assertNotNull(articleDtoSaved);
+    public PosCapsuleAccountDto savePosCapsuleAccount_Invalid(int num, ArticleDto ArticleDtoSaved, PointofsaleDto pointofsaleDtoSaved,
+                                                              PosCapsuleAccountService posCapsuleAccountService){
+        Assert.assertNotNull(ArticleDtoSaved);
         Assert.assertNotNull(pointofsaleDtoSaved);
         Assert.assertNotNull(posCapsuleAccountService);
 
         PosCapsuleAccountDto posCapsuleAccountDtoToSave = PosCapsuleAccountDto.builder()
-                .pcsaArticleDto(articleDtoSaved)
+                .pcsaXArticleDto(ArticleDtoSaved)
                 .pcsaPointofsaleId(pointofsaleDtoSaved.getId())
                 .pcsaNumber(null)
                 .build();
@@ -241,14 +241,14 @@ public class UsedForTestForAll {
         return posCapsuleAccountDtoSaved;
     }
 
-    public PosDamageAccountDto savePosDamageAccount(int num, ArticleDto articleDtoSaved, PointofsaleDto pointofsaleDtoSaved,
+    public PosDamageAccountDto savePosDamageAccount(int num, ArticleDto ArticleDtoSaved, PointofsaleDto pointofsaleDtoSaved,
                                                     PosDamageAccountService posDamageAccountService){
-        Assert.assertNotNull(articleDtoSaved);
+        Assert.assertNotNull(ArticleDtoSaved);
         Assert.assertNotNull(pointofsaleDtoSaved);
         Assert.assertNotNull(posDamageAccountService);
 
         PosDamageAccountDto posDamageAccountDtoToSave = PosDamageAccountDto.builder()
-                .pdaArticleDto(articleDtoSaved)
+                .pdaXArticleDto(ArticleDtoSaved)
                 .pdaPointofsaleId(pointofsaleDtoSaved.getId())
                 .pdaNumber(BigDecimal.valueOf(0))
                 .build();
@@ -256,14 +256,14 @@ public class UsedForTestForAll {
         return posDamageAccountDtoSaved;
     }
 
-    public PosDamageAccountDto savePosDamageAccount_Invalid(int num, ArticleDto articleDtoSaved, PointofsaleDto pointofsaleDtoSaved,
-                                                    PosDamageAccountService posDamageAccountService){
-        Assert.assertNotNull(articleDtoSaved);
+    public PosDamageAccountDto savePosDamageAccount_Invalid(int num, ArticleDto ArticleDtoSaved, PointofsaleDto pointofsaleDtoSaved,
+                                                            PosDamageAccountService posDamageAccountService){
+        Assert.assertNotNull(ArticleDtoSaved);
         Assert.assertNotNull(pointofsaleDtoSaved);
         Assert.assertNotNull(posDamageAccountService);
 
         PosDamageAccountDto posDamageAccountDtoToSave = PosDamageAccountDto.builder()
-                .pdaArticleDto(articleDtoSaved)
+                .pdaXArticleDto(ArticleDtoSaved)
                 .pdaPointofsaleId(pointofsaleDtoSaved.getId())
                 .pdaNumber(null)
                 .build();

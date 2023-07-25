@@ -19,7 +19,7 @@ public class LoadingDetailsValidator {
             errors.add("--Le  parametre a valider ne saurait etre null--");
         }
         else {
-            if (!Optional.ofNullable(ldDto.getLdArticleDto()).isPresent()) {
+            if (!Optional.ofNullable(ldDto.getLdXArticleDto()).isPresent()) {
                 errors.add("--L'article lie a ce détails de chargement ne peut etre null--");
             }
             if (Optional.ofNullable(ldDto.getLdQuantityreturn()).isPresent() ||

@@ -1,5 +1,6 @@
 package com.c2psi.businessmanagement.controllers.apiImpl.pos.userbm;
 
+import com.c2psi.businessmanagement.BMGlobalArguments;
 import com.c2psi.businessmanagement.Enumerations.RoleType;
 import com.c2psi.businessmanagement.Enumerations.UserBMType;
 import com.c2psi.businessmanagement.controllers.api.pos.userbm.UserBMApi;
@@ -8,6 +9,8 @@ import com.c2psi.businessmanagement.dtos.pos.userbm.RoleDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMDto;
 import com.c2psi.businessmanagement.dtos.pos.userbm.UserBMRoleDto;
 import com.c2psi.businessmanagement.exceptions.EntityNotFoundException;
+import com.c2psi.businessmanagement.exceptions.InvalidValueException;
+import com.c2psi.businessmanagement.services.contracts.UploadDownloadFilesService;
 import com.c2psi.businessmanagement.services.contracts.pos.pos.EnterpriseService;
 import com.c2psi.businessmanagement.services.contracts.pos.userbm.RoleService;
 import com.c2psi.businessmanagement.services.contracts.pos.userbm.UserBMRoleService;
@@ -18,6 +21,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,15 +35,15 @@ public class UserBMApiImpl implements UserBMApi {
     private UserBMService userBMService;
     private RoleService roleService;
     private UserBMRoleService userBMRoleService;
-    private EnterpriseService enterpriseService;
+    private UploadDownloadFilesService uploadDownloadFilesService;
 
     @Autowired
     public UserBMApiImpl(UserBMService userBMService1, RoleService roleService, UserBMRoleService userBMRoleService,
-                         EnterpriseService enterpriseService){
+                         UploadDownloadFilesService uploadDownloadFilesService){
         this.userBMService = userBMService1;
         this.roleService = roleService;
         this.userBMRoleService = userBMRoleService;
-        this.enterpriseService = enterpriseService;
+        this.uploadDownloadFilesService = uploadDownloadFilesService;
     }
 
     @Override
@@ -133,6 +137,32 @@ public class UserBMApiImpl implements UserBMApi {
         UserBMDto userBMDtoSaved = userBMService.saveUserBM(userBMDto);
         log.info("Entity UserBM saved successfully {} ", userBMDtoSaved);
 
+        /***********************************************************************
+         * Une fois le UserBM enregistre on doit renommer sa photos dans le
+         * dossier des photos. En effet, le formulaire d'enregistrement d'un
+         * UserBM est divise en 02:
+         *
+         * Un premier formulaire pour Uploader sa photos et l'upload retourne
+         * le nom du fichier uploader. Ce nom est charge en champ input cache
+         * dans le second formulaire qui est celui ou les parametres du UserBM
+         * seront saisis.
+         *
+         * Une fois le second formulaire soumis et le UserBM enregistre, il faut
+         * maintenant renommer cette photos avec l'id du UserBM. cette fonction
+         * de ronnomage sera du service d'Upload
+         *
+         */
+        if(StringUtils.hasLength(userBMDto.getBmPicture())){
+            uploadDownloadFilesService.renameFile(BMGlobalArguments.photosPersonsDir, userBMDto.getBmPicture(),
+                    userBMDtoSaved.getId()+".png");
+            /*******************************************************************
+             * Une fois le renommage effectue, il faut savoir que la valeur du
+             * champ picture (bmpicture) en BD contient plutot le nom de l'image
+             * et non l'Id. donc si on veut que ce soit les memes alors il faut
+             * mettre a jour le User en modifiant rien que cette valeur.
+             */
+        }
+
         /****************************************************************
          * On doit donc l'associer le role qu'il lui faut
          */
@@ -166,7 +196,8 @@ public class UserBMApiImpl implements UserBMApi {
          * Si on arrive ici et qu'on retourne ce null alors il y a eu probleme sur le
          * type de userbm qui n'a ete ni ADMINBM ni ADMIN_ENTERPRISE ni EMPLOYE
          */
-        return null;
+        throw new InvalidValueException("Le type d'utilisateur indique dans la requete n'est pas reconnu " +
+                "dans le systeme");
     }
 
 
@@ -189,6 +220,35 @@ public class UserBMApiImpl implements UserBMApi {
 
         UserBMDto userBMDtoUpdated = userBMService.updateUserBM(userBMDto);
         log.info("Entity UserBM updated successfully {} ", userBMDtoUpdated);
+
+
+        /***********************************************************************
+         * Une fois le UserBM enregistre on doit renommer sa photos dans le
+         * dossier des photos. En effet, le formulaire d'enregistrement d'un
+         * UserBM est divise en 02:
+         *
+         * Un premier formulaire pour Uploader sa photos et l'upload retourne
+         * le nom du fichier uploader. Ce nom est charge en champ input cache
+         * dans le second formulaire qui est celui ou les parametres du UserBM
+         * seront saisis.
+         *
+         * Une fois le second formulaire soumis et le UserBM enregistre, il faut
+         * maintenant renommer cette photos avec l'id du UserBM. cette fonction
+         * de ronnomage sera du service d'Upload
+         *
+         */
+        if(StringUtils.hasLength(userBMDto.getBmPicture())){
+            uploadDownloadFilesService.renameFile(BMGlobalArguments.photosPersonsDir, userBMDto.getBmPicture(),
+                    userBMDtoUpdated.getId()+".png");
+            /*******************************************************************
+             * Une fois le renommage effectue, il faut savoir que la valeur du
+             * champ picture (bmpicture) en BD contient plutot le nom de l'image
+             * et non l'Id. donc si on veut que ce soit les memes alors il faut
+             * mettre a jour le User en modifiant rien que cette valeur.
+             */
+        }
+
+
         //return new ResponseEntity(userBMDtoUpdated, HttpStatus.OK);
         map.clear();
         map.put("status", HttpStatus.OK);

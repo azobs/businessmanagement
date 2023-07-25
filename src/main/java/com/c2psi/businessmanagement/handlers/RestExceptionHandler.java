@@ -185,10 +185,32 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         //return new ResponseEntity<>(errorDto, badRequest);
     }
 
+    @ExceptionHandler(UploadDownloadFilesException.class)
+    public ResponseEntity<ErrorDto> handleException(UploadDownloadFilesException exception,
+                                                    WebRequest webRequest){
+        log.info("A UploadDownloadFilesException is launch on the server side");
+        final HttpStatus badRequest = HttpStatus.INTERNAL_SERVER_ERROR;
+        final ErrorDto errorDto =  ErrorDto.builder()
+                .errorCode(exception.getErrorCode())
+                .httpCode(badRequest.value())
+                .message(exception.getMessage())
+                .errorList(exception.getErrors()!=null?(!exception.getErrors().isEmpty()?exception.getErrors().stream().toList():null):null)
+                .build();
+        Map<String, Object> map = new LinkedHashMap<>();
+        map.clear();
+        map.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+        map.put("message", "Problem at the server side during uploading or dowmloading a resource: INTERNAL_SERVER_ERROR");
+        map.put("data", errorDto);
+        map.put("cause", "Des problemes de lecture ou d'ecriture sur le serveur pendant la procedure d'upload ou de " +
+                "download des fichiers");
+        return new ResponseEntity(map, HttpStatus.INTERNAL_SERVER_ERROR);
+        //return new ResponseEntity<>(errorDto, badRequest);
+    }
+
     @ExceptionHandler(UsernameNotFoundException.class)
     public ResponseEntity<ErrorDto> handleException(UsernameNotFoundException exception,
                                                     WebRequest webRequest){
-        log.info("A InvalidValueException is launch on the server side");
+        log.info("A UsernameNotFoundException is launch on the server side");
         final HttpStatus badRequest = HttpStatus.UNAUTHORIZED;
         final ErrorDto errorDto =  ErrorDto.builder()
                 //.errorCode(exception.getErrorCode())

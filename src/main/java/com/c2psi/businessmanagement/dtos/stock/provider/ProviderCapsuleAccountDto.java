@@ -46,7 +46,7 @@ public class ProviderCapsuleAccountDto {
         return ProviderCapsuleAccountDto.builder()
                 .id(pca.getId())
                 .pcsaNumber(pca.getPcsaNumber())
-                .pcsaArticleDto(ArticleDto.fromEntity(pca.getPcsaArticle()))
+                .pcsaXArticleDto(ArticleDto.fromEntity(pca.getPcsaArticle()))
                 .pcsaProviderDto(ProviderDto.fromEntity(pca.getPcsaProvider()))
                 .build();
     }
@@ -56,7 +56,7 @@ public class ProviderCapsuleAccountDto {
         }
         ProviderCapsuleAccount pca = new ProviderCapsuleAccount();
         pca.setId(pcaDto.getId());
-        pca.setPcsaArticle(ArticleDto.toEntity(pcaDto.getPcsaArticleDto()));
+        pca.setPcsaArticle(ArticleDto.toEntity(pcaDto.getPcsaXArticleDto()));
         pca.setPcsaNumber(pcaDto.getPcsaNumber());
         pca.setPcsaProvider(ProviderDto.toEntity(pcaDto.getPcsaProviderDto()));
         return pca;

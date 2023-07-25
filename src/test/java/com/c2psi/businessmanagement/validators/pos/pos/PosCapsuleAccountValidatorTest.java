@@ -17,7 +17,7 @@ public class PosCapsuleAccountValidatorTest {
     @Test
     public void validate() {
         PosCapsuleAccountDto pcashToValidate = PosCapsuleAccountDto.builder()
-                .pcsaArticleDto(ArticleDto.builder().build())
+                .pcsaXArticleDto(ArticleDto.builder().build())
                 .pcsaNumber(BigDecimal.valueOf(12))
                 .pcsaPointofsaleId(PointofsaleDto.builder().build().getId())
                 .build();
@@ -30,7 +30,7 @@ public class PosCapsuleAccountValidatorTest {
     @Test
     public void validateNull() {
         PosCapsuleAccountDto pcashToValidate = PosCapsuleAccountDto.builder()
-                .pcsaArticleDto(ArticleDto.builder().build())
+                .pcsaXArticleDto(ArticleDto.builder().build())
                 .pcsaNumber(BigDecimal.valueOf(12))
                 .pcsaPointofsaleId(PointofsaleDto.builder().build().getId())
                 .build();
@@ -44,7 +44,7 @@ public class PosCapsuleAccountValidatorTest {
     @Test
     public void validateNullArticle() {
         PosCapsuleAccountDto pcashToValidate = PosCapsuleAccountDto.builder()
-                .pcsaArticleDto(null)
+                .pcsaXArticleDto(null)
                 .pcsaNumber(BigDecimal.valueOf(12))
                 .pcsaPointofsaleId(PointofsaleDto.builder().build().getId())
                 .build();
@@ -59,7 +59,7 @@ public class PosCapsuleAccountValidatorTest {
     @Test
     public void validateNullPointofsale() {
         PosCapsuleAccountDto pcashToValidate = PosCapsuleAccountDto.builder()
-                .pcsaArticleDto(ArticleDto.builder().build())
+                .pcsaXArticleDto(ArticleDto.builder().build())
                 .pcsaNumber(BigDecimal.valueOf(12))
                 .pcsaPointofsaleId(null)
                 .build();

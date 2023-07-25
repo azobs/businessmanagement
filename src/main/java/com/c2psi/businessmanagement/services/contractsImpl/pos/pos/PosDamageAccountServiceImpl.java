@@ -87,13 +87,13 @@ public class PosDamageAccountServiceImpl implements PosDamageAccountService {
         /**********************************************************************
          * Maintenant on va se rassurer de l'existance de l'article en BD
          */
-        if(posdamaccDto.getPdaArticleDto().getId() == null){
+        if(posdamaccDto.getPdaXArticleDto().getId() == null){
             log.error("The id of the article associated cannot be null");
             throw new InvalidEntityException("Le id du article associe au compte damage ne peut etre null",
                     ErrorCode.POSDAMAGEACCOUNT_NOT_VALID);
         }
         //A ce niveau on est sur que le id du article nest pas null
-        Optional<Article> optionalArticle = articleRepository.findArticleById(posdamaccDto.getPdaArticleDto().getId());
+        Optional<Article> optionalArticle = articleRepository.findArticleById(posdamaccDto.getPdaXArticleDto().getId());
         if(!optionalArticle.isPresent()){
             log.error("The article indicated in the posdamaccount doesn't exist in DB ");
             throw new EntityNotFoundException("Aucun article n'existe avec l'id precise ",
@@ -103,7 +103,7 @@ public class PosDamageAccountServiceImpl implements PosDamageAccountService {
         /******************************************************************************************
          * On verifie que l'article est dans le meme pointofsale que celui precise pour le compte
          */
-        if(!posdamaccDto.getPdaArticleDto().getArtPosId().equals(posdamaccDto.getPdaPointofsaleId())){
+        if(!posdamaccDto.getPdaXArticleDto().getArtPosId().equals(posdamaccDto.getPdaPointofsaleId())){
             log.error("The precised article is not in the pointofsale precise for the account");
             throw new InvalidEntityException("L'article pour lequel creer le compte doit etre dans le meme pointofsale " +
                     "que celui dans lequel le compte est cree ", ErrorCode.POSDAMAGEACCOUNT_NOT_VALID);
@@ -112,7 +112,7 @@ public class PosDamageAccountServiceImpl implements PosDamageAccountService {
         /*************************************************************************************************
          * On verifie qu'aucun compte damage n'est pas deja creer pour cet article dans ce pointofsale
          */
-        if(isPosDamageAccountofArticleExistinPos(posdamaccDto.getPdaArticleDto().getId(),
+        if(isPosDamageAccountofArticleExistinPos(posdamaccDto.getPdaXArticleDto().getId(),
                 posdamaccDto.getPdaPointofsaleId())){
             log.error("An account for damage has been already created for this article in this pointofsale");
             throw new DuplicateEntityException("Un compte damage pour cet article dans ce pointofsale existe deja " +

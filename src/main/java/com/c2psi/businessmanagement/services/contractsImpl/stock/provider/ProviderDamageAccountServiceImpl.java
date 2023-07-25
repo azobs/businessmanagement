@@ -94,13 +94,13 @@ public class ProviderDamageAccountServiceImpl implements ProviderDamageAccountSe
         /**********************************************************************
          * Maintenant on va se rassurer de l'existance de l'article en BD
          */
-        if(prodamaccDto.getPdaArticleDto().getId() == null){
+        if(prodamaccDto.getPdaXArticleDto().getId() == null){
             log.error("The id of the article associated cannot be null");
             throw new InvalidEntityException("Le id du article associe au compte capsule ne peut etre null",
                     ErrorCode.PROVIDERDAMAGEACCOUNT_NOT_VALID);
         }
         //A ce niveau on est sur que le id du article nest pas null
-        Optional<Article> optionalArticle = articleRepository.findArticleById(prodamaccDto.getPdaArticleDto().getId());
+        Optional<Article> optionalArticle = articleRepository.findArticleById(prodamaccDto.getPdaXArticleDto().getId());
         if(!optionalArticle.isPresent()){
             log.error("The article indicated in the prodamaccDto doesn't exist in DB ");
             throw new EntityNotFoundException("Aucun article n'existe avec l'id precise ",
@@ -111,7 +111,7 @@ public class ProviderDamageAccountServiceImpl implements ProviderDamageAccountSe
          * On verifie qu'aucun compte damage n'est pas deja creer pour cet article et ce provider
          */
         if(isProviderDamageAccountofArticleExistinPos(prodamaccDto.getPdaProviderDto().getId(),
-                prodamaccDto.getPdaArticleDto().getId())){
+                prodamaccDto.getPdaXArticleDto().getId())){
             log.error("An account for damage has been already created for this article and this provider");
             throw new DuplicateEntityException("Un compte damage pour cet article et ce provider existe deja " +
                     "en BD ", ErrorCode.PROVIDERDAMAGEACCOUNT_DUPLICATED);

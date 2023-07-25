@@ -100,9 +100,9 @@ public class CapsuleArrivalServiceImplTest {
         assertNotNull(basePriceDtoSaved);
 
         //on a donc l'article
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(1, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
@@ -117,7 +117,7 @@ public class CapsuleArrivalServiceImplTest {
         assertNotNull(supplyInvoiceCapsuleDtoSaved);
 
         //On peut donc enregistrer un arrivage de l'article dans la facture Capsule
-        CapsuleArrivalDto CapsuleArrivalDtoSaved = usedForTestForProduct.saveCapsuleArrival(0, articleDtoSaved,
+        CapsuleArrivalDto CapsuleArrivalDtoSaved = usedForTestForProduct.saveCapsuleArrival(0, ArticleDtoSaved,
                 supplyInvoiceCapsuleDtoSaved, capsuleArrivalService);
         assertNotNull(CapsuleArrivalDtoSaved);
 
@@ -153,9 +153,9 @@ public class CapsuleArrivalServiceImplTest {
         assertNotNull(basePriceDtoSaved);
 
         //on a donc l'article
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(1, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
@@ -174,7 +174,7 @@ public class CapsuleArrivalServiceImplTest {
         assertNotNull(supplyInvoiceCapsuleDtoSaved1);
 
         //On peut donc enregistrer un arrivage de l'article dans la facture Capsule
-        CapsuleArrivalDto CapsuleArrivalDtoSaved = usedForTestForProduct.saveCapsArrival_NullSiCaps(0, articleDtoSaved,
+        CapsuleArrivalDto CapsuleArrivalDtoSaved = usedForTestForProduct.saveCapsArrival_NullSiCaps(0, ArticleDtoSaved,
                 supplyInvoiceCapsuleDtoSaved, capsuleArrivalService);
         assertNotNull(CapsuleArrivalDtoSaved);
 
@@ -189,7 +189,7 @@ public class CapsuleArrivalServiceImplTest {
         assertEquals(supplyInvoiceCapsuleDtoSaved1.getId(), CapsuleArrivalDtoUpdated.getCapsaSicapsDto().getId());
 
         //On peut donc enregistrer un arrivage de l'article dans la facture Capsule
-        CapsuleArrivalDto CapsuleArrivalDtoSaved1 = usedForTestForProduct.saveCapsuleArrival_Invalid(0, articleDtoSaved,
+        CapsuleArrivalDto CapsuleArrivalDtoSaved1 = usedForTestForProduct.saveCapsuleArrival_Invalid(0, ArticleDtoSaved,
                 supplyInvoiceCapsuleDtoSaved, capsuleArrivalService);
         assertNotNull(CapsuleArrivalDtoSaved1);
 
@@ -224,9 +224,9 @@ public class CapsuleArrivalServiceImplTest {
         assertNotNull(basePriceDtoSaved);
 
         //on a donc l'article
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(1, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
@@ -241,8 +241,8 @@ public class CapsuleArrivalServiceImplTest {
         assertNotNull(supplyInvoiceCapsuleDtoSaved);
 
         //On peut donc enregistrer un arrivage de l'article dans la facture Capsule
-        articleDtoSaved.setId(null);
-        CapsuleArrivalDto CapsuleArrivalDtoSaved = usedForTestForProduct.saveCapsuleArrival(0, articleDtoSaved,
+        ArticleDtoSaved.setId(null);
+        CapsuleArrivalDto CapsuleArrivalDtoSaved = usedForTestForProduct.saveCapsuleArrival(0, ArticleDtoSaved,
                 supplyInvoiceCapsuleDtoSaved, capsuleArrivalService);
         assertNotNull(CapsuleArrivalDtoSaved);
 
@@ -277,9 +277,9 @@ public class CapsuleArrivalServiceImplTest {
         assertNotNull(basePriceDtoSaved);
 
         //on a donc l'article
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(1, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
@@ -294,8 +294,8 @@ public class CapsuleArrivalServiceImplTest {
         assertNotNull(supplyInvoiceCapsuleDtoSaved);
 
         //On peut donc enregistrer un arrivage de l'article dans la facture Capsule
-        articleDtoSaved.setId(Long.valueOf(125478));
-        CapsuleArrivalDto CapsuleArrivalDtoSaved = usedForTestForProduct.saveCapsuleArrival(0, articleDtoSaved,
+        ArticleDtoSaved.setId(Long.valueOf(125478));
+        CapsuleArrivalDto CapsuleArrivalDtoSaved = usedForTestForProduct.saveCapsuleArrival(0, ArticleDtoSaved,
                 supplyInvoiceCapsuleDtoSaved, capsuleArrivalService);
         assertNotNull(CapsuleArrivalDtoSaved);
 
@@ -330,9 +330,9 @@ public class CapsuleArrivalServiceImplTest {
         assertNotNull(basePriceDtoSaved);
 
         //on a donc l'article
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(1, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
@@ -348,7 +348,7 @@ public class CapsuleArrivalServiceImplTest {
 
         //On peut donc enregistrer un arrivage de l'article dans la facture Capsule
         supplyInvoiceCapsuleDtoSaved.setId(Long.valueOf(125478));
-        CapsuleArrivalDto CapsuleArrivalDtoSaved = usedForTestForProduct.saveCapsuleArrival(0, articleDtoSaved,
+        CapsuleArrivalDto CapsuleArrivalDtoSaved = usedForTestForProduct.saveCapsuleArrival(0, ArticleDtoSaved,
                 supplyInvoiceCapsuleDtoSaved, capsuleArrivalService);
         assertNotNull(CapsuleArrivalDtoSaved);
 
@@ -406,13 +406,13 @@ public class CapsuleArrivalServiceImplTest {
         assertNotNull(basePriceDtoSaved);
 
         //on a donc l'article
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
-        ArticleDto articleDtoSaved1 = usedForTestForProduct.saveArticle(45, productFormatedDtoSaved1, unitDtoSaved1,
+        ArticleDto ArticleDtoSaved1 = usedForTestForProduct.saveArticle(45, productFormatedDtoSaved1, unitDtoSaved1,
                 basePriceDtoSaved, posDtoSaved1, articleService);
-        assertNotNull(articleDtoSaved1);
+        assertNotNull(ArticleDtoSaved1);
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(1, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
@@ -428,7 +428,7 @@ public class CapsuleArrivalServiceImplTest {
 
         //On peut donc enregistrer un arrivage de l'article dans la facture Capsule
 
-        CapsuleArrivalDto CapsuleArrivalDtoSaved = usedForTestForProduct.saveCapsuleArrival(0, articleDtoSaved1,
+        CapsuleArrivalDto CapsuleArrivalDtoSaved = usedForTestForProduct.saveCapsuleArrival(0, ArticleDtoSaved1,
                 supplyInvoiceCapsuleDtoSaved, capsuleArrivalService);
         assertNotNull(CapsuleArrivalDtoSaved);
 
@@ -463,9 +463,9 @@ public class CapsuleArrivalServiceImplTest {
         assertNotNull(basePriceDtoSaved);
 
         //on a donc l'article
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(1, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
@@ -480,11 +480,11 @@ public class CapsuleArrivalServiceImplTest {
         assertNotNull(supplyInvoiceCapsuleDtoSaved);
 
         //On peut donc enregistrer un arrivage de l'article dans la facture Capsule
-        CapsuleArrivalDto CapsuleArrivalDtoSaved = usedForTestForProduct.saveCapsuleArrival(0, articleDtoSaved,
+        CapsuleArrivalDto CapsuleArrivalDtoSaved = usedForTestForProduct.saveCapsuleArrival(0, ArticleDtoSaved,
                 supplyInvoiceCapsuleDtoSaved, capsuleArrivalService);
         assertNotNull(CapsuleArrivalDtoSaved);
 
-        CapsuleArrivalDto CapsuleArrivalDtoSaved1 = usedForTestForProduct.saveCapsuleArrival(4, articleDtoSaved,
+        CapsuleArrivalDto CapsuleArrivalDtoSaved1 = usedForTestForProduct.saveCapsuleArrival(4, ArticleDtoSaved,
                 supplyInvoiceCapsuleDtoSaved, capsuleArrivalService);
         assertNotNull(CapsuleArrivalDtoSaved1);
 
@@ -520,9 +520,9 @@ public class CapsuleArrivalServiceImplTest {
         assertNotNull(basePriceDtoSaved);
 
         //on a donc l'article
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(1, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
@@ -537,7 +537,7 @@ public class CapsuleArrivalServiceImplTest {
         assertNotNull(supplyInvoiceCapsuleDtoSaved);
 
         //On peut donc enregistrer un arrivage de l'article dans la facture Capsule
-        CapsuleArrivalDto CapsuleArrivalDtoSaved = usedForTestForProduct.saveCapsuleArrival(0, articleDtoSaved,
+        CapsuleArrivalDto CapsuleArrivalDtoSaved = usedForTestForProduct.saveCapsuleArrival(0, ArticleDtoSaved,
                 supplyInvoiceCapsuleDtoSaved, capsuleArrivalService);
         assertNotNull(CapsuleArrivalDtoSaved);
 
@@ -583,13 +583,13 @@ public class CapsuleArrivalServiceImplTest {
         assertNotNull(basePriceDtoSaved);
 
         //on a donc l'article
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
-        ArticleDto articleDtoSaved1 = usedForTestForProduct.saveArticle(5, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved1 = usedForTestForProduct.saveArticle(5, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved1);
+        assertNotNull(ArticleDtoSaved1);
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(1, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
@@ -604,7 +604,7 @@ public class CapsuleArrivalServiceImplTest {
         assertNotNull(supplyInvoiceCapsuleDtoSaved);
 
         //On peut donc enregistrer un arrivage de l'article dans la facture Capsule
-        CapsuleArrivalDto CapsuleArrivalDtoSaved = usedForTestForProduct.saveCapsuleArrival(0, articleDtoSaved,
+        CapsuleArrivalDto CapsuleArrivalDtoSaved = usedForTestForProduct.saveCapsuleArrival(0, ArticleDtoSaved,
                 supplyInvoiceCapsuleDtoSaved, capsuleArrivalService);
         assertNotNull(CapsuleArrivalDtoSaved);
 
@@ -614,7 +614,7 @@ public class CapsuleArrivalServiceImplTest {
 
         CapsuleArrivalDtoFound.setCapsaDeliveryquantity(BigDecimal.valueOf(20));
         CapsuleArrivalDtoFound.setCapsaQuantitycapschanged(BigDecimal.valueOf(20));
-        CapsuleArrivalDtoFound.setCapsaArtDto(articleDtoSaved1);
+        CapsuleArrivalDtoFound.setCapsaArtDto(ArticleDtoSaved1);
 
         CapsuleArrivalDto CapsuleArrivalDtoUpdate = capsuleArrivalService.updateCapsuleArrival(CapsuleArrivalDtoFound);
         assertNotNull(CapsuleArrivalDtoUpdate);
@@ -651,17 +651,17 @@ public class CapsuleArrivalServiceImplTest {
         assertNotNull(basePriceDtoSaved);
 
         //on a donc l'article
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
-        ArticleDto articleDtoSaved1 = usedForTestForProduct.saveArticle(5, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved1 = usedForTestForProduct.saveArticle(5, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved1);
+        assertNotNull(ArticleDtoSaved1);
 
-        ArticleDto articleDtoSaved2 = usedForTestForProduct.saveArticle(63, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved2 = usedForTestForProduct.saveArticle(63, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved2);
+        assertNotNull(ArticleDtoSaved2);
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(1, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
@@ -676,15 +676,15 @@ public class CapsuleArrivalServiceImplTest {
         assertNotNull(supplyInvoiceCapsuleDtoSaved);
 
         //On peut donc enregistrer un arrivage de l'article dans la facture Capsule
-        CapsuleArrivalDto CapsuleArrivalDtoSaved = usedForTestForProduct.saveCapsuleArrival(0, articleDtoSaved,
+        CapsuleArrivalDto CapsuleArrivalDtoSaved = usedForTestForProduct.saveCapsuleArrival(0, ArticleDtoSaved,
                 supplyInvoiceCapsuleDtoSaved, capsuleArrivalService);
         assertNotNull(CapsuleArrivalDtoSaved);
 
-        CapsuleArrivalDto CapsuleArrivalDtoSaved1 = usedForTestForProduct.saveCapsuleArrival(45, articleDtoSaved1,
+        CapsuleArrivalDto CapsuleArrivalDtoSaved1 = usedForTestForProduct.saveCapsuleArrival(45, ArticleDtoSaved1,
                 supplyInvoiceCapsuleDtoSaved, capsuleArrivalService);
         assertNotNull(CapsuleArrivalDtoSaved1);
 
-        CapsuleArrivalDto CapsuleArrivalDtoSaved2 = usedForTestForProduct.saveCapsuleArrival(478, articleDtoSaved2,
+        CapsuleArrivalDto CapsuleArrivalDtoSaved2 = usedForTestForProduct.saveCapsuleArrival(478, ArticleDtoSaved2,
                 null, capsuleArrivalService);
         assertNotNull(CapsuleArrivalDtoSaved2);
 
@@ -703,7 +703,7 @@ public class CapsuleArrivalServiceImplTest {
 
             CapsuleArrivalDtoFound.setCapsaDeliveryquantity(BigDecimal.valueOf(20));
             CapsuleArrivalDtoFound.setCapsaQuantitycapschanged(BigDecimal.valueOf(20));
-            CapsuleArrivalDtoFound.setCapsaArtDto(articleDtoSaved1);
+            CapsuleArrivalDtoFound.setCapsaArtDto(ArticleDtoSaved1);
 
             CapsuleArrivalDto CapsuleArrivalDtoUpdate = capsuleArrivalService.updateCapsuleArrival(CapsuleArrivalDtoFound);
             assertNotNull(CapsuleArrivalDtoUpdate);
@@ -742,21 +742,21 @@ public class CapsuleArrivalServiceImplTest {
         assertNotNull(basePriceDtoSaved);
 
         //on a donc l'article
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
-        ArticleDto articleDtoSaved1 = usedForTestForProduct.saveArticle(2, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved1 = usedForTestForProduct.saveArticle(2, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved1);
+        assertNotNull(ArticleDtoSaved1);
 
-        ArticleDto articleDtoSaved2 = usedForTestForProduct.saveArticle(3, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved2 = usedForTestForProduct.saveArticle(3, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved2);
+        assertNotNull(ArticleDtoSaved2);
 
-        ArticleDto articleDtoSaved3 = usedForTestForProduct.saveArticle(4, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved3 = usedForTestForProduct.saveArticle(4, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved3);
+        assertNotNull(ArticleDtoSaved3);
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(1, posDtoSaved, userBMService);
         assertNotNull(userBMDtoSaved);
@@ -771,19 +771,19 @@ public class CapsuleArrivalServiceImplTest {
         assertNotNull(supplyInvoiceCapsuleDtoSaved);
 
         //On peut donc enregistrer un arrivage de l'article dans la facture Capsule
-        CapsuleArrivalDto CapsuleArrivalDtoSaved = usedForTestForProduct.saveCapsuleArrival(0, articleDtoSaved,
+        CapsuleArrivalDto CapsuleArrivalDtoSaved = usedForTestForProduct.saveCapsuleArrival(0, ArticleDtoSaved,
                 supplyInvoiceCapsuleDtoSaved, capsuleArrivalService);
         assertNotNull(CapsuleArrivalDtoSaved);
 
-        CapsuleArrivalDto CapsuleArrivalDtoSaved1 = usedForTestForProduct.saveCapsuleArrival(1, articleDtoSaved1,
+        CapsuleArrivalDto CapsuleArrivalDtoSaved1 = usedForTestForProduct.saveCapsuleArrival(1, ArticleDtoSaved1,
                 supplyInvoiceCapsuleDtoSaved, capsuleArrivalService);
         assertNotNull(CapsuleArrivalDtoSaved1);
 
-        CapsuleArrivalDto CapsuleArrivalDtoSaved2 = usedForTestForProduct.saveCapsuleArrival(2, articleDtoSaved2,
+        CapsuleArrivalDto CapsuleArrivalDtoSaved2 = usedForTestForProduct.saveCapsuleArrival(2, ArticleDtoSaved2,
                 supplyInvoiceCapsuleDtoSaved, capsuleArrivalService);
         assertNotNull(CapsuleArrivalDtoSaved2);
 
-        CapsuleArrivalDto CapsuleArrivalDtoSaved3 = usedForTestForProduct.saveCapsuleArrival(3, articleDtoSaved3,
+        CapsuleArrivalDto CapsuleArrivalDtoSaved3 = usedForTestForProduct.saveCapsuleArrival(3, ArticleDtoSaved3,
                 supplyInvoiceCapsuleDtoSaved, capsuleArrivalService);
         assertNotNull(CapsuleArrivalDtoSaved3);
         assertTrue(capsuleArrivalService.deleteCapsuleArrivalById(CapsuleArrivalDtoSaved3.getId()));

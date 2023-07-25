@@ -96,13 +96,13 @@ public class ProviderCapsuleAccountServiceImpl implements ProviderCapsuleAccount
         /**********************************************************************
          * Maintenant on va se rassurer de l'existance de l'article en BD
          */
-        if(procsaccDto.getPcsaArticleDto().getId() == null){
+        if(procsaccDto.getPcsaXArticleDto().getId() == null){
             log.error("The id of the article associated cannot be null");
             throw new InvalidEntityException("Le id du article associe au compte capsule ne peut etre null",
                     ErrorCode.PROVIDERCAPSULEACCOUNT_NOT_VALID);
         }
         //A ce niveau on est sur que le id du article nest pas null
-        Optional<Article> optionalArticle = articleRepository.findArticleById(procsaccDto.getPcsaArticleDto().getId());
+        Optional<Article> optionalArticle = articleRepository.findArticleById(procsaccDto.getPcsaXArticleDto().getId());
         if(!optionalArticle.isPresent()){
             log.error("The article indicated in the poscapsaccount doesn't exist in DB ");
             throw new EntityNotFoundException("Aucun article n'existe avec l'id precise ",
@@ -113,7 +113,7 @@ public class ProviderCapsuleAccountServiceImpl implements ProviderCapsuleAccount
          * On verifie qu'aucun compte capsule n'est pas deja creer pour cet article et ce provider
          */
         if(isProviderCapsuleAccountofArticleExistinPos(procsaccDto.getPcsaProviderDto().getId(),
-                procsaccDto.getPcsaArticleDto().getId())){
+                procsaccDto.getPcsaXArticleDto().getId())){
             log.error("An account for capsule has been already created for this article and this provider");
             throw new DuplicateEntityException("Un compte capsule pour cet article et ce provider existe deja " +
                     "en BD ", ErrorCode.PROVIDERCAPSULEACCOUNT_DUPLICATED);

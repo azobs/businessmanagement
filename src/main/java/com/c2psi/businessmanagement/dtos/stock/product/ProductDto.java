@@ -1,6 +1,7 @@
 package com.c2psi.businessmanagement.dtos.stock.product;
 
 import com.c2psi.businessmanagement.models.Product;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
@@ -12,6 +13,7 @@ import javax.validation.constraints.Size;
 
 @Data
 @Builder
+@ApiModel
 public class ProductDto {
     @ApiModelProperty(value = "The id of the Product", name = "id", dataType = "Long")
     Long id;

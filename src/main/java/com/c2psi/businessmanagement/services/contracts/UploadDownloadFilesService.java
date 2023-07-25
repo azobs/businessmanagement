@@ -7,11 +7,21 @@ import java.nio.file.Path;
 import java.util.stream.Stream;
 
 public interface UploadDownloadFilesService {
-    public String save(MultipartFile file);
+    String save(MultipartFile file);
+    String saveImageofPerson(MultipartFile file);
+    String saveImageofArticle(MultipartFile file);
 
-    public Resource load(String filename);
+    Resource load(String filename);
+    Resource loadPerson(String filename);
+    Resource loadArticle(String filename);
 
-    public void deleteAll();
+    void deleteAll();
+    void deleteAllPerson();
+    void deleteAllArticle();
 
-    public Stream<Path> loadAll();
+    Stream<Path> loadAll();
+
+    Boolean renameFile(String folderName, String oldName, String newName);
+
+
 }

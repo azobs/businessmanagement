@@ -47,7 +47,7 @@ public class PosCapsuleAccountDto {
                 .pcsaNumber(pcsa.getPcsaNumber())
                 //.pcsaPointofsaleDto(PointofsaleDto.fromEntity(pcsa.getPcsaPointofsale()))
                 .pcsaPointofsaleId(pcsa.getPcsaPointofsaleId())
-                .pcsaArticleDto(ArticleDto.fromEntity(pcsa.getPcsaArticle()))
+                .pcsaXArticleDto(ArticleDto.fromEntity(pcsa.getPcsaArticle()))
                 .build();
     }
     public static PosCapsuleAccount toEntity(PosCapsuleAccountDto pcsaDto){
@@ -59,7 +59,7 @@ public class PosCapsuleAccountDto {
         pcsa.setPcsaNumber(pcsaDto.getPcsaNumber());
         //pcsa.setPcsaPointofsale(PointofsaleDto.toEntity(pcsaDto.getPcsaPointofsaleDto()));
         pcsa.setPcsaPointofsaleId(pcsaDto.getPcsaPointofsaleId());
-        pcsa.setPcsaArticle(ArticleDto.toEntity(pcsaDto.getPcsaArticleDto()));
+        pcsa.setPcsaArticle(ArticleDto.toEntity(pcsaDto.getPcsaXArticleDto()));
         return pcsa;
     }
 }

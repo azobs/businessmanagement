@@ -1,18 +1,20 @@
 package com.c2psi.businessmanagement.dtos.stock.product;
 
-import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.stock.price.BasePriceDto;
 import com.c2psi.businessmanagement.models.Article;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
+import java.math.MathContext;
 
 
 @Data
 @Builder
+@ApiModel
 public class ArticleDto {
     @ApiModelProperty(value = "The id of the article", name = "id", dataType = "Long")
     Long id;
@@ -38,28 +40,39 @@ public class ArticleDto {
     String artDescription;
     @NotNull(message = "The threshold value cannot be null")
     @PositiveOrZero(message = "The threshold value must be positive or zero")
-    @ApiModelProperty(value = "The threshold of the article", name = "artThreshold", dataType = "BigDecimal", example = "5")
-    BigDecimal artThreshold;
+    //@ApiModelProperty(value = "The threshold of the article", name = "artThreshold", dataType = "BigDecimal", example = "5")
+    //BigDecimal artThreshold;
+    @ApiModelProperty(value = "The threshold of the article", name = "artThreshold", dataType = "Double", example = "5")
+    Double artThreshold;
     /*****
      * A negative value means there the article cannot be selling in whole
      */
     @NotNull(message = "The low limit value to sell in whole value cannot be null")
-    @ApiModelProperty(value = "The low limit to sell in whole", name = "artLowLimitWholesale", dataType = "BigDecimal",
+//    @ApiModelProperty(value = "The low limit to sell in whole", name = "artLowLimitWholesale", dataType = "BigDecimal",
+//            example = "100")
+//    BigDecimal artLowLimitWholesale;
+    @ApiModelProperty(value = "The low limit to sell in whole", name = "artLowLimitWholesale", dataType = "Double",
             example = "100")
-    BigDecimal artLowLimitWholesale;
+    Double artLowLimitWholesale;
     /*****
      * A negative value means there the article cannot be selling in semi whole
      * If an article cannot be selling in semi whole then it cannot be also selling in whole.
      */
     @NotNull(message = "The low limit value to sell in semi whole value cannot be null")
-    @ApiModelProperty(value = "The low limit to sell in semi whole", name = "artLowLimitSemiWholesale", dataType = "BigDecimal",
+//    @ApiModelProperty(value = "The low limit to sell in semi whole", name = "artLowLimitSemiWholesale", dataType = "BigDecimal",
+//            example = "75")
+//    BigDecimal artLowLimitSemiWholesale;
+    @ApiModelProperty(value = "The low limit to sell in semi whole", name = "artLowLimitSemiWholesale", dataType = "Double",
             example = "75")
-    BigDecimal artLowLimitSemiWholesale;
+    Double artLowLimitSemiWholesale;
     @NotNull(message = "The current quantity in stock cannot be null")
     @PositiveOrZero(message = "The current quantity in stock must be positive or zero")
-    @ApiModelProperty(value = "The real quantity in stock", name = "artQuantityinstock", dataType = "BigDecimal",
+//    @ApiModelProperty(value = "The real quantity in stock", name = "artQuantityinstock", dataType = "BigDecimal",
+//            example = "10")
+//    BigDecimal artQuantityinstock;
+    @ApiModelProperty(value = "The real quantity in stock", name = "artQuantityinstock", dataType = "Double",
             example = "10")
-    BigDecimal artQuantityinstock;
+    Double artQuantityinstock;
     /******************************
      * Relation between entities  *
      * ****************************/
@@ -96,10 +109,10 @@ public class ArticleDto {
                 .artName(article.getArtName())
                 .artShortname(article.getArtShortname())
                 .artDescription(article.getArtDescription())
-                .artThreshold(article.getArtThreshold())
-                .artLowLimitSemiWholesale(article.getArtLowLimitSemiWholesale())
-                .artLowLimitWholesale(article.getArtLowLimitWholesale())
-                .artQuantityinstock(article.getArtQuantityinstock())
+                .artThreshold(article.getArtThreshold().doubleValue())
+                .artLowLimitSemiWholesale(article.getArtLowLimitSemiWholesale().doubleValue())
+                .artLowLimitWholesale(article.getArtLowLimitWholesale().doubleValue())
+                .artQuantityinstock(article.getArtQuantityinstock().doubleValue())
                 .artPfDto(ProductFormatedDto.fromEntity(article.getArtPf()))
                 .artUnitDto(UnitDto.fromEntity(article.getArtUnit()))
                 .artBpDto(BasePriceDto.fromEntity(article.getArtBp()))
@@ -108,25 +121,29 @@ public class ArticleDto {
 
                 .build();
     }
-    public static Article toEntity(ArticleDto articleDto){
-        if(articleDto == null){
+    public static Article toEntity(ArticleDto ArticleDto){
+        if(ArticleDto == null){
             return null;
         }
         Article art = new Article();
-        art.setId(articleDto.getId());
-        art.setArtCode(articleDto.getArtCode());
-        art.setArtName(articleDto.getArtName());
-        art.setArtShortname(articleDto.getArtShortname());
-        art.setArtDescription(articleDto.getArtDescription());
-        art.setArtThreshold(articleDto.getArtThreshold());
-        art.setArtLowLimitWholesale(articleDto.getArtLowLimitWholesale());
-        art.setArtLowLimitSemiWholesale(articleDto.getArtLowLimitSemiWholesale());
-        art.setArtQuantityinstock(articleDto.getArtQuantityinstock());
-        art.setArtPf(ProductFormatedDto.toEntity(articleDto.getArtPfDto()));
-        art.setArtUnit(UnitDto.toEntity(articleDto.getArtUnitDto()));
-        art.setArtBp(BasePriceDto.toEntity(articleDto.getArtBpDto()));
+        art.setId(ArticleDto.getId());
+        art.setArtCode(ArticleDto.getArtCode());
+        art.setArtName(ArticleDto.getArtName());
+        art.setArtShortname(ArticleDto.getArtShortname());
+        art.setArtDescription(ArticleDto.getArtDescription());
+//        art.setArtThreshold(articleDto.getArtThreshold());
+//        art.setArtLowLimitWholesale(articleDto.getArtLowLimitWholesale());
+//        art.setArtLowLimitSemiWholesale(articleDto.getArtLowLimitSemiWholesale());
+//        art.setArtQuantityinstock(articleDto.getArtQuantityinstock());
+        art.setArtThreshold(new BigDecimal(ArticleDto.getArtThreshold(), new MathContext(2)));
+        art.setArtLowLimitWholesale(new BigDecimal(ArticleDto.getArtLowLimitWholesale(), new MathContext(2)));
+        art.setArtLowLimitSemiWholesale(new BigDecimal(ArticleDto.getArtLowLimitSemiWholesale(), new MathContext(2)));
+        art.setArtQuantityinstock(new BigDecimal(ArticleDto.getArtQuantityinstock(), new MathContext(2)));
+        art.setArtPf(ProductFormatedDto.toEntity(ArticleDto.getArtPfDto()));
+        art.setArtUnit(UnitDto.toEntity(ArticleDto.getArtUnitDto()));
+        art.setArtBp(BasePriceDto.toEntity(ArticleDto.getArtBpDto()));
         //art.setArtPos(PointofsaleDto.toEntity(articleDto.getArtPosDto()));
-        art.setArtPosId(articleDto.getArtPosId());
+        art.setArtPosId(ArticleDto.getArtPosId());
 
         return art;
     }

@@ -88,13 +88,13 @@ public class PosCapsuleAccountServiceImpl implements PosCapsuleAccountService {
         /**********************************************************************
          * Maintenant on va se rassurer de l'existance de l'article en BD
          */
-        if(poscapsaccDto.getPcsaArticleDto().getId() == null){
+        if(poscapsaccDto.getPcsaXArticleDto().getId() == null){
             log.error("The id of the article associated cannot be null");
             throw new InvalidEntityException("Le id du article associe au compte capsule ne peut etre null",
                     ErrorCode.POSCAPSULEACCOUNT_NOT_VALID);
         }
         //A ce niveau on est sur que le id du article nest pas null
-        Optional<Article> optionalArticle = articleRepository.findArticleById(poscapsaccDto.getPcsaArticleDto().getId());
+        Optional<Article> optionalArticle = articleRepository.findArticleById(poscapsaccDto.getPcsaXArticleDto().getId());
         if(!optionalArticle.isPresent()){
             log.error("The article indicated in the poscapsaccount doesn't exist in DB ");
             throw new EntityNotFoundException("Aucun article n'existe avec l'id precise ",
@@ -104,7 +104,7 @@ public class PosCapsuleAccountServiceImpl implements PosCapsuleAccountService {
         /******************************************************************************************
          * On verifie que l'article est dans le meme pointofsale que celui precise pour le compte
          */
-        if(!poscapsaccDto.getPcsaArticleDto().getArtPosId().equals(poscapsaccDto.getPcsaPointofsaleId())){
+        if(!poscapsaccDto.getPcsaXArticleDto().getArtPosId().equals(poscapsaccDto.getPcsaPointofsaleId())){
             log.error("The precised article is not in the pointofsale precise for the account");
             throw new InvalidEntityException("L'article pour lequel creer le compte doit etre dans le meme pointofsale " +
                     "que celui dans lequel le compte est cree ", ErrorCode.POSCAPSULEACCOUNT_NOT_VALID);
@@ -113,7 +113,7 @@ public class PosCapsuleAccountServiceImpl implements PosCapsuleAccountService {
         /*************************************************************************************************
          * On verifie qu'aucun compte capsule n'est pas deja creer pour cet article dans ce pointofsale
          */
-        if(isPosCapsuleAccountofArticleExistinPos(poscapsaccDto.getPcsaArticleDto().getId(),
+        if(isPosCapsuleAccountofArticleExistinPos(poscapsaccDto.getPcsaXArticleDto().getId(),
                 poscapsaccDto.getPcsaPointofsaleId())){
             log.error("An account for capsule has been already created for this article in this pointofsale");
             throw new DuplicateEntityException("Un compte capsule pour cet article dans ce pointofsale existe deja " +

@@ -17,7 +17,7 @@ public class BackInDetailsValidatorTest {
     @Test
     public void validate() {
         BackInDetailsDto backInDetailsDto = BackInDetailsDto.builder()
-                .bidArticleDto(ArticleDto.builder().build())
+                .bidXArticleDto(ArticleDto.builder().build())
                 .bidbiDto(BackInDto.builder().build())
                 .bidComment(null)
                 .bidQuantity(BigDecimal.valueOf(15))
@@ -32,7 +32,7 @@ public class BackInDetailsValidatorTest {
     @Test
     public void validateNull() {
         BackInDetailsDto backInDetailsDto = BackInDetailsDto.builder()
-                .bidArticleDto(ArticleDto.builder().build())
+                .bidXArticleDto(ArticleDto.builder().build())
                 .bidbiDto(BackInDto.builder().build())
                 .bidComment(null)
                 .bidQuantity(BigDecimal.valueOf(15))
@@ -48,7 +48,7 @@ public class BackInDetailsValidatorTest {
     @Test
     public void validateNullValue() {
         BackInDetailsDto backInDetailsDto = BackInDetailsDto.builder()
-                .bidArticleDto(null)
+                .bidXArticleDto(null)
                 .bidbiDto(null)
                 .bidComment(null)
                 .bidQuantity(null)
@@ -66,7 +66,7 @@ public class BackInDetailsValidatorTest {
     @Test
     public void validatePositiveValue() {
         BackInDetailsDto backInDetailsDto = BackInDetailsDto.builder()
-                .bidArticleDto(ArticleDto.builder().build())
+                .bidXArticleDto(ArticleDto.builder().build())
                 .bidbiDto(BackInDto.builder().build())
                 .bidComment(null)
                 .bidQuantity(BigDecimal.valueOf(0))

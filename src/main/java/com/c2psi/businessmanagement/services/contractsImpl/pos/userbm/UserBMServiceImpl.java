@@ -183,14 +183,14 @@ public class UserBMServiceImpl implements UserBMService {
 
         if(!this.isUserBMExistWithId(userBMDto.getId())){
             throw new EntityNotFoundException("Le userBM a update n'existe pas dans la BD",
-                    ErrorCode.USERBM_NOT_VALID, errors);
+                    ErrorCode.USERBM_NOT_FOUND, errors);
         }
 
         //Tous est bon donc on peut maintenant recuperer le UserBM a modifier
         UserBM userBMToUpdate = UserBMDto.toEntity(this.findUserBMById(userBMDto.getId()));
         //userBMToUpdate.setBmAddress(AddressDto.toEntity(userBMDto.getBmAddressDto()));
-
         if(!userBMToUpdate.getBmCni().equalsIgnoreCase(userBMDto.getBmCni())){
+            log.info("Alors le CNI pourra etre modifie");
             if(!this.isUserBMExistWithCni(userBMDto.getBmCni())){
                 userBMToUpdate.setBmCni(userBMDto.getBmCni());
             }
@@ -200,6 +200,7 @@ public class UserBMServiceImpl implements UserBMService {
             }
         }
         if(!userBMToUpdate.getBmLogin().equalsIgnoreCase(userBMDto.getBmLogin())){
+            log.info("Alors le login pourra etre modifie");
             if(!this.isUserBMExistWithLogin(userBMDto.getBmLogin())){
                 userBMToUpdate.setBmLogin(userBMDto.getBmLogin());
             }
@@ -211,6 +212,7 @@ public class UserBMServiceImpl implements UserBMService {
 
         if(userBMDto.getBmAddressDto().getEmail() != null && userBMToUpdate.getBmAddress().getEmail() != null) {
             if (!userBMToUpdate.getBmAddress().getEmail().equals(userBMDto.getBmAddressDto().getEmail())) {
+                log.info("Alors l'email pourra etre modifie");
                 if (!this.isUserBMExistWithEmail(userBMDto.getBmAddressDto().getEmail())) {
                     userBMToUpdate.getBmAddress().setEmail(userBMDto.getBmAddressDto().getEmail());
                 } else {
@@ -219,10 +221,6 @@ public class UserBMServiceImpl implements UserBMService {
                 }
             }
         }
-
-        /*System.out.println("BmName()="+userBMToUpdate.getBmName()+" DtoBmName()="+userBMDto.getBmName());
-        System.out.println("BmSurname()="+userBMToUpdate.getBmSurname()+" DtoBmSurname()="+userBMDto.getBmSurname());
-        System.out.println("BmDob()="+userBMToUpdate.getBmDob()+" DtoBmDob()="+userBMDto.getBmDob());*/
 
         if(!userBMToUpdate.getBmName().equalsIgnoreCase(userBMDto.getBmName()) ||
                 !userBMToUpdate.getBmSurname().equalsIgnoreCase(userBMDto.getBmSurname()) ||

@@ -25,7 +25,7 @@ public interface ArticleApi {
     @GetMapping(value = FIND_ALL_ARTICLE_OF_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllArticleofPos", notes = "Search all articles in a pointofsale",
-            responseContainer = "List<ArticleDto>")
+            responseContainer = "List<XArticleDto>")
     @ApiResponses(value={
             @ApiResponse(code=200, message="The list of article of pointofsale found successfully"),
             @ApiResponse(code=404, message="Error faced during the finding process")
@@ -42,7 +42,7 @@ public interface ArticleApi {
     @GetMapping(value = FIND_ALL_ARTICLE_OF_POS_ORDERBY_CREATIONDATE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllArticleofPos", notes = "Search all articles in a pointofsale order by creation date",
-            responseContainer = "List<ArticleDto>")
+            responseContainer = "List<XArticleDto>")
     @ApiResponses(value={
             @ApiResponse(code=200, message="The list of article of pointofsale found successfully"),
             @ApiResponse(code=404, message="Error faced during the finding process")
@@ -57,7 +57,7 @@ public interface ArticleApi {
     @GetMapping(value = FIND_PAGE_ARTICLE_OF_POS_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageArticleofPos", notes = "Search all articles in a pointofsale page by page",
-            responseContainer = "Page<ArticleDto>")
+            responseContainer = "Page<XArticleDto>")
     @ApiResponses(value={
             @ApiResponse(code=200, message="The page of article of pointofsale found successfully"),
             @ApiResponse(code=404, message="Error faced during the finding process")
@@ -74,7 +74,7 @@ public interface ArticleApi {
     @GetMapping(value = FIND_PAGE_ARTICLE_OF_POS_ORDERBY_CREATIONDATE_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageArticleofPos", notes = "Search all articles in a pointofsale order by creation date page by page",
-            responseContainer = "Page<ArticleDto>")
+            responseContainer = "Page<XArticleDto>")
     @ApiResponses(value={
             @ApiResponse(code=200, message="The page of article of pointofsale found successfully"),
             @ApiResponse(code=404, message="Error faced during the finding process")
@@ -91,7 +91,7 @@ public interface ArticleApi {
     @GetMapping(value = FIND_ALL_ARTICLE_OF_CATEGORY_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllArticleofCat", notes = "Search all articles in a category",
-            responseContainer = "List<ArticleDto>")
+            responseContainer = "List<XArticleDto>")
     @ApiResponses(value={
             @ApiResponse(code=200, message="The list of article of category found successfully"),
             @ApiResponse(code=404, message="Error faced during the finding process")
@@ -106,7 +106,7 @@ public interface ArticleApi {
     @GetMapping(value = FIND_PAGE_ARTICLE_OF_CATEGORY_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageArticleofCat", notes = "Search all articles in a category page by page",
-            responseContainer = "Page<ArticleDto>")
+            responseContainer = "Page<XArticleDto>")
     @ApiResponses(value={
             @ApiResponse(code=200, message="The page of article of category found successfully"),
             @ApiResponse(code=404, message="Error faced during the finding process")
@@ -131,7 +131,7 @@ public interface ArticleApi {
             @ApiResponse(code=400, message="Object Article is not valid during the saving process")
     })
     ResponseEntity saveArticle(
-            @ApiParam(name = "artDto", type = "ArticleDto", required = true,
+            @ApiParam(name = "artDto", type = "XArticleDto", required = true,
                     value="The JSON object that represent the Article to save")
             @Valid @RequestBody ArticleDto artDto, BindingResult bindingResult);
 
@@ -148,7 +148,7 @@ public interface ArticleApi {
             @ApiResponse(code=400, message="Object Article is not valid during the updating process")
     })
     ResponseEntity updateArticle(
-            @ApiParam(name = "artDto", type = "ArticleDto", required = true,
+            @ApiParam(name = "artDto", type = "XArticleDto", required = true,
                     value="The JSON object that represent the Article to update")
             @Valid @RequestBody ArticleDto artDto, BindingResult bindingResult);
 
@@ -165,7 +165,7 @@ public interface ArticleApi {
             @ApiResponse(code=400, message="Object Article(stock) is not valid during the updating process")
     })
     ResponseEntity fixQuantityofArticle(
-            @ApiParam(name = "artDto", type = "ArticleDto", required = true,
+            @ApiParam(name = "artDto", type = "XArticleDto", required = true,
                     value="The JSON object that represent the Article to update")
             @Valid @RequestBody ArticleDto artDto, BindingResult bindingResult);
 
@@ -182,7 +182,7 @@ public interface ArticleApi {
             @ApiResponse(code=400, message="Object Article(Unit) is not valid during the updating process")
     })
     ResponseEntity updateUnitofArticle(
-            @ApiParam(name = "artDto", type = "ArticleDto", required = true,
+            @ApiParam(name = "artDto", type = "XArticleDto", required = true,
                     value="The JSON object that represent the Article to update")
             @Valid @RequestBody ArticleDto artDto, BindingResult bindingResult);
 
@@ -199,7 +199,7 @@ public interface ArticleApi {
             @ApiResponse(code=400, message="Object Article(BasePrice) is not valid during the updating process")
     })
     ResponseEntity updateBasePriceofArticle(
-            @ApiParam(name = "artDto", type = "ArticleDto", required = true,
+            @ApiParam(name = "artDto", type = "XArticleDto", required = true,
                     value="The JSON object that represent the Article to update")
             @Valid @RequestBody ArticleDto artDto, BindingResult bindingResult);
 
@@ -241,7 +241,7 @@ public interface ArticleApi {
     @GetMapping(value = FIND_ALL_ARTICLE_OF_PROVIDER_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findAllArticleofProviderInPos", notes = "Search in the DB all articles of a provider in Pos",
-            responseContainer = "List<ArticleDto>")
+            responseContainer = "List<XArticleDto>")
     @ApiResponses(value={
             @ApiResponse(code=200, message="The article list of a provider in Pos found successfully"),
             @ApiResponse(code=404, message="Error faced during the finding process")
@@ -259,7 +259,7 @@ public interface ArticleApi {
     @GetMapping(value = FIND_PAGE_ARTICLE_OF_PROVIDER_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageofArticleofProviderInPos", notes = "Search in the DB all articles of a provider in Pos page by page",
-            responseContainer = "Page<ArticleDto>")
+            responseContainer = "Page<XArticleDto>")
     @ApiResponses(value={
             @ApiResponse(code=200, message="The article page of a provider in Pos found successfully"),
             @ApiResponse(code=404, message="Error faced during the finding process")
@@ -279,7 +279,7 @@ public interface ArticleApi {
     @GetMapping(value = FIND_PAGE_ARTICLE_CONTANING_ENDPOINT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "findPageofArticleofProviderInPos", notes = "Search in the DB all articles of a provider in Pos page by page",
-            responseContainer = "Page<ArticleDto>")
+            responseContainer = "Page<XArticleDto>")
     @ApiResponses(value={
             @ApiResponse(code=200, message="The article page of a provider in Pos found successfully"),
             @ApiResponse(code=404, message="Error faced during the finding process")
@@ -322,7 +322,7 @@ public interface ArticleApi {
             @ApiResponse(code=400, message="Object Article(quantity in stock) is not valid during the updating process")
     })
     ResponseEntity addQuantityofArticle(
-            @ApiParam(name = "artDto", type = "ArticleDto", required = true,
+            @ApiParam(name = "artDto", type = "XArticleDto", required = true,
                     value="The JSON object that represent the Article to update")
             @Valid @RequestBody ArticleDto artDto, BindingResult bindingResult);
 
@@ -357,7 +357,7 @@ public interface ArticleApi {
             @ApiResponse(code=400, message="Object Article(quantity in stock) is not valid during the updating process")
     })
     ResponseEntity reduceQuantityofArticle(
-            @ApiParam(name = "artDto", type = "ArticleDto", required = true,
+            @ApiParam(name = "artDto", type = "XArticleDto", required = true,
                     value="The JSON object that represent the Article to update")
             @Valid @RequestBody ArticleDto artDto, BindingResult bindingResult);
 
@@ -390,7 +390,7 @@ public interface ArticleApi {
             @ApiResponse(code=400, message="Error faced during the adding damage quantity process")
     })
     ResponseEntity addDamageArticleof(
-            @ApiParam(name = "artDto", type = "ArticleDto", required = true,
+            @ApiParam(name = "artDto", type = "XArticleDto", required = true,
                     value="The JSON object that represent the Article to update")
             @Valid @RequestBody ArticleDto artDto, BindingResult bindingResult);
 
@@ -423,7 +423,7 @@ public interface ArticleApi {
             @ApiResponse(code=400, message="Error faced during the adding damage quantity process")
     })
     ResponseEntity reduceDamageArticle(
-            @ApiParam(name = "artDto", type = "ArticleDto", required = true,
+            @ApiParam(name = "artDto", type = "XArticleDto", required = true,
                     value="The JSON object that represent the Article to update")
             @Valid @RequestBody ArticleDto artDto, BindingResult bindingResult);
 

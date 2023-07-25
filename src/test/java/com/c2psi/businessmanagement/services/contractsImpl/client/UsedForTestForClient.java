@@ -113,12 +113,12 @@ public class UsedForTestForClient {
         return clientDtoSaved;
     }
 
-    public ClientCapsuleAccountDto saveClientCapsuleAccount(int solde, ClientDto clientDtoSaved, ArticleDto articleDtoSaved,
+    public ClientCapsuleAccountDto saveClientCapsuleAccount(int solde, ClientDto clientDtoSaved, ArticleDto ArticleDtoSaved,
                                                             ClientCapsuleAccountService clientCapsuleAccountService){
         Assert.assertNotNull(clientCapsuleAccountService);
         ClientCapsuleAccountDto clientCapsuleAccountDtoToSave = ClientCapsuleAccountDto.builder()
                 .ccsaClientDto(clientDtoSaved)
-                .ccsaArticleDto(articleDtoSaved)
+                .ccsaXArticleDto(ArticleDtoSaved)
                 .ccsaNumber(BigDecimal.valueOf(solde))
                 .build();
         ClientCapsuleAccountDto clientCapsuleAccountDtoSaved = clientCapsuleAccountService.saveClientCapsuleAccount(
@@ -126,12 +126,12 @@ public class UsedForTestForClient {
         return clientCapsuleAccountDtoSaved;
     }
 
-    public ClientDamageAccountDto saveClientDamageAccount(int solde, ClientDto clientDtoSaved, ArticleDto articleDtoSaved,
+    public ClientDamageAccountDto saveClientDamageAccount(int solde, ClientDto clientDtoSaved, ArticleDto ArticleDtoSaved,
                                                           ClientDamageAccountService clientDamageAccountService){
         Assert.assertNotNull(clientDamageAccountService);
         ClientDamageAccountDto clientDamageAccountDtoToSave = ClientDamageAccountDto.builder()
                 .cdaClientDto(clientDtoSaved)
-                .cdaArticleDto(articleDtoSaved)
+                .cdaXArticleDto(ArticleDtoSaved)
                 .cdaNumber(BigDecimal.valueOf(solde))
                 .build();
         ClientDamageAccountDto clientDamageAccountDtoSaved = clientDamageAccountService.saveClientDamageAccount(
@@ -165,13 +165,13 @@ public class UsedForTestForClient {
         return clientPackagingAccountDtoSaved;
     }
 
-    public ClientSpecialpriceDto saveClientSpecialprice(int num, ClientDto clientDtoSaved, ArticleDto articleDtoSaved,
+    public ClientSpecialpriceDto saveClientSpecialprice(int num, ClientDto clientDtoSaved, ArticleDto ArticleDtoSaved,
                                                         SpecialPriceDto specialPriceDtoSaved,
                                                         ClientSpecialpriceService clientSpecialpriceService){
         Assert.assertNotNull(clientSpecialpriceService);
         ClientSpecialpriceDto clientSpecialpriceDtoToSaved = ClientSpecialpriceDto.builder()
                 .cltSpClientDto(clientDtoSaved)
-                .cltSpArtDto(articleDtoSaved)
+                .cltSpArtDto(ArticleDtoSaved)
                 .cltSpPDto(specialPriceDtoSaved)
                 .cltSpApplieddate(new Date().toInstant())
                 .build();
@@ -180,7 +180,7 @@ public class UsedForTestForClient {
         return clientSpecialpriceDtoSaved;
     }
 
-    public ClientSpecialpriceDto saveClientSpecialprice_Invalid(int num, ClientDto clientDtoSaved, ArticleDto articleDtoSaved,
+    public ClientSpecialpriceDto saveClientSpecialprice_Invalid(int num, ClientDto clientDtoSaved, ArticleDto ArticleDtoSaved,
                                                         SpecialPriceDto specialPriceDtoSaved,
                                                         ClientSpecialpriceService clientSpecialpriceService){
         Assert.assertNotNull(clientSpecialpriceService);
@@ -380,7 +380,7 @@ public class UsedForTestForClient {
                 .saleFinalprice(BigDecimal.valueOf(1254))
                 .saleType(SaleType.Whole)
                 .saleCommandDto(cmdDtoSaved)
-                .saleArticleDto(artDtoSaved)
+                .saleXArticleDto(artDtoSaved)
                 .salePosId(posDtoSaved.getId())
                 .build();
 
@@ -403,7 +403,7 @@ public class UsedForTestForClient {
                 .saleFinalprice(BigDecimal.valueOf(1254))
                 .saleType(SaleType.Whole)
                 .saleCommandDto(cmdDtoSaved)
-                .saleArticleDto(null)
+                .saleXArticleDto(null)
                 .salePosId(posDtoSaved.getId())
                 .build();
 
@@ -457,17 +457,17 @@ public class UsedForTestForClient {
         return backInDtoSaved;
     }
 
-    public BackInDetailsDto saveBackInDetails(int num, ArticleDto articleDtoSaved, BackInDto backInDtoSaved,
-                                       BackInDetailsService backInDetailsService){
+    public BackInDetailsDto saveBackInDetails(int num, ArticleDto ArticleDtoSaved, BackInDto backInDtoSaved,
+                                              BackInDetailsService backInDetailsService){
 
         assertNotNull(backInDetailsService);
         assertNotNull(backInDtoSaved);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         BackInDetailsDto backInDetailsDtoToSave = BackInDetailsDto.builder()
                 .bidQuantity(BigDecimal.valueOf(5))
                 .bidComment("comment "+num)
-                .bidArticleDto(articleDtoSaved)
+                .bidXArticleDto(ArticleDtoSaved)
                 .bidbiDto(backInDtoSaved)
                 .build();
 

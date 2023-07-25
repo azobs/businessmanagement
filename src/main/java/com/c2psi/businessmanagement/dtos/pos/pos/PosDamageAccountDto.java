@@ -47,7 +47,7 @@ public class PosDamageAccountDto {
                 .pdaNumber(pda.getPdaNumber())
                 //.pdaPointofsaleDto(PointofsaleDto.fromEntity(pda.getPdaPointofsale()))
                 .pdaPointofsaleId(pda.getPdaPointofsaleId())
-                .pdaArticleDto(ArticleDto.fromEntity(pda.getPdaArticle()))
+                .pdaXArticleDto(ArticleDto.fromEntity(pda.getPdaArticle()))
                 .build();
     }
     public static PosDamageAccount toEntity(PosDamageAccountDto pdaDto){
@@ -59,7 +59,7 @@ public class PosDamageAccountDto {
         pda.setPdaNumber(pdaDto.getPdaNumber());
         //pda.setPdaPointofsale(PointofsaleDto.toEntity(pdaDto.getPdaPointofsaleDto()));
         pda.setPdaPointofsaleId(pdaDto.getPdaPointofsaleId());
-        pda.setPdaArticle(ArticleDto.toEntity(pdaDto.getPdaArticleDto()));
+        pda.setPdaArticle(ArticleDto.toEntity(pdaDto.getPdaXArticleDto()));
         return pda;
     }
 }

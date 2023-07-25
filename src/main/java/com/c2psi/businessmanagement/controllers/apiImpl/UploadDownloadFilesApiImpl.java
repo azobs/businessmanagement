@@ -25,16 +25,47 @@ public class UploadDownloadFilesApiImpl implements UploadDownloadFilesApi {
 
     @Override
     public ResponseEntity personsUploadFile(MultipartFile file) {
-        log.info("uploadFile execution");
+        log.info("controller personsUploadFile in execution");
         Map<String, Object> map = new LinkedHashMap<>();
         String message = "";
         try{
-            String msg = uploadDownloadFilesService.save(file);
-            message = "Uploaded the file successfully: " + file.getOriginalFilename();
+            String msg = uploadDownloadFilesService.saveImageofPerson(file);
+            message = "Person image uploaded successfully: " + file.getOriginalFilename();
 
             map.clear();
             map.put("status", HttpStatus.OK);
-            map.put("message", "The save image method has been called sucessfully");
+            map.put("message", "The person image save method has been called sucessfully");
+            map.put("data", msg);
+            map.put("cause", "nothing happens");
+            //return ResponseEntity.ok(map);
+            return new ResponseEntity(map, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            message = "Could not upload the file: " + file.getOriginalFilename() + ". Error: " + e.getMessage();
+
+            map.clear();
+            map.put("status", HttpStatus.EXPECTATION_FAILED);
+            map.put("message", "Problem during uploading process");
+            map.put("data", message);
+            map.put("cause", e.getMessage());
+            //return ResponseEntity.ok(map);
+            return new ResponseEntity(map, HttpStatus.EXPECTATION_FAILED);
+        }
+        //return null;
+    }
+
+    @Override
+    public ResponseEntity articlesUploadFile(MultipartFile file) {
+        log.info("controller articlesUploadFile in execution");
+        Map<String, Object> map = new LinkedHashMap<>();
+        String message = "";
+        try{
+            String msg = uploadDownloadFilesService.saveImageofArticle(file);
+            message = "Article image uploaded the file successfully: " + file.getOriginalFilename();
+
+            map.clear();
+            map.put("status", HttpStatus.OK);
+            map.put("message", "The article image save method has been called sucessfully");
             map.put("data", msg);
             map.put("cause", "nothing happens");
             //return ResponseEntity.ok(map);

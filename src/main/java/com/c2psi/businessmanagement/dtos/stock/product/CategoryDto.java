@@ -2,6 +2,7 @@ package com.c2psi.businessmanagement.dtos.stock.product;
 
 import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.models.Category;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
@@ -13,6 +14,7 @@ import javax.validation.constraints.Size;
 
 @Data
 @Builder
+@ApiModel
 public class CategoryDto {
     @ApiModelProperty(value = "The id of the Category", name = "id", dataType = "Long")
     Long id;

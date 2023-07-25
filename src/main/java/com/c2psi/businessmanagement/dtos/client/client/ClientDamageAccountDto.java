@@ -42,7 +42,7 @@ public class ClientDamageAccountDto {
                 .id(cda.getId())
                 .cdaNumber(cda.getCdaNumber())
                 .cdaClientDto(ClientDto.fromEntity(cda.getCdaClient()))
-                .cdaArticleDto(ArticleDto.fromEntity(cda.getCdaArticle()))
+                .cdaXArticleDto(ArticleDto.fromEntity(cda.getCdaArticle()))
                 .build();
     }
     public static ClientDamageAccount toEntity(ClientDamageAccountDto cda_dto){
@@ -53,7 +53,7 @@ public class ClientDamageAccountDto {
         cda.setId(cda_dto.getId());
         cda.setCdaNumber(cda_dto.getCdaNumber());
         cda.setCdaClient(ClientDto.toEntity(cda_dto.getCdaClientDto()));
-        cda.setCdaArticle(ArticleDto.toEntity(cda_dto.getCdaArticleDto()));
+        cda.setCdaArticle(ArticleDto.toEntity(cda_dto.getCdaXArticleDto()));
         return cda;
     }
 }

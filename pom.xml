@@ -111,6 +111,12 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
 
 
     </dependencies>
@@ -139,7 +145,7 @@
                 </configuration>
             </plugin>-->
             <!--Generate the swagger documentation for frontend-->
-            <!--<plugin>
+            <plugin>
                 <groupId>com.github.kongchen</groupId>
                 <artifactId>swagger-maven-plugin</artifactId>
                 <version>3.1.8</version>
@@ -148,7 +154,17 @@
                         <apiSource>
                             <springmvc>true</springmvc>
                             <locations>
+                                <location>com.c2psi.businessmanagement.controllers.auth</location>
                                 <location>com.c2psi.businessmanagement.controllers.apiImpl</location>
+                                <location>com.c2psi.businessmanagement.controllers.apiImpl.client.client</location>
+                                <location>com.c2psi.businessmanagement.controllers.apiImpl.client.command</location>
+                                <location>com.c2psi.businessmanagement.controllers.apiImpl.client.delivery</location>
+                                <location>com.c2psi.businessmanagement.controllers.apiImpl.pos.loading</location>
+                                <location>com.c2psi.businessmanagement.controllers.apiImpl.pos.pos</location>
+                                <location>com.c2psi.businessmanagement.controllers.apiImpl.pos.userbm</location>
+                                <location>com.c2psi.businessmanagement.controllers.apiImpl.stock.price</location>
+                                <location>com.c2psi.businessmanagement.controllers.apiImpl.stock.product</location>
+                                <location>com.c2psi.businessmanagement.controllers.apiImpl.stock.provider</location>
                             </locations>
                             <basePath>http://localhost:8081</basePath>
                             <info>
@@ -164,6 +180,7 @@
                             <outputPath>${project.build.directory}</outputPath>
                             <outputFormats>json</outputFormats>
                             <swaggerApiReader>com.github.kongchen.swagger.docgen.reader.SpringMvcApiReader</swaggerApiReader>
+                            <!--<swaggerApiReader>com.github.kongchen.swagger.docgen.reader.SwaggerReader</swaggerApiReader>-->
                             <swaggerDirectory>${project.build.directory}</swaggerDirectory>
                         </apiSource>
                     </apiSources>
@@ -176,8 +193,58 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>-->
+            </plugin>
             <!--End of the configuration used to generate the swagger documentation-->
+
+            <!--Another 1 maven plugin-->
+            <!--<plugin>
+                <groupId>com.github.kongchen</groupId>
+                <artifactId>swagger-maven-plugin</artifactId>
+                <version>3.1.8</version>
+                <configuration>
+                    <apiSources>
+                        <apiSource>
+                            <attachSwaggerArtifact>true</attachSwaggerArtifact>
+                            <outputFormats>json</outputFormats>
+                            <locations>
+                                <location>com.c2psi.businessmanagement.controllers.auth</location>
+                                <location>com.c2psi.businessmanagement.controllers.apiImpl</location>
+                                <location>com.c2psi.businessmanagement.controllers.apiImpl.client.client</location>
+                                <location>com.c2psi.businessmanagement.controllers.apiImpl.client.command</location>
+                                <location>com.c2psi.businessmanagement.controllers.apiImpl.client.delivery</location>
+                                <location>com.c2psi.businessmanagement.controllers.apiImpl.pos.loading</location>
+                                <location>com.c2psi.businessmanagement.controllers.apiImpl.pos.pos</location>
+                                <location>com.c2psi.businessmanagement.controllers.apiImpl.pos.userbm</location>
+                                <location>com.c2psi.businessmanagement.controllers.apiImpl.stock.price</location>
+                                <location>com.c2psi.businessmanagement.controllers.apiImpl.stock.product</location>
+                                <location>com.c2psi.businessmanagement.controllers.apiImpl.stock.provider</location>
+                            </locations>
+                            <schemes>
+                                <scheme>http</scheme>
+                                <scheme>https</scheme>
+                            </schemes>
+                            <host>localhost:8081</host>
+                            <basePath>http://localhost:8081</basePath>
+                            <info>
+                                <title>Your API name</title>
+                                <version>v2</version>
+                                <description>Description of your API</description>
+                            </info>
+                            <swaggerDirectory>generated/swagger-ui</swaggerDirectory>
+                        </apiSource>
+                    </apiSources>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>-->
+            <!--End of Another 1 maven plugin-->
+
         </plugins>
     </build>
 

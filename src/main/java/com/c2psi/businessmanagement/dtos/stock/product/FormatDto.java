@@ -1,6 +1,7 @@
 package com.c2psi.businessmanagement.dtos.stock.product;
 
 import com.c2psi.businessmanagement.models.Format;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
@@ -10,6 +11,7 @@ import java.math.BigDecimal;
 
 @Data
 @Builder
+@ApiModel
 public class FormatDto {
     @ApiModelProperty(value = "The id of the product Format", name = "id", dataType = "Long")
     Long id;
@@ -24,6 +26,8 @@ public class FormatDto {
     @Positive(message = "The capacity must be positive")
     @ApiModelProperty(value = "The capacity of the format", name = "formatCapacity", dataType = "BigDecimal")
     BigDecimal formatCapacity;
+//    @ApiModelProperty(value = "The capacity of the format", name = "formatCapacity", dataType = "Double")
+//    Double formatCapacity;
     /******************************
      * Relation between entities  *
      * ****************************/
@@ -55,6 +59,7 @@ public class FormatDto {
         Format f = new Format();
         f.setId(formatDto.getId());
         f.setFormatCapacity(formatDto.getFormatCapacity());
+        //f.setFormatCapacity(new BigDecimal(formatDto.getFormatCapacity()));
         f.setFormatName(formatDto.getFormatName());
         //f.setFormatPos(PointofsaleDto.toEntity(formatDto.getFormatPosDto()));
         f.setFormatPosId(formatDto.getFormatPosId());

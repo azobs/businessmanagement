@@ -53,15 +53,15 @@ public class LoadingDetailsServiceImpl implements LoadingDetailsService {
         /*******************************************************
          * On se rassure que l'article existe bel et bien en BD
          */
-        if(ldDto.getLdArticleDto().getId() == null){
+        if(ldDto.getLdXArticleDto().getId() == null){
             log.error("The article id associated is null");
             throw new InvalidEntityException("L'id de l'article associe au LoadingDetails est null",
                     ErrorCode.LOADINGDETAILS_NOT_VALID);
         }
         //Ici on est sur que l'id de l'article a ete precise mais est ce que ca existe en BD
-        Optional<Article> optionalArticle = articleRepository.findArticleById(ldDto.getLdArticleDto().getId());
+        Optional<Article> optionalArticle = articleRepository.findArticleById(ldDto.getLdXArticleDto().getId());
         if(!optionalArticle.isPresent()){
-            log.error("There is no article with the id {} precise ", ldDto.getLdArticleDto().getId());
+            log.error("There is no article with the id {} precise ", ldDto.getLdXArticleDto().getId());
             throw new InvalidEntityException("Aucun article n'existe en BD avec l'id precise ",
                     ErrorCode.LOADINGDETAILS_NOT_VALID);
         }
@@ -88,7 +88,7 @@ public class LoadingDetailsServiceImpl implements LoadingDetailsService {
          * On se rassure qu'aucun loadingdetails ne concerne
          * l'article indiaue dans le loading
          */
-        if(!isLoadingDetailsUniqueinLoading(ldDto.getLdArticleDto().getId(), ldDto.getLdLoadingDto().getId())){
+        if(!isLoadingDetailsUniqueinLoading(ldDto.getLdXArticleDto().getId(), ldDto.getLdLoadingDto().getId())){
             log.error("It already exist in the loading precise a details concerned the article precised");
             throw new DuplicateEntityException("Il existe deja un details concernant l'article indique dans le " +
                     "loading indique ", ErrorCode.LOADINGDETAILS_DUPLICATED);
@@ -153,21 +153,21 @@ public class LoadingDetailsServiceImpl implements LoadingDetailsService {
          * c'est le cas on va se rassurer de l'unicite du loading
          * details resultant
          */
-        if(ldDto.getLdArticleDto().getId() == null){
+        if(ldDto.getLdXArticleDto().getId() == null){
             log.error("The id of the article associated is null");
             throw new InvalidEntityException("Le id de l'article associe est null",
                     ErrorCode.LOADINGDETAILS_NOT_VALID);
         }
-        if(!ldToUpdate.getLdArticle().getId().equals(ldDto.getLdArticleDto().getId())){
+        if(!ldToUpdate.getLdArticle().getId().equals(ldDto.getLdXArticleDto().getId())){
             //Est ce que le nouvel article indique existe en BD
-            Optional<Article> optionalArticle = articleRepository.findArticleById(ldDto.getLdArticleDto().getId());
+            Optional<Article> optionalArticle = articleRepository.findArticleById(ldDto.getLdXArticleDto().getId());
             if(!optionalArticle.isPresent()){
                 log.error("There is no article in the DB with the ID precise");
                 throw new InvalidEntityException("Aucun article n'existe en BD avec l'Id precise ",
                         ErrorCode.LOADINGDETAILS_NOT_VALID);
             }
             //Donc c'est l'article quon veut modifier
-            if(!isLoadingDetailsUniqueinLoading(ldDto.getLdArticleDto().getId(), ldDto.getLdLoadingDto().getId())){
+            if(!isLoadingDetailsUniqueinLoading(ldDto.getLdXArticleDto().getId(), ldDto.getLdLoadingDto().getId())){
                 log.error("There already exist a loadingDetails concerning this article in the loading");
                 throw new DuplicateEntityException("Il existe deja un loadingDetails concernant cet article dans le loading",
                         ErrorCode.LOADINGDETAILS_DUPLICATED);

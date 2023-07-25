@@ -25,8 +25,7 @@ import java.util.List;
 @Entity
 @Table(name="userbm",
         uniqueConstraints = {@UniqueConstraint(
-                columnNames = {"bmName", "bmSurname",
-                        "bmDob"})})
+                columnNames = {"bmName", "bmSurname", "bmDob"})})
 public class UserBM extends AbstractEntity {
 
     @Column(nullable = false, unique = true)

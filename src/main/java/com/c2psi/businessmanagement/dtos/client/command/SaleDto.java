@@ -1,7 +1,6 @@
 package com.c2psi.businessmanagement.dtos.client.command;
 
 import com.c2psi.businessmanagement.Enumerations.SaleType;
-import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.dtos.stock.product.ArticleDto;
 import com.c2psi.businessmanagement.models.Sale;
 import lombok.Builder;
@@ -53,7 +52,7 @@ public class SaleDto {
                 .saleFinalprice(sale.getSaleFinalprice())
                 .saleType(sale.getSaleType())
                 .saleCommandDto(CommandDto.fromEntity(sale.getSaleCommand()))
-                .saleArticleDto(ArticleDto.fromEntity(sale.getSaleArticle()))
+                .saleXArticleDto(ArticleDto.fromEntity(sale.getSaleArticle()))
                 //.salePosDto(PointofsaleDto.fromEntity(sale.getSalePos()))
                 .salePosId(sale.getSalePosId())
                 .build();
@@ -69,7 +68,7 @@ public class SaleDto {
         sale.setSaleFinalprice(saleDto.getSaleFinalprice());
         sale.setSaleType(saleDto.getSaleType());
         sale.setSaleCommand(CommandDto.toEntity(saleDto.getSaleCommandDto()));
-        sale.setSaleArticle(ArticleDto.toEntity(saleDto.getSaleArticleDto()));
+        sale.setSaleArticle(ArticleDto.toEntity(saleDto.getSaleXArticleDto()));
         //sale.setSalePos(PointofsaleDto.toEntity(saleDto.getSalePosDto()));
         sale.setSalePosId(saleDto.getSalePosId());
         return sale;

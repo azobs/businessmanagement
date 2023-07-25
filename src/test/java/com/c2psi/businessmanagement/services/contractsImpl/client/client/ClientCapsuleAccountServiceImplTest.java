@@ -102,16 +102,16 @@ public class ClientCapsuleAccountServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         ClientDto clientDtoSaved = usedForTestForClient.saveClient(5, posDtoSaved, clientService);
         assertNotNull(clientDtoSaved);
         assertNotNull(clientDtoSaved.getClientCaDto().getId());
 
         ClientCapsuleAccountDto clientCapsuleAccountDtoSaved = usedForTestForClient.saveClientCapsuleAccount(10,
-                clientDtoSaved, articleDtoSaved, clientCapsuleAccountService);
+                clientDtoSaved, ArticleDtoSaved, clientCapsuleAccountService);
         assertNotNull(clientCapsuleAccountDtoSaved);
         assertTrue(BigDecimal.valueOf(10).compareTo(clientCapsuleAccountDtoSaved.getCcsaNumber())==0);
 
@@ -146,16 +146,16 @@ public class ClientCapsuleAccountServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         ClientDto clientDtoSaved = usedForTestForClient.saveClient(5, posDtoSaved, clientService);
         assertNotNull(clientDtoSaved);
         assertNotNull(clientDtoSaved.getClientCaDto().getId());
 
         ClientCapsuleAccountDto clientCapsuleAccountDtoSaved = usedForTestForClient.saveClientCapsuleAccount(10,
-                clientDtoSaved, articleDtoSaved, clientCapsuleAccountService);
+                clientDtoSaved, ArticleDtoSaved, clientCapsuleAccountService);
         assertNotNull(clientCapsuleAccountDtoSaved);
         assertTrue(BigDecimal.valueOf(10).compareTo(clientCapsuleAccountDtoSaved.getCcsaNumber())==0);
         ///////////////
@@ -276,16 +276,16 @@ public class ClientCapsuleAccountServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         ClientDto clientDtoSaved = usedForTestForClient.saveClient(5, posDtoSaved, clientService);
         assertNotNull(clientDtoSaved);
         assertNotNull(clientDtoSaved.getClientCaDto().getId());
 
         ClientCapsuleAccountDto clientCapsuleAccountDtoSaved = usedForTestForClient.saveClientCapsuleAccount(10,
-                clientDtoSaved, articleDtoSaved, clientCapsuleAccountService);
+                clientDtoSaved, ArticleDtoSaved, clientCapsuleAccountService);
         assertNotNull(clientCapsuleAccountDtoSaved);
         assertTrue(BigDecimal.valueOf(10).compareTo(clientCapsuleAccountDtoSaved.getCcsaNumber())==0);
         ///////////////
@@ -332,16 +332,16 @@ public class ClientCapsuleAccountServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         ClientDto clientDtoSaved = usedForTestForClient.saveClient(5, posDtoSaved, clientService);
         assertNotNull(clientDtoSaved);
         assertNotNull(clientDtoSaved.getClientCaDto().getId());
 
         ClientCapsuleAccountDto clientCapsuleAccountDtoSaved = usedForTestForClient.saveClientCapsuleAccount(10,
-                clientDtoSaved, articleDtoSaved, clientCapsuleAccountService);
+                clientDtoSaved, ArticleDtoSaved, clientCapsuleAccountService);
         assertNotNull(clientCapsuleAccountDtoSaved);
         assertTrue(BigDecimal.valueOf(10).compareTo(clientCapsuleAccountDtoSaved.getCcsaNumber())==0);
         ///////////////

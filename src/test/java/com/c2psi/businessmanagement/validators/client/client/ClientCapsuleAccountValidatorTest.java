@@ -17,7 +17,7 @@ public class ClientCapsuleAccountValidatorTest {
     @Test
     public void validate() {
         ClientCapsuleAccountDto clientCapsuleAccountDtoToValidate = ClientCapsuleAccountDto.builder()
-                .ccsaArticleDto(ArticleDto.builder().build())
+                .ccsaXArticleDto(ArticleDto.builder().build())
                 .ccsaClientDto(ClientDto.builder().build())
                 .ccsaNumber(BigDecimal.valueOf(0))
                 .build();
@@ -31,7 +31,7 @@ public class ClientCapsuleAccountValidatorTest {
     @Test
     public void validateNull() {
         ClientCapsuleAccountDto clientCapsuleAccountDtoToValidate = ClientCapsuleAccountDto.builder()
-                .ccsaArticleDto(ArticleDto.builder().build())
+                .ccsaXArticleDto(ArticleDto.builder().build())
                 .ccsaClientDto(ClientDto.builder().build())
                 .ccsaNumber(BigDecimal.valueOf(0))
                 .build();
@@ -45,7 +45,7 @@ public class ClientCapsuleAccountValidatorTest {
     @Test
     public void validateNullValue() {
         ClientCapsuleAccountDto clientCapsuleAccountDtoToValidate = ClientCapsuleAccountDto.builder()
-                .ccsaArticleDto(null)
+                .ccsaXArticleDto(null)
                 .ccsaClientDto(null)
                 .ccsaNumber(null)
                 .build();

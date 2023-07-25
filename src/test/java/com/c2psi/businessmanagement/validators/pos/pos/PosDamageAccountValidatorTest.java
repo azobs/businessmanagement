@@ -17,7 +17,7 @@ public class PosDamageAccountValidatorTest {
     @Test
     public void validate() {
         PosDamageAccountDto posDamageAccountDtoToValidate = PosDamageAccountDto.builder()
-                .pdaArticleDto(ArticleDto.builder().build())
+                .pdaXArticleDto(ArticleDto.builder().build())
                 .pdaNumber(BigDecimal.valueOf(12))
                 .pdaPointofsaleId(PointofsaleDto.builder().build().getId())
                 .build();
@@ -31,7 +31,7 @@ public class PosDamageAccountValidatorTest {
     @Test
     public void validateNull() {
         PosDamageAccountDto posDamageAccountDtoToValidate = PosDamageAccountDto.builder()
-                .pdaArticleDto(ArticleDto.builder().build())
+                .pdaXArticleDto(ArticleDto.builder().build())
                 .pdaNumber(BigDecimal.valueOf(12))
                 .pdaPointofsaleId(PointofsaleDto.builder().build().getId())
                 .build();
@@ -46,7 +46,7 @@ public class PosDamageAccountValidatorTest {
     @Test
     public void validateNullArticle() {
         PosDamageAccountDto posDamageAccountDtoToValidate = PosDamageAccountDto.builder()
-                .pdaArticleDto(null)
+                .pdaXArticleDto(null)
                 .pdaNumber(BigDecimal.valueOf(12))
                 .pdaPointofsaleId(PointofsaleDto.builder().build().getId())
                 .build();
@@ -62,7 +62,7 @@ public class PosDamageAccountValidatorTest {
     @Test
     public void validateNullPointofsale() {
         PosDamageAccountDto posDamageAccountDtoToValidate = PosDamageAccountDto.builder()
-                .pdaArticleDto(ArticleDto.builder().build())
+                .pdaXArticleDto(ArticleDto.builder().build())
                 .pdaNumber(BigDecimal.valueOf(12))
                 .pdaPointofsaleId(null)
                 .build();
@@ -78,7 +78,7 @@ public class PosDamageAccountValidatorTest {
     @Test
     public void validateNumberNegative() {
         PosDamageAccountDto posDamageAccountDtoToValidate = PosDamageAccountDto.builder()
-                .pdaArticleDto(ArticleDto.builder().build())
+                .pdaXArticleDto(ArticleDto.builder().build())
                 .pdaNumber(BigDecimal.valueOf(-12))
                 .pdaPointofsaleId(PointofsaleDto.builder().build().getId())
                 .build();
@@ -94,7 +94,7 @@ public class PosDamageAccountValidatorTest {
     @Test
     public void validateNullNumber() {
         PosDamageAccountDto posDamageAccountDtoToValidate = PosDamageAccountDto.builder()
-                .pdaArticleDto(ArticleDto.builder().build())
+                .pdaXArticleDto(ArticleDto.builder().build())
                 .pdaNumber(null)
                 .pdaPointofsaleId(PointofsaleDto.builder().build().getId())
                 .build();

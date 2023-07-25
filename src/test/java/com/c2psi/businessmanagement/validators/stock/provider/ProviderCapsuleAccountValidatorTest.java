@@ -18,7 +18,7 @@ public class ProviderCapsuleAccountValidatorTest {
     public void validate() {
         ProviderCapsuleAccountDto providerCapsuleAccountDto = ProviderCapsuleAccountDto.builder()
                 .pcsaProviderDto(ProviderDto.builder().build())
-                .pcsaArticleDto(ArticleDto.builder().build())
+                .pcsaXArticleDto(ArticleDto.builder().build())
                 .pcsaNumber(BigDecimal.valueOf(0))
                 .build();
         List<String> errors = ProviderCapsuleAccountValidator.validate(providerCapsuleAccountDto);
@@ -32,7 +32,7 @@ public class ProviderCapsuleAccountValidatorTest {
     public void validateNull() {
         ProviderCapsuleAccountDto providerCapsuleAccountDto = ProviderCapsuleAccountDto.builder()
                 .pcsaProviderDto(ProviderDto.builder().build())
-                .pcsaArticleDto(ArticleDto.builder().build())
+                .pcsaXArticleDto(ArticleDto.builder().build())
                 .pcsaNumber(BigDecimal.valueOf(0))
                 .build();
         List<String> errors = ProviderCapsuleAccountValidator.validate(null);
@@ -46,7 +46,7 @@ public class ProviderCapsuleAccountValidatorTest {
     public void validateNullValue() {
         ProviderCapsuleAccountDto providerCapsuleAccountDto = ProviderCapsuleAccountDto.builder()
                 .pcsaProviderDto(null)
-                .pcsaArticleDto(null)
+                .pcsaXArticleDto(null)
                 .pcsaNumber(null)
                 .build();
         List<String> errors = ProviderCapsuleAccountValidator.validate(providerCapsuleAccountDto);

@@ -44,7 +44,7 @@ public class ProviderDamageAccountDto {
         return ProviderDamageAccountDto.builder()
                 .id(pda.getId())
                 .pdaNumber(pda.getPdaNumber())
-                .pdaArticleDto(ArticleDto.fromEntity(pda.getPdaArticle()))
+                .pdaXArticleDto(ArticleDto.fromEntity(pda.getPdaArticle()))
                 .pdaProviderDto(ProviderDto.fromEntity(pda.getPdaProvider()))
                 .build();
     }
@@ -55,7 +55,7 @@ public class ProviderDamageAccountDto {
         ProviderDamageAccount pda = new ProviderDamageAccount();
         pda.setId(pdaDto.getId());
         pda.setPdaNumber(pdaDto.getPdaNumber());
-        pda.setPdaArticle(ArticleDto.toEntity(pdaDto.getPdaArticleDto()));
+        pda.setPdaArticle(ArticleDto.toEntity(pdaDto.getPdaXArticleDto()));
         pda.setPdaProvider(ProviderDto.toEntity(pdaDto.getPdaProviderDto()));
         return pda;
     }

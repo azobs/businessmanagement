@@ -111,11 +111,11 @@ public class BackInDetailsServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
-        BackInDetailsDto backInDetailsDtoSaved = usedForTestForClient.saveBackInDetails(10, articleDtoSaved,
+        BackInDetailsDto backInDetailsDtoSaved = usedForTestForClient.saveBackInDetails(10, ArticleDtoSaved,
                 backInDtoSaved, backInDetailsService);
         assertNotNull(backInDetailsDtoSaved);
     }
@@ -164,26 +164,26 @@ public class BackInDetailsServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
-        ArticleDto articleDtoSaved1 = usedForTestForProduct.saveArticle(1, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved1 = usedForTestForProduct.saveArticle(1, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved1);
+        assertNotNull(ArticleDtoSaved1);
 
-        BackInDetailsDto backInDetailsDtoSaved = usedForTestForClient.saveBackInDetails(10, articleDtoSaved,
+        BackInDetailsDto backInDetailsDtoSaved = usedForTestForClient.saveBackInDetails(10, ArticleDtoSaved,
                 backInDtoSaved, backInDetailsService);
         assertNotNull(backInDetailsDtoSaved);
 
         BackInDetailsDto backInDetailsDtoFound = backInDetailsService.
-                findBackInDetailsofArticleinBackIn(articleDtoSaved.getId(), backInDtoSaved.getId());
+                findBackInDetailsofArticleinBackIn(ArticleDtoSaved.getId(), backInDtoSaved.getId());
         assertNotNull(backInDetailsDtoFound);
 
-        backInDetailsDtoFound.setBidArticleDto(articleDtoSaved1);
+        backInDetailsDtoFound.setBidXArticleDto(ArticleDtoSaved1);
         BackInDetailsDto backInDetailsDtoUpdated = backInDetailsService.updateBackInDetails(backInDetailsDtoFound);
         assertNotNull(backInDetailsDtoUpdated);
-        assertEquals(articleDtoSaved1.getId(), backInDetailsDtoUpdated.getBidArticleDto().getId());
+        assertEquals(ArticleDtoSaved1.getId(), backInDetailsDtoUpdated.getBidXArticleDto().getId());
 
 
     }

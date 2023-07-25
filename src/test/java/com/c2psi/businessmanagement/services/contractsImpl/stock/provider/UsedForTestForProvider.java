@@ -31,12 +31,12 @@ public class UsedForTestForProvider {
         return providerCashAccountDtoSaved;
     }
 
-    public ProviderCapsuleAccountDto saveProviderCapsuleAccount(int solde, ProviderDto providerDtoSaved, ArticleDto articleDtoSaved,
+    public ProviderCapsuleAccountDto saveProviderCapsuleAccount(int solde, ProviderDto providerDtoSaved, ArticleDto ArticleDtoSaved,
                                                                 ProviderCapsuleAccountService providerCapsuleAccountService){
         Assert.assertNotNull(providerCapsuleAccountService);
         ProviderCapsuleAccountDto providerCapsuleAccountDtoToSave = ProviderCapsuleAccountDto.builder()
                 .pcsaProviderDto(providerDtoSaved)
-                .pcsaArticleDto(articleDtoSaved)
+                .pcsaXArticleDto(ArticleDtoSaved)
                 .pcsaNumber(BigDecimal.valueOf(solde))
                 .build();
         ProviderCapsuleAccountDto providerCapsuleAccountDtoSaved = providerCapsuleAccountService.saveProviderCapsuleAccount(
@@ -44,12 +44,12 @@ public class UsedForTestForProvider {
         return providerCapsuleAccountDtoSaved;
     }
 
-    public ProviderDamageAccountDto saveProviderDamageAccount(int solde, ProviderDto providerDtoSaved, ArticleDto articleDtoSaved,
+    public ProviderDamageAccountDto saveProviderDamageAccount(int solde, ProviderDto providerDtoSaved, ArticleDto ArticleDtoSaved,
                                                               ProviderDamageAccountService providerDamageAccountService){
         Assert.assertNotNull(providerDamageAccountService);
         ProviderDamageAccountDto providerDamageAccountDtoToSave = ProviderDamageAccountDto.builder()
                 .pdaProviderDto(providerDtoSaved)
-                .pdaArticleDto(articleDtoSaved)
+                .pdaXArticleDto(ArticleDtoSaved)
                 .pdaNumber(BigDecimal.valueOf(solde))
                 .build();
         ProviderDamageAccountDto providerDamageAccountDtoSaved = providerDamageAccountService.saveProviderDamageAccount(

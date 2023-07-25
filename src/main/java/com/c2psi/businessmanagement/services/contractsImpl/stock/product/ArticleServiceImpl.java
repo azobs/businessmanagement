@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -53,7 +54,8 @@ public class ArticleServiceImpl implements ArticleService {
          */
 
         Long artId = artDto.getId();
-        BigDecimal new_quantity = artDto.getArtQuantityinstock();
+        //BigDecimal new_quantity = artDto.getArtQuantityinstock();
+        BigDecimal new_quantity = new BigDecimal(artDto.getArtQuantityinstock(), new MathContext(2));
 
         if(artId == null ){
             log.error("The artId pass as argument is null");
@@ -428,9 +430,12 @@ public class ArticleServiceImpl implements ArticleService {
         articleToUpdate.setArtName(artDto.getArtName());
         articleToUpdate.setArtShortname(artDto.getArtShortname());
         articleToUpdate.setArtDescription(artDto.getArtDescription());
-        articleToUpdate.setArtThreshold(artDto.getArtThreshold());
-        articleToUpdate.setArtLowLimitWholesale(artDto.getArtLowLimitWholesale());
-        articleToUpdate.setArtLowLimitSemiWholesale(artDto.getArtLowLimitSemiWholesale());
+//        articleToUpdate.setArtThreshold(artDto.getArtThreshold());
+//        articleToUpdate.setArtLowLimitWholesale(artDto.getArtLowLimitWholesale());
+//        articleToUpdate.setArtLowLimitSemiWholesale(artDto.getArtLowLimitSemiWholesale());
+        articleToUpdate.setArtThreshold(new BigDecimal(artDto.getArtThreshold(), new MathContext(2)));
+        articleToUpdate.setArtLowLimitWholesale(new BigDecimal(artDto.getArtLowLimitWholesale(), new MathContext(2)));
+        articleToUpdate.setArtLowLimitSemiWholesale(new BigDecimal(artDto.getArtLowLimitSemiWholesale(), new MathContext(2)));
         /****
         //On modifie le Unit
         articleToUpdate.setArtUnit(UnitDto.toEntity(artDto.getArtUnitDto()));

@@ -1,6 +1,7 @@
 package com.c2psi.businessmanagement.dtos.stock.price;
 
 import com.c2psi.businessmanagement.models.BasePrice;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
 
 @Data
 @Builder
+@ApiModel
 public class BasePriceDto {
     @ApiModelProperty(value = "The Id of the baseprice in the DB", name = "id", dataType = "Long")
     Long id;

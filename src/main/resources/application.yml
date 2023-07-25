@@ -7,7 +7,7 @@ spring:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
   datasource:
-    url: jdbc:mysql://localhost:3306/BM?createDatabaseIfNotExist=true&connectionTimeZone=UTC
+    url: jdbc:mysql://localhost:3306/BMM?createDatabaseIfNotExist=true&connectionTimeZone=UTC
     username: root
     password:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -27,7 +27,7 @@ spring:
       max-file-size: 75MB
       max-request-size: 100MB
 server:
-  port: 8081
+  port: 8082
 dir:
   home: ${user.home}
   images:

@@ -1,6 +1,7 @@
 package com.c2psi.businessmanagement.dtos.stock.price;
 
 import com.c2psi.businessmanagement.models.Currency;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
@@ -11,6 +12,7 @@ import javax.validation.constraints.NotNull;
 
 @Data
 @Builder
+@ApiModel
 public class CurrencyDto {
     @ApiModelProperty(value = "The Id of the Currency in the DB", name = "id", dataType = "Long")
     Long id;

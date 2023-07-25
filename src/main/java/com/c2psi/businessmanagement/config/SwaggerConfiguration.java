@@ -1,4 +1,4 @@
-package com.c2psi.businessmanagement.config;
+package com.c2psi.bm.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,8 +15,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Collections;
 import java.util.List;
-
-import static com.c2psi.businessmanagement.utils.Constants.APP_ROOT;
 
 @Configuration
 @EnableSwagger2
@@ -39,7 +37,7 @@ public class SwaggerConfiguration {
                 .securitySchemes(Collections.singletonList(apiKey()))
                 .useDefaultResponseMessages(false)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.c2psi.businessmanagement"))
+                .apis(RequestHandlerSelectors.basePackage("com.c2psi.bm"))
                 //.paths(PathSelectors.ant(APP_ROOT+"/**")) valeur avant l'ajout de la securite
                 .paths(PathSelectors.any())
                 .build();

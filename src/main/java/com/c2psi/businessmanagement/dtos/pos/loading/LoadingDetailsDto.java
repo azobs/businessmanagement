@@ -38,7 +38,7 @@ public class LoadingDetailsDto {
                 .id(ld.getId())
                 .ldQuantitytaken(ld.getLdQuantitytaken())
                 .ldQuantityreturn(ld.getLdQuantityreturn())
-                .ldArticleDto(ArticleDto.fromEntity(ld.getLdArticle()))
+                .ldXArticleDto(ArticleDto.fromEntity(ld.getLdArticle()))
                 .ldLoadingDto(LoadingDto.fromEntity(ld.getLdLoading()))
                 .build();
     }
@@ -51,7 +51,7 @@ public class LoadingDetailsDto {
         ld.setId(ld_dto.getId());
         ld.setLdQuantityreturn(ld_dto.getLdQuantityreturn());
         ld.setLdQuantitytaken(ld_dto.getLdQuantitytaken());
-        ld.setLdArticle(ArticleDto.toEntity(ld_dto.getLdArticleDto()));
+        ld.setLdArticle(ArticleDto.toEntity(ld_dto.getLdXArticleDto()));
         ld.setLdLoading(LoadingDto.toEntity(ld_dto.getLdLoadingDto()));
 
         return ld;

@@ -2,6 +2,7 @@ package com.c2psi.businessmanagement.dtos.stock.product;
 
 import com.c2psi.businessmanagement.dtos.pos.pos.PointofsaleDto;
 import com.c2psi.businessmanagement.models.Unit;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
@@ -13,6 +14,7 @@ import javax.validation.constraints.Size;
 
 @Data
 @Builder
+@ApiModel
 public class UnitDto {
     @ApiModelProperty(value = "The unit id name of products", name = "id", dataType = "Long")
     Long id;

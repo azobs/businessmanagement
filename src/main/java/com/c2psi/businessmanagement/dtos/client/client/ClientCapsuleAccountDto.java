@@ -45,7 +45,7 @@ public class ClientCapsuleAccountDto {
         }
         return ClientCapsuleAccountDto.builder()
                 .id(ccsa.getId())
-                .ccsaArticleDto(ArticleDto.fromEntity(ccsa.getCcsaArticle()))
+                .ccsaXArticleDto(ArticleDto.fromEntity(ccsa.getCcsaArticle()))
                 .ccsaClientDto(ClientDto.fromEntity(ccsa.getCcsaClient()))
                 .ccsaNumber(ccsa.getCcsaNumber())
                 .build();
@@ -57,7 +57,7 @@ public class ClientCapsuleAccountDto {
         }
         ClientCapsuleAccount cca = new ClientCapsuleAccount();
         cca.setId(ccsa_dto.getId());
-        cca.setCcsaArticle(ArticleDto.toEntity(ccsa_dto.getCcsaArticleDto()));
+        cca.setCcsaArticle(ArticleDto.toEntity(ccsa_dto.getCcsaXArticleDto()));
         cca.setCcsaClient(ClientDto.toEntity(ccsa_dto.getCcsaClientDto()));
         cca.setCcsaNumber(ccsa_dto.getCcsaNumber());
         return cca;

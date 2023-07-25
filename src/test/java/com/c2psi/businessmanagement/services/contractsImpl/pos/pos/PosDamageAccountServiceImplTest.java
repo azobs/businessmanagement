@@ -99,12 +99,12 @@ public class PosDamageAccountServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         PosDamageAccountDto posDamageAccountDtoSaved = usedForTestForAll.savePosDamageAccount(0,
-                articleDtoSaved, posDtoSaved, posDamageAccountService);
+                ArticleDtoSaved, posDtoSaved, posDamageAccountService);
         assertNotNull(posDamageAccountDtoSaved);
     }
 
@@ -136,12 +136,12 @@ public class PosDamageAccountServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         PosDamageAccountDto posDamageAccountDtoSaved = usedForTestForAll.savePosDamageAccount_Invalid(0,
-                articleDtoSaved, posDtoSaved, posDamageAccountService);
+                ArticleDtoSaved, posDtoSaved, posDamageAccountService);
         assertNotNull(posDamageAccountDtoSaved);
     }
 
@@ -173,14 +173,14 @@ public class PosDamageAccountServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         posDtoSaved.setId(null);
 
         PosDamageAccountDto posDamageAccountDtoSaved = usedForTestForAll.savePosDamageAccount(0,
-                articleDtoSaved, posDtoSaved, posDamageAccountService);
+                ArticleDtoSaved, posDtoSaved, posDamageAccountService);
         assertNotNull(posDamageAccountDtoSaved);
     }
 
@@ -212,14 +212,14 @@ public class PosDamageAccountServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         posDtoSaved.setId(Long.valueOf(12458963));
 
         PosDamageAccountDto posDamageAccountDtoSaved = usedForTestForAll.savePosDamageAccount(0,
-                articleDtoSaved, posDtoSaved, posDamageAccountService);
+                ArticleDtoSaved, posDtoSaved, posDamageAccountService);
         assertNotNull(posDamageAccountDtoSaved);
     }
 
@@ -251,14 +251,14 @@ public class PosDamageAccountServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
-        articleDtoSaved.setId(null);
+        ArticleDtoSaved.setId(null);
 
         PosDamageAccountDto posDamageAccountDtoSaved = usedForTestForAll.savePosDamageAccount(0,
-                articleDtoSaved, posDtoSaved, posDamageAccountService);
+                ArticleDtoSaved, posDtoSaved, posDamageAccountService);
         assertNotNull(posDamageAccountDtoSaved);
     }
 
@@ -290,14 +290,14 @@ public class PosDamageAccountServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
-        articleDtoSaved.setId(Long.valueOf(4852136));
+        ArticleDtoSaved.setId(Long.valueOf(4852136));
 
         PosDamageAccountDto posDamageAccountDtoSaved = usedForTestForAll.savePosDamageAccount(0,
-                articleDtoSaved, posDtoSaved, posDamageAccountService);
+                ArticleDtoSaved, posDtoSaved, posDamageAccountService);
         assertNotNull(posDamageAccountDtoSaved);
     }
 
@@ -333,13 +333,13 @@ public class PosDamageAccountServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
 
         PosDamageAccountDto posDamageAccountDtoSaved = usedForTestForAll.savePosDamageAccount(0,
-                articleDtoSaved, posDtoSaved1, posDamageAccountService);
+                ArticleDtoSaved, posDtoSaved1, posDamageAccountService);
         //The above line is supposed to launch the expected exception
     }
 
@@ -371,15 +371,15 @@ public class PosDamageAccountServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         PosDamageAccountDto posDamageAccountDtoSaved = usedForTestForAll.savePosDamageAccount(0,
-                articleDtoSaved, posDtoSaved, posDamageAccountService);
+                ArticleDtoSaved, posDtoSaved, posDamageAccountService);
         assertNotNull(posDamageAccountDtoSaved);
         PosDamageAccountDto posDamageAccountDtoSaved1 = usedForTestForAll.savePosDamageAccount(0,
-                articleDtoSaved, posDtoSaved, posDamageAccountService);
+                ArticleDtoSaved, posDtoSaved, posDamageAccountService);
         //The above line is supposed to launch the expected exception
     }
 
@@ -411,12 +411,12 @@ public class PosDamageAccountServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         PosDamageAccountDto posDamageAccountDtoSaved = usedForTestForAll.savePosDamageAccount(0,
-                articleDtoSaved, posDtoSaved, posDamageAccountService);
+                ArticleDtoSaved, posDtoSaved, posDamageAccountService);
         assertNotNull(posDamageAccountDtoSaved);
 
         PosDamageAccountDto posDamageAccountDtoFound = posDamageAccountService.findPosDamageAccountById(
@@ -453,16 +453,16 @@ public class PosDamageAccountServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         PosDamageAccountDto posDamageAccountDtoSaved = usedForTestForAll.savePosDamageAccount(0,
-                articleDtoSaved, posDtoSaved, posDamageAccountService);
+                ArticleDtoSaved, posDtoSaved, posDamageAccountService);
         assertNotNull(posDamageAccountDtoSaved);
 
         PosDamageAccountDto posDamageAccountDtoFound = posDamageAccountService.findPosDamageAccountofArticleInPos(
-                articleDtoSaved.getId(), posDtoSaved.getId());
+                ArticleDtoSaved.getId(), posDtoSaved.getId());
         assertNotNull(posDamageAccountDtoFound);
         assertEquals(posDamageAccountDtoSaved.getId(), posDamageAccountDtoFound.getId());
     }
@@ -521,36 +521,36 @@ public class PosDamageAccountServiceImplTest {
         BasePriceDto basePriceDtoSaved1 = usedForTestForAll.saveBasePrice(1, currencyDtoSaved1, basePriceService);
         assertNotNull(basePriceDtoSaved1);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         PosDamageAccountDto posDamageAccountDtoSaved = usedForTestForAll.savePosDamageAccount(0,
-                articleDtoSaved, posDtoSaved, posDamageAccountService);
+                ArticleDtoSaved, posDtoSaved, posDamageAccountService);
         assertNotNull(posDamageAccountDtoSaved);
 
-        ArticleDto articleDtoSaved1 = usedForTestForProduct.saveArticle(1, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved1 = usedForTestForProduct.saveArticle(1, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved1);
+        assertNotNull(ArticleDtoSaved1);
 
         PosDamageAccountDto posDamageAccountDtoSaved1 = usedForTestForAll.savePosDamageAccount(1,
-                articleDtoSaved1, posDtoSaved, posDamageAccountService);
+                ArticleDtoSaved1, posDtoSaved, posDamageAccountService);
         assertNotNull(posDamageAccountDtoSaved1);
 
-        ArticleDto articleDtoSaved2 = usedForTestForProduct.saveArticle(2, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved2 = usedForTestForProduct.saveArticle(2, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved2);
+        assertNotNull(ArticleDtoSaved2);
 
         PosDamageAccountDto posDamageAccountDtoSaved2 = usedForTestForAll.savePosDamageAccount(2,
-                articleDtoSaved2, posDtoSaved, posDamageAccountService);
+                ArticleDtoSaved2, posDtoSaved, posDamageAccountService);
         assertNotNull(posDamageAccountDtoSaved2);
 
-        ArticleDto articleDtoSaved3 = usedForTestForProduct.saveArticle(3, productFormatedDtoSaved1, unitDtoSaved1,
+        ArticleDto ArticleDtoSaved3 = usedForTestForProduct.saveArticle(3, productFormatedDtoSaved1, unitDtoSaved1,
                 basePriceDtoSaved1, posDtoSaved1, articleService);
-        assertNotNull(articleDtoSaved3);
+        assertNotNull(ArticleDtoSaved3);
 
         PosDamageAccountDto posDamageAccountDtoSaved3 = usedForTestForAll.savePosDamageAccount(3,
-                articleDtoSaved3, posDtoSaved1, posDamageAccountService);
+                ArticleDtoSaved3, posDtoSaved1, posDamageAccountService);
         assertNotNull(posDamageAccountDtoSaved3);
 
         List<PosDamageAccountDto> posDamageAccountDtoList = posDamageAccountService.findAllDamageAccountInPos(
@@ -613,36 +613,36 @@ public class PosDamageAccountServiceImplTest {
         BasePriceDto basePriceDtoSaved1 = usedForTestForAll.saveBasePrice(1, currencyDtoSaved1, basePriceService);
         assertNotNull(basePriceDtoSaved1);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         PosDamageAccountDto posDamageAccountDtoSaved = usedForTestForAll.savePosDamageAccount(0,
-                articleDtoSaved, posDtoSaved, posDamageAccountService);
+                ArticleDtoSaved, posDtoSaved, posDamageAccountService);
         assertNotNull(posDamageAccountDtoSaved);
 
-        ArticleDto articleDtoSaved1 = usedForTestForProduct.saveArticle(1, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved1 = usedForTestForProduct.saveArticle(1, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved1);
+        assertNotNull(ArticleDtoSaved1);
 
         PosDamageAccountDto posDamageAccountDtoSaved1 = usedForTestForAll.savePosDamageAccount(1,
-                articleDtoSaved1, posDtoSaved, posDamageAccountService);
+                ArticleDtoSaved1, posDtoSaved, posDamageAccountService);
         assertNotNull(posDamageAccountDtoSaved1);
 
-        ArticleDto articleDtoSaved2 = usedForTestForProduct.saveArticle(2, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved2 = usedForTestForProduct.saveArticle(2, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved2);
+        assertNotNull(ArticleDtoSaved2);
 
         PosDamageAccountDto posDamageAccountDtoSaved2 = usedForTestForAll.savePosDamageAccount(2,
-                articleDtoSaved2, posDtoSaved, posDamageAccountService);
+                ArticleDtoSaved2, posDtoSaved, posDamageAccountService);
         assertNotNull(posDamageAccountDtoSaved2);
 
-        ArticleDto articleDtoSaved3 = usedForTestForProduct.saveArticle(3, productFormatedDtoSaved1, unitDtoSaved1,
+        ArticleDto ArticleDtoSaved3 = usedForTestForProduct.saveArticle(3, productFormatedDtoSaved1, unitDtoSaved1,
                 basePriceDtoSaved1, posDtoSaved1, articleService);
-        assertNotNull(articleDtoSaved3);
+        assertNotNull(ArticleDtoSaved3);
 
         PosDamageAccountDto posDamageAccountDtoSaved3 = usedForTestForAll.savePosDamageAccount(3,
-                articleDtoSaved3, posDtoSaved1, posDamageAccountService);
+                ArticleDtoSaved3, posDtoSaved1, posDamageAccountService);
         assertNotNull(posDamageAccountDtoSaved3);
 
         Page<PosDamageAccountDto> posDamageAccountDtoPage = posDamageAccountService.findPageDamageAccountInPos(
@@ -679,12 +679,12 @@ public class PosDamageAccountServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         PosDamageAccountDto posDamageAccountDtoSaved = usedForTestForAll.savePosDamageAccount(0,
-                articleDtoSaved, posDtoSaved, posDamageAccountService);
+                ArticleDtoSaved, posDtoSaved, posDamageAccountService);
         assertNotNull(posDamageAccountDtoSaved);
 
         assertTrue(posDamageAccountService.deletePosDamageAccountById(posDamageAccountDtoSaved.getId()));
@@ -718,12 +718,12 @@ public class PosDamageAccountServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         PosDamageAccountDto posDamageAccountDtoSaved = usedForTestForAll.savePosDamageAccount(0,
-                articleDtoSaved, posDtoSaved, posDamageAccountService);
+                ArticleDtoSaved, posDtoSaved, posDamageAccountService);
         assertNotNull(posDamageAccountDtoSaved);
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(12, userBMService);
@@ -839,12 +839,12 @@ public class PosDamageAccountServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         PosDamageAccountDto posDamageAccountDtoSaved = usedForTestForAll.savePosDamageAccount(0,
-                articleDtoSaved, posDtoSaved, posDamageAccountService);
+                ArticleDtoSaved, posDtoSaved, posDamageAccountService);
         assertNotNull(posDamageAccountDtoSaved);
 
         UserBMDto userBMDtoSaved = usedForTestForAll.saveUserBM(12, userBMService);

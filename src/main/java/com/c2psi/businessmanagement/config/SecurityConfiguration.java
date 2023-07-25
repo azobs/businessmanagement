@@ -54,6 +54,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         APP_ROOT,
                         TEST_ENDPOINT,
                         AUTHENTICATION_ENDPOINT,
+                        /*CREATE_USERBM_ENDPOINT,*/
                         PERSONS_IMAGE_UPLOAD_ENDPOINT)
                 .permitAll()
                 .anyRequest()

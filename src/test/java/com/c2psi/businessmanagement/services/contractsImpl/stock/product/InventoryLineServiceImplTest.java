@@ -88,16 +88,16 @@ public class InventoryLineServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         InventoryDto inventoryDtoSaved = usedForTestForProduct.saveInventory(0, posDtoSaved, inventoryService);
         assertNotNull(inventoryDtoSaved);
         assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosId());
 
         InventoryLineDto inventoryLineDtoSaved = usedForTestForProduct.saveInventoryLine(0, posDtoSaved,
-                articleDtoSaved, inventoryDtoSaved, inventorylineService);
+                ArticleDtoSaved, inventoryDtoSaved, inventorylineService);
         assertNotNull(inventoryLineDtoSaved);
 
     }
@@ -130,16 +130,16 @@ public class InventoryLineServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         InventoryDto inventoryDtoSaved = usedForTestForProduct.saveInventory(0, posDtoSaved, inventoryService);
         assertNotNull(inventoryDtoSaved);
         assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosId());
 
         InventoryLineDto inventoryLineDtoSaved = usedForTestForProduct.saveInventoryLine_Invalid(0, posDtoSaved,
-                articleDtoSaved, inventoryDtoSaved, inventorylineService);
+                ArticleDtoSaved, inventoryDtoSaved, inventorylineService);
         assertNotNull(inventoryLineDtoSaved);
 
     }
@@ -172,9 +172,9 @@ public class InventoryLineServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         InventoryDto inventoryDtoSaved = usedForTestForProduct.saveInventory(0, posDtoSaved, inventoryService);
         assertNotNull(inventoryDtoSaved);
@@ -183,7 +183,7 @@ public class InventoryLineServiceImplTest {
         inventoryDtoSaved.setId(null);
 
         InventoryLineDto inventoryLineDtoSaved = usedForTestForProduct.saveInventoryLine(0, posDtoSaved,
-                articleDtoSaved, inventoryDtoSaved, inventorylineService);
+                ArticleDtoSaved, inventoryDtoSaved, inventorylineService);
         assertNotNull(inventoryLineDtoSaved);
 
     }
@@ -216,9 +216,9 @@ public class InventoryLineServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         InventoryDto inventoryDtoSaved = usedForTestForProduct.saveInventory(0, posDtoSaved, inventoryService);
         assertNotNull(inventoryDtoSaved);
@@ -227,7 +227,7 @@ public class InventoryLineServiceImplTest {
         inventoryDtoSaved.setId(Long.valueOf(1245789));
 
         InventoryLineDto inventoryLineDtoSaved = usedForTestForProduct.saveInventoryLine(0, posDtoSaved,
-                articleDtoSaved, inventoryDtoSaved, inventorylineService);
+                ArticleDtoSaved, inventoryDtoSaved, inventorylineService);
         assertNotNull(inventoryLineDtoSaved);
 
     }
@@ -260,18 +260,18 @@ public class InventoryLineServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
-        articleDtoSaved.setId(null);
+        ArticleDtoSaved.setId(null);
 
         InventoryDto inventoryDtoSaved = usedForTestForProduct.saveInventory(0, posDtoSaved, inventoryService);
         assertNotNull(inventoryDtoSaved);
         assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosId());
 
         InventoryLineDto inventoryLineDtoSaved = usedForTestForProduct.saveInventoryLine(0, posDtoSaved,
-                articleDtoSaved, inventoryDtoSaved, inventorylineService);
+                ArticleDtoSaved, inventoryDtoSaved, inventorylineService);
         assertNotNull(inventoryLineDtoSaved);
 
     }
@@ -304,18 +304,18 @@ public class InventoryLineServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
-        articleDtoSaved.setId(Long.valueOf(45896321));
+        ArticleDtoSaved.setId(Long.valueOf(45896321));
 
         InventoryDto inventoryDtoSaved = usedForTestForProduct.saveInventory(0, posDtoSaved, inventoryService);
         assertNotNull(inventoryDtoSaved);
         assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosId());
 
         InventoryLineDto inventoryLineDtoSaved = usedForTestForProduct.saveInventoryLine(0, posDtoSaved,
-                articleDtoSaved, inventoryDtoSaved, inventorylineService);
+                ArticleDtoSaved, inventoryDtoSaved, inventorylineService);
         assertNotNull(inventoryLineDtoSaved);
 
     }
@@ -374,20 +374,20 @@ public class InventoryLineServiceImplTest {
         BasePriceDto basePriceDtoSaved1 = usedForTestForAll.saveBasePrice(852, currencyDtoSaved1, basePriceService);
         assertNotNull(basePriceDtoSaved1);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
-        ArticleDto articleDtoSaved1 = usedForTestForProduct.saveArticle(45, productFormatedDtoSaved1, unitDtoSaved1,
+        ArticleDto ArticleDtoSaved1 = usedForTestForProduct.saveArticle(45, productFormatedDtoSaved1, unitDtoSaved1,
                 basePriceDtoSaved1, posDtoSaved1, articleService);
-        assertNotNull(articleDtoSaved1);
+        assertNotNull(ArticleDtoSaved1);
 
         InventoryDto inventoryDtoSaved = usedForTestForProduct.saveInventory(0, posDtoSaved, inventoryService);
         assertNotNull(inventoryDtoSaved);
         assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosId());
 
         InventoryLineDto inventoryLineDtoSaved = usedForTestForProduct.saveInventoryLine(0, posDtoSaved,
-                articleDtoSaved1, inventoryDtoSaved, inventorylineService);
+                ArticleDtoSaved1, inventoryDtoSaved, inventorylineService);
         assertNotNull(inventoryLineDtoSaved);
 
     }
@@ -420,20 +420,20 @@ public class InventoryLineServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         InventoryDto inventoryDtoSaved = usedForTestForProduct.saveInventory(0, posDtoSaved, inventoryService);
         assertNotNull(inventoryDtoSaved);
         assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosId());
 
         InventoryLineDto inventoryLineDtoSaved = usedForTestForProduct.saveInventoryLine(0, posDtoSaved,
-                articleDtoSaved, inventoryDtoSaved, inventorylineService);
+                ArticleDtoSaved, inventoryDtoSaved, inventorylineService);
         assertNotNull(inventoryLineDtoSaved);
 
         InventoryLineDto inventoryLineDtoSaved1 = usedForTestForProduct.saveInventoryLine(25, posDtoSaved,
-                articleDtoSaved, inventoryDtoSaved, inventorylineService);
+                ArticleDtoSaved, inventoryDtoSaved, inventorylineService);
 
     }
 
@@ -465,27 +465,27 @@ public class InventoryLineServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
-        ArticleDto articleDtoSaved1 = usedForTestForProduct.saveArticle(13, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved1 = usedForTestForProduct.saveArticle(13, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved1);
+        assertNotNull(ArticleDtoSaved1);
 
         InventoryDto inventoryDtoSaved = usedForTestForProduct.saveInventory(0, posDtoSaved, inventoryService);
         assertNotNull(inventoryDtoSaved);
         assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosId());
 
         InventoryLineDto inventoryLineDtoSaved = usedForTestForProduct.saveInventoryLine(0, posDtoSaved,
-                articleDtoSaved, inventoryDtoSaved, inventorylineService);
+                ArticleDtoSaved, inventoryDtoSaved, inventorylineService);
         assertNotNull(inventoryLineDtoSaved);
 
         InventoryLineDto inventoryLineDtoFound = inventorylineService.findInventoryLineById(inventoryLineDtoSaved.getId());
         assertNotNull(inventoryLineDtoFound);
         assertEquals(inventoryLineDtoSaved.getId(), inventoryLineDtoFound.getId());
 
-        inventoryLineDtoFound.setInvlineArtDto(articleDtoSaved1);
+        inventoryLineDtoFound.setInvlineArtDto(ArticleDtoSaved1);
         inventoryLineDtoFound.setInvlineComment("newComment inventoryline");
         InventoryLineDto inventoryLineDtoUpdated = inventorylineService.updateInventoryLine(inventoryLineDtoFound);
         assertEquals("newComment inventoryline", inventoryLineDtoUpdated.getInvlineComment());
@@ -520,20 +520,20 @@ public class InventoryLineServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
-        ArticleDto articleDtoSaved1 = usedForTestForProduct.saveArticle(13, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved1 = usedForTestForProduct.saveArticle(13, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved1);
+        assertNotNull(ArticleDtoSaved1);
 
         InventoryDto inventoryDtoSaved = usedForTestForProduct.saveInventory(0, posDtoSaved, inventoryService);
         assertNotNull(inventoryDtoSaved);
         assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosId());
 
         InventoryLineDto inventoryLineDtoSaved = usedForTestForProduct.saveInventoryLine(0, posDtoSaved,
-                articleDtoSaved, inventoryDtoSaved, inventorylineService);
+                ArticleDtoSaved, inventoryDtoSaved, inventorylineService);
         assertNotNull(inventoryLineDtoSaved);
 
         InventoryLineDto inventoryLineDtoFound = inventorylineService.findInventoryLineById(inventoryLineDtoSaved.getId());
@@ -541,7 +541,7 @@ public class InventoryLineServiceImplTest {
         assertEquals(inventoryLineDtoSaved.getId(), inventoryLineDtoFound.getId());
 
         inventoryLineDtoFound.setId(Long.valueOf(4578569));
-        inventoryLineDtoFound.setInvlineArtDto(articleDtoSaved1);
+        inventoryLineDtoFound.setInvlineArtDto(ArticleDtoSaved1);
         inventoryLineDtoFound.setInvlineComment("newComment inventoryline");
         InventoryLineDto inventoryLineDtoUpdated = inventorylineService.updateInventoryLine(inventoryLineDtoFound);
         assertEquals("newComment inventoryline", inventoryLineDtoUpdated.getInvlineComment());
@@ -576,13 +576,13 @@ public class InventoryLineServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
-        ArticleDto articleDtoSaved1 = usedForTestForProduct.saveArticle(13, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved1 = usedForTestForProduct.saveArticle(13, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved1);
+        assertNotNull(ArticleDtoSaved1);
 
         InventoryDto inventoryDtoSaved = usedForTestForProduct.saveInventory(0, posDtoSaved, inventoryService);
         assertNotNull(inventoryDtoSaved);
@@ -593,7 +593,7 @@ public class InventoryLineServiceImplTest {
         assertEquals(posDtoSaved.getId(), inventoryDtoSaved1.getInvPosId());
 
         InventoryLineDto inventoryLineDtoSaved = usedForTestForProduct.saveInventoryLine(0, posDtoSaved,
-                articleDtoSaved, inventoryDtoSaved, inventorylineService);
+                ArticleDtoSaved, inventoryDtoSaved, inventorylineService);
         assertNotNull(inventoryLineDtoSaved);
 
         InventoryLineDto inventoryLineDtoFound = inventorylineService.findInventoryLineById(inventoryLineDtoSaved.getId());
@@ -601,7 +601,7 @@ public class InventoryLineServiceImplTest {
         assertEquals(inventoryLineDtoSaved.getId(), inventoryLineDtoFound.getId());
 
 
-        inventoryLineDtoFound.setInvlineArtDto(articleDtoSaved1);
+        inventoryLineDtoFound.setInvlineArtDto(ArticleDtoSaved1);
         inventoryLineDtoFound.setInvlineInvDto(inventoryDtoSaved1);
         inventoryLineDtoFound.setInvlineComment("newComment inventoryline");
         InventoryLineDto inventoryLineDtoUpdated = inventorylineService.updateInventoryLine(inventoryLineDtoFound);
@@ -638,20 +638,20 @@ public class InventoryLineServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         InventoryDto inventoryDtoSaved = usedForTestForProduct.saveInventory(0, posDtoSaved, inventoryService);
         assertNotNull(inventoryDtoSaved);
         assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosId());
 
         InventoryLineDto inventoryLineDtoSaved = usedForTestForProduct.saveInventoryLine(0, posDtoSaved,
-                articleDtoSaved, inventoryDtoSaved, inventorylineService);
+                ArticleDtoSaved, inventoryDtoSaved, inventorylineService);
         assertNotNull(inventoryLineDtoSaved);
 
         InventoryLineDto inventoryLineDtoFound = inventorylineService.findInventoryLineByArticleinInv(
-                inventoryDtoSaved.getId(), articleDtoSaved.getId());
+                inventoryDtoSaved.getId(), ArticleDtoSaved.getId());
         assertNotNull(inventoryLineDtoFound);
         assertTrue(inventoryLineDtoSaved.getInvlineRealqteinstock().compareTo(inventoryLineDtoFound.getInvlineRealqteinstock()) == 0);
 
@@ -685,16 +685,16 @@ public class InventoryLineServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
         InventoryDto inventoryDtoSaved = usedForTestForProduct.saveInventory(0, posDtoSaved, inventoryService);
         assertNotNull(inventoryDtoSaved);
         assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosId());
 
         InventoryLineDto inventoryLineDtoSaved = usedForTestForProduct.saveInventoryLine(0, posDtoSaved,
-                articleDtoSaved, inventoryDtoSaved, inventorylineService);
+                ArticleDtoSaved, inventoryDtoSaved, inventorylineService);
         assertNotNull(inventoryLineDtoSaved);
 
         assertTrue(inventorylineService.deleteInventoryLineById(inventoryLineDtoSaved.getId()));
@@ -729,32 +729,32 @@ public class InventoryLineServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
-        ArticleDto articleDtoSaved1 = usedForTestForProduct.saveArticle(1, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved1 = usedForTestForProduct.saveArticle(1, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved1);
+        assertNotNull(ArticleDtoSaved1);
 
-        ArticleDto articleDtoSaved2 = usedForTestForProduct.saveArticle(2, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved2 = usedForTestForProduct.saveArticle(2, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved2);
+        assertNotNull(ArticleDtoSaved2);
 
         InventoryDto inventoryDtoSaved = usedForTestForProduct.saveInventory(0, posDtoSaved, inventoryService);
         assertNotNull(inventoryDtoSaved);
         assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosId());
 
         InventoryLineDto inventoryLineDtoSaved = usedForTestForProduct.saveInventoryLine(0, posDtoSaved,
-                articleDtoSaved, inventoryDtoSaved, inventorylineService);
+                ArticleDtoSaved, inventoryDtoSaved, inventorylineService);
         assertNotNull(inventoryLineDtoSaved);
 
         InventoryLineDto inventoryLineDtoSaved1 = usedForTestForProduct.saveInventoryLine(1, posDtoSaved,
-                articleDtoSaved1, inventoryDtoSaved, inventorylineService);
+                ArticleDtoSaved1, inventoryDtoSaved, inventorylineService);
         assertNotNull(inventoryLineDtoSaved1);
 
         InventoryLineDto inventoryLineDtoSaved2 = usedForTestForProduct.saveInventoryLine(2, posDtoSaved,
-                articleDtoSaved2, inventoryDtoSaved, inventorylineService);
+                ArticleDtoSaved2, inventoryDtoSaved, inventorylineService);
         assertNotNull(inventoryLineDtoSaved2);
 
         List<InventoryLineDto> inventoryLineDtoList = inventorylineService.findAllInventorylineofInv(
@@ -791,32 +791,32 @@ public class InventoryLineServiceImplTest {
         BasePriceDto basePriceDtoSaved = usedForTestForAll.saveBasePrice(0, currencyDtoSaved, basePriceService);
         assertNotNull(basePriceDtoSaved);
 
-        ArticleDto articleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved = usedForTestForProduct.saveArticle(0, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved);
+        assertNotNull(ArticleDtoSaved);
 
-        ArticleDto articleDtoSaved1 = usedForTestForProduct.saveArticle(1, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved1 = usedForTestForProduct.saveArticle(1, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved1);
+        assertNotNull(ArticleDtoSaved1);
 
-        ArticleDto articleDtoSaved2 = usedForTestForProduct.saveArticle(2, productFormatedDtoSaved, unitDtoSaved,
+        ArticleDto ArticleDtoSaved2 = usedForTestForProduct.saveArticle(2, productFormatedDtoSaved, unitDtoSaved,
                 basePriceDtoSaved, posDtoSaved, articleService);
-        assertNotNull(articleDtoSaved2);
+        assertNotNull(ArticleDtoSaved2);
 
         InventoryDto inventoryDtoSaved = usedForTestForProduct.saveInventory(0, posDtoSaved, inventoryService);
         assertNotNull(inventoryDtoSaved);
         assertEquals(posDtoSaved.getId(), inventoryDtoSaved.getInvPosId());
 
         InventoryLineDto inventoryLineDtoSaved = usedForTestForProduct.saveInventoryLine(0, posDtoSaved,
-                articleDtoSaved, inventoryDtoSaved, inventorylineService);
+                ArticleDtoSaved, inventoryDtoSaved, inventorylineService);
         assertNotNull(inventoryLineDtoSaved);
 
         InventoryLineDto inventoryLineDtoSaved1 = usedForTestForProduct.saveInventoryLine(1, posDtoSaved,
-                articleDtoSaved1, inventoryDtoSaved, inventorylineService);
+                ArticleDtoSaved1, inventoryDtoSaved, inventorylineService);
         assertNotNull(inventoryLineDtoSaved1);
 
         InventoryLineDto inventoryLineDtoSaved2 = usedForTestForProduct.saveInventoryLine(2, posDtoSaved,
-                articleDtoSaved2, inventoryDtoSaved, inventorylineService);
+                ArticleDtoSaved2, inventoryDtoSaved, inventorylineService);
         assertNotNull(inventoryLineDtoSaved2);
 
         Page<InventoryLineDto> inventoryLineDtoPage = inventorylineService.findPageInventorylineofInv(

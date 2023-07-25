@@ -17,7 +17,7 @@ public class ClientDamageAccountValidatorTest {
     @Test
     public void validate() {
         ClientDamageAccountDto cltDamAccDtoToValidate = ClientDamageAccountDto.builder()
-                .cdaArticleDto(ArticleDto.builder().build())
+                .cdaXArticleDto(ArticleDto.builder().build())
                 .cdaClientDto(ClientDto.builder().build())
                 .cdaNumber(BigDecimal.valueOf(15))
                 .build();
@@ -33,7 +33,7 @@ public class ClientDamageAccountValidatorTest {
     @Test
     public void validateNull() {
         ClientDamageAccountDto cltDamAccDtoToValidate = ClientDamageAccountDto.builder()
-                .cdaArticleDto(ArticleDto.builder().build())
+                .cdaXArticleDto(ArticleDto.builder().build())
                 .cdaClientDto(ClientDto.builder().build())
                 .cdaNumber(BigDecimal.valueOf(15))
                 .build();
@@ -49,7 +49,7 @@ public class ClientDamageAccountValidatorTest {
     @Test
     public void validateNullValue() {
         ClientDamageAccountDto cltDamAccDtoToValidate = ClientDamageAccountDto.builder()
-                .cdaArticleDto(null)
+                .cdaXArticleDto(null)
                 .cdaClientDto(null)
                 .cdaNumber(null)
                 .build();

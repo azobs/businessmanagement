@@ -21,14 +21,31 @@ public interface UploadDownloadFilesApi {
     @PostMapping(value = PERSONS_IMAGE_UPLOAD_ENDPOINT,
             consumes = { MediaType.MULTIPART_FORM_DATA_VALUE },
             produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "uploadFile",
+    @ApiOperation(value = "personsUploadFile",
             notes = "This method is used to upload a photos of a person",
             response = String.class)
     @ApiResponses(value={
-            @ApiResponse(code=200, message="Object Image uploaded successfully"),
-            @ApiResponse(code=400, message="Object Image can't be uploaded ")
+            @ApiResponse(code=200, message="Person Image uploaded successfully"),
+            @ApiResponse(code=400, message="Person Image can't be uploaded ")
     })
     ResponseEntity personsUploadFile(
+            @ApiParam(name = "file", type = "MultipartFile ", required = true,
+                    value="The JSON object that represent the file to upload")
+            @RequestPart("file") @NotNull MultipartFile file);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @PostMapping(value = ARTICLES_IMAGE_UPLOAD_ENDPOINT,
+            consumes = { MediaType.MULTIPART_FORM_DATA_VALUE },
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "articlesUploadFile",
+            notes = "This method is used to upload a photos of an article",
+            response = String.class)
+    @ApiResponses(value={
+            @ApiResponse(code=200, message="Article Image uploaded successfully"),
+            @ApiResponse(code=400, message="Article Image can't be uploaded ")
+    })
+    ResponseEntity articlesUploadFile(
             @ApiParam(name = "file", type = "MultipartFile ", required = true,
                     value="The JSON object that represent the file to upload")
             @RequestPart("file") @NotNull MultipartFile file);

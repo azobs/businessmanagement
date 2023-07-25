@@ -54,12 +54,12 @@ public class BackInDetailsServiceImpl implements BackInDetailsService {
          * On se rassure que l'id de article n'est pas nul et que le Article
          * existe vraiment en BD
          */
-        if(backInDetailsDto.getBidArticleDto().getId() == null){
+        if(backInDetailsDto.getBidXArticleDto().getId() == null){
             log.error("The Id of the Article is null");
             throw new InvalidEntityException("L'id de l'article associe au backInDetails est null",
                     ErrorCode.BACKINDETAILS_NOT_VALID);
         }
-        Optional<Article> optionalArticle = articleRepository.findArticleById(backInDetailsDto.getBidArticleDto().getId());
+        Optional<Article> optionalArticle = articleRepository.findArticleById(backInDetailsDto.getBidXArticleDto().getId());
         if(!optionalArticle.isPresent()){
             log.error("There is no Article associate with id precised");
             throw new InvalidEntityException("L'article precise dans le backInDetails n'existe pas en BD",
@@ -85,7 +85,7 @@ public class BackInDetailsServiceImpl implements BackInDetailsService {
         /*********************************************************************
          * On se rassure de l'unicite du BackInDetails dans le Backin en BD
          */
-        if(!isBackInDetailsUnique(backInDetailsDto.getBidArticleDto().getId(), backInDetailsDto.getBidbiDto().getId())){
+        if(!isBackInDetailsUnique(backInDetailsDto.getBidXArticleDto().getId(), backInDetailsDto.getBidbiDto().getId())){
             log.error("There exist a details about the article precised in the BackIn precised");
             throw new DuplicateEntityException("Il existe deja dans le BackIn un details concernant cet article ",
                     ErrorCode.BACKINDETAILS_DUPLICATED);
@@ -149,18 +149,18 @@ public class BackInDetailsServiceImpl implements BackInDetailsService {
          * Il faut verifier si cest l'article quon veut changer et si
          * cest le cas on verifie que il y aura pas duplicata
          */
-        if(backInDetailsDto.getBidArticleDto().getId() == null){
+        if(backInDetailsDto.getBidXArticleDto().getId() == null){
             log.error("The id of the article associate with the backIndetails cannot be null");
             throw new InvalidEntityException("L'id de l'article associe au backindetails ne peut etre null ",
                     ErrorCode.BACKINDETAILS_NOT_VALID);
         }
 
-        if(!backInDetailsToUpdate.getBidArticle().getId().equals(backInDetailsDto.getBidArticleDto().getId())){
+        if(!backInDetailsToUpdate.getBidArticle().getId().equals(backInDetailsDto.getBidXArticleDto().getId())){
             /******************************
              * C'est l'article quon veut modifier il faut donc se rassurer de l'unicite
              * du backIn details
              */
-            if(!isBackInDetailsUnique(backInDetailsDto.getBidArticleDto().getId(), backInDetailsDto.getBidbiDto().getId())){
+            if(!isBackInDetailsUnique(backInDetailsDto.getBidXArticleDto().getId(), backInDetailsDto.getBidbiDto().getId())){
                 log.error("There exist a details about the article precised in the BackIn precised");
                 throw new DuplicateEntityException("Il existe deja dans le BackIn un details concernant cet article ",
                         ErrorCode.BACKINDETAILS_DUPLICATED);
@@ -169,7 +169,7 @@ public class BackInDetailsServiceImpl implements BackInDetailsService {
             /*****
              * On verifie que le nouvel article existe bel et bien en Base de donnees
              */
-            Optional<Article> optionalArticle = articleRepository.findArticleById(backInDetailsDto.getBidArticleDto().getId());
+            Optional<Article> optionalArticle = articleRepository.findArticleById(backInDetailsDto.getBidXArticleDto().getId());
             if(!optionalArticle.isPresent()){
                 log.error("There is no Article associate with id precised");
                 throw new InvalidEntityException("L'article precise dans le backInDetails n'existe pas en BD",
